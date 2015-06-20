@@ -5,101 +5,101 @@ using System.Collections.Generic;
 
 public class EventManager : MonoBehaviour
 {
-    private DungeonManager dungeonManager;
-    private MapManager mapManager;
-    private ParameterManager paramaterManager;
-    private Player player;
+	private DungeonManager dungeonManager;
+	private MapManager mapManager;
+	private ParameterManager paramaterManager;
+	private Player player;
 
-    // 0 : root/Rizell/reaction
-    [SerializeField]
-    private Animator[] eventAnimators;
+	// 0 : root/Rizell/reaction
+	[SerializeField]
+	private Animator[] eventAnimators;
 
-    [SerializeField]
-    private GameObject messageBox;
-    public Text messageBoxText { get; set; }
+	[SerializeField]
+	private GameObject messageBox;
+	public Text messageBoxText { get; set; }
 
-    private Dictionary<BlockType, BlockEvent> eventCoroutineTable = null;
+	private Dictionary<BlockType, BlockEvent> eventCoroutineTable = null;
 
-    void Awake()
-    {
-        dungeonManager = DungeonManager.instance;
-        mapManager = dungeonManager.mapManager;
-        paramaterManager = dungeonManager.parameterManager;
-        player = dungeonManager.player;
-        dungeonManager.changedDungeonState += HandleChangedDungeonState;
-        messageBoxText = messageBox.GetComponentInChildren<Text>();
-        messageBox.SetActive(false);
+	void Awake()
+	{
+		dungeonManager = DungeonManager.instance;
+		mapManager = dungeonManager.mapManager;
+		paramaterManager = dungeonManager.parameterManager;
+		player = dungeonManager.player;
+		dungeonManager.changedDungeonState += HandleChangedDungeonState;
+		messageBoxText = messageBox.GetComponentInChildren<Text>();
+		messageBox.SetActive(false);
 
-        eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
+		eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
         {            
             { BlockType.Fire,     new BattleEvent(eventAnimators, messageBox, messageBoxText) },
             { BlockType.Recovery,   new RecoveryEvent(eventAnimators, messageBox, messageBoxText) },
         };
-    }
+	}
 
-    // Use this for initialization
-//    void Start()
-//    {    
-//    }
-    
-    // Update is called once per frame
-//    void Update()
-//    {    
-//    }
+	// Use this for initialization
+	//    void Start()
+	//    {    
+	//    }
 
-    private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
-    {
-        if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
-        {
-            if (!mapManager.map.ContainsKey(player.location))
-            {
-                return;
-            }
+	// Update is called once per frame
+	//    void Update()
+	//    {    
+	//    }
 
-            Block block = mapManager.map[player.location];
+	private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
+	{
+		if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
+		{
+			if (!mapManager.map.ContainsKey(player.location))
+			{
+				return;
+			}
 
-            if (block.type == BlockType.None)
-            {
-                block.onEventType = GetRandomBlockType();
-            }
+			Block block = mapManager.map[player.location];
 
-            StartCoroutine(CoroutineBlockEvent(block));
-        }
-    }
+			if (block.type == BlockType.None)
+			{
+				block.onEventType = GetRandomBlockType();
+			}
 
-    private IEnumerator CoroutineBlockEvent(Block block)
-    {
-        DungeonParameter parameter = paramaterManager.parameter;
-        parameter.sp -= 1;
-        parameter.tp += 1;
+			StartCoroutine(CoroutineBlockEvent(block));
+		}
+	}
 
-        if (!block.hasEvent)
-        {
-            yield break;
-        }
+	private IEnumerator CoroutineBlockEvent(Block block)
+	{
+		DungeonParameter parameter = paramaterManager.parameter;
+		parameter.sp -= 1;
+		parameter.tp += 1;
 
-        dungeonManager.EnterState(DungeonState.BlockEvent);
-        block.OnEnterBlockEvent();
+		if (!block.hasEvent)
+		{
+			yield break;
+		}
 
-        if (eventCoroutineTable.ContainsKey(block.onEventType))
-        {
-            yield return StartCoroutine(eventCoroutineTable[block.onEventType].GetEventCoroutine(parameter));
-        }
+		dungeonManager.EnterState(DungeonState.BlockEvent);
+		block.OnEnterBlockEvent();
 
-        block.OnExitBlockEvent();
-        dungeonManager.ExitState();
+		if (eventCoroutineTable.ContainsKey(block.onEventType))
+		{
+			yield return StartCoroutine(eventCoroutineTable[block.onEventType].GetEventCoroutine(parameter));
+		}
 
-        if (parameter.sp <= 0)
-        {
-            Debug.Log("leave dungeon!!");
-        }
+		block.OnExitBlockEvent();
+		dungeonManager.ExitState();
 
-        yield break;
-    }
+		if (parameter.sp <= 0)
+		{
+			Debug.Log("leave dungeon!!");
+		}
 
-    private BlockType GetRandomBlockType()
-    {
-        KeyValuePair<BlockType, float>[] typeAndProbabilityTable = new []
+		yield break;
+	}
+
+	private BlockType GetRandomBlockType()
+	{
+		KeyValuePair<BlockType, float>[] typeAndProbabilityTable = new[]
         {
             new KeyValuePair<BlockType,float>(BlockType.None,		0.2f),
             new KeyValuePair<BlockType,float>(BlockType.Fire,		0.3f),
@@ -109,23 +109,23 @@ public class EventManager : MonoBehaviour
             new KeyValuePair<BlockType,float>(BlockType.Recovery,	0.1f),
         };
 
-        float random = Random.value;
-        float sum = 0;
-        BlockType result = BlockType.None;
+		float random = Random.value;
+		float sum = 0;
+		BlockType result = BlockType.None;
 
-        foreach (var typeAndPropability in typeAndProbabilityTable)
-        {
-            sum += typeAndPropability.Value;
+		foreach (var typeAndPropability in typeAndProbabilityTable)
+		{
+			sum += typeAndPropability.Value;
 
-            if (random < sum)
-            {
-                result = typeAndPropability.Key;
-                break;
-            }
-        }
+			if (random < sum)
+			{
+				result = typeAndPropability.Key;
+				break;
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
 	public void ReturnFromBattle()
 	{
@@ -134,7 +134,7 @@ public class EventManager : MonoBehaviour
 
 		block.OnExitBlockEvent();
 
-		if(parameter.sp <= 0)
+		if (parameter.sp <= 0)
 		{
 			Debug.Log("leave dungeon!!");
 		}

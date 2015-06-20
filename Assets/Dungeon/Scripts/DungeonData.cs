@@ -33,7 +33,7 @@ public class DungeonData : MonoBehaviour
 
 		Player player = dungeonManager.player;
 
-		if(!initialized)
+		if (!initialized)
 		{
 			direction = 2;
 			location = new Location(0, 0);
@@ -60,7 +60,7 @@ public class DungeonData : MonoBehaviour
 		{
 			dungeonManager.eventManager.ReturnFromBattle();
 		}
-		
+
 		initialized = true;
 	}
 
@@ -73,7 +73,7 @@ public class DungeonData : MonoBehaviour
 
 		Player player = dungeonManager.player;
 
-		direction = player.direction; 
+		direction = player.direction;
 		location = player.location;
 
 		mapData.Clear();
@@ -84,7 +84,7 @@ public class DungeonData : MonoBehaviour
 			blockManager.colorBlockLists
 			.Select(blockList =>
 				new List<BlockData>()));
-				//blockList.blockFactors.Select(blockFactor => blockFactor.block.blockData).ToList()));
+		//blockList.blockFactors.Select(blockFactor => blockFactor.block.blockData).ToList()));
 
 		parameter.Set(parameterManager.parameter);
 	}
