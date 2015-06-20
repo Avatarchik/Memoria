@@ -35,26 +35,6 @@ public class BlockManager : MonoBehaviour
 
 	private List<GameObject> colorBlocks;
 
-	[SerializeField]
-	private ColorBlockList noneBlockList;
-
-	[SerializeField]
-	private ColorBlockList battleBlockList;
-
-	[SerializeField]
-	private ColorBlockList acquisitionBlockList;
-
-	[SerializeField]
-	private ColorBlockList subRecoveryBlockList;
-
-	[SerializeField]
-	private ColorBlockList recoveryBlockList;
-
-	[SerializeField]
-	private ColorBlockList trapBlockList;
-
-	public List<ColorBlockList> colorBlockLists { get; private set; }
-
 	void Awake()
 	{
 		colorBlocks = new List<GameObject>()
@@ -65,16 +45,6 @@ public class BlockManager : MonoBehaviour
             subRecoveryBlock,
             recoveryBlock,
             trapBlock,
-        };
-
-		colorBlockLists = new List<ColorBlockList>()
-        {
-            noneBlockList,
-            battleBlockList,
-            acquisitionBlockList,
-            subRecoveryBlockList,
-            recoveryBlockList,
-            trapBlockList,
         };
 	}
 

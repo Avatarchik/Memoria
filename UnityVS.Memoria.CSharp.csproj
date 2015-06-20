@@ -115,8 +115,6 @@
     <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
     <Compile Include="Assets\Dungeon\Scripts\Block\BlockShape.cs" />
     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
-    <Compile Include="Assets\Dungeon\Scripts\Block\ColorBlockFactor.cs" />
-    <Compile Include="Assets\Dungeon\Scripts\Block\ColorBlockList.cs" />
     <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
     <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BlockEvent.cs" />
     <Compile Include="Assets\Dungeon\Scripts\BlockEvents\RecoveryEvent.cs" />
