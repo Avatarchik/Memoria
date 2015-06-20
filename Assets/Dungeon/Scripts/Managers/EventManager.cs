@@ -33,10 +33,7 @@ public class EventManager : MonoBehaviour
         eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
         {            
             { BlockType.Battle,     new BattleEvent(eventAnimators, messageBox, messageBoxText) },
-            { BlockType.Acquisition,new AcquisitionEvent(eventAnimators, messageBox, messageBoxText) },
-            { BlockType.SubRecovery,new SubRecoveryEvent(eventAnimators, messageBox, messageBoxText) },
             { BlockType.Recovery,   new RecoveryEvent(eventAnimators, messageBox, messageBoxText) },
-            { BlockType.Trap,       new TrapEvent(eventAnimators, messageBox, messageBoxText) },
         };
     }
 
