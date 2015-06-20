@@ -32,7 +32,7 @@ public class EventManager : MonoBehaviour
 
         eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
         {            
-            { BlockType.Battle,     new BattleEvent(eventAnimators, messageBox, messageBoxText) },
+            { BlockType.Fire,     new BattleEvent(eventAnimators, messageBox, messageBoxText) },
             { BlockType.Recovery,   new RecoveryEvent(eventAnimators, messageBox, messageBoxText) },
         };
     }
@@ -58,7 +58,7 @@ public class EventManager : MonoBehaviour
 
             Block block = mapManager.map[player.location];
 
-            if (block.type == BlockType.UnKnown)
+            if (block.type == BlockType.None)
             {
                 block.onEventType = GetRandomBlockType();
             }
@@ -101,12 +101,12 @@ public class EventManager : MonoBehaviour
     {
         KeyValuePair<BlockType, float>[] typeAndProbabilityTable = new []
         {
-            new KeyValuePair<BlockType,float>(BlockType.None,       0.2f),
-            new KeyValuePair<BlockType,float>(BlockType.Battle,     0.3f),
-            new KeyValuePair<BlockType,float>(BlockType.Acquisition,0.2f),
-            new KeyValuePair<BlockType,float>(BlockType.SubRecovery,0.1f),
-            new KeyValuePair<BlockType,float>(BlockType.Recovery,   0.1f),
-            new KeyValuePair<BlockType,float>(BlockType.Trap,       0.1f),
+            new KeyValuePair<BlockType,float>(BlockType.None,		0.2f),
+            new KeyValuePair<BlockType,float>(BlockType.Fire,		0.3f),
+            new KeyValuePair<BlockType,float>(BlockType.Wind,		0.2f),
+            new KeyValuePair<BlockType,float>(BlockType.Thunder,	0.1f),
+            new KeyValuePair<BlockType,float>(BlockType.Water,		0.1f),
+            new KeyValuePair<BlockType,float>(BlockType.Recovery,	0.1f),
         };
 
         float random = Random.value;

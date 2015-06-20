@@ -27,12 +27,12 @@ public class BlockFactor : MonoBehaviour
         CreateBlock(shapeType);
     }
 
-    public void CreateBlock(int shapeType = 0, BlockType type = BlockType.UnKnown)
+    public void CreateBlock(int shapeType = 0, BlockType type = BlockType.None)
     {
         block = blockManager.CreateBlock(this, shapeType, type);
     }
 
-    public void SetBlock(int shapeType = 0, BlockType type = BlockType.UnKnown)
+    public void SetBlock(int shapeType = 0, BlockType type = BlockType.None)
     {
         block.shapeType = shapeType;
         block.type = type;

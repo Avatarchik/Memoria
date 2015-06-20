@@ -105,11 +105,11 @@ public class DungeonData : MonoBehaviour
 		List<BlockType> blockTypes = new List<BlockType>()
         {
             BlockType.None,
-            BlockType.Battle,
-            BlockType.Acquisition,
-            BlockType.SubRecovery,
+            BlockType.Fire,
+            BlockType.Wind,
+            BlockType.Thunder,
+			BlockType.Water,
             BlockType.Recovery,
-            BlockType.Trap,
         };
 
 		List<List<BlockData>> colorBlockDataLists = new List<List<BlockData>>();

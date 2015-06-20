@@ -88,7 +88,7 @@ public class BlockManager : MonoBehaviour
 //	{	
 //	}
 
-    public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.UnKnown, bool isDefault = false, Location location = default(Location))
+    public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Location location = default(Location))
 	{
         GameObject blockObject = Instantiate<GameObject>(blockPrefab);
         Block block = blockObject.GetComponent<Block>();
