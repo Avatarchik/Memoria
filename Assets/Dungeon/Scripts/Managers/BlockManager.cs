@@ -139,17 +139,17 @@ public class BlockManager : MonoBehaviour
         }
 
         colorBlocks.ForEach(colorBlockList => {
-            colorBlockList.gameObject.SetActive(false);
+//            colorBlockList.gameObject.SetActive(false);
         });
 
-        colorBlocks[id].gameObject.SetActive(true);
+//        colorBlocks[id].gameObject.SetActive(true);
     }
 
-	public void SetColorBlockList(List<List<BlockData>> blockDataLists)
-	{
-		foreach (var item in colorBlockLists.Zip(blockDataLists, (blockList, datas) => new {blockList, datas }))
-		{
-			item.blockList.CreateColorBlockList(item.datas);
-		}
-	}
+	//public void SetColorBlockList(List<List<BlockData>> blockDataLists)
+	//{
+	//	foreach (var item in colorBlockLists.Zip(blockDataLists, (blockList, datas) => new {blockList, datas }))
+	//	{
+	//		item.blockList.CreateColorBlockList(item.datas);
+	//	}
+	//}
 }

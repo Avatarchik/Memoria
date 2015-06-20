@@ -51,7 +51,7 @@ public class DungeonData : MonoBehaviour
 
 		mapManager.SetMap(mapData);
 
-		blockManager.SetColorBlockList(blockDataLists);
+		//blockManager.SetColorBlockList(blockDataLists);
 		blockManager.ActivateColorBlockList(0);
 
 		parameterManager.SetParamater(parameter);
@@ -83,7 +83,8 @@ public class DungeonData : MonoBehaviour
 		blockDataLists.AddRange(
 			blockManager.colorBlockLists
 			.Select(blockList =>
-				blockList.blockFactors.Select(blockFactor => blockFactor.block.blockData).ToList()));
+				new List<BlockData>()));
+				//blockList.blockFactors.Select(blockFactor => blockFactor.block.blockData).ToList()));
 
 		parameter.Set(parameterManager.parameter);
 	}
