@@ -4,7 +4,8 @@ using System.Collections;
 public interface IDamageable
 {
     void TakeDamage(int i);
-    //void TakeDamage(Damage d);
+    void TakeDamage(Damage d);
+    bool IsDead();
 }
 
 public class Damage : ITriggerable {

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-// Add
-using UnityEngine;
 
 public interface ITriggerable
 {
 
 }
 
-/* 
+/*
  WORK IN PROGRESS  
    Useage:
 
@@ -79,6 +77,7 @@ public class EventMgr
         }
     }
 }
+
 */
 
 public class EventMgr {

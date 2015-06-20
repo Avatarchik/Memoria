@@ -35,8 +35,7 @@ public class Enemy : Entity, IDamageable
         phaseTimer = attackType.phaseCost;
         if (!attackReady && isAlive) {
             FadeAttackScreen.Flash(); //TODO: temporary
-            BattleMgr.currentState = BattleMgr.BattleState.AnimationSequence;
-            //return false;
+            BattleMgr.Instance.SetState("AnimationSequence");
         }
         return base.Attack (attackType);
     }
@@ -51,6 +50,16 @@ public class Enemy : Entity, IDamageable
     {
         this.health.hp -= i;
     }
+
+    public void TakeDamage(Damage d)
+    {
+        
+    }
+
+    public bool IsDead()
+    {
+        if(!isAlive)
+            return true;
+        return false;
+    }
 }
-
-

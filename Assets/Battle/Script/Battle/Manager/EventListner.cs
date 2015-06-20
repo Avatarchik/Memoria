@@ -1,9 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using System;
-
-public class EventListner : EventMgr {
+﻿public class EventListner : EventMgr {
 
     public static new EventListner Instance = new EventListner();
     

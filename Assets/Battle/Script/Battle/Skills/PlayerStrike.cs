@@ -7,8 +7,8 @@ public class PlayerStrike : AttackType, ITriggerable
     void Start ()
     {
         phaseCost = 1;
-        animationDur = 120;    
-        effectObj = (GameObject)Resources.Load("explode");
+        animationDur = 210;
+        effectObj = (GameObject)Resources.Load("explode2");
     }
     
     void Update () {

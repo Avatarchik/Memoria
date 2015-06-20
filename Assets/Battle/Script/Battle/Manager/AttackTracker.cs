@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +6,7 @@ public class AttackTracker : MonoBehaviour {
 
     public Dictionary<Entity, float> attackOrder;
     private int _orderIndex;
-    private int _actors;
-    public Entity nowActor;
+    private int _actors;    public Entity nowActor;
     public float test;
 
     // Use this for initialization
@@ -20,7 +18,6 @@ public class AttackTracker : MonoBehaviour {
     void Update ()
     {
         nowActor = currentActor;
-        test = attackOrder.Values.ElementAt(0);
     }
    
     public void OrderUpdate()

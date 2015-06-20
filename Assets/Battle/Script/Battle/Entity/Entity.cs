@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Linq;
 
 public struct Parameter {
     
@@ -38,7 +36,7 @@ public class Entity : MonoBehaviour {
     
     // Use this for initialization
     void Awake () {
-        tracker = GameObject.FindObjectOfType(typeof(AttackTracker)) as AttackTracker;
+        tracker = GameObject.FindObjectOfType<AttackTracker>() as AttackTracker;
         EventListner.Instance.SubscribeTurnEnd(UpdateOrder);
         attackReady = false;
         chargeReady = true;
@@ -46,27 +44,29 @@ public class Entity : MonoBehaviour {
 
     public virtual bool Attack (AttackType attack)
     {
+        if(target.IsDead())
+            return false;
         if(charge) {
-            this.orderIndex = attack.phaseCost;
+            orderIndex = attack.phaseCost;
             tracker.QueueAction(this, orderIndex);
-            BattleMgr.currentState = BattleMgr.BattleState.BattleRunning;
+            BattleMgr.Instance.SetState("BattleRunning");
             return true;
         }
-        this.attackTimer++;
+        attackTimer++;
         if(!attack.attacked)
         {
             attack.Execute(target);
             attack.attacked = true;
             
         }
-        if (this.attackTimer > attack.AttackTime) {
+        if (attackTimer > attack.AttackTime) {
             attackTimer = 0;
             attackReady = true;
-            return true;   
+            return true;
         }
         return false;
     }
-
+    
     public virtual void StartTurn()
     {
         
@@ -74,20 +74,20 @@ public class Entity : MonoBehaviour {
     
     public virtual void EndTurn()
     {
-        this.attackReady = false;
+        attackReady = false;
     }
 
     private void UpdateOrder()
     {
-        if(!this.charge) {
-            this.orderIndex--;
-            if(this.orderIndex < 0) {
-                this.orderIndex = BattleMgr.actorList.Count - 1;
+        if(!charge) {
+           orderIndex--;
+            if(orderIndex < 0) {
+                orderIndex = BattleMgr.actorList.Count - 1;
             }
             tracker.MoveTo(this, orderIndex);
         } else {
-            this.charge = false;
-            this.chargeReady = true;
+            charge = false;
+            chargeReady = true;
         }
         
     }

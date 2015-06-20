@@ -1,35 +1,41 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class MainPlayer : Entity, IDamageable {
     private const int HEALTH_BAR_FULL = 40;
-    private float _onePercent, _healthPercent;
+    public int AP;
+    
     // Use this for initialization
-    void Start () {
+    void Awake () {
+        entityType = "Player";
         health = GetComponent<HealthSystem> ();
         health.maxHp = 250;
         health.hp = 250;
+        AP = 0;
     }
     
     // Update is called once per frame
-    void LateUpdate()
-    {
-        CheckGUIHealth ();
-    }
-
-    public void CheckGUIHealth()
-    {
-
-        _onePercent = health.maxHp / 100.0f;
-        _healthPercent = health.hp / _onePercent;
-        
-        float healthScale = (HEALTH_BAR_FULL * (_healthPercent / 100.0f));
-        UIMgr uiMgr = GameObject.FindGameObjectWithTag("BattleMgr").GetComponent<UIMgr> ();
-        uiMgr._hpBar[1].transform.localScale = new Vector3 (HEALTH_BAR_FULL, healthScale, 40);
-    }
 
     public void TakeDamage(int i)
     {
-        this.health.hp -= i;
+        health.hp -= i;
+    }
+
+    public void TakeDamage(Damage d)
+    {
+        
+    }
+
+    public override void EndTurn()
+    {
+        AP += 1;
+    }
+
+    public bool IsDead()
+    {
+        if(health.hp <= 0)
+            return true;
+        return false;
     }
 }

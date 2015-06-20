@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class EnemySpawner : MonoBehaviour {
     public static bool Init;
@@ -20,7 +21,8 @@ public class EnemySpawner : MonoBehaviour {
         }
         int eCnt = random.Next (1, 1); //Set number of Enemies that can spawn
         for (int i = 0; i < eCnt; i++) {
-            var pos = new Vector3((eCnt / 1.5f - eCnt + i) * 2, 1.5f, 0);
+            var enemy = Type.GetType(enemies[i]);
+            var pos = new Vector3((eCnt / 1.5f - eCnt + i) * 2, 1.5f, -9);
             var obj = Instantiate(_enemy[random.Next(0, _enemy.Length)], pos, Quaternion.identity) as GameObject; 
             obj.AddComponent<HealthSystem>();
             obj.AddComponent<DeathSystem>();
@@ -29,8 +31,8 @@ public class EnemySpawner : MonoBehaviour {
             obj.GetComponent<HealthSystem>().hp = obj.GetComponent<HealthSystem>().maxHp;
 
             obj.GetComponent<DeathSystem>().isAlive = true;
-			obj.AddComponent(System.Type.GetType(enemies[i]));
-
+            obj.AddComponent(enemy);
+            
             obj.AddComponent<Enemy>();
             obj.GetComponent<Enemy>().battleID = "e0" + i;
 
@@ -44,12 +46,6 @@ public class EnemySpawner : MonoBehaviour {
         Init = true;;
 
     }
-    
-    // Update is called once per frame
-    void Update () {
-
-    }
-
     public string[] GetRandomEnemies()
     {
         string[] result = {"Golem"};

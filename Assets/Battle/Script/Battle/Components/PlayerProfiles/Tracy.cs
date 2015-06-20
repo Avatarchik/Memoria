@@ -4,7 +4,9 @@ using System.Collections;
 public class Tracy : Profile {
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
+        nameplate = "GOJBNA4004";
+        
         parameter.attack = 317;
         parameter.defense = 239;
         parameter.mattack = 224;
@@ -16,7 +18,6 @@ public class Tracy : Profile {
         attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
         //attackType = gameObject.AddComponent<PlayerStrike>();
 
-        nameplate = "GOJBNA4004";
     }
 
     // Update is called once per frame

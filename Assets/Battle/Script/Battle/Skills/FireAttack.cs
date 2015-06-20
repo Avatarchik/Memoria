@@ -6,14 +6,14 @@ public class FireAttack : AttackType, ITriggerable  {
     void Start ()
     {
         phaseCost = 2;
-        animationDur = 120;
+        animationDur = 310;
 
-        effectObj = (GameObject)Resources.Load("explode2");
+        effectObj = (GameObject)Resources.Load("explode");
     }
 
     public override void Execute(IDamageable target) 
     {
-        target.TakeDamage(20);
+        target.TakeDamage(120);
     }
 
     public override void Execute(Damage damage, IDamageable target)

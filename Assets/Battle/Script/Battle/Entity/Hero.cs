@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Hero : Entity {
 
     public bool attackSelected;
+    public string nameplate;
     // Use this for initialization
     void Start () {
         parameter.speed = 20;
         entityType = "hero";
-        profile = GetComponent<Profile>();
+        profile = GetComponent<Profile>(); 
+        nameplate = profile.nameplate;
     }
 
     public void SetAttack(string attack)
@@ -24,30 +25,31 @@ public class Hero : Entity {
         }
     }
 
-    public override bool Attack (AttackType attackType)
+    public override bool Attack (AttackType attack)
     {
         if(!attackReady) {
             StartTurn();
-            BattleMgr.currentState = BattleMgr.BattleState.PlayerAction;
+            BattleMgr.Instance.SetState("PlayerAction");
             return false;
-        }        
-        return base.Attack (this.attackType);
+        }
+        return base.Attack (attack);
     }
 
     public override void StartTurn()
     {
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, 1);   
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);   
     }
     
     public override void EndTurn()
     {
         if(!charge) {
+            BattleMgr.MainPlayer.EndTurn();
             attackSelected = false;
             attackType.attacked = false;
             attackType = null;
             target = null;
         }
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.4f, 1);   
+        transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);   
         base.EndTurn();
     }
 
@@ -62,9 +64,9 @@ public class Hero : Entity {
     public void SetTarget(IDamageable e)
     {
         if (target == null){
-            this.target = e;
+            target = e;
         }
-        this.attackReady = true;
+        attackReady = true;
 
     }
 

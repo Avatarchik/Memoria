@@ -4,12 +4,13 @@ using System.Collections;
 
 public class Amelia : Profile {
     // Use this for initialization
-    void Start () {
+    void Awake () {
+        nameplate = "GOJBNA4000";
 
         parameter.attack = 317;
         parameter.defense = 239;
         parameter.mattack = 224;
-        parameter.defense = 260;
+        parameter.mdefense = 260;
         parameter.speed = 342;
         parameter.hp = 484;
         
@@ -17,10 +18,9 @@ public class Amelia : Profile {
         attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
         //attackType = gameObject.AddComponent<PlayerStrike>();
 
-        nameplate = "GOJBNA4000";
     }
 
-
+    
     // Update is called once per frame    
     void Update () {
         

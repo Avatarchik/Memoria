@@ -4,7 +4,8 @@ using System.Collections;
 public class Claude : Profile {
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
+        nameplate = "GOJBNA4006";
 
         parameter.attack = 317;
         parameter.defense = 239;
@@ -17,7 +18,6 @@ public class Claude : Profile {
         attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
         //attackType = gameObject.AddComponent<PlayerStrike>();
 
-        nameplate = "GOJBNA4006";
     }
     // Update is called once per frame
     void Update () {
