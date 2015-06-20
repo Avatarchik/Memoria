@@ -60,12 +60,6 @@
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -77,6 +71,44 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Battle\Elementals\Scripts\OrbitCamera.cs" />
+    <Compile Include="Assets\Battle\Elementals\Scripts\TestParticles.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\DeathSystem.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\DestoryParticle.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyAI.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyAI\Golem.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyDestroyer.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyProfile.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemySpawner.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\HealthSystem.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\HeroSpawner.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\Parameter.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Amelia.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Aria.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Claude.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Tracy.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\Profile.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\Selectable.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\SkillMenu.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Damage.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Enemy.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Entity.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Hero.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\MainPlayer.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Status.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\FadeAttackScreen.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\ActionMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\AttackTracker.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\BattleMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\EventListner.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\EventMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\InputMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\TargetSelector.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\UIMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\AttackType.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\FireAttack.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\PlayerStrike.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\QuickAttack.cs" />
     <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
     <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
     <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
@@ -114,6 +146,7 @@
     <Compile Include="Assets\Title\Scripts\Title.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Battle\Elementals\!Readme.txt" />
     <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
