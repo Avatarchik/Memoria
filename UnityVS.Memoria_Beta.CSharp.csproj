@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50B89577-E539-D3E4-F210-BD8D31D85045}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>5.0.1f1</UnityVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_0_1;UNITY_5_0;UNITY_5;ENABLE_LICENSE_RENAME;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_NEW_HIERARCHY;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_NONPRO;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_0_1;UNITY_5_0;UNITY_5;ENABLE_LICENSE_RENAME;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_NEW_HIERARCHY;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_NONPRO;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UnityVS.Memoria_Beta.CSharp.Plugins.csproj">
+      <Project>{C4D5B8D2-038B-B379-F6C2-68682E3060F3}</Project>
+      <Name>UnityVS.Memoria_Beta.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Battle\Script\Battle\Components\DeathSystem.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\DestoryParticle.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyAI.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyAI\Golem.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyDestroyer.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemyProfile.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\EnemySpawner.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\HealthSystem.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\HeroSpawner.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\Parameter.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Amelia.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Aria.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Claude.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\PlayerProfiles\Tracy.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\Profile.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\Selectable.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Components\SkillMenu.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Damage.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Enemy.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Entity.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Hero.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\MainPlayer.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Entity\Status.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\FadeAttackScreen.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\ActionMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\AttackTracker.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\BattleMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\EventListner.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\EventMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\InputMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\TargetSelector.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Manager\UIMgr.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\AttackType.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\FireAttack.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\PlayerStrike.cs" />
+    <Compile Include="Assets\Battle\Script\Battle\Skills\QuickAttack.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\BlockShape.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\ColorBlockFactor.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Block\ColorBlockList.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\BlockEvents\AcquisitionEvent.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BlockEvent.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\BlockEvents\RecoveryEvent.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\BlockEvents\SubRecoveryEvent.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\BlockEvents\TrapEvent.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Cursor.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\DungeonData.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\DungeonParameter.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\DungeonUtility.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Location.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Managers\BlockManager.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Managers\DungeonManager.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Managers\EventManager.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Managers\MapManager.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Managers\ParameterManager.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\MapViewer.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Menu\LeaveButton.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Menu\MapButton.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Menu\MenuButton.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\Player.cs" />
+    <Compile Include="Assets\Dungeon\Scripts\ToggleButton.cs" />
+    <Compile Include="Assets\InspectorButtonAttribute.cs" />
+    <Compile Include="Assets\Menu\Scripts\MenuItem.cs" />
+    <Compile Include="Assets\Menu\Scripts\MenuTransition.cs" />
+    <Compile Include="Assets\Menu\Scripts\Tower.cs" />
+    <Compile Include="Assets\Title\Scripts\Title.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Battle\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+    <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
+</Project>
