@@ -14,8 +14,6 @@ public class DungeonData : MonoBehaviour
 
 	public string[] heros { get; set; }
 
-	public List<List<BlockData>> blockDataLists { get; set; }
-
 	private bool initialized = false;
 
 	// Use this for initialization
@@ -33,13 +31,12 @@ public class DungeonData : MonoBehaviour
 
 		Player player = dungeonManager.player;
 
-		if(!initialized)
+		if (!initialized)
 		{
 			direction = 2;
 			location = new Location(0, 0);
 
 			mapData = LoadMapData("");
-			blockDataLists = GetColorBlockDataLists();
 			parameter = new DungeonParameter();
 			parameter.Set(1, 100, 100, 100, 100, 1, "none", 0);
 
@@ -51,16 +48,13 @@ public class DungeonData : MonoBehaviour
 
 		mapManager.SetMap(mapData);
 
-		blockManager.SetColorBlockList(blockDataLists);
-		blockManager.ActivateColorBlockList(0);
-
 		parameterManager.SetParamater(parameter);
 
 		if (initialized)
 		{
 			dungeonManager.eventManager.ReturnFromBattle();
 		}
-		
+
 		initialized = true;
 	}
 
@@ -68,22 +62,15 @@ public class DungeonData : MonoBehaviour
 	{
 		DungeonManager dungeonManager = DungeonManager.instance;
 		MapManager mapManager = dungeonManager.mapManager;
-		BlockManager blockManager = dungeonManager.blockManager;
 		ParameterManager parameterManager = dungeonManager.parameterManager;
 
 		Player player = dungeonManager.player;
 
-		direction = player.direction; 
+		direction = player.direction;
 		location = player.location;
 
 		mapData.Clear();
 		mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
-
-		blockDataLists.Clear();
-		blockDataLists.AddRange(
-			blockManager.colorBlockLists
-			.Select(blockList =>
-				blockList.blockFactors.Select(blockFactor => blockFactor.block.blockData).ToList()));
 
 		parameter.Set(parameterManager.parameter);
 	}
@@ -98,38 +85,4 @@ public class DungeonData : MonoBehaviour
 
 		return result;
 	}
-
-	private static List<List<BlockData>> GetColorBlockDataLists()
-	{
-		List<BlockType> blockTypes = new List<BlockType>()
-        {
-            BlockType.None,
-            BlockType.Battle,
-            BlockType.Acquisition,
-            BlockType.SubRecovery,
-            BlockType.Recovery,
-            BlockType.Trap,
-        };
-
-		List<List<BlockData>> colorBlockDataLists = new List<List<BlockData>>();
-		foreach (BlockType blockType in blockTypes)
-		{
-			List<BlockData> blockDatas = new List<BlockData>();
-
-			for (int i = 0; i < 11; i++)
-			{
-				blockDatas.Add(new BlockData() { shape = new BlockShape(i), type = blockType, hasEvent = true });
-			}
-
-			colorBlockDataLists.Add(blockDatas);
-		}
-
-		return colorBlockDataLists;
-	}
-
-	// Update is called once per frame
-	//void Update()
-	//{
-
-	//}
 }

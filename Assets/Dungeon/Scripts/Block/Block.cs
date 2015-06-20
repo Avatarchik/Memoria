@@ -7,13 +7,8 @@ using System.Collections.Generic;
 
 public enum BlockType
 {
-    None        = 0,
-    UnKnown     = 1,
-    Battle      = 2,
-    Acquisition = 3,
-    SubRecovery = 4,
-    Recovery    = 5,
-    Trap        = 6,
+	None		= 0,
+    Recovery	= 1,
 }
 
 [RequireComponent(typeof(Image))]
@@ -77,7 +72,7 @@ public class Block : MonoBehaviour
 
     public BlockShape shape { get; private set; }
 
-    private BlockType _type = BlockType.UnKnown;
+    private BlockType _type = BlockType.None;
 
     public BlockType type
     { 
