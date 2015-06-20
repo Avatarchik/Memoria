@@ -51,7 +51,6 @@ public class DungeonData : MonoBehaviour
 
 		mapManager.SetMap(mapData);
 
-		//blockManager.SetColorBlockList(blockDataLists);
 		blockManager.ActivateColorBlockList(0);
 
 		parameterManager.SetParamater(parameter);
@@ -68,7 +67,6 @@ public class DungeonData : MonoBehaviour
 	{
 		DungeonManager dungeonManager = DungeonManager.instance;
 		MapManager mapManager = dungeonManager.mapManager;
-		//BlockManager blockManager = dungeonManager.blockManager;
 		ParameterManager parameterManager = dungeonManager.parameterManager;
 
 		Player player = dungeonManager.player;
@@ -80,11 +78,6 @@ public class DungeonData : MonoBehaviour
 		mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
 		blockDataLists.Clear();
-		//blockDataLists.AddRange(
-		//	blockManager.colorBlockLists
-		//	.Select(blockList =>
-		//		new List<BlockData>()));
-		//blockList.blockFactors.Select(blockFactor => blockFactor.block.blockData).ToList()));
 
 		parameter.Set(parameterManager.parameter);
 	}
@@ -127,10 +120,4 @@ public class DungeonData : MonoBehaviour
 
 		return colorBlockDataLists;
 	}
-
-	// Update is called once per frame
-	//void Update()
-	//{
-
-	//}
 }

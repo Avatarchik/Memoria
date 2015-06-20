@@ -48,16 +48,6 @@ public class BlockManager : MonoBehaviour
         };
 	}
 
-	// Use this for initialization
-	//	void Start()
-	//	{
-	//	}
-
-	// Update is called once per frame
-	//	void Update()
-	//	{	
-	//	}
-
 	public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Location location = default(Location))
 	{
 		GameObject blockObject = Instantiate<GameObject>(blockPrefab);
@@ -110,17 +100,6 @@ public class BlockManager : MonoBehaviour
 
 		colorBlocks.ForEach(colorBlockList =>
 		{
-			//            colorBlockList.gameObject.SetActive(false);
 		});
-
-		//        colorBlocks[id].gameObject.SetActive(true);
 	}
-
-	//public void SetColorBlockList(List<List<BlockData>> blockDataLists)
-	//{
-	//	foreach (var item in colorBlockLists.Zip(blockDataLists, (blockList, datas) => new {blockList, datas }))
-	//	{
-	//		item.blockList.CreateColorBlockList(item.datas);
-	//	}
-	//}
 }

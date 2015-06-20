@@ -11,16 +11,6 @@ public class BlockFactor : MonoBehaviour
 		blockManager = DungeonManager.instance.blockManager;
 	}
 
-	// Use this for initialization
-	//	void Start()
-	//	{	
-	//	}
-
-	// Update is called once per frame
-	//	void Update()
-	//	{	
-	//	}
-
 	public virtual void OnPutBlock()
 	{
 		int shapeType = blockManager.GetRandomBlockShapeType();

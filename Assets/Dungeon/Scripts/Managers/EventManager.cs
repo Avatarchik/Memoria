@@ -37,16 +37,6 @@ public class EventManager : MonoBehaviour
         };
 	}
 
-	// Use this for initialization
-	//    void Start()
-	//    {    
-	//    }
-
-	// Update is called once per frame
-	//    void Update()
-	//    {    
-	//    }
-
 	private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
 	{
 		if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
