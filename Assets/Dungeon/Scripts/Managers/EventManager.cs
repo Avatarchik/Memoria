@@ -32,7 +32,6 @@ public class EventManager : MonoBehaviour
 
 		eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
         {            
-            { BlockType.Fire,     new BattleEvent(eventAnimators, messageBox, messageBoxText) },
             { BlockType.Recovery,   new RecoveryEvent(eventAnimators, messageBox, messageBoxText) },
         };
 	}
@@ -92,10 +91,6 @@ public class EventManager : MonoBehaviour
 		KeyValuePair<BlockType, float>[] typeAndProbabilityTable = new[]
         {
             new KeyValuePair<BlockType,float>(BlockType.None,		0.2f),
-            new KeyValuePair<BlockType,float>(BlockType.Fire,		0.3f),
-            new KeyValuePair<BlockType,float>(BlockType.Wind,		0.2f),
-            new KeyValuePair<BlockType,float>(BlockType.Thunder,	0.1f),
-            new KeyValuePair<BlockType,float>(BlockType.Water,		0.1f),
             new KeyValuePair<BlockType,float>(BlockType.Recovery,	0.1f),
         };
 

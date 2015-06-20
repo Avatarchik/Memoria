@@ -8,11 +8,7 @@ using System.Collections.Generic;
 public enum BlockType
 {
 	None		= 0,
-	Fire		= 1,
-	Wind		= 2,
-	Thunder		= 3,
-	Water		= 4,
-    Recovery	= 5,
+    Recovery	= 1,
 }
 
 [RequireComponent(typeof(Image))]

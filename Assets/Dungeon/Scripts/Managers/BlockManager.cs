@@ -15,37 +15,8 @@ public class BlockManager : MonoBehaviour
 
 	public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
 
-	[SerializeField]
-	private GameObject noneBlock;
-
-	[SerializeField]
-	private GameObject battleBlock;
-
-	[SerializeField]
-	private GameObject acquisitionBlock;
-
-	[SerializeField]
-	private GameObject subRecoveryBlock;
-
-	[SerializeField]
-	private GameObject recoveryBlock;
-
-	[SerializeField]
-	private GameObject trapBlock;
-
-	private List<GameObject> colorBlocks;
-
 	void Awake()
 	{
-		colorBlocks = new List<GameObject>()
-        {
-            noneBlock,
-            battleBlock,
-            acquisitionBlock,
-            subRecoveryBlock,
-            recoveryBlock,
-            trapBlock,
-        };
 	}
 
 	public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Location location = default(Location))
@@ -89,17 +60,5 @@ public class BlockManager : MonoBehaviour
 	public Sprite GetBlockSprite(BlockShape shape, BlockType type)
 	{
 		return blockSprites[(int)type][shape.type];
-	}
-
-	public void ActivateColorBlockList(int id)
-	{
-		if (DungeonManager.instance.activeState != DungeonState.None)
-		{
-			return;
-		}
-
-		colorBlocks.ForEach(colorBlockList =>
-		{
-		});
 	}
 }

@@ -14,8 +14,6 @@ public class DungeonData : MonoBehaviour
 
 	public string[] heros { get; set; }
 
-	public List<List<BlockData>> blockDataLists { get; set; }
-
 	private bool initialized = false;
 
 	// Use this for initialization
@@ -39,7 +37,6 @@ public class DungeonData : MonoBehaviour
 			location = new Location(0, 0);
 
 			mapData = LoadMapData("");
-			blockDataLists = GetColorBlockDataLists();
 			parameter = new DungeonParameter();
 			parameter.Set(1, 100, 100, 100, 100, 1, "none", 0);
 
@@ -50,8 +47,6 @@ public class DungeonData : MonoBehaviour
 		player.SetPosition(location);
 
 		mapManager.SetMap(mapData);
-
-		blockManager.ActivateColorBlockList(0);
 
 		parameterManager.SetParamater(parameter);
 
@@ -77,8 +72,6 @@ public class DungeonData : MonoBehaviour
 		mapData.Clear();
 		mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
-		blockDataLists.Clear();
-
 		parameter.Set(parameterManager.parameter);
 	}
 
@@ -91,33 +84,5 @@ public class DungeonData : MonoBehaviour
 		result.Add(new BlockData(new Location(0, 0), new BlockShape(10), BlockType.None, false));
 
 		return result;
-	}
-
-	private static List<List<BlockData>> GetColorBlockDataLists()
-	{
-		List<BlockType> blockTypes = new List<BlockType>()
-        {
-            BlockType.None,
-            BlockType.Fire,
-            BlockType.Wind,
-            BlockType.Thunder,
-			BlockType.Water,
-            BlockType.Recovery,
-        };
-
-		List<List<BlockData>> colorBlockDataLists = new List<List<BlockData>>();
-		foreach (BlockType blockType in blockTypes)
-		{
-			List<BlockData> blockDatas = new List<BlockData>();
-
-			for (int i = 0; i < 11; i++)
-			{
-				blockDatas.Add(new BlockData() { shape = new BlockShape(i), type = blockType, hasEvent = true });
-			}
-
-			colorBlockDataLists.Add(blockDatas);
-		}
-
-		return colorBlockDataLists;
 	}
 }
