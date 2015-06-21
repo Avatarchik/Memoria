@@ -73,6 +73,11 @@ public class EventManager : MonoBehaviour
 		dungeonManager.EnterState(DungeonState.BlockEvent);
 		block.OnEnterBlockEvent();
 
+		if (eventCoroutineTable.ContainsKey(block.type))
+		{
+			yield return StartCoroutine(eventCoroutineTable[block.type].GetEventCoroutine(parameter));
+		}
+
 		block.OnExitBlockEvent();
 		dungeonManager.ExitState();
 
