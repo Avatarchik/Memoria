@@ -26,7 +26,6 @@ public class DungeonData : MonoBehaviour
 	{
 		DungeonManager dungeonManager = DungeonManager.instance;
 		MapManager mapManager = dungeonManager.mapManager;
-		BlockManager blockManager = dungeonManager.blockManager;
 		ParameterManager parameterManager = dungeonManager.parameterManager;
 
 		Player player = dungeonManager.player;

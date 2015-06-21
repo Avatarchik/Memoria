@@ -16,10 +16,6 @@ public class BlockManager : MonoBehaviour
 
 	public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
 
-	void Awake()
-	{
-	}
-
 	public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Location location = default(Location))
 	{
 		GameObject blockObject = Instantiate<GameObject>(blockPrefab);
