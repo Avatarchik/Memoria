@@ -15,10 +15,9 @@ public class BattleEvent : BlockEvent
 
 	public override IEnumerator GetEventCoroutine(DungeonParameter paramater)
 	{
-		// TODO : データのバックアップ
 		DungeonManager dungeonManager = DungeonManager.instance;
-		dungeonManager.dungeonData.Save();
 		dungeonManager.dungeonData.SetBattleType(battleType);
+		dungeonManager.dungeonData.Save();
 		yield return new WaitForSeconds(0.5f);
 		Application.LoadLevel("Battle");
 		yield return null;
