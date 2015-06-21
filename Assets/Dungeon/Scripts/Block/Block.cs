@@ -94,8 +94,6 @@ public class Block : MonoBehaviour
 
 	public bool hasEvent { get; private set; }
 
-	public BlockType onEventType { get; set; }
-
 	private bool _isOperating = false;
 
 	public bool isOperating
@@ -235,13 +233,11 @@ public class Block : MonoBehaviour
 		}
 
 		hasEvent = false;
-		type = onEventType;
 	}
 
 	public void OnExitBlockEvent()
 	{
 		type = BlockType.None;
-		onEventType = BlockType.None;
 		hasEvent = false;
 	}
 	#endregion
@@ -274,7 +270,6 @@ public class Block : MonoBehaviour
 		this.location = location;
 		this.shape = shape;
 		this.type = type;
-		this.onEventType = type;
 
 		hasEvent = type != BlockType.None;
 	}

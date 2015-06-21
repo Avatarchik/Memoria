@@ -34,7 +34,6 @@ public class BlockManager : MonoBehaviour
 		{
 			block.shapeType = shapeType;
 			block.type = type;
-			block.onEventType = type;
 			block.location = location;
 		}
 

@@ -53,7 +53,6 @@ public class EventManager : MonoBehaviour
 
 			if (block.type == BlockType.None)
 			{
-				block.onEventType = GetRandomBlockType();
 			}
 
 			StartCoroutine(CoroutineBlockEvent(block));
@@ -74,10 +73,10 @@ public class EventManager : MonoBehaviour
 		dungeonManager.EnterState(DungeonState.BlockEvent);
 		block.OnEnterBlockEvent();
 
-		if (eventCoroutineTable.ContainsKey(block.onEventType))
-		{
-			yield return StartCoroutine(eventCoroutineTable[block.onEventType].GetEventCoroutine(parameter));
-		}
+		//if (eventCoroutineTable.ContainsKey(block.onEventType))
+		//{
+		//	yield return StartCoroutine(eventCoroutineTable[block.onEventType].GetEventCoroutine(parameter));
+		//}
 
 		block.OnExitBlockEvent();
 		dungeonManager.ExitState();
@@ -90,31 +89,31 @@ public class EventManager : MonoBehaviour
 		yield break;
 	}
 
-	private BlockType GetRandomBlockType()
-	{
-		KeyValuePair<BlockType, float>[] typeAndProbabilityTable = new[]
-        {
-            new KeyValuePair<BlockType,float>(BlockType.None,		0.2f),
-            new KeyValuePair<BlockType,float>(BlockType.Recovery,	0.1f),
-        };
+	//private BlockType GetRandomBlockType()
+	//{
+	//	KeyValuePair<BlockType, float>[] typeAndProbabilityTable = new[]
+	//	{
+	//		new KeyValuePair<BlockType,float>(BlockType.None,		0.2f),
+	//		new KeyValuePair<BlockType,float>(BlockType.Recovery,	0.1f),
+	//	};
 
-		float random = Random.value;
-		float sum = 0;
-		BlockType result = BlockType.None;
+	//	float random = Random.value;
+	//	float sum = 0;
+	//	BlockType result = BlockType.None;
 
-		foreach (var typeAndPropability in typeAndProbabilityTable)
-		{
-			sum += typeAndPropability.Value;
+	//	foreach (var typeAndPropability in typeAndProbabilityTable)
+	//	{
+	//		sum += typeAndPropability.Value;
 
-			if (random < sum)
-			{
-				result = typeAndPropability.Key;
-				break;
-			}
-		}
+	//		if (random < sum)
+	//		{
+	//			result = typeAndPropability.Key;
+	//			break;
+	//		}
+	//	}
 
-		return result;
-	}
+	//	return result;
+	//}
 
 	public void ReturnFromBattle()
 	{
