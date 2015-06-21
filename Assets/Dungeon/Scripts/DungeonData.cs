@@ -12,6 +12,8 @@ public class DungeonData : MonoBehaviour
 
 	public List<BlockData> mapData { get; set; }
 
+	public BlockType battleType { get; private set; }
+
 	public string[] heros { get; set; }
 
 	private bool initialized = false;
@@ -26,7 +28,6 @@ public class DungeonData : MonoBehaviour
 	{
 		DungeonManager dungeonManager = DungeonManager.instance;
 		MapManager mapManager = dungeonManager.mapManager;
-		BlockManager blockManager = dungeonManager.blockManager;
 		ParameterManager parameterManager = dungeonManager.parameterManager;
 
 		Player player = dungeonManager.player;
@@ -73,6 +74,11 @@ public class DungeonData : MonoBehaviour
 		mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
 		parameter.Set(parameterManager.parameter);
+	}
+
+	public void SetBattleType(BlockType battleType)
+	{
+		this.battleType = battleType;
 	}
 
 	public List<BlockData> LoadMapData(string mapDataPath)

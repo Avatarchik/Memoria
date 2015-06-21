@@ -8,16 +8,13 @@ public class BlockManager : MonoBehaviour
 	[SerializeField]
 	private GameObject blockPrefab;
 
-	public readonly int NumberOfBlockType = 11;
+	public readonly int NumberOfBlockShapeType = 11;
+	public readonly int NumberOfBlockType = 6;
 
 	[SerializeField]
 	private BlockSprites _blockSprites = new BlockSprites();
 
 	public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
-
-	void Awake()
-	{
-	}
 
 	public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Location location = default(Location))
 	{
@@ -53,8 +50,15 @@ public class BlockManager : MonoBehaviour
 	public int GetRandomBlockShapeType()
 	{
 		int min = 0;
-		int max = NumberOfBlockType;
+		int max = NumberOfBlockShapeType;
 		return Random.Range(min, max);
+	}
+
+	public BlockType GetRandomBlockType()
+	{
+		int min = 0;
+		int max = NumberOfBlockType;
+		return (BlockType)Random.Range(min, max);
 	}
 
 	public Sprite GetBlockSprite(BlockShape shape, BlockType type)
