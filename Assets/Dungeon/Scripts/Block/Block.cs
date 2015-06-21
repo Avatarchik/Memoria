@@ -137,15 +137,6 @@ public class Block : MonoBehaviour
 	private Rect listRect = new Rect(8, -4.4f, 6, 8);
 
 	#region messages
-	//    void Awake()
-	//    {
-	//    }
-
-	// Use this for initialization
-	//    void Start()
-	//    {
-	//    }
-
 	// Update is called once per frame
 	void Update()
 	{
