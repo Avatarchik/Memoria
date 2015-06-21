@@ -53,6 +53,7 @@ public class EventManager : MonoBehaviour
 
 			if (block.type == BlockType.None)
 			{
+				return;
 			}
 
 			StartCoroutine(CoroutineBlockEvent(block));
