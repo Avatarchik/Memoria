@@ -41,23 +41,31 @@ public class BlockList : MonoBehaviour
 
 		foreach(BlockFactor blockFactor in blockFactors)
 		{
+			// shapeTypeの決定
 			int shapeType;
 			do
 			{
 				shapeType = blockManager.GetRandomBlockShapeType();
 			}
 			while (flags[shapeType] || nextFlags[shapeType]);
-
 			nextFlags[shapeType] = true;
 
+			// blockTypeの決定
+			BlockType blockType;
+			do
+			{
+				blockType = blockManager.GetRandomBlockType();
+			}
+			while (blockType == BlockType.None);
+			
+			// 生成、または変更
 			if (initialize)
 			{
-				blockFactor.CreateBlock(shapeType);
+				blockFactor.CreateBlock(shapeType, blockType);
             }
             else
             {
-                blockFactor.SetBlock(shapeType);
-                //paramaterManager.paramater.sp -= 1;
+                blockFactor.SetBlock(shapeType, blockType);
             }
         }
 

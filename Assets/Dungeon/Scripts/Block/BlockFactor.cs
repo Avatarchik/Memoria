@@ -14,7 +14,14 @@ public class BlockFactor : MonoBehaviour
 	public virtual void OnPutBlock()
 	{
 		int shapeType = blockManager.GetRandomBlockShapeType();
-		BlockType blockType = blockManager.GetRandomBlockType();
+		BlockType blockType;
+
+		do
+		{
+			blockType = blockManager.GetRandomBlockType();
+		}
+		while (blockType == BlockType.None);
+
 		CreateBlock(shapeType, blockType);
 	}
 
