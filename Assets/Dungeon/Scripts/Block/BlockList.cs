@@ -14,7 +14,7 @@ public class BlockList : MonoBehaviour
 	protected virtual void Start()
 	{
         Initialize();
-		flags = new bool[blockManager.NumberOfBlockType];
+		flags = new bool[blockManager.NumberOfBlockShapeType];
 		RandomizeBlockList(true);
 	}
 	
@@ -37,26 +37,26 @@ public class BlockList : MonoBehaviour
             return;
         }
 
-		bool[] nextFlags = new bool[blockManager.NumberOfBlockType];
+		bool[] nextFlags = new bool[blockManager.NumberOfBlockShapeType];
 
 		foreach(BlockFactor blockFactor in blockFactors)
 		{
-			int blockType;
+			int shapeType;
 			do
 			{
-				blockType = blockManager.GetRandomBlockShapeType();
+				shapeType = blockManager.GetRandomBlockShapeType();
 			}
-			while (flags[blockType] || nextFlags[blockType]);
+			while (flags[shapeType] || nextFlags[shapeType]);
 
-			nextFlags[blockType] = true;
+			nextFlags[shapeType] = true;
 
 			if (initialize)
 			{
-				blockFactor.CreateBlock(blockType);
+				blockFactor.CreateBlock(shapeType);
             }
             else
             {
-                blockFactor.SetBlock(blockType);
+                blockFactor.SetBlock(shapeType);
                 //paramaterManager.paramater.sp -= 1;
             }
         }
