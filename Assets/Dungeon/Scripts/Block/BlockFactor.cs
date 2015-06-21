@@ -34,6 +34,5 @@ public class BlockFactor : MonoBehaviour
 	{
 		block.shapeType = shapeType;
 		block.type = type;
-		block.onEventType = type;
 	}
 }
