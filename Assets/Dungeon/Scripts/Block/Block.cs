@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
+using UniRx.Triggers;
 
 public enum BlockType
 {
@@ -94,14 +96,6 @@ public class Block : MonoBehaviour
 
 	public bool hasEvent { get; private set; }
 
-	private bool _isOperating = false;
-
-	public bool isOperating
-	{
-		get { return _isOperating && dungeonManager.activeState == DungeonState.BlockOperating; }
-		private set { _isOperating = value; }
-	}
-
 	private bool _isSpriteRenderer = false;
 	private bool isSpriteRenderer
 	{
@@ -133,105 +127,8 @@ public class Block : MonoBehaviour
 			transform.SetParent((value) ? value.transform : null);
 		}
 	}
-
-	private Rect listRect = new Rect(8, -4.4f, 6, 8);
-
-	#region messages
-	// Update is called once per frame
-	void Update()
-	{
-		if (isOperating)
-		{
-			OnOperating();
-		}
-	}
-
-	void OnMouseDown()
-	{
-		bool isNoneState = dungeonManager.activeState == DungeonState.None;
-		bool inListRect = listRect.Contains(transform.position - Camera.main.transform.position);
-		bool canOperation = isNoneState && inListRect;
-
-		if (putted)
-		{
-			bool onPlayer = location == dungeonManager.player.location;
-			Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			bool contains = mapManager.canPutBlockArea.Contains(touchPosition);
-			if (!onPlayer && contains && isNoneState)
-			{
-				StartCoroutine("CoroutineBreak");
-			}
-		}
-		else if (canOperation)
-		{
-			StartOperation();
-		}
-	}
-
-	void OnMouseUp()
-	{
-		if (putted)
-		{
-			StopCoroutine("CoroutineBreak");
-		}
-		else if (isOperating)
-		{
-			StopOperation();
-
-			if (CanPut())
-			{
-				Put();
-			}
-			else
-			{
-				Back();
-			}
-		}
-	}
-
-	// 操作を開始するとき
-	void StartOperation()
-	{
-		isOperating = true;
-		transform.SetParent(null);
-		isSpriteRenderer = true;
-		dungeonManager.operatingBlock = this;
-		dungeonManager.EnterState(DungeonState.BlockOperating);
-	}
-
-	// 操作中のとき
-	void OnOperating()
-	{
-		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		pos.z = 0;
-		transform.position = pos;
-	}
-
-	// 操作を終了するとき
-	void StopOperation()
-	{
-		isOperating = false;
-		dungeonManager.operatingBlock = null;
-		dungeonManager.ExitState();
-	}
-
-	// ブロックイベントが発生したとき
-	public void OnEnterBlockEvent()
-	{
-		if (!hasEvent)
-		{
-			return;
-		}
-
-		hasEvent = false;
-	}
-
-	public void OnExitBlockEvent()
-	{
-		type = BlockType.None;
-		hasEvent = false;
-	}
-	#endregion
+	
+	private IDisposable subscribeOperation;
 
 	public void Initialize()
 	{
@@ -242,6 +139,29 @@ public class Block : MonoBehaviour
 		image = GetComponent<Image>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		animator = GetComponent<Animator>();
+
+		// 操作イベントの登録
+		subscribeOperation = this.UpdateAsObservable()
+			.Where(_ => !putted)
+			.SkipWhile(_ => !CanOperation())
+			.SkipUntil(this.OnMouseDownAsObservable()
+				.Do(StartOperation))
+			.TakeUntil(this.OnMouseUpAsObservable()
+				.Do(StopOperation)
+				.Do(CheckAndPut))
+			.Repeat()
+			.Subscribe(Operate);
+
+		// 破壊イベントの登録
+		this.UpdateAsObservable()
+			.Where(_ => putted)
+			.SkipWhile(_ => !CanBreak())
+			.SkipUntil(this.OnMouseDownAsObservable()
+				.Do(_ => StartCoroutine("CoroutineBreak")))
+			.TakeUntil(this.OnMouseUpAsObservable()
+				.Do(_ => StopCoroutine("CoroutineBreak")))
+			.Repeat()
+			.Subscribe();
 	}
 
 	public void SetAsDefault(Location location, BlockShape shape, BlockType type)
@@ -263,6 +183,123 @@ public class Block : MonoBehaviour
 		this.type = type;
 
 		hasEvent = type != BlockType.None;
+
+		subscribeOperation.Dispose();
+	}
+
+	#region Operating
+	private bool CanOperation(Unit _ = null)
+	{
+		bool isNoneState = dungeonManager.activeState == DungeonState.None;
+		return isNoneState;
+	}
+
+	// 操作を開始するとき
+	private void StartOperation(Unit _ = null)
+	{
+		transform.SetParent(null);
+		isSpriteRenderer = true;
+		dungeonManager.operatingBlock = this;
+		dungeonManager.EnterState(DungeonState.BlockOperating);
+	}
+
+	// 操作を終了するとき
+	private void StopOperation(Unit _ = null)
+	{
+		dungeonManager.operatingBlock = null;
+		dungeonManager.ExitState();
+	}	
+
+	private void Operate(Unit _ = null)
+	{
+		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		pos.z = 0;
+		transform.position = pos;
+	}
+
+	private void CheckAndPut(Unit _ = null)
+	{
+		if (CanPut())
+		{
+			Put();
+			subscribeOperation.Dispose();
+		}
+		else
+		{
+			Back();
+		}
+	}
+
+	// ブロックを置くことができるか判定する
+	public bool CanPut()
+	{
+		// 範囲外チェック
+		if (!mapManager.canPutBlockArea.Contains(transform.position))
+		{
+			return false;
+		}
+
+		// 置くところのブロックチェック
+		if (mapManager.map.ContainsKey(location))
+		{
+			return false;
+		}
+
+		// 隣接ブロックのチェック
+		for (int i = 0; i < Location.directions.Length; i++)
+		{
+			if (CheckConnectedRoad(i, Location.directions[i]))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// 指定した向きの道とつながるかどうか
+	private bool CheckConnectedRoad(int direction, Location checkDirection)
+	{
+		Location checkLocation = location + checkDirection;
+
+		bool opened1 = shape.directions[direction];
+		bool exsits = mapManager.map.ContainsKey(checkLocation);
+		bool opened2 = exsits && mapManager.map[checkLocation].shape.directions[direction ^ 1];
+
+		return opened1 && exsits && opened2;
+	}
+
+	// ブロックを置く
+	private void Put()
+	{
+		mapManager.map[location] = this;
+		putted = true;
+		spriteRenderer.sortingOrder = 0;
+
+		Vector3 target = mapManager.ToPosition(location);
+		float time = 1;
+		iTween.MoveTo(gameObject, target, time);
+
+		hasEvent = type != BlockType.None;
+		blockFactor.OnPutBlock();
+	}
+
+	// BlockFactor に戻す
+	private void Back()
+	{
+		transform.SetParent(blockFactor.transform);
+		transform.localPosition = Vector3.zero;
+		isSpriteRenderer = false;
+	}
+	#endregion
+	#region Break
+	private bool CanBreak(Unit _ = null)
+	{
+		bool isNoneState = dungeonManager.activeState == DungeonState.None;
+		bool onPlayer = location == dungeonManager.player.location;
+		Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		bool contains = mapManager.canPutBlockArea.Contains(touchPosition);
+		return isNoneState && !onPlayer && contains;
 	}
 
 	// (Coroutine)ブロックを破壊する
@@ -299,66 +336,23 @@ public class Block : MonoBehaviour
 		mapManager.map.Remove(location);
 		Destroy(gameObject);
 	}
+	#endregion
 
-	// ブロックを置くことができるか判定する
-	public bool CanPut()
+	// ブロックイベントが発生したとき
+	public void OnEnterBlockEvent()
 	{
-		// 範囲外チェック
-		if (!mapManager.canPutBlockArea.Contains(transform.position))
+		if (!hasEvent)
 		{
-			return false;
+			return;
 		}
 
-		// 置くところのブロックチェック
-		if (mapManager.map.ContainsKey(location))
-		{
-			return false;
-		}
-
-		// 隣接ブロックのチェック
-		for (int i = 0; i < Location.directions.Length; i++)
-		{
-			if (CheckConnectedRoad(i, Location.directions[i]))
-			{
-				return true;
-			}
-		}
-
-		return false;
+		hasEvent = false;
 	}
 
-	private bool CheckConnectedRoad(int direction, Location checkDirection)
+	public void OnExitBlockEvent()
 	{
-		Location checkLocation = location + checkDirection;
-
-		bool opened1 = shape.directions[direction];
-		bool exsits = mapManager.map.ContainsKey(checkLocation);
-		bool opened2 = exsits && mapManager.map[checkLocation].shape.directions[direction ^ 1];
-
-		return opened1 && exsits && opened2;
-	}
-
-	// ブロックを置く
-	private void Put()
-	{
-		mapManager.map[location] = this;
-		putted = true;
-		spriteRenderer.sortingOrder = 0;
-
-		Vector3 target = mapManager.ToPosition(location);
-		float time = 1;
-		iTween.MoveTo(gameObject, target, time);
-
-		hasEvent = type != BlockType.None;
-		blockFactor.OnPutBlock();
-	}
-
-	// BlockFactor に戻す
-	private void Back()
-	{
-		transform.SetParent(blockFactor.transform);
-		transform.localPosition = Vector3.zero;
-		isSpriteRenderer = false;
+		type = BlockType.None;
+		hasEvent = false;
 	}
 
 	private void SetSprite(BlockShape blockShape, BlockType blockType)
