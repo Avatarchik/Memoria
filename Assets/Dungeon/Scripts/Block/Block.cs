@@ -151,7 +151,6 @@ public class Block : MonoBehaviour
 				.Do(CheckAndPut))
 			.Repeat()
 			.Subscribe(Operate);
-		
 //Todo:何秒以上たったら、が実現できないか調べる
 		// 破壊イベントの登録
 		this.UpdateAsObservable()
