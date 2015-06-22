@@ -152,6 +152,7 @@ public class Block : MonoBehaviour
 			.Repeat()
 			.Subscribe(Operate);
 
+//Todo:何秒以上たったら、が実現できないか調べる
 		// 破壊イベントの登録
 		this.UpdateAsObservable()
 			.Where(_ => putted)
@@ -245,6 +246,7 @@ public class Block : MonoBehaviour
 			return false;
 		}
 
+//Todo:Anyがつかえないか検証する
 		// 隣接ブロックのチェック
 		for (int i = 0; i < Location.directions.Length; i++)
 		{
