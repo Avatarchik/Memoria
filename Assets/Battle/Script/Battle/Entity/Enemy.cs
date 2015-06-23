@@ -1,23 +1,22 @@
 using UnityEngine;
-using System;
-using System.Collections;
-
 
 public class Enemy : Entity, IDamageable
 {
     private bool isAlive = true;
-    public Enemy ()
-    {        
-    }
+
     void Start()
     {
-        target = (IDamageable)BattleMgr.MainPlayer;
+        target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
         parameter.speed = 100;
         entityType = "enemy";
         health = GetComponent<HealthSystem> ();
         death = GetComponent<DeathSystem> ();
         profile = GetComponent<EnemyAI>();
         attackType = profile.attackType;
+
+        death.isAlive = true;
+        health.maxHp = 150;
+        health.hp = health.maxHp;
     }
 
     void Update()
@@ -29,18 +28,25 @@ public class Enemy : Entity, IDamageable
         }
     }
 
-    public override bool Attack (AttackType attackType)
+    override public void Init()
+    {
+        components.Add("HealthSystem");
+        components.Add("DeathSystem");
+        base.Init();
+    }
+
+    override public bool Attack (AttackType attackType)
     {        
         if(!isAlive) { return false; }
         phaseTimer = attackType.phaseCost;
         if (!attackReady && isAlive) {
             FadeAttackScreen.Flash(); //TODO: temporary
-            BattleMgr.Instance.SetState("AnimationSequence");
+            BattleMgr.Instance.SetState(BattleState.State.RUNNING);
         }
         return base.Attack (attackType);
     }
 
-    public override void EndTurn()
+    override public void EndTurn()
     {
         this.attackType.attacked = false;
         base.EndTurn();
@@ -56,10 +62,8 @@ public class Enemy : Entity, IDamageable
         
     }
 
-    public bool IsDead()
+    public bool IsAlive()
     {
-        if(!isAlive)
-            return true;
-        return false;
+        return isAlive;
     }
 }

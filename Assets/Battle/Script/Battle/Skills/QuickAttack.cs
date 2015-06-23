@@ -14,16 +14,16 @@ public class QuickAttack : AttackType, ITriggerable {
         
     }
     
-    public override void Execute(IDamageable target)
+    override public void Execute(IDamageable target)
     {
         target.TakeDamage(110);
     }
-    public override void Execute(Damage damage, IDamageable target)
+    override public void Execute(Damage damage, IDamageable target)
     {
 //        target.TakeDamage(damage);
     }
 
-    public override void PlayEffect (Entity target)
+    override public void PlayEffect (Entity target)
     {
         if (!normalEffect) {
             normalEffect = Instantiate (effectObj) as GameObject;
@@ -31,10 +31,5 @@ public class QuickAttack : AttackType, ITriggerable {
             Destroy (normalEffect, 0.25f);
         }
 
-    }
-    public override int AttackTime {
-        get {
-            return base.AttackTime;
-        }
     }
 }

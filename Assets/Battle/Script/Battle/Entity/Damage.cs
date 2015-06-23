@@ -5,7 +5,7 @@ public interface IDamageable
 {
     void TakeDamage(int i);
     void TakeDamage(Damage d);
-    bool IsDead();
+    bool IsAlive();
 }
 
 public class Damage : ITriggerable {
