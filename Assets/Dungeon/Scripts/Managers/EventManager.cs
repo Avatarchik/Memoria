@@ -2,103 +2,124 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockEvents;
 
-public class EventManager : MonoBehaviour
+namespace Memoria.Dungeon.Managers
 {
-	private DungeonManager dungeonManager;
-	private MapManager mapManager;
-	private ParameterManager paramaterManager;
-	private Player player;
-
-	// 0 : root/Rizell/reaction
-	[SerializeField]
-	private Animator[] eventAnimators;
-
-	[SerializeField]
-	private GameObject messageBox;
-	public Text messageBoxText { get; set; }
-
-	private Dictionary<BlockType, BlockEvent> eventCoroutineTable = null;
-
-	void Awake()
+	public class EventManager : MonoBehaviour
 	{
-		dungeonManager = DungeonManager.instance;
-		mapManager = dungeonManager.mapManager;
-		paramaterManager = dungeonManager.parameterManager;
-		player = dungeonManager.player;
-		dungeonManager.changedDungeonState += HandleChangedDungeonState;
-		messageBoxText = messageBox.GetComponentInChildren<Text>();
-		messageBox.SetActive(false);
+		private DungeonManager dungeonManager;
+		private MapManager mapManager;
+		private ParameterManager paramaterManager;
+		private Player player;
 
-		eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
-        {            
-			{ BlockType.Fire,		new BattleEvent(BlockType.Fire,    eventAnimators, messageBox, messageBoxText) },
-			{ BlockType.Wind,		new BattleEvent(BlockType.Wind,    eventAnimators, messageBox, messageBoxText) },
-			{ BlockType.Thunder,	new BattleEvent(BlockType.Thunder, eventAnimators, messageBox, messageBoxText) },
-			{ BlockType.Water,		new BattleEvent(BlockType.Water,   eventAnimators, messageBox, messageBoxText) },
-            { BlockType.Recovery,   new RecoveryEvent(eventAnimators, messageBox, messageBoxText) },
-        };
-	}
+		// 0 : root/Rizell/reaction
+		[SerializeField]
+		private Animator[] eventAnimators;
 
-	private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
-	{
-		if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
+		[SerializeField]
+		private GameObject messageBox;
+
+		public Text messageBoxText { get; set; }
+
+		private Dictionary<BlockType, BlockEvent> eventCoroutineTable = null;
+
+		void Awake()
 		{
-			if (!mapManager.map.ContainsKey(player.location))
+			dungeonManager = DungeonManager.instance;
+			mapManager = dungeonManager.mapManager;
+			paramaterManager = dungeonManager.parameterManager;
+			player = dungeonManager.player;
+			dungeonManager.changedDungeonState += HandleChangedDungeonState;
+			messageBoxText = messageBox.GetComponentInChildren<Text>();
+			messageBox.SetActive(false);
+
+			eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
 			{
-				return;
-			}
+				{
+                    BlockType.Fire,
+                    new BattleEvent(BlockType.Fire, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Wind,
+                    new BattleEvent(BlockType.Wind, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Thunder,
+                    new BattleEvent(BlockType.Thunder, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Water,
+                    new BattleEvent(BlockType.Water, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Recovery,
+                    new RecoveryEvent(eventAnimators, messageBox, messageBoxText)
+                },
+            };
+        }
 
-			Block block = mapManager.map[player.location];
-			if (block.type == BlockType.None)
-			{
-				return;
-			}
+        private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
+        {
+            if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
+            {
+                if (!mapManager.map.ContainsKey(player.location))
+                {
+                    return;
+                }
 
-			StartCoroutine(CoroutineBlockEvent(block));
-		}
-	}
+                Block block = mapManager.map [player.location];
+                if (block.type == BlockType.None)
+                {
+                    return;
+                }
 
-	private IEnumerator CoroutineBlockEvent(Block block)
-	{
-		DungeonParameter parameter = paramaterManager.parameter;
-		parameter.sp -= 1;
-		parameter.tp += 1;
+                StartCoroutine(CoroutineBlockEvent(block));
+            }
+        }
 
-		if (!block.hasEvent)
-		{
-			yield break;
-		}
+        private IEnumerator CoroutineBlockEvent(Block block)
+        {
+            DungeonParameter parameter = paramaterManager.parameter;
+            parameter.sp -= 1;
+            parameter.tp += 1;
 
-		dungeonManager.EnterState(DungeonState.BlockEvent);
-		block.OnEnterBlockEvent();
+            if (!block.hasEvent)
+            {
+                yield break;
+            }
 
-		if (eventCoroutineTable.ContainsKey(block.type))
-		{
-			yield return StartCoroutine(eventCoroutineTable[block.type].GetEventCoroutine(parameter));
-		}
+            dungeonManager.EnterState(DungeonState.BlockEvent);
+            block.OnEnterBlockEvent();
 
-		block.OnExitBlockEvent();
-		dungeonManager.ExitState();
+            if (eventCoroutineTable.ContainsKey(block.type))
+            {
+                yield return StartCoroutine(eventCoroutineTable [block.type].GetEventCoroutine(parameter));
+            }
 
-		if (parameter.sp <= 0)
-		{
-			Debug.Log("leave dungeon!!");
-		}
+            block.OnExitBlockEvent();
+            dungeonManager.ExitState();
 
-		yield break;
-	}
+            if (parameter.sp <= 0)
+            {
+                Debug.Log("leave dungeon!!");
+            }
 
-	public void ReturnFromBattle()
-	{
-		Block block = mapManager.map[player.location];
-		DungeonParameter parameter = paramaterManager.parameter;
+            yield break;
+        }
 
-		block.OnExitBlockEvent();
+        public void ReturnFromBattle()
+        {
+            Block block = mapManager.map [player.location];
+            DungeonParameter parameter = paramaterManager.parameter;
 
-		if (parameter.sp <= 0)
-		{
-			Debug.Log("leave dungeon!!");
-		}
-	}
+            block.OnExitBlockEvent();
+
+            if (parameter.sp <= 0)
+            {
+                Debug.Log("leave dungeon!!");
+            }
+        }
+    }
 }

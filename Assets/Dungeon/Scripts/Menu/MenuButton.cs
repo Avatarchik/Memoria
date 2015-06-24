@@ -1,61 +1,65 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Memoria.Dungeon.Managers;
 
-public class MenuButton : MonoBehaviour
+namespace Memoria.Dungeon.Menu
 {
-    private DungeonManager dungeonManager;
+	public class MenuButton : MonoBehaviour
+	{
+		private DungeonManager dungeonManager;
 
-    [SerializeField]
-    private GameObject mapButton;
+		[SerializeField]
+		private GameObject mapButton;
 
-    [SerializeField]
-    private GameObject leaveButton;
+		[SerializeField]
+		private GameObject leaveButton;
 
-    [SerializeField]
-    private GameObject returnButton;
+		[SerializeField]
+		private GameObject returnButton;
 
-    void Awake()
-    {
-        dungeonManager = DungeonManager.instance;
-    }
+		void Awake()
+		{
+			dungeonManager = DungeonManager.instance;
+		}
 
-    // Use this for initialization
-    void Start()
-    {
-        mapButton.SetActive(false);
-        leaveButton.SetActive(false);
-        returnButton.SetActive(false);
-    }
+		// Use this for initialization
+		void Start()
+		{
+			mapButton.SetActive(false);
+			leaveButton.SetActive(false);
+			returnButton.SetActive(false);
+		}
     
-    // Update is called once per frame
-//    void Update()
-//    {
-//    }
+		// Update is called once per frame
+		//    void Update()
+		//    {
+		//    }
 
-    public void OnMenuEnter()
-    {
-        if (dungeonManager.activeState != DungeonState.None)
-        {
-            return;
-        }
+		public void OnMenuEnter()
+		{
+			if (dungeonManager.activeState != DungeonState.None)
+			{
+				return;
+			}
 
-        dungeonManager.EnterState(DungeonState.OpenMenu);
-        mapButton.SetActive(true);
-        leaveButton.SetActive(true);
-        returnButton.SetActive(true);
-    }
+			dungeonManager.EnterState(DungeonState.OpenMenu);
+			mapButton.SetActive(true);
+			leaveButton.SetActive(true);
+			returnButton.SetActive(true);
+		}
 
-    public void OnMenuExit()
-    {
-        if (dungeonManager.activeState != DungeonState.OpenMenu)
-        {
-            return;
-        }
+		public void OnMenuExit()
+		{
+			if (dungeonManager.activeState != DungeonState.OpenMenu)
+			{
+				return;
+			}
 
-        mapButton.SetActive(false);
-        leaveButton.SetActive(false);
-        returnButton.SetActive(false);
-        dungeonManager.ExitState();
-    }
+			mapButton.SetActive(false);
+			leaveButton.SetActive(false);
+			returnButton.SetActive(false);
+			dungeonManager.ExitState();
+		}
+	}
 }
