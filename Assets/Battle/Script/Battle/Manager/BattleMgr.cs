@@ -36,7 +36,7 @@ namespace Memoria.Battle.Managers
         public AttackTracker AttackTracker { get; private set; }
         public BattleState CurrentState { get; private set; }
 
-        public ElementType elementalAffinity;
+        public ElementType elementalAffinity = ElementType.FIRE;
         public float _attackAnimation;
 
         public static BattleMgr Instance
@@ -54,8 +54,10 @@ namespace Memoria.Battle.Managers
         {
             //set variables sent from dungeon scene
             _dungeonData = FindObjectOfType<DungeonData>();
-            elementalAffinity = _dungeonData.battleType.ToEnum<ElementType, BlockType>();
-
+            if(_dungeonData != null)
+            {
+                elementalAffinity = _dungeonData.battleType.ToEnum<ElementType, BlockType>();
+            }
             _party = new Type[] {
                 typeof(Amelia),
                 typeof(Claude),
