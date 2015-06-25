@@ -7,7 +7,10 @@ public class PlayerStrike : AttackType, ITriggerable
     void Start ()
     {
         phaseCost = 1;
+        stockCost = 0;
         animationDur = 210;
+        targetType = 'e';
+        elementalAff = BattleMgr.ElementType.THUNDER;
         effectObj = (GameObject)Resources.Load("explode2");
     }
     
@@ -15,25 +18,20 @@ public class PlayerStrike : AttackType, ITriggerable
         
     }
   
-    public override void Execute(IDamageable target)
+    override public void Execute(IDamageable target)
     {
         target.TakeDamage(20);
     }
-    public override void Execute(Damage damage, IDamageable target)
+    override public void Execute(Damage damage, IDamageable target)
     {
 //        target.TakeDamage(damage);
     }
 
-    public override void PlayEffect (Entity target)
+    override public void PlayEffect (Entity target)
     {
-        particleEffect = Instantiate (effectObj) as GameObject;
+        particleEffect = Instantiate (effectObj);
         particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y -0.3f, -3);
         particleEffect.GetComponent<ParticleSystem>().Play();	
-    }
-    public override int AttackTime {
-        get {
-            return base.AttackTime;
-        }
     }
 }
 

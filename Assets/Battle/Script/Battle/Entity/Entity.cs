@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public struct Parameter {
     
@@ -8,11 +9,14 @@ public struct Parameter {
     public int mattack;
     public int mdefense;
     public int speed;
-    
+    public BattleMgr.ElementType elementAff;
 }
 
 public class Entity : MonoBehaviour {
 
+    public List<string> components = new List<string>();
+    
+    public string nameplate;
     public string battleID;
     public IDamageable target;
     public AttackType attackType;
@@ -34,22 +38,26 @@ public class Entity : MonoBehaviour {
     public DeathSystem death;
     public AttackTracker tracker;
     
-    // Use this for initialization
     void Awake () {
+        Init();
+    }
+
+    public virtual void Init()
+    {        
         tracker = GameObject.FindObjectOfType<AttackTracker>() as AttackTracker;
         EventListner.Instance.SubscribeTurnEnd(UpdateOrder);
         attackReady = false;
         chargeReady = true;
     }
-
+    
     public virtual bool Attack (AttackType attack)
     {
-        if(target.IsDead())
+        if(!target.IsAlive())
             return false;
         if(charge) {
             orderIndex = attack.phaseCost;
             tracker.QueueAction(this, orderIndex);
-            BattleMgr.Instance.SetState("BattleRunning");
+            BattleMgr.Instance.SetState(BattleState.State.RUNNING);
             return true;
         }
         attackTimer++;
@@ -57,7 +65,6 @@ public class Entity : MonoBehaviour {
         {
             attack.Execute(target);
             attack.attacked = true;
-            
         }
         if (attackTimer > attack.AttackTime) {
             attackTimer = 0;
@@ -68,8 +75,7 @@ public class Entity : MonoBehaviour {
     }
     
     public virtual void StartTurn()
-    {
-        
+    {        
     }
     
     public virtual void EndTurn()
@@ -77,7 +83,7 @@ public class Entity : MonoBehaviour {
         attackReady = false;
     }
 
-    private void UpdateOrder()
+    protected virtual void UpdateOrder()
     {
         if(!charge) {
            orderIndex--;

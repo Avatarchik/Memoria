@@ -1,20 +1,81 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Hero : Entity {
 
     public bool attackSelected;
-    public string nameplate;
-    // Use this for initialization
+    public bool passtToStock;
+    public string nameplae;
+    public int stock;
+    private Button _iconButton;
+    
     void Start () {
-        parameter.speed = 20;
         entityType = "hero";
         profile = GetComponent<Profile>(); 
+        parameter = profile.parameter;
         nameplate = profile.nameplate;
+        _iconButton = GetComponent<Button>();
+    }
+
+    override public void Init()
+    {
+        components.Add("TargetSelector");
+        base.Init();
+    }
+    
+    override public bool Attack (AttackType attack)
+    {
+        SetIconSkill(stock);
+        if(passtToStock)
+        {
+            return true;
+        }
+        if(!attackReady) {
+            StartTurn();
+            BattleMgr.Instance.SetState(BattleState.State.SELECT_SKILL);
+            return false;
+        }
+        return base.Attack (attack);
+    }
+
+    override public void StartTurn()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);   
+    }
+    
+    override public void EndTurn()
+    {
+        _iconButton.onClick.RemoveAllListeners();        
+        if(!charge && !passtToStock) {
+            attackSelected = false;
+            attackType.attacked = false;
+            attackType = null;
+            target = null;
+        }
+        passtToStock = false;
+        transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);   
+        base.EndTurn();
+    }
+
+    public void StockUp()
+    {
+        if(BattleMgr.Instance.elementalAffinity == parameter.elementAff) {
+            stock += 1;
+        }
+        stock += 1;
+        if(stock > 3)
+        {
+            stock = 3;
+        }
+        passtToStock = true;
+        Debug.Log(this +"Elemetal Stock"+ stock);
     }
 
     public void SetAttack(string attack)
     {
+        _iconButton.onClick.RemoveAllListeners();
         if(!charge) {
             attackType = profile.attackList[attack];
             attackSelected = true;
@@ -23,34 +84,6 @@ public class Hero : Entity {
                 chargeReady = false;
             }
         }
-    }
-
-    public override bool Attack (AttackType attack)
-    {
-        if(!attackReady) {
-            StartTurn();
-            BattleMgr.Instance.SetState("PlayerAction");
-            return false;
-        }
-        return base.Attack (attack);
-    }
-
-    public override void StartTurn()
-    {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);   
-    }
-    
-    public override void EndTurn()
-    {
-        if(!charge) {
-            BattleMgr.MainPlayer.EndTurn();
-            attackSelected = false;
-            attackType.attacked = false;
-            attackType = null;
-            target = null;
-        }
-        transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);   
-        base.EndTurn();
     }
 
     public bool EnemySelected()
@@ -67,16 +100,25 @@ public class Hero : Entity {
             target = e;
         }
         attackReady = true;
-
     }
 
     public string[] GetSkills()
     {
         var list = new List<string>();
         
-        foreach (var skill in profile.attackList) {
+        foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3)) {
             list.Add(skill.Key);
         }
         return list.ToArray();       
+    }
+
+    private void SetIconSkill(int i)
+    {
+        if(i < 3)
+        {
+            _iconButton.onClick.AddListener(() => StockUp());
+            return;
+        }
+        _iconButton.onClick.AddListener(() => SetAttack(profile.ultimateAttack));
     }
 }

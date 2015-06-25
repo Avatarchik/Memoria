@@ -15,14 +15,14 @@ public class DeathSystem : MonoBehaviour
     //Graphic Updates
     void Update()
     {
-        foreach (GameObject enemy in EnemySpawner.enemyObjs) {
+        foreach (GameObject enemy in BattleMgr.Instance.enemyList) {
             if(!enemy.GetComponent<DeathSystem>().isAlive) {
                 BattleMgr.actorList.Remove(enemy);
                 deadEnemy.Add(enemy);
             }  
         }
         foreach (GameObject obj in deadEnemy) {
-            EnemySpawner.enemyObjs.Remove (obj);
+            BattleMgr.Instance.enemyList.Remove (obj);
             Destroy (obj);
         }
     }

@@ -1,25 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.Managers;
 
-public class BattleEvent : BlockEvent
+namespace Memoria.Dungeon.BlockEvents
 {
-	public BlockType battleType { get; private set; }
-
-	public BattleEvent(BlockType battleType, Animator[] eventAniamtors, GameObject messageBox, Text messageBoxText)
-		: base(eventAniamtors, messageBox, messageBoxText)
+	public class BattleEvent : BlockEvent
 	{
+		public BlockType battleType { get; private set; }
 
-		this.battleType = battleType;
-	}
+		public BattleEvent(BlockType battleType, Animator[] eventAniamtors, GameObject messageBox, Text messageBoxText)
+			: base(eventAniamtors, messageBox, messageBoxText)
+		{
 
-	public override IEnumerator GetEventCoroutine(DungeonParameter paramater)
-	{
-		DungeonManager dungeonManager = DungeonManager.instance;
-		dungeonManager.dungeonData.SetBattleType(battleType);
-		dungeonManager.dungeonData.Save();
-		yield return new WaitForSeconds(0.5f);
-		Application.LoadLevel("Battle");
-		yield return null;
+			this.battleType = battleType;
+		}
+
+		public override IEnumerator GetEventCoroutine(DungeonParameter paramater)
+		{
+			DungeonManager dungeonManager = DungeonManager.instance;
+			dungeonManager.dungeonData.SetBattleType(battleType);
+			dungeonManager.dungeonData.Save();
+			yield return new WaitForSeconds(0.5f);
+			Application.LoadLevel("Battle");
+			yield return null;
+		}
 	}
 }

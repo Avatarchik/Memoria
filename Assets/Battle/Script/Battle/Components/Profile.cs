@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Profile : MonoBehaviour {
+abstract public class Profile : MonoBehaviour {
 
-
+    
     public Parameter parameter;
     public AttackType attackType;
+    public string ultimateAttack;
     public string nameplate { get; set; }
     public Dictionary<string, AttackType> attackList = new Dictionary<string, AttackType>();
     //public GameObject attackObj;
@@ -17,5 +18,5 @@ public class Profile : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         
-    }
-}	
+    }   
+}

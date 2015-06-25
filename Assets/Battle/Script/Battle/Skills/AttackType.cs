@@ -1,21 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class AttackType : MonoBehaviour {
+abstract public class AttackType : MonoBehaviour {
 
+    
     public int phaseCost;
+    public int stockCost;
+    public BattleMgr.ElementType elementalAff;
     
     protected int animationDur;
+    public char targetType; // e = enemy, h = se;f
     public bool attacked { get; set; }
+    public bool useStock { get; private set; }
     public GameObject particleEffect; 
     public GameObject effectObj;
     public GameObject normalEffect;
     
-    public virtual int AttackTime 
+    public int AttackTime 
     {
         get { return animationDur; }
     } 
-    public abstract void Execute(Damage dmg, IDamageable target);
-    public abstract void Execute(IDamageable target);
-    public abstract void PlayEffect(Entity target);
+    abstract public void Execute(Damage dmg, IDamageable target);
+    abstract public void Execute(IDamageable target);
+    abstract public void PlayEffect(Entity target);
 } 

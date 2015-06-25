@@ -13,7 +13,8 @@ public class Tracy : Profile {
         parameter.defense = 260;
         parameter.speed = 342;
         parameter.hp = 484;
-        
+        parameter.elementAff = BattleMgr.ElementType.WATER;
+
         attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
         attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
         //attackType = gameObject.AddComponent<PlayerStrike>();
