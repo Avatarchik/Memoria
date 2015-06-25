@@ -30,7 +30,7 @@ namespace Memoria.Battle.Managers
             {
                 _obj[i] = new Dictionary<string, GameObject>();
             }
-        
+
             for (int i = 4000; i <= 4010; i++)
             {
                 _healthBarSprites[i - 4000] = Resources.Load<Sprite>("GOJCA" + i);
@@ -79,11 +79,11 @@ namespace Memoria.Battle.Managers
                     //b.onClick.AddListener(SetAttack);
                     b.onClick.AddListener(() => player.SetAttack(skillName));
                     if(cnt < _button.Length -1)
-                        cnt++; 
+                        cnt++;
                 }
             }
         }
-    
+
         public void DestroyButton()
         {
             for (int i = 0; i < _button.Length; i++)
@@ -106,7 +106,7 @@ namespace Memoria.Battle.Managers
         }
 
         public void CreateHpBar()
-        {       
+        {
             _hpBar = Instantiate ((GameObject)Resources.Load("hpBar")) as GameObject;
             _hpBar.transform.SetParent (GameObject.FindObjectOfType<Canvas> ().gameObject.transform, false);
             _hpBar.transform.position = new Vector3(-7.6f,0,2);
@@ -151,7 +151,7 @@ namespace Memoria.Battle.Managers
             for (int i = 0; i < keys.Length; i++)
             {
                 if(dictionary.ContainsKey(keys[i])) {
- 
+
                 }
                 dictionary.Add(keys[i], (GameObject)Resources.Load(resource[i]));
             }

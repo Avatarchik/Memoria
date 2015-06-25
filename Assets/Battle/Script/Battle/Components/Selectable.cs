@@ -9,7 +9,7 @@ namespace Memoria.Battle.Utility
         void Start () {
             selected = false;
         }
-    
+
         // Update is called once per frame
         void Update () {
         }

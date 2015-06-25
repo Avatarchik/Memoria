@@ -3,18 +3,19 @@ using Memoria.Battle.GameActors;
 
 namespace Memoria.Battle.States
 {
+
+    public enum State
+    {
+        PREPARE = 0,
+        RUNNING = 1,
+        SELECT_TARGET = 2,
+        SELECT_SKILL = 3,
+        ANIMATOIN = 4,
+        PLAYER_WON = 5
+    }
+
     abstract public class BattleState
     {
-        public enum State
-        {
-            PREPARE,
-            RUNNING,
-            SELECT_TARGET,
-            SELECT_SKILL,
-            ANIMATOIN,
-            PLAYER_WON
-        }
-
         protected BattleMgr battleMgr;
         protected  UIMgr uiMgr;
         protected Entity nowActor;

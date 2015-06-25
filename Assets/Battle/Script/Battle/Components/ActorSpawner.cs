@@ -9,7 +9,7 @@ namespace Memoria.Battle.GameActors
         public bool Init { get; set;}
 
         public Transform parentObject;
-    
+
         public GameObject Spawn<T> (Type profile, string resource)
         {
             var spawnObj = (GameObject)Resources.Load(resource);
@@ -19,7 +19,7 @@ namespace Memoria.Battle.GameActors
             obj.AddComponent(profile);
             obj.AddComponent<BoxCollider2D>();
             obj.GetComponent<BoxCollider2D>().enabled = false;
-                        
+
             return obj;
         }
 
@@ -38,7 +38,7 @@ namespace Memoria.Battle.GameActors
             return result;
         }
 
-    
+
         public Dictionary<Type, string> GetProfiles(Type[] partyMembers)
         {
             var result = new Dictionary<Type, string>();

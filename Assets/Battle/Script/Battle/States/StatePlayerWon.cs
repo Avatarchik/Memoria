@@ -4,12 +4,12 @@
     {
         override public void Initialize()
         {
-            //        Debug.Log("Player won"); 
+            //        Debug.Log("Player won");
             FadeAttackScreen.DeFlash();
         }
         override public void Update()
         {
-        
+
         }
-    }    
+    }
 }

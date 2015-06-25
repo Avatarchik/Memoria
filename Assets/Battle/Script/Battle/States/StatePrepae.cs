@@ -28,8 +28,8 @@ namespace Memoria.Battle.States
                 battleMgr.SetState(State.RUNNING);
             }
         }
-        
-        public void GenerateOrderIndex() 
+
+        public void GenerateOrderIndex()
         {
             foreach (GameObject go in BattleMgr.actorList) {
                 Entity actor = go.GetComponent<Entity>();

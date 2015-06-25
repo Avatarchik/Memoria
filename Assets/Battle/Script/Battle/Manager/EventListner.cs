@@ -3,7 +3,7 @@
     public class EventListner : EventMgr {
 
         public static new EventListner Instance = new EventListner();
-    
+
         public void SubscribeTurnEnd(TurnEnds turnEnds)
         {
             EventMgr.Instance.TurnEnd += turnEnds;

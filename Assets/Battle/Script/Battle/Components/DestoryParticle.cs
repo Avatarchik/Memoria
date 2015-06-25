@@ -8,7 +8,7 @@ namespace Memoria.Battle.Utility
         void Start () {
             ps = GetComponent<ParticleSystem> ();
         }
-    
+
         void Update () {
             if(!ps.IsAlive(true)) {
                 Destroy(gameObject);

@@ -22,7 +22,7 @@ namespace Memoria.Battle.Managers
         {
             nowActor = currentActor;
         }
-   
+
         public void OrderUpdate()
         {
         }

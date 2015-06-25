@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
     abstract public class Profile : MonoBehaviour {
-    
+
         public Parameter parameter;
         public AttackType attackType;
         public string ultimateAttack;
@@ -15,10 +16,10 @@ namespace Memoria.Battle.GameActors
         // Use this for initialization
         void Start () {
         }
-    
+
         // Update is called once per frame
         void Update () {
-        
-        }   
+
+        }
     }
 }

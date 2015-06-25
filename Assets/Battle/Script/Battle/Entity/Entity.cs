@@ -13,7 +13,7 @@ namespace Memoria.Battle.GameActors
         public int mattack;
         public int mdefense;
         public int speed;
-        public BattleMgr.ElementType elementAff;
+        public ElementType elementAff;
     }
 
     public class Entity : MonoBehaviour {
@@ -61,7 +61,7 @@ namespace Memoria.Battle.GameActors
             if(charge) {
                 orderIndex = attack.phaseCost;
                 tracker.QueueAction(this, orderIndex);
-                BattleMgr.Instance.SetState(BattleState.State.RUNNING);
+                BattleMgr.Instance.SetState(State.RUNNING);
                 return true;
             }
             attackTimer++;

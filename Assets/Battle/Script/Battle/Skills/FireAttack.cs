@@ -11,11 +11,11 @@ namespace Memoria.Battle.GameActors
             stockCost = 2;
             animationDur = 310;
             targetType = 'e';
-            elementalAff = BattleMgr.ElementType.FIRE;
+            elementalAff = ElementType.FIRE;
             effectObj = (GameObject)Resources.Load("explode");
         }
 
-        override public void Execute(IDamageable target) 
+        override public void Execute(IDamageable target)
         {
             target.TakeDamage(120);
         }
@@ -25,12 +25,12 @@ namespace Memoria.Battle.GameActors
             //       target.TakeDamage(damage);
         }
 
-    
+
         override public void PlayEffect (Entity target)
         {
             particleEffect = Instantiate (effectObj);
             particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y -0.3f, -3);
-            particleEffect.GetComponent<ParticleSystem>().Play();	
+            particleEffect.GetComponent<ParticleSystem>().Play();
         }
     }
 }

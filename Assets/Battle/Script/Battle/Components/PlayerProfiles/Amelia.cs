@@ -13,18 +13,18 @@ namespace Memoria.Battle.GameActors
             parameter.mdefense = 260;
             parameter.speed = 342;
             parameter.hp = 484;
-            parameter.elementAff = BattleMgr.ElementType.FIRE;
-        
+            parameter.elementAff = ElementType.WATER;
+
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
             //attackType = gameObject.AddComponent<PlayerStrike>();
 
         }
 
-    
-        // Update is called once per frame    
+
+        // Update is called once per frame
         void Update () {
-        
+
         }
     }
 }

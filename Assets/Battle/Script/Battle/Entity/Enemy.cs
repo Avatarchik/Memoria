@@ -41,12 +41,12 @@ namespace Memoria.Battle.GameActors
         }
 
         override public bool Attack (AttackType attackType)
-        {        
+        {
             if(!isAlive) { return false; }
             phaseTimer = attackType.phaseCost;
             if (!attackReady && isAlive) {
                 FadeAttackScreen.Flash(); //TODO: temporary
-                BattleMgr.Instance.SetState(BattleState.State.RUNNING);
+                BattleMgr.Instance.SetState(State.RUNNING);
             }
             return base.Attack (attackType);
         }
@@ -64,7 +64,7 @@ namespace Memoria.Battle.GameActors
 
         public void TakeDamage(Damage d)
         {
-        
+
         }
 
         public bool IsAlive()

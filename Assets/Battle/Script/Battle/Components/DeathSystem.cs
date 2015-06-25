@@ -22,7 +22,7 @@ namespace Memoria.Battle.Utility
                 if(!enemy.GetComponent<DeathSystem>().isAlive) {
                     BattleMgr.actorList.Remove(enemy);
                     deadEnemy.Add(enemy);
-                }  
+                }
             }
             foreach (GameObject obj in deadEnemy) {
                 BattleMgr.Instance.enemyList.Remove (obj);
@@ -34,7 +34,7 @@ namespace Memoria.Battle.Utility
         {
             isAlive = false;
         }
-    
+
         public IEnumerator DeadEffect()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer> ();
@@ -49,7 +49,7 @@ namespace Memoria.Battle.Utility
                 sr.color = color;
                 time += Time.deltaTime;
                 yield return null;
-            }        
+            }
             Die();
         }
     }

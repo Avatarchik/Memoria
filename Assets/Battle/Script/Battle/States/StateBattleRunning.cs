@@ -18,6 +18,6 @@ namespace Memoria.Battle.States
                 EventMgr.Instance.OnTurnEnd();
                 Initialized = false;
             }
-        }    
+        }
     }
 }

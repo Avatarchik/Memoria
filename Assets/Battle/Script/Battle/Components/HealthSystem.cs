@@ -10,13 +10,13 @@ namespace Memoria.Battle.Utility
         //Initialize
         void Start()
         {
-        
+
         }
-    
+
         //Graphic Updates
         void Update()
         {
-        
+
         }
     }
 }

@@ -18,6 +18,6 @@ namespace Memoria.Battle.States
                 uiMgr.DestroyButton();
                 battleMgr.SetState(State.SELECT_TARGET);
             }
-        }    
+        }
     }
 }

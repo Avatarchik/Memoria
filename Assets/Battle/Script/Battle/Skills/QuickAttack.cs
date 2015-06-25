@@ -10,12 +10,12 @@ namespace Memoria.Battle.GameActors
             animationDur = 7;
             effectObj = (GameObject)Resources.Load("dmg");
         }
-    
+
         // Update is called once per frame
         void Update () {
-        
+
         }
-    
+
         override public void Execute(IDamageable target)
         {
             target.TakeDamage(110);

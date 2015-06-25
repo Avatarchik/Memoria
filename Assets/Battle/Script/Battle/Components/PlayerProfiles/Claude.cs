@@ -16,8 +16,8 @@ namespace Memoria.Battle.GameActors
             parameter.defense = 260;
             parameter.speed = 342;
             parameter.hp = 484;
-            parameter.elementAff = BattleMgr.ElementType.THUNDER;
-        
+            parameter.elementAff = ElementType.THUNDER;
+
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
             //attackType = gameObject.AddComponent<PlayerStrike>();

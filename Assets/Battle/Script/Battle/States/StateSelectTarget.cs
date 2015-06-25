@@ -13,7 +13,7 @@ namespace Memoria.Battle.States
             hero = (Hero)nowActor;
             if(!hero.passtToStock)
             {
-                SetSelectable(nowActor.attackType.targetType, true);            
+                SetSelectable(nowActor.attackType.targetType, true);
             }
         }
         override public void Update()
@@ -39,7 +39,7 @@ namespace Memoria.Battle.States
                 if (e.battleID.ToLowerInvariant().IndexOf(c) != -1)
                 {
                     e.GetComponent<BoxCollider2D>().enabled = state;
-                }     
+                }
             }
         }
     }

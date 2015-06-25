@@ -14,10 +14,10 @@ namespace Memoria.Battle.GameActors
         public string nameplae;
         public int stock;
         private Button _iconButton;
-    
+
         void Start () {
             entityType = "hero";
-            profile = GetComponent<Profile>(); 
+            profile = GetComponent<Profile>();
             parameter = profile.parameter;
             nameplate = profile.nameplate;
             _iconButton = GetComponent<Button>();
@@ -28,7 +28,7 @@ namespace Memoria.Battle.GameActors
             components.Add(typeof(TargetSelector));
             base.Init();
         }
-    
+
         override public bool Attack (AttackType attack)
         {
             SetIconSkill(stock);
@@ -38,7 +38,7 @@ namespace Memoria.Battle.GameActors
             }
             if(!attackReady) {
                 StartTurn();
-                BattleMgr.Instance.SetState(BattleState.State.SELECT_SKILL);
+                BattleMgr.Instance.SetState(State.SELECT_SKILL);
                 return false;
             }
             return base.Attack (attack);
@@ -46,12 +46,12 @@ namespace Memoria.Battle.GameActors
 
         override public void StartTurn()
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);   
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);
         }
-    
+
         override public void EndTurn()
         {
-            _iconButton.onClick.RemoveAllListeners();        
+            _iconButton.onClick.RemoveAllListeners();
             if(!charge && !passtToStock) {
                 attackSelected = false;
                 attackType.attacked = false;
@@ -59,7 +59,7 @@ namespace Memoria.Battle.GameActors
                 target = null;
             }
             passtToStock = false;
-            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);   
+            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);
             base.EndTurn();
         }
 
@@ -109,11 +109,11 @@ namespace Memoria.Battle.GameActors
         public string[] GetSkills()
         {
             var list = new List<string>();
-        
+
             foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3)) {
                 list.Add(skill.Key);
             }
-            return list.ToArray();       
+            return list.ToArray();
         }
 
         private void SetIconSkill(int i)

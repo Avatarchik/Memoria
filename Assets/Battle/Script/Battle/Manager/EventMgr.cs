@@ -10,7 +10,7 @@ namespace Memoria.Battle.Managers
     }
 
     /*
-      WORK IN PROGRESS  
+      WORK IN PROGRESS
       Useage:
 
       AddListener<ITriggerable>(EventDel(ITriggerable e))
@@ -28,7 +28,7 @@ namespace Memoria.Battle.Managers
 
       private Dictionary<Type, EventDel> _events;
       private Dictionary<Delegate, EventDel> _eventHasg;
-    
+
       public static EventManager Instance
       {
       if(_instance == null) {
@@ -61,7 +61,7 @@ namespace Memoria.Battle.Managers
 
       public void RemoveListener<T> (EventDel<T> e)
       {
-    
+
       }
 
       public void Clear()
@@ -92,14 +92,14 @@ namespace Memoria.Battle.Managers
         public delegate void EnemyDies(Enemy e);
         public delegate void BattleEnds();
         public delegate void GameEvent(object sender, EventArgs e);
-    
+
         public event TurnEnds TurnEnd;
         public event BattleEnds BattleEnd;
         public event EnemyDies EnemyDied;
         public event RecievedStatus GotStatus;
 
         public Dictionary<string, System.Delegate> delegateList;
-    
+
         public void OnTurnEnd()
         {
             if(TurnEnd != null)

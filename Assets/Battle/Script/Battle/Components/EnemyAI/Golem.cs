@@ -13,7 +13,7 @@ namespace Memoria.Battle.GameActors
             nameplate = "GOJBNA6000";
         }
 
-        void Update() 
+        void Update()
         {
         }
     }

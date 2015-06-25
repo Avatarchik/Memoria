@@ -28,7 +28,7 @@ namespace Memoria.Battle.GameActors
 
         public void TakeDamageEvent()
         {
-        
+
         }
     }
 }
