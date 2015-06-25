@@ -1,22 +1,22 @@
 using UnityEngine;
-using System;
 
-public class HealthSystem : MonoBehaviour
+namespace Memoria.Battle.Utility
 {
-
-    public int hp;
-    public int maxHp;
-
-    //Initialize
-    void Start()
+    public class HealthSystem : MonoBehaviour
     {
+        public int hp;
+        public int maxHp;
+
+        //Initialize
+        void Start()
+        {
         
-    }
+        }
     
-    //Graphic Updates
-    void Update()
-    {
+        //Graphic Updates
+        void Update()
+        {
         
+        }
     }
 }
-
