@@ -3,37 +3,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-[Serializable]
-public class BlockSprites
+namespace Memoria.Dungeon.BlockUtility
 {
 	[Serializable]
-	class Sprites
+	public class BlockSprites
 	{
-		public Sprite[] sprites = new Sprite[11];
-	}
-
-	[SerializeField]
-	private List<Sprites> _blockSprites = new List<Sprites>();
-
-	private Sprite[][] blockSpriteArray = null;
-
-	public Sprite[][] blockSprites
-	{
-		get
+		[Serializable]
+		class Sprites
 		{
-			if (blockSpriteArray == null)
-			{
-				List<Sprite[]> sl = new List<Sprite[]>();
+			public Sprite[] sprites = new Sprite[11];
+		}
 
-				foreach (Sprites sprites in _blockSprites)
+		[SerializeField]
+		private List<Sprites> _blockSprites = new List<Sprites>();
+
+		private Sprite[][] blockSpriteArray = null;
+
+		public Sprite[][] blockSprites
+		{
+			get
+			{
+				if (blockSpriteArray == null)
 				{
-					sl.Add(sprites.sprites);
+					List<Sprite[]> sl = new List<Sprite[]>();
+
+					foreach (Sprites sprites in _blockSprites)
+					{
+						sl.Add(sprites.sprites);
+					}
+
+					blockSpriteArray = sl.ToArray();
 				}
 
-				blockSpriteArray = sl.ToArray();
+				return blockSpriteArray;
 			}
-
-			return blockSpriteArray;
 		}
 	}
 }

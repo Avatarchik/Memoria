@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
+using Memoria.Battle.Managers;
 
-abstract public class AttackType : MonoBehaviour {
+namespace Memoria.Battle.GameActors
+{
+    abstract public class AttackType : MonoBehaviour {
 
     
-    public int phaseCost;
-    public int stockCost;
-    public BattleMgr.ElementType elementalAff;
+        public int phaseCost;
+        public int stockCost;
+        public BattleMgr.ElementType elementalAff;
     
-    protected int animationDur;
-    public char targetType; // e = enemy, h = se;f
-    public bool attacked { get; set; }
-    public bool useStock { get; private set; }
-    public GameObject particleEffect; 
-    public GameObject effectObj;
-    public GameObject normalEffect;
+        protected int animationDur;
+        public char targetType; // e = enemy, h = se;f
+        public bool attacked { get; set; }
+        public bool useStock { get; private set; }
+        public GameObject particleEffect; 
+        public GameObject effectObj;
+        public GameObject normalEffect;
     
-    public int AttackTime 
-    {
-        get { return animationDur; }
+        public int AttackTime 
+        {
+            get { return animationDur; }
+        } 
+        abstract public void Execute(Damage dmg, IDamageable target);
+        abstract public void Execute(IDamageable target);
+        abstract public void PlayEffect(Entity target);
     } 
-    abstract public void Execute(Damage dmg, IDamageable target);
-    abstract public void Execute(IDamageable target);
-    abstract public void PlayEffect(Entity target);
-} 
+}

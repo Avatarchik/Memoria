@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 
-public class DestoryParticle : MonoBehaviour {
+namespace Memoria.Battle.Utility
+{
+    public class DestoryParticle : MonoBehaviour {
+        ParticleSystem ps;
 
-    ParticleSystem ps;
-    // Use this for initialization
-    void Start () {
-        ps = GetComponent<ParticleSystem> ();
-    }
+        void Start () {
+            ps = GetComponent<ParticleSystem> ();
+        }
     
-    // Update is called once per frame
-    void Update () {
-        if(!ps.IsAlive()) {
-            Destroy(gameObject);
+        void Update () {
+            if(!ps.IsAlive(true)) {
+                Destroy(gameObject);
+            }
         }
     }
 }

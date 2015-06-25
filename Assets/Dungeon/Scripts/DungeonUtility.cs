@@ -3,19 +3,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public static class DungeonUtility
+namespace Memoria.Dungeon
 {
-	public static IEnumerable<T> Zip<A, B, T>(this IEnumerable<A> seqA, IEnumerable<B> seqB, Func<A, B, T> func)
+	public static class DungeonUtility
 	{
-		if (seqA == null) throw new ArgumentNullException("seqA");
-		if (seqB == null) throw new ArgumentNullException("seqB");
-
-		using (var iteratorA = seqA.GetEnumerator())
-		using (var iteratorB = seqB.GetEnumerator())
+		public static IEnumerable<T> Zip<A, B, T>(this IEnumerable<A> seqA, IEnumerable<B> seqB, Func<A, B, T> func)
 		{
-			while (iteratorA.MoveNext() && iteratorB.MoveNext())
+			if (seqA == null)
+				throw new ArgumentNullException("seqA");
+			if (seqB == null)
+				throw new ArgumentNullException("seqB");
+
+			using (var iteratorA = seqA.GetEnumerator())
+			using (var iteratorB = seqB.GetEnumerator())
 			{
-				yield return func(iteratorA.Current, iteratorB.Current);
+				while (iteratorA.MoveNext() && iteratorB.MoveNext())
+				{
+					yield return func(iteratorA.Current, iteratorB.Current);
+				}
 			}
 		}
 	}
