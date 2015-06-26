@@ -10,7 +10,7 @@ namespace Memoria.Battle.GameActors
             phaseCost = 2;
             stockCost = 2;
             animationDur = 310;
-            targetType = 'e';
+            targetType = 'h';
             elementalAff = ElementType.FIRE;
             effectObj = (GameObject)Resources.Load("explode");
         }

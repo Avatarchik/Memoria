@@ -12,6 +12,7 @@ namespace Memoria.Battle.Managers
         private AttackTracker _attackTracker;
         private Dictionary<string, GameObject>[] _obj;
         private GameObject[] _button;
+        private Dictionary<string, GameObject> _cursor;
         private Dictionary<string, GameObject> _nameplate;
         private Dictionary<int, Sprite> _healthBarSprites;
         private int _precentDivided;
@@ -22,15 +23,14 @@ namespace Memoria.Battle.Managers
         void Awake () {
 
             _mainPlayer = GameObject.FindObjectOfType<MainPlayer>() as MainPlayer;
-
             _obj = new Dictionary<string, GameObject>[3];
+            _cursor = new Dictionary<string, GameObject>();
             _healthBarSprites = new Dictionary<int, Sprite>();
 
             for (int i = 0; i < _obj.Length; i++)
             {
                 _obj[i] = new Dictionary<string, GameObject>();
             }
-
             for (int i = 4000; i <= 4010; i++)
             {
                 _healthBarSprites[i - 4000] = Resources.Load<Sprite>("GOJCA" + i);
@@ -38,9 +38,6 @@ namespace Memoria.Battle.Managers
         }
 
         // Update is called once per frame
-        void Update () {
-        }
-
         void LateUpdate()
         {
             _precentDivided = GetHealthPercent();
@@ -51,6 +48,34 @@ namespace Memoria.Battle.Managers
         public void UpdateHealthBar(int hpPercent)
         {
             _hpBar.GetComponent<Image>().sprite = _healthBarSprites[hpPercent];
+        }
+
+        public void SetCursor(string owner, GameObject obj, bool enable)
+        {
+            if(enable)
+            {
+                Vector3 pos = obj.transform.position;
+                pos.y += 2f;
+                _cursor[owner] = Instantiate ((GameObject)Resources.Load("cursor")) as GameObject;
+                _cursor[owner].transform.SetParent(GameObject.FindObjectOfType<Canvas> ().gameObject.transform, false);
+                _cursor[owner].transform.position = pos;
+            }
+            else
+            {
+                foreach(var go in _cursor)
+                {
+                    if(go.Value)
+                    {
+                        Destroy(go.Value);
+                    }
+                }
+                _cursor.Clear();
+            }
+        }
+        //TODO: Set selection animation based on single/multiple targets
+        public void SetCurorAnimation(TargetType t, string s)
+        {
+
         }
 
         public int GetHealthPercent()
