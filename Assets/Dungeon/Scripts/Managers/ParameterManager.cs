@@ -16,11 +16,11 @@ namespace Memoria.Dungeon.Managers
 				{
 					_parameter = new DungeonParameter();
 				
-					_parameter.changedLevelValue += (sender, e) =>
-					{
-						int level = e.parameter.level;
-						levelText.text = "Lv." + level.ToString("00");
-					};
+//					_parameter.changedLevelValue += (sender, e) =>
+//					{
+//						int level = e.parameter.level;
+//						levelText.text = "Lv." + level.ToString("00");
+//					};
 					_parameter.changedHpValue += (sender, e) =>
 					{
 						UpdateHpText();
@@ -29,30 +29,30 @@ namespace Memoria.Dungeon.Managers
 					{
 						UpdateSpText();
 					};
-					_parameter.changedFloorValue += (sender, e) =>
-					{
-						int floor = e.parameter.floor;
-						floorText.text = floor.ToString("000F");
-					};
-					_parameter.changedSkillValue += (sender, e) =>
-					{
-						string skill = e.parameter.skill;
-						skillText.text = skill;
-					};
+//					_parameter.changedFloorValue += (sender, e) =>
+//					{
+//						int floor = e.parameter.floor;
+//						floorText.text = floor.ToString("000F");
+//					};
+//					_parameter.changedSkillValue += (sender, e) =>
+//					{
+//						string skill = e.parameter.skill;
+//						skillText.text = skill;
+//					};
 
-					_parameter.changedTpValue += (sender, e) =>
-					{
-						UpdateTpText();
-					};
+//					_parameter.changedTpValue += (sender, e) =>
+//					{
+//						UpdateTpText();
+//					};
 				}
 
 				return _parameter;
 			}
 		}
 
-		[SerializeField]
-		private Text
-			levelText;
+//		[SerializeField]
+//		private Text
+//			levelText;
 
 		[SerializeField]
 		private Text
@@ -62,17 +62,17 @@ namespace Memoria.Dungeon.Managers
 		private Text
 			spText;
 
-		[SerializeField]
-		private Text
-			floorText;
+//		[SerializeField]
+//		private Text
+//			floorText;
 
-		[SerializeField]
-		private Text
-			skillText;
+//		[SerializeField]
+//		private Text
+//			skillText;
 
-		[SerializeField]
-		private Text
-			tpText;
+//		[SerializeField]
+//		private Text
+//			tpText;
 
 		void Awake()
 		{
@@ -100,7 +100,7 @@ namespace Memoria.Dungeon.Managers
 		private void UpdateTpText()
 		{
 			int tp = parameter.tp;
-			tpText.text = tp.ToString();
+//			tpText.text = tp.ToString();
 		}
 
 		// Use this for initialization
