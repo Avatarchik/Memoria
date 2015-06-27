@@ -99,16 +99,10 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public bool hasEvent { get; private set; }
 
-		private bool _isSpriteRenderer = false;
-
 		private bool isSpriteRenderer
 		{
-			get { return _isSpriteRenderer; }
-			set
-			{
-				_isSpriteRenderer = value;
-				animator.SetBool("isSpriteRenderer", value);
-			}
+			get { return animator.GetBool("isSpriteRenderer"); }
+			set { animator.SetBool("isSpriteRenderer", value); }
 		}
 
 		public bool putted
@@ -133,8 +127,6 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-		private IDisposable subscribeOperation;
-
 		public void Initialize()
 		{
 			dungeonManager = DungeonManager.instance;
@@ -146,27 +138,26 @@ namespace Memoria.Dungeon.BlockUtility
 			animator = GetComponent<Animator>();
 
 			// 操作イベントの登録
-			subscribeOperation = this.UpdateAsObservable()
-			.Where(_ => !putted)
-			.SkipWhile(_ => !CanOperation())
-			.SkipUntil(this.OnMouseDownAsObservable()
-				.Do(StartOperation))
-			.TakeUntil(this.OnMouseUpAsObservable()
-				.Do(StopOperation)
-				.Do(CheckAndPut))
-			.Repeat()
-			.Subscribe(Operate);
-//Todo:何秒以上たったら、が実現できないか調べる
+			this.OnMouseDownAsObservable()
+				.Where(CanOperation)
+				.Do(StartOperation)
+				.Subscribe(_ =>
+				{
+					var onMouseDrag = this.OnMouseDragAsObservable()
+						.Subscribe(Operate);
+					this.OnMouseUpAsObservable()
+						.First()
+						.Do(__ => onMouseDrag.Dispose())
+						.Do(CheckAndPut)
+						.Subscribe(StopOperation);
+				});
+
 			// 破壊イベントの登録
-			this.UpdateAsObservable()
-			.Where(_ => putted)
-			.SkipWhile(_ => !CanBreak())
-			.SkipUntil(this.OnMouseDownAsObservable()
-				.Do(_ => StartCoroutine("CoroutineBreak")))
-			.TakeUntil(this.OnMouseUpAsObservable()
-				.Do(_ => StopCoroutine("CoroutineBreak")))
-			.Repeat()
-			.Subscribe();
+			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
+			onMouseLongDownComponent.IntervalSecond = 0.5f;
+			onMouseLongDownComponent.OnMouseLongDownAsObservable()
+				.Where(CanBreak)
+				.Subscribe(Break);
 		}
 
 		public void SetAsDefault(Location location, BlockShape shape, BlockType type)
@@ -188,14 +179,17 @@ namespace Memoria.Dungeon.BlockUtility
 			this.type = type;
 
 			hasEvent = type != BlockType.None;
-
-			subscribeOperation.Dispose();
 		}
 
-#region Operating
+		#region Operating
 
 		private bool CanOperation(Unit _ = null)
 		{
+			if (putted)
+			{
+				return false;
+			}
+
 			bool isNoneState = dungeonManager.activeState == DungeonState.None;
 			return isNoneState;
 		}
@@ -228,7 +222,6 @@ namespace Memoria.Dungeon.BlockUtility
 			if (CanPut())
 			{
 				Put();
-				subscribeOperation.Dispose();
 			}
 			else
 			{
@@ -251,7 +244,7 @@ namespace Memoria.Dungeon.BlockUtility
 				return false;
 			}
 
-//Todo:Anyがつかえないか検証する
+			//Todo:Anyがつかえないか検証する
 			// 隣接ブロックのチェック
 			for (int i = 0; i < Location.directions.Length; i++)
 			{
@@ -299,12 +292,17 @@ namespace Memoria.Dungeon.BlockUtility
 			isSpriteRenderer = false;
 		}
 
-#endregion
+		#endregion
 
-#region Break
+		#region Break
 
 		private bool CanBreak(Unit _ = null)
 		{
+			if (!putted)
+			{
+				return false;
+			}
+
 			bool isNoneState = dungeonManager.activeState == DungeonState.None;
 			bool onPlayer = location == dungeonManager.player.location;
 			Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -312,33 +310,8 @@ namespace Memoria.Dungeon.BlockUtility
 			return isNoneState && !onPlayer && contains;
 		}
 
-		// (Coroutine)ブロックを破壊する
-		private IEnumerator CoroutineBreak()
-		{
-			float delay = 0.5f;
-			float elapsed = 0;
-			BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
-
-			while (elapsed < delay)
-			{
-				Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				if (boxCollider2D.OverlapPoint(touchPosition))
-				{
-					elapsed += Time.deltaTime;
-				}
-				else
-				{
-					yield break;
-				}
-
-				yield return null;
-			}
-
-			Break();
-		}
-
 		// ブロックを破壊する
-		private void Break()
+		private void Break(Unit _ = null)
 		{
 			ParameterManager paramaterManager = dungeonManager.parameterManager;
 			paramaterManager.parameter.sp -= 2;
@@ -347,7 +320,7 @@ namespace Memoria.Dungeon.BlockUtility
 			Destroy(gameObject);
 		}
 
-#endregion
+		#endregion
 
 		// ブロックイベントが発生したとき
 		public void OnEnterBlockEvent()
