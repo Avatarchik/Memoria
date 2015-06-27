@@ -44,7 +44,7 @@ namespace Memoria.Dungeon
 
                 mapData = LoadMapData("");
                 parameter = new DungeonParameter();
-                parameter.Set(1, 100, 100, 100, 100, 1, "none", 0);
+				parameter.Set(1, 100, 100, 100, 100, 1, "none", 0);
 
                 Debug.Log("initialize!!");
             }
