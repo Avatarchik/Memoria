@@ -56,20 +56,20 @@ namespace Memoria.Battle.Managers
             {
                 Vector3 pos = obj.transform.position;
                 pos.y += 2f;
-                _cursor[owner] = Instantiate ((GameObject)Resources.Load("cursor")) as GameObject;
+                _cursor.Add(owner, Instantiate ((GameObject)Resources.Load("cursor")) as GameObject);
                 _cursor[owner].transform.SetParent(GameObject.FindObjectOfType<Canvas> ().gameObject.transform, false);
                 _cursor[owner].transform.position = pos;
             }
             else
             {
-                foreach(var go in _cursor)
+                Debug.Log(_cursor.ContainsKey(owner));
+                Debug.Log(_cursor.Count);
+                if(_cursor.ContainsKey(owner))
                 {
-                    if(go.Value)
-                    {
-                        Destroy(go.Value);
-                    }
+                    Debug.Log(_cursor[owner]);
+                    Destroy(_cursor[owner]);
+                    _cursor.Remove(owner);
                 }
-                _cursor.Clear();
             }
         }
         //TODO: Set selection animation based on single/multiple targets

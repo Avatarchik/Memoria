@@ -12,7 +12,6 @@ namespace Memoria.Battle.States
         }
         override public void Update()
         {
-            Debug.Log(nowActor +" is attacking");
             if(nowActor.Attack (nowActor.attackType)){
                 nowActor.EndTurn();
                 EventMgr.Instance.OnTurnEnd();
