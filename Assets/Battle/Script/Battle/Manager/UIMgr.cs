@@ -15,6 +15,7 @@ namespace Memoria.Battle.Managers
         private Dictionary<string, GameObject> _cursor;
         private Dictionary<string, GameObject> _nameplate;
         private Dictionary<int, Sprite> _healthBarSprites;
+        private GameObject _descFrame;
         private int _precentDivided;
         private MainPlayer _mainPlayer;
         private GameObject _hpBar;
@@ -48,6 +49,18 @@ namespace Memoria.Battle.Managers
         public void UpdateHealthBar(int hpPercent)
         {
             _hpBar.GetComponent<Image>().sprite = _healthBarSprites[hpPercent];
+        }
+
+        public void ShowDescBar(string resource)
+        {
+            var frame = (GameObject)Resources.Load(resource);
+            _descFrame = Instantiate(frame);
+            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
+        }
+
+        public void RemoveDescBar()
+        {
+            Destroy(_descFrame);
         }
 
         public void SetCursor(string owner, GameObject obj, bool enable)
