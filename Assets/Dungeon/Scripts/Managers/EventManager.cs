@@ -83,7 +83,7 @@ namespace Memoria.Dungeon.Managers
         {
             DungeonParameter parameter = paramaterManager.parameter;
             parameter.sp -= 1;
-            parameter.tp += 1;
+//            parameter.tp += 1;
 
             if (!block.hasEvent)
             {
