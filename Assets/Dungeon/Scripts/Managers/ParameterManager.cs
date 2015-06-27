@@ -74,9 +74,9 @@ namespace Memoria.Dungeon.Managers
 //		private Text
 //			tpText;
 
-		void Awake()
-		{
-		}
+//		void Awake()
+//		{
+//		}
 
 		public void SetParamater(DungeonParameter parameter)
 		{
@@ -97,11 +97,11 @@ namespace Memoria.Dungeon.Managers
 			spText.text = string.Format("{0:000}/{1:000}", sp, maxSp);
 		}
 
-		private void UpdateTpText()
-		{
-			int tp = parameter.tp;
+//		private void UpdateTpText()
+//		{
+//			int tp = parameter.tp;
 //			tpText.text = tp.ToString();
-		}
+//		}
 
 		// Use this for initialization
 		//    void Start()
