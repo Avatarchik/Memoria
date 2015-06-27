@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using Memoria.Battle.GameActors;
 using Memoria.Battle.Managers;
 
@@ -15,6 +16,10 @@ namespace Memoria.Battle.States
             {
                 SetSelectable(nowActor.attackType.targetType, true);
             }
+            foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
+            {
+                uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, true);
+            }
         }
         override public void Update()
         {
@@ -22,6 +27,8 @@ namespace Memoria.Battle.States
             {
                 battleMgr.SetState(State.RUNNING);
             }
+
+
             if(hero.EnemySelected()) {
                 hero.SetTarget((IDamageable)hero.GetComponent<TargetSelector>().target);
                 SetSelectable(nowActor.attackType.targetType, false);
