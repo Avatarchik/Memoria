@@ -1,67 +1,53 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using Memoria.Dungeon.Managers;
+using UniRx;
 
 namespace Memoria.Dungeon.Menu
 {
 	public class LeaveButton : MonoBehaviour
 	{
-		private DungeonManager dungeonManager;
 		[SerializeField]
-		private GameObject
-			message;
-		[SerializeField]
-		private GameObject
-			yesButton;
-		[SerializeField]
-		private GameObject
-			noButton;
+		private GameObject message;
 
-		void Awake()
-		{
-			dungeonManager = DungeonManager.instance;
-		}
+		[SerializeField]
+		private GameObject yesButton;
+
+		[SerializeField]
+		private GameObject noButton;
 
 		// Use this for initialization
 		void Start()
-		{    
-			message.SetActive(false);
-			yesButton.SetActive(false);
-			noButton.SetActive(false);
-		}
-    
-		// Update is called once per frame
-		//    void Update()
-		//    {
-		//    }
+		{   
+			var dungeonManager = DungeonManager.instance;
 
-		public void OnClick()
-		{
-			if (dungeonManager.activeState == DungeonState.OpenMenu)
+			GetComponent<Button>().OnClickAsObservable()
+			.Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
+			.Subscribe(_ =>
 			{
-				Enter();
-			}
+				dungeonManager.EnterState(DungeonState.LeaveSelect);
+				this.SetUIActive(true);
+			});
+
+			yesButton.GetComponent<Button>().OnClickAsObservable()
+			.Subscribe(_ => dungeonManager.Leave());
+
+			noButton.GetComponent<Button>().OnClickAsObservable()
+			.Subscribe(_ =>
+			{
+				this.SetUIActive(false);
+				dungeonManager.ExitState();
+			});
+
+			SetUIActive(false);
 		}
 
-		public void Enter()
+		private void SetUIActive(bool value)
 		{
-			dungeonManager.EnterState(DungeonState.LeaveSelect);
-			message.SetActive(true);
-			yesButton.SetActive(true);
-			noButton.SetActive(true);
-		}
-
-		public void Exit()
-		{
-			message.SetActive(false);
-			yesButton.SetActive(false);
-			noButton.SetActive(false);
-			dungeonManager.ExitState();
-		}
-
-		public void LeaveDungeon()
-		{
-			dungeonManager.Leave();
+			message.SetActive(value);
+			yesButton.SetActive(value);
+			noButton.SetActive(value);
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Memoria.Dungeon.BlockUtility;
+using UniRx;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -18,19 +19,6 @@ namespace Memoria.Dungeon.Managers
 		OpenMenu,
 		LeaveSelect,
 		MapViewer,
-	}
-
-	public class ChangeDungeonStateEventArgs : EventArgs
-	{
-		public DungeonState nowState { get; private set; }
-
-		public DungeonState nextState { get; private set; }
-
-		public ChangeDungeonStateEventArgs(DungeonState nowState, DungeonState nextState)
-		{
-			this.nowState = nowState;
-			this.nextState = nextState;
-		}
 	}
 
 	public class DungeonManager : MonoBehaviour
@@ -56,26 +44,24 @@ namespace Memoria.Dungeon.Managers
 		}
 
 		[SerializeField]
-		private Player
-			_player;
+		private Player _player;
 
 		public Player player { get { return _player; } }
 
+#region Manager
+
 		[SerializeField]
-		private EventManager
-			_eventManager;
+		private EventManager _eventManager;
 
 		public EventManager eventManager { get { return _eventManager; } }
 
 		[SerializeField]
-		private MapManager
-			_mapManager;
+		private MapManager _mapManager;
 
 		public MapManager mapManager { get { return _mapManager; } }
 
 		[SerializeField]
-		private BlockManager
-			_blockManager;
+		private BlockManager _blockManager;
 
 		public BlockManager blockManager { get { return _blockManager; } }
 
@@ -84,21 +70,25 @@ namespace Memoria.Dungeon.Managers
 
 		public ParameterManager parameterManager { get { return _parameterManager; } }
 
+#endregion
+
+
+#region State
+
+		private Stack<DungeonState> states = new Stack<DungeonState>();//(new [] { DungeonState.None });
+
+		public DungeonState activeState { get { return activeStateProperty.Value; } }
+
+		private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
+
+		public IObservable<DungeonState> ActiveStateAsObservable()
+		{
+			return activeStateProperty.AsObservable();
+		}
+
+#endregion
+
 		public Vector2 blockSize = new Vector2(200, 200);
-
-		private Stack<DungeonState> states = new Stack<DungeonState>(new [] { DungeonState.None });
-
-		public DungeonState activeState { get { return states.Peek(); } }
-
-		public event EventHandler<ChangeDungeonStateEventArgs> changingDungeonState = (s, e) => 
-    	{
-//        Debug.Log("changing now : " + e.nowState + ", next : " + e.nextState);
-    	};
-		public event EventHandler<ChangeDungeonStateEventArgs> changedDungeonState = (s, e) =>
-    	{
-//        Debug.Log("changed now : " + e.nowState + ", next : " + e.nextState);        
-    	};
-
 		public Block operatingBlock { get; set; }
 
 		[SerializeField]
@@ -134,26 +124,15 @@ namespace Memoria.Dungeon.Managers
 			}
 
 			_instance = this;
-			//DontDestroyOnLoad(gameObject);
-			dungeonData.Load();
-		}
 
-		// Use this for initialization
-		void Start()
-		{
-		}
-	
-		// Update is called once per frame
-		void Update()
-		{
+			EnterState(DungeonState.None);
+			dungeonData.Load();
 		}
 
 		public void EnterState(DungeonState nextState)
 		{
-			var args = new ChangeDungeonStateEventArgs(activeState, nextState);
-			changingDungeonState(this, args);
 			states.Push(nextState);
-			changedDungeonState(this, args);
+			activeStateProperty.Value = nextState;
 		}
 
 		public void ExitState()
@@ -163,11 +142,9 @@ namespace Memoria.Dungeon.Managers
 				throw new UnityException("State Stack Error!!");
 			}
 
-			DungeonState nextState = states.ElementAt(1);
-			var args = new ChangeDungeonStateEventArgs(activeState, nextState);
-			changingDungeonState(this, args);
 			states.Pop();
-			changedDungeonState(this, args);
+			DungeonState nextState = states.Peek();
+			activeStateProperty.Value = nextState;
 		}
 
 		public void Leave()
