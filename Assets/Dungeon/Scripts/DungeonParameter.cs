@@ -2,100 +2,75 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using UniRx;
 
 namespace Memoria.Dungeon
 {
-
-	public class ParamaterEventArgs : EventArgs
-	{
-		public DungeonParameter parameter { get; private set; }
-
-		public ParamaterEventArgs(DungeonParameter parameter)
-		{
-			this.parameter = parameter;
-		}
-	}
-
 	public class DungeonParameter : ICloneable
 	{
-		// hp
-		//public event EventHandler<ParamaterEventArgs> changingHpValue = (s, e) => {};
-		public event EventHandler<ParamaterEventArgs> changedHpValue = (s, e) => {};
-		// sp
-		//public event EventHandler<ParamaterEventArgs> changingSpValue = (s, e) => {};
-		public event EventHandler<ParamaterEventArgs> changedSpValue = (s, e) => {};
-		// floor
-		//public event EventHandler<ParamaterEventArgs> changingFloorValue = (s, e) => {};
-		public event EventHandler<ParamaterEventArgs> changedFloorValue = (s, e) => {};
-		// skill
-		//public event EventHandler<ParamaterEventArgs> changingSkillValue = (s, e) => {};
-		public event EventHandler<ParamaterEventArgs> changedSkillValue = (s, e) => {};
+#region paramater
 
-		private int _hp;
+		private ReactiveProperty<int> _hp = new ReactiveProperty<int>();
 
 		public int hp
 		{
-			get { return _hp; }        
-
-			set
-			{ 
-				int nextHp = Mathf.Clamp(value, 0, maxHp); 
-				DungeonParameter nextParamater = this.Clone() as DungeonParameter;
-				nextParamater._hp = nextHp;
-				_hp = nextHp;
-				changedHpValue(this, new ParamaterEventArgs(nextParamater));
-			}
+			get { return _hp.Value; }
+			set { _hp.Value = Mathf.Clamp(value, 0, maxHp); }
 		}
 
 		public int maxHp { get; set; }
 
-		private int _sp;
+		private ReactiveProperty<int> _sp = new ReactiveProperty<int>();
 
 		public int sp
 		{
-			get { return _sp; }        
-			set
-			{
-				int nextSp = Mathf.Clamp(value, 0, maxSp); 
-				DungeonParameter nextParamater = this.Clone() as DungeonParameter;
-				nextParamater._sp = nextSp;
-				_sp = nextSp;
-				changedSpValue(this, new ParamaterEventArgs(nextParamater));
-			}
+			get { return _sp.Value; }
+			set { _sp.Value = Mathf.Clamp(value, 0, maxSp); }
 		}
 
 		public int maxSp { get; set; }
 
-		private int _floor;
+		private ReactiveProperty<int> _floor = new ReactiveProperty<int>();
 
 		public int floor
 		{
-			get { return _floor; }
-
-			set
-			{
-				int nextFloor = value;
-				DungeonParameter nextParamater = this.Clone() as DungeonParameter;
-				nextParamater._floor = nextFloor;
-				_floor = nextFloor;
-				changedFloorValue(this, new ParamaterEventArgs(nextParamater));
-			}
+			get { return _floor.Value; }
+			set { _floor.Value = value; }
 		}
 
-		private string _skill;
+		private ReactiveProperty<string> _skill = new ReactiveProperty<string>();
 
 		public string skill
 		{
-			get { return _skill; }
-			set
-			{
-				string nextSkill = value;
-				DungeonParameter nextParamater = this.Clone() as DungeonParameter;
-				nextParamater._skill = nextSkill;
-				_skill = nextSkill;
-				changedSkillValue(this, new ParamaterEventArgs(nextParamater));
-			}
+			get { return _skill.Value; }
+			set { _skill.Value = value; }
 		}
+
+#endregion
+
+#region ParamaterAsObservable
+
+		public IObservable<int> HpAsObservable()
+		{
+			return _hp.AsObservable();
+		}
+
+		public IObservable<int> SpAsObservable()
+		{
+			return _sp.AsObservable();
+		}
+
+		public IObservable<int> FloorAsObservable()
+		{
+			return _floor.AsObservable();
+		}
+
+		public IObservable<string> SkillAsObservable()
+		{
+			return _skill.AsObservable();
+		}
+
+#endregion
 
 		public void Set(int maxHp, int hp, int maxSp, int sp, int floor, string skill)
 		{

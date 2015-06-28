@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UniRx;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -16,14 +17,11 @@ namespace Memoria.Dungeon.Managers
 				{
 					_parameter = new DungeonParameter();
 
-					_parameter.changedHpValue += (sender, e) =>
-					{
-						UpdateHpText();
-					};
-					_parameter.changedSpValue += (sender, e) =>
-					{
-						UpdateSpText();
-					};
+					_parameter.HpAsObservable()
+					.Subscribe(_ => UpdateHpText());
+
+					_parameter.SpAsObservable()
+					.Subscribe(_ => UpdateSpText());
 				}
 
 				return _parameter;
