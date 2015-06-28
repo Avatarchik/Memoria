@@ -2,12 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 using Memoria.Dungeon.Managers;
+using UniRx;
 
 namespace Memoria.Dungeon.Menu
 {
 	public class MenuButton : MonoBehaviour
 	{
-		private DungeonManager dungeonManager;
+		//		private DungeonManager dungeonManager;
 
 		[SerializeField]
 		private GameObject mapButton;
@@ -18,17 +19,26 @@ namespace Memoria.Dungeon.Menu
 		[SerializeField]
 		private GameObject returnButton;
 
-		void Awake()
-		{
-			dungeonManager = DungeonManager.instance;
-		}
+		//		void Awake()
+		//		{
+		//			dungeonManager = DungeonManager.instance;
+		//		}
 
 		// Use this for initialization
 		void Start()
 		{
-			mapButton.SetActive(false);
-			leaveButton.SetActive(false);
-			returnButton.SetActive(false);
+//			var dungeonManager = DungeonManager.instance;
+
+			GetComponent<Button>().OnClickAsObservable()
+			.Subscribe(EnterMenu);
+
+			returnButton.GetComponent<Button>().OnClickAsObservable()
+			.Subscribe(ExitMenu);
+			
+			SetUIActive(false);
+//			mapButton.SetActive(false);
+//			leaveButton.SetActive(false);
+//			returnButton.SetActive(false);
 		}
     
 		// Update is called once per frame
@@ -36,30 +46,57 @@ namespace Memoria.Dungeon.Menu
 		//    {
 		//    }
 
-		public void OnMenuEnter()
+		//		public void OnMenuEnter()
+		//		{
+		//			var dungeonManager = DungeonManager.instance;
+		//
+		//			if (dungeonManager.activeState != DungeonState.None)
+		//			{
+		//				return;
+		//			}
+		//
+		//			dungeonManager.EnterState(DungeonState.OpenMenu);
+		//			SetUIActive(true);
+		//			mapButton.SetActive(true);
+		//			leaveButton.SetActive(true);
+		//			returnButton.SetActive(true);
+		//		}
+
+		public void EnterMenu(Unit _ = null)
 		{
+			var dungeonManager = DungeonManager.instance;
+						
 			if (dungeonManager.activeState != DungeonState.None)
 			{
 				return;
 			}
-
+			
 			dungeonManager.EnterState(DungeonState.OpenMenu);
-			mapButton.SetActive(true);
-			leaveButton.SetActive(true);
-			returnButton.SetActive(true);
+			SetUIActive(true);
 		}
 
-		public void OnMenuExit()
+//		public void OnExitMenu()
+		public void ExitMenu(Unit _ = null)
 		{
+			var dungeonManager = DungeonManager.instance;
+			
 			if (dungeonManager.activeState != DungeonState.OpenMenu)
 			{
 				return;
 			}
 
-			mapButton.SetActive(false);
-			leaveButton.SetActive(false);
-			returnButton.SetActive(false);
+			SetUIActive(false);
+//			mapButton.SetActive(false);
+//			leaveButton.SetActive(false);
+//			returnButton.SetActive(false);
 			dungeonManager.ExitState();
+		}
+
+		private void SetUIActive(bool value)
+		{
+			mapButton.SetActive(value);
+			leaveButton.SetActive(value);
+			returnButton.SetActive(value);
 		}
 	}
 }

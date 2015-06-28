@@ -198,6 +198,7 @@ namespace Memoria.Dungeon.BlockUtility
 		private void StartOperation(Unit _ = null)
 		{
 			transform.SetParent(null);
+			Operate();
 			isSpriteRenderer = true;
 			dungeonManager.operatingBlock = this;
 			dungeonManager.EnterState(DungeonState.BlockOperating);

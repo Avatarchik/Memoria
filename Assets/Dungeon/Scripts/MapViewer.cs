@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Memoria.Dungeon.Managers;
+using UniRx;
+using UniRx.Triggers;
 
 namespace Memoria.Dungeon
 {
@@ -15,7 +17,7 @@ namespace Memoria.Dungeon
 
 		// Use this for initialization
 		void Start()
-		{	
+		{
 			dungeonManager = DungeonManager.instance;
 			basePosition = transform.localPosition;
 		}
