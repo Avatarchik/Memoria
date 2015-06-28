@@ -2,50 +2,51 @@
 using System.Collections.Generic;
 using System;
 
-public class ActorSpawner : MonoBehaviour {
+namespace Memoria.Battle.GameActors
+{
+    public class ActorSpawner : MonoBehaviour {
 
-    public bool Init { get; set;}
+        public bool Init { get; set;}
 
-    public Transform parentObject;
-    
-    public GameObject Spawn<T> (string profile, string resource)
-    {
-        var spawnObj = (GameObject)Resources.Load(resource);
-        var obj = Instantiate(spawnObj);
-        var _profile = Type.GetType(profile);
-        
-        obj.AddComponent(typeof(T));
-        obj.AddComponent(_profile);
-        obj.AddComponent<BoxCollider2D>();
-        obj.GetComponent<BoxCollider2D>().enabled = false;
-                        
-        return obj;
-    }
+        public Transform parentObject;
 
-    public void InitObj(GameObject obj, List<string> components, Transform parent)
-    {
-        for(int i = 0; i < components.Count; i++)
+        public GameObject Spawn<T> (Type profile, string resource)
         {
-            var c = Type.GetType(components[i]);
-            obj.AddComponent(c);
+            var spawnObj = (GameObject)Resources.Load(resource);
+            var obj = Instantiate(spawnObj);
+
+            obj.AddComponent(typeof(T));
+            obj.AddComponent(profile);
+            obj.AddComponent<BoxCollider2D>();
+            obj.GetComponent<BoxCollider2D>().enabled = false;
+
+            return obj;
         }
-        obj.transform.SetParent(parent, false);
-    }
 
-    public string[] GetRandomEnemies()
-    {
-        string[] result = {"Golem"};
-        return result;
-    }
-
-    
-    public Dictionary<string, string> GetProfiles(string[] partyMembers)
-    {
-        var result = new Dictionary<string, string>();
-        for(int i = 0; i < partyMembers.Length; i++)
+        public void InitObj(GameObject obj, IList<Type> components, Transform parent)
         {
-            result.Add(partyMembers[i], "GOJSBA100" + (i + 3));
+            for(int i = 0; i < components.Count; i++)
+            {
+                obj.AddComponent(components[i]);
+            }
+            obj.transform.SetParent(parent, false);
         }
-        return result;
+
+        public Type[] GetRandomEnemies()
+        {
+            Type[] result = { typeof(Golem) };
+            return result;
+        }
+
+
+        public Dictionary<Type, string> GetProfiles(Type[] partyMembers)
+        {
+            var result = new Dictionary<Type, string>();
+            for(int i = 0; i < partyMembers.Length; i++)
+            {
+                result.Add(partyMembers[i], "GOJSBA100" + (i + 3));
+            }
+            return result;
+        }
     }
 }

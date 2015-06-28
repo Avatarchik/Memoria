@@ -12,7 +12,20 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		public Dictionary<Location, Block> map = new Dictionary<Location, Block>();
 
-		private DungeonManager dungeonManager;
+		private DungeonManager _dungeonManager;
+		private DungeonManager dungeonManager
+		{
+			get
+			{
+				if (_dungeonManager == null)
+				{
+					_dungeonManager = DungeonManager.instance;
+				}
+
+				return _dungeonManager;
+			}
+		}
+
 		private BlockManager blockManager;
 
 		private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
@@ -29,7 +42,7 @@ namespace Memoria.Dungeon.Managers
 
 		void Awake()
 		{
-			dungeonManager = DungeonManager.instance;
+//			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
 
 			//SetMap("");

@@ -1,24 +1,27 @@
-﻿public class EventListner : EventMgr {
+﻿namespace Memoria.Battle.Managers
+{
+    public class EventListner : EventMgr {
 
-    public static new EventListner Instance = new EventListner();
-    
-    public void SubscribeTurnEnd(TurnEnds turnEnds)
-    {
-        EventMgr.Instance.TurnEnd += turnEnds;
-    }
+        public static new EventListner Instance = new EventListner();
 
-    public void SubscribeBattleEnd(BattleEnds battleEnds)
-    {
-        EventMgr.Instance.BattleEnd += battleEnds;
-    }
+        public void SubscribeTurnEnd(TurnEnds turnEnds)
+        {
+            EventMgr.Instance.TurnEnd += turnEnds;
+        }
 
-    public void SubscribeEnemyDies(EnemyDies enemyDies)
-    {
-        EventMgr.Instance.EnemyDied += enemyDies;
-    }
+        public void SubscribeBattleEnd(BattleEnds battleEnds)
+        {
+            EventMgr.Instance.BattleEnd += battleEnds;
+        }
 
-    public void SubscribeRecievedStatus(RecievedStatus recivedStatus)
-    {
-        EventMgr.Instance.GotStatus += recivedStatus;
+        public void SubscribeEnemyDies(EnemyDies enemyDies)
+        {
+            EventMgr.Instance.EnemyDied += enemyDies;
+        }
+
+        public void SubscribeRecievedStatus(RecievedStatus recivedStatus)
+        {
+            EventMgr.Instance.GotStatus += recivedStatus;
+        }
     }
 }

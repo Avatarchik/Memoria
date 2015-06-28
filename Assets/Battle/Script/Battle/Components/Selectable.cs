@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+using UnityEngine;
 
-namespace Battle
+namespace Memoria.Battle.Utility
 {
 	public class Selectable : MonoBehaviour
 	{

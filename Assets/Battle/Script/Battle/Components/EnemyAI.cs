@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Memoria.Battle.GameActors
+{
+    public class EnemyAI : Profile {
+        // Use this for initialization
+        void Start () {
+        }
 
-public class EnemyAI : Profile {
-    // Use this for initialization
-    void Start () {
+        // Update is called once per frame
+        void Update () {
+
+        }
+
     }
-    
-    // Update is called once per frame
-    void Update () {
-        
-    }
-    
-}  
+}
