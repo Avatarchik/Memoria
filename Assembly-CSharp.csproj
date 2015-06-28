@@ -111,7 +111,9 @@
      <Compile Include="Assets\Dungeon\Scripts\Menu\MenuButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Player.cs" />
      <Compile Include="Assets\Dungeon\Scripts\ToggleButton.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseDownOnScreenTrigger.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseLongDownTrigger.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseUpOnScreenTrigger.cs" />
      <Compile Include="Assets\InspectorButtonAttribute.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuItem.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuTransition.cs" />
