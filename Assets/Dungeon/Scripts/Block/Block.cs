@@ -139,7 +139,7 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-		private Rect listRect = new Rect(8, -4.4f, 6, 8);
+//		private Rect listRect = new Rect(8, -4.4f, 6, 8);
 
 #region messages
 
@@ -155,8 +155,8 @@ namespace Memoria.Dungeon.BlockUtility
 		void OnMouseDown()
 		{
 			bool isNoneState = dungeonManager.activeState == DungeonState.None;
-			bool inListRect = listRect.Contains(transform.position - Camera.main.transform.position);
-			bool canOperation = isNoneState && inListRect;
+//			bool inListRect = listRect.Contains(transform.position - Camera.main.transform.position);
+//			bool canOperation = isNoneState && inListRect;
 
 			if (putted)
 			{
@@ -168,7 +168,7 @@ namespace Memoria.Dungeon.BlockUtility
 					StartCoroutine("CoroutineBreak");
 				}
 			}
-			else if (canOperation)
+			else // (canOperation)
 			{
 				StartOperation();
 			}
