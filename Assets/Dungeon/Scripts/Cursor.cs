@@ -14,7 +14,7 @@ namespace Memoria.Dungeon
 		void Start()
 		{
 			animator = GetComponent<Animator>();
-			animator.SetBool("isVisible", false);
+			animator.SetBool("visible", false);
 
 			dungeonManager = DungeonManager.instance;        
 			dungeonManager.changingDungeonState += HandleChangingDungeonState;
@@ -24,11 +24,11 @@ namespace Memoria.Dungeon
 		{
 			if (e.nextState == DungeonState.BlockOperating)
 			{
-				animator.SetBool("isVisible", true);
+				animator.SetBool("visible", true);
 			}
 			else
 			{
-				animator.SetBool("isVisible", false);
+				animator.SetBool("visible", false);
 			}
 		}
 	
