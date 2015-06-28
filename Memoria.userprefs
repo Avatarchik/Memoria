@@ -1,11 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dungeon/Scripts/Menu/LeaveButton.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dungeon/Scripts/Block/Block.cs">
     <Files>
-      <File FileName="Assets/Dungeon/Scripts/MapViewer.cs" Line="19" Column="45" />
-      <File FileName="Assets/Dungeon/Scripts/DungeonData.cs" Line="49" Column="1" />
-      <File FileName="Assets/Dungeon/Scripts/DungeonParameter.cs" Line="80" Column="24" />
+      <File FileName="Assets/Dungeon/Scripts/Managers/MapManager.cs" Line="32" Column="3" />
+      <File FileName="Assets/Dungeon/Scripts/MapViewer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Dungeon/Scripts/DungeonData.cs" Line="1" Column="1" />
+      <File FileName="Assets/Dungeon/Scripts/DungeonParameter.cs" Line="1" Column="1" />
       <File FileName="Assets/Dungeon/Scripts/Menu/LeaveButton.cs" Line="1" Column="19" />
+      <File FileName="Assets/Dungeon/Scripts/Block/Block.cs" Line="169" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
