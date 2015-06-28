@@ -12,7 +12,7 @@ namespace Memoria.Dungeon
 		void Start()
 		{
 			Animator animator = GetComponent<Animator>();
-			animator.SetBool("isVisible", false);
+			animator.SetBool("visible", false);
 
 			DungeonManager dungeonManager = DungeonManager.instance;
 
@@ -20,7 +20,7 @@ namespace Memoria.Dungeon
 			dungeonManager.ActiveStateAsObservable()
 			.DistinctUntilChanged()
 			.Select(nextState => nextState == DungeonState.BlockOperating)
-			.Subscribe(visible => animator.SetBool("isVisible", visible));
+			.Subscribe(visible => animator.SetBool("visible", visible));
 
 			// 画像切り替えの登録
 			this.UpdateAsObservable()
