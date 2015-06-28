@@ -11,8 +11,6 @@ namespace Memoria.Dungeon.Menu
 {
 	public class MapButton : MonoBehaviour
 	{
-//		private DungeonManager dungeonManager;
-
 		[SerializeField]
 		private GameObject returnButton;
 
@@ -21,13 +19,6 @@ namespace Memoria.Dungeon.Menu
 
 		[SerializeField]
 		private List<GameObject> setActiveObjects;
-
-//		private List<GameObject> activeObjects;
-
-//		void Awake()
-//		{
-//			returnButton.SetActive(false);
-//		}
 
 		// Use this for initialization
 		void Start()
@@ -63,38 +54,7 @@ namespace Memoria.Dungeon.Menu
 				menuButton.ExitMenu();
 			});
 
-//			returnButton.SetActive(false);
-
-//			dungeonManager.changedDungeonState += (sender, e) =>
-//			{
-//				if (e.nowState == DungeonState.MapViewer && e.nextState == DungeonState.OpenMenu)
-//				{
-//					Exit();
-//				}
-//			};
+			returnButton.SetActive(false);
 		}
-    
-		// Update is called once per frame
-		//    void Update()
-		//    {
-		//    }
-
-//		public void Enter(Unit _ = null)
-//		{
-//			if (dungeonManager.activeState == DungeonState.OpenMenu)
-//			{
-//				dungeonManager.EnterState(DungeonState.MapViewer);
-//				activeObjects = setActiveObjects.Where(g => g.activeSelf).ToList();
-//				activeObjects.ForEach(g => g.SetActive(false));
-//				returnButton.SetActive(true);
-//			}
-//		}
-
-//		public void Exit(Unit _ = null)
-//		{
-//			returnButton.SetActive(false);
-//			activeObjects.ForEach(g => g.SetActive(true));
-//			menuButton.OnMenuExit();
-//		}
 	}
 }

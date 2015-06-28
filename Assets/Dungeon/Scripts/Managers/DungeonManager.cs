@@ -21,19 +21,6 @@ namespace Memoria.Dungeon.Managers
 		MapViewer,
 	}
 
-	//	public class ChangeDungeonStateEventArgs : EventArgs
-	//	{
-	//		public DungeonState nowState { get; private set; }
-	//
-	//		public DungeonState nextState { get; private set; }
-	//
-	//		public ChangeDungeonStateEventArgs(DungeonState nowState, DungeonState nextState)
-	//		{
-	//			this.nowState = nowState;
-	//			this.nextState = nextState;
-	//		}
-	//	}
-
 	public class DungeonManager : MonoBehaviour
 	{
 		private static DungeonManager _instance = null;
@@ -100,17 +87,8 @@ namespace Memoria.Dungeon.Managers
 		}
 
 #endregion
+
 		public Vector2 blockSize = new Vector2(200, 200);
-
-		//		public event EventHandler<ChangeDungeonStateEventArgs> changingDungeonState = (s, e) =>
-		//    	{
-		//        Debug.Log("changing now : " + e.nowState + ", next : " + e.nextState);
-		//    	};
-		//		public event EventHandler<ChangeDungeonStateEventArgs> changedDungeonState = (s, e) =>
-		//    	{
-		//        Debug.Log("changed now : " + e.nowState + ", next : " + e.nextState);
-		//    	};
-
 		public Block operatingBlock { get; set; }
 
 		[SerializeField]
@@ -148,42 +126,22 @@ namespace Memoria.Dungeon.Managers
 			_instance = this;
 
 			EnterState(DungeonState.None);
-			//DontDestroyOnLoad(gameObject);
 			dungeonData.Load();
 		}
 
-		// Use this for initialization
-//		void Start()
-//		{
-//		}
-	
-		// Update is called once per frame
-//		void Update()
-//		{
-//		}
-
 		public void EnterState(DungeonState nextState)
 		{
-//			var args = new ChangeDungeonStateEventArgs(activeState, nextState);
-//			changingDungeonState(this, args);
 			states.Push(nextState);
-//			changedDungeonState(this, args);
 			activeStateProperty.Value = nextState;
 		}
 
 		public void ExitState()
 		{
-			
 			if (activeState == DungeonState.None)
 			{
 				throw new UnityException("State Stack Error!!");
 			}
 
-//			DungeonState nextState = states.ElementAt(1);
-//			var args = new ChangeDungeonStateEventArgs(activeState, nextState);
-//			changingDungeonState(this, args);
-//			states.Pop();
-//			changedDungeonState(this, args);
 			states.Pop();
 			DungeonState nextState = states.Peek();
 			activeStateProperty.Value = nextState;
