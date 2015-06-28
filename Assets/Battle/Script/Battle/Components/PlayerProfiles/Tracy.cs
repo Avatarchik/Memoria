@@ -1,27 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Memoria.Battle.Managers;
 
-public class Tracy : Profile {
 
-    // Use this for initialization
-    void Awake () {
-        nameplate = "GOJBNA4004";
-        
-        parameter.attack = 317;
-        parameter.defense = 239;
-        parameter.mattack = 224;
-        parameter.defense = 260;
-        parameter.speed = 342;
-        parameter.hp = 484;
-        parameter.elementAff = BattleMgr.ElementType.WATER;
+namespace Memoria.Battle.GameActors
+{
+    public class Tracy : Profile {
 
-        attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
-        attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-        //attackType = gameObject.AddComponent<PlayerStrike>();
+        // Use this for initialization
+        void Awake () {
+            nameplate = "GOJBNA4004";
 
+            parameter.attack = 317;
+            parameter.defense = 239;
+            parameter.mattack = 224;
+            parameter.defense = 260;
+            parameter.speed = 342;
+            parameter.hp = 484;
+            parameter.elementAff = ElementType.FIRE;
+
+            attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
+            attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
+            //attackType = gameObject.AddComponent<PlayerStrike>();
+
+        }
+
+        // Update is called once per frame
+        void Update () {
+        }
     }
-
-    // Update is called once per frame
-    void Update () {
-   }
 }

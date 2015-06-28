@@ -1,69 +1,75 @@
 using UnityEngine;
+using Memoria.Battle.Utility;
+using Memoria.Battle.Managers;
+using Memoria.Battle.States;
 
-public class Enemy : Entity, IDamageable
+namespace Memoria.Battle.GameActors
 {
-    private bool isAlive = true;
-
-    void Start()
+    public class Enemy : Entity, IDamageable
     {
-        target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
-        parameter.speed = 100;
-        entityType = "enemy";
-        health = GetComponent<HealthSystem> ();
-        death = GetComponent<DeathSystem> ();
-        profile = GetComponent<EnemyAI>();
-        attackType = profile.attackType;
+        private bool isAlive = true;
 
-        death.isAlive = true;
-        health.maxHp = 150;
-        health.hp = health.maxHp;
-    }
+        void Start()
+        {
+            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
+            parameter.speed = 100;
+            entityType = "enemy";
+            health = GetComponent<HealthSystem> ();
+            death = GetComponent<DeathSystem> ();
+            profile = GetComponent<EnemyAI>();
+            attackType = profile.attackType;
 
-    void Update()
-    {
-        if (isAlive && health.hp <= 0) {
-            isAlive = false;
-            BattleMgr.Instance.RemoveFromBattle(this);
-            StartCoroutine(death.DeadEffect());
+            death.isAlive = true;
+            health.maxHp = 150;
+            health.hp = health.maxHp;
         }
-    }
 
-    override public void Init()
-    {
-        components.Add("HealthSystem");
-        components.Add("DeathSystem");
-        base.Init();
-    }
-
-    override public bool Attack (AttackType attackType)
-    {        
-        if(!isAlive) { return false; }
-        phaseTimer = attackType.phaseCost;
-        if (!attackReady && isAlive) {
-            FadeAttackScreen.Flash(); //TODO: temporary
-            BattleMgr.Instance.SetState(BattleState.State.RUNNING);
+        void Update()
+        {
+            if (isAlive && health.hp <= 0) {
+                isAlive = false;
+                BattleMgr.Instance.RemoveFromBattle(this);
+                StartCoroutine(death.DeadEffect());
+            }
         }
-        return base.Attack (attackType);
-    }
 
-    override public void EndTurn()
-    {
-        this.attackType.attacked = false;
-        base.EndTurn();
-    }
+        override public void Init()
+        {
+            components.Add(typeof(HealthSystem));
+            components.Add(typeof(DeathSystem));
+            base.Init();
+        }
 
-    public void TakeDamage(int i)
-    {
-        this.health.hp -= i;
-    }
+        override public bool Attack (AttackType attackType)
+        {
+            if(!isAlive) { return false; }
+            phaseTimer = attackType.phaseCost;
+            if (!attackReady && isAlive) {
+                FadeAttackScreen.Flash(); //TODO: temporary
+                BattleMgr.Instance.SetState(State.RUNNING);
+            }
+            return base.Attack (attackType);
+        }
 
-    public void TakeDamage(Damage d)
-    {
-        
-    }
+        override public void EndTurn()
+        {
+            this.attackType.attacked = false;
+            base.EndTurn();
+        }
 
-    public bool IsAlive()
-    {
-        return isAlive;
+        public void TakeDamage(int i)
+        {
+            this.health.hp -= i;
+        }
+
+        public void TakeDamage(Damage d)
+        {
+
+        }
+
+        public bool IsAlive()
+        {
+            return isAlive;
+        }
     }
 }
