@@ -16,11 +16,13 @@ namespace Memoria.Battle.States
             {
                 SetSelectable(nowActor.attackType.targetType, true);
             }
+            uiMgr.ShowDescBar("description_frame");
             foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
             {
                 uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, true);
             }
         }
+        
         override public void Update()
         {
             if(hero.passtToStock)
