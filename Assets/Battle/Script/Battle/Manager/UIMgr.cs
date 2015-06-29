@@ -56,6 +56,7 @@ namespace Memoria.Battle.Managers
             var frame = (GameObject)Resources.Load(resource);
             _descFrame = Instantiate(frame);
             _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
+            _descFrame.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
         }
 
         public void RemoveDescBar()
