@@ -1,9 +1,9 @@
-﻿//#define TEST
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Memoria.Dungeon.Managers;
 using UniRx;
 using UniRx.Triggers;
@@ -255,19 +255,13 @@ namespace Memoria.Dungeon.BlockUtility
 
 			//Todo:Anyがつかえないか検証する
 			// 隣接ブロックのチェック
-			for (int i = 0; i < Vector2Int.directions.Length; i++)
-			{
-				if (CheckConnectedRoad(i, Vector2Int.directions[i]))
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return Vector2Int.directions
+				.Select((checkDirection, direction) => new { checkDirection, direction })
+				.Any(data => ConnectsRoad(data.direction, data.checkDirection));
 		}
 
 		// 指定した向きの道とつながるかどうか
-		private bool CheckConnectedRoad(int direction, Vector2Int checkDirection)
+		private bool ConnectsRoad(int direction, Vector2Int checkDirection)
 		{
 			Vector2Int checkLocation = location + checkDirection;
 

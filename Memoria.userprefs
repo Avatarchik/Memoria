@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dungeon/Scripts/Managers/BlockManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dungeon/Scripts/Block/Block.cs">
     <Files>
-      <File FileName="Assets/Dungeon/Scripts/Block/BlockFactor.cs" Line="20" Column="42" />
-      <File FileName="Assets/Dungeon/Scripts/Block/BlockData.cs" Line="20" Column="30" />
-      <File FileName="Assets/Dungeon/Scripts/Managers/BlockManager.cs" Line="49" Column="66" />
+      <File FileName="Assets/Dungeon/Scripts/Vector2Int.cs" Line="89" Column="12" />
+      <File FileName="Assets/Dungeon/Scripts/Player.cs" Line="27" Column="15" />
+      <File FileName="Assets/Dungeon/Scripts/Block/Block.cs" Line="336" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
