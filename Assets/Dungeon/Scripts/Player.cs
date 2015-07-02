@@ -54,8 +54,6 @@ namespace Memoria.Dungeon
 		[SerializeField]
 		private float _speed;
 
-#region messages
-
 		/// <summary>
 		/// プレイヤーのマップ上座標
 		/// </summary>
@@ -70,11 +68,6 @@ namespace Memoria.Dungeon
 		// Use this for initialization
 		void Start()
 		{
-//			this.UpdateAsObservable()
-//				.Where(_ => Input.GetMouseButtonDown(0))
-//				.Where(_ => dungeonManager.activeState == DungeonState.None)
-//				.Subscribe(_ => StartCoroutine(CoroutineTouch()));
-
 			dungeonManager.eventManager.OnTapBlockAsObservable()
 			.Where(_ => dungeonManager.activeState == DungeonState.None)
 			.Select(block => block.location)
@@ -104,12 +97,25 @@ namespace Memoria.Dungeon
 			.ForEach(Move);
 		}
 
-		private Vector2Int ToNormalizeEachElement(Vector2Int vector)
-		{
-			Func<int, int> normalize = (int element) => ((element > 0) ? 1 : (element < 0) ? -1 : 0);
-			return new Vector2Int(
-				normalize(vector.x),
-				normalize(vector.y));
+		private bool CanMove(Vector2Int moveDirection)
+		{			
+			if (moveDirection.sqrMagnitude == 0)
+			{
+				return false;
+			}
+
+			Vector2Int nextLocation = location + moveDirection;
+
+			if (!mapManager.map.ContainsKey(nextLocation))
+			{
+				return false;
+			}
+
+			Block now = mapManager.map[location];
+			Block next = mapManager.map[nextLocation];
+			int dir = ToDirection(moveDirection);
+
+			return now.shape.directions[dir] && next.shape.directions[dir ^ 1];
 		}
 
 		private void Move(Vector2Int normalizedMoveDirection)
@@ -132,59 +138,20 @@ namespace Memoria.Dungeon
 			location += normalizedMoveDirection;
 		}
 
-#endregion
-
-//		private IEnumerator CoroutineTouch()
-//		{
-//			float time = 0;
-//			while (Input.GetMouseButton(0))
-//			{
-//				time += Time.deltaTime;
-//				yield return null;
-//			}
-//        
-//			float limit = 0.5f;
-//			if (time < limit)
-//			{
-//				Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-//				Vector2Int touchLocation = mapManager.ToLocation(touchPosition);
-//
-//				if (mapManager.canPutBlockArea.Contains(touchPosition) && mapManager.map.ContainsKey(touchLocation))
-//				{
-//					OnTouchMap(touchLocation);
-//				}
-//			}
-//        
-//			yield break;
-//		}
-
 		private void CompleteMove()
 		{
 			isMoving = false;
 			dungeonManager.ExitState();
 		}
 
-		private bool CanMove(Vector2Int moveDirection)
-		{			
-			if (moveDirection.sqrMagnitude == 0)
-			{
-				return false;
-			}
-			
-			Vector2Int nextLocation = location + moveDirection;
-
-			if (!mapManager.map.ContainsKey(nextLocation))
-			{
-				return false;
-			}
-
-			Block now = mapManager.map[location];
-			Block next = mapManager.map[nextLocation];
-			int dir = ToDirection(moveDirection);
-
-			return now.shape.directions[dir] && next.shape.directions[dir ^ 1];
+		private Vector2Int ToNormalizeEachElement(Vector2Int vector)
+		{
+			Func<int, int> normalize = (int element) => ((element > 0) ? 1 : (element < 0) ? -1 : 0);
+			return new Vector2Int(
+				normalize(vector.x),
+				normalize(vector.y));
 		}
-
+			
 		private int ToDirection(Vector2Int normalizedMoveDirection)
 		{
 			int[,] toDirectionTable = new int[,]

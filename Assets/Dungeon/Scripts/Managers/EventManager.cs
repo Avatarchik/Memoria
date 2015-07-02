@@ -33,7 +33,6 @@ namespace Memoria.Dungeon.Managers
 			mapManager = dungeonManager.mapManager;
 			paramaterManager = dungeonManager.parameterManager;
 			player = dungeonManager.player;
-//			dungeonManager.changedDungeonState += HandleChangedDungeonState;
 			dungeonManager.ActiveStateAsObservable()
 			.Buffer(2, 1)
 			.Select(states => new 
@@ -85,25 +84,7 @@ namespace Memoria.Dungeon.Managers
 			};
 		}
 
-		//        private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
-		//        {
-		//            if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
-		//            {
-		//                if (!mapManager.map.ContainsKey(player.location))
-		//                {
-		//                    return;
-		//                }
-		//
-		//                Block block = mapManager.map [player.location];
-		//                if (block.type == BlockType.None)
-		//                {
-		//                    return;
-		//                }
-		//
-		//                StartCoroutine(CoroutineBlockEvent(block));
-		//            }
-		//        }
-
+		// ブロックがタップされたときに呼び出される
 		public void OnTapBlock(Block tappedBlock)
 		{
 			onTapBlock.OnNext(tappedBlock);
@@ -119,7 +100,6 @@ namespace Memoria.Dungeon.Managers
 		{
 			DungeonParameter parameter = paramaterManager.parameter;
 			parameter.sp -= 1;
-//            parameter.tp += 1;
 
 			if (!block.hasEvent)
 			{
