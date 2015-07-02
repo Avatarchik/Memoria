@@ -78,7 +78,7 @@ namespace Memoria.Dungeon.BlockUtility
 			int randomShapeType;
 			do
 			{
-				randomShapeType = blockManager.GetRandomBlockShapeType();
+				randomShapeType = blockManager.GetRandomShapeType();
 			}
 			while(!selector(randomShapeType));
 

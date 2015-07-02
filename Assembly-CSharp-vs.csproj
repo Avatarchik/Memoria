@@ -90,8 +90,8 @@
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockShape.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\ShapeData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BlockEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\RecoveryEvent.cs" />

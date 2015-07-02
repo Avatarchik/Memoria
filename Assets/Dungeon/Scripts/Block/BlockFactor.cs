@@ -17,7 +17,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public void OnPutBlock()
 		{
-			int shapeType = blockManager.GetRandomBlockShapeType();
+			int shapeType = blockManager.GetRandomShapeType();
 			BlockType blockType;
 
 			do

@@ -45,11 +45,11 @@ namespace Memoria.Dungeon.Managers
 
 		public Block CreateBlock(BlockFactor blockFactor, BlockData blockData, bool isDefault = false)
 		{
-			int shapeType = blockData.shape.type;
-			return CreateBlock(blockFactor, shapeType, blockData.type, isDefault, blockData.location);
+			int shapeType = blockData.shapeData.type;
+			return CreateBlock(blockFactor, shapeType, blockData.blockType, isDefault, blockData.location);
 		}
 
-		public int GetRandomBlockShapeType()
+		public int GetRandomShapeType()
 		{
 			int min = 0;
 			int max = NumberOfBlockShapeType;
