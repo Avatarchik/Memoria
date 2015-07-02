@@ -34,6 +34,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 			CreateBlockList();
 
+			// ランダマイズの登録
 			randomizeButton.OnClickAsObservable()
 			.Where(_ => dungeonManager.activeState == DungeonState.None)
 			.Subscribe(RandomizeBlockList);
