@@ -49,36 +49,6 @@ namespace Memoria.Dungeon.Managers
 			return CreateBlockAsDefault(blockData.location, blockData.shapeData, blockData.blockType);
 		}
 
-//		public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Vector2Int location = default(Vector2Int))
-//		{
-//			GameObject blockObject = Instantiate<GameObject>(blockPrefab);
-//			Block block = blockObject.GetComponent<Block>();
-//			block.Initialize();
-//			block.blockFactor = blockFactor;
-//
-//			ShapeData shape = new ShapeData();
-//			shape.type = shapeType;
-//
-//			if (isDefault)
-//			{
-//				block.SetAsDefault(location, shape, type);
-//			}
-//			else
-//			{
-//				block.shapeType = shapeType;
-//				block.blockType = type;
-//				block.location = location;
-//			}
-//
-//			return block;
-//		}
-
-//		public Block CreateBlock(BlockFactor blockFactor, BlockData blockData, bool isDefault = false)
-//		{
-//			int shapeType = blockData.shapeData.type;
-//			return CreateBlock(blockFactor, shapeType, blockData.blockType, isDefault, blockData.location);
-//		}
-
 		private T GetRandomType<T>(System.Func<T> getRandomType, System.Predicate<T> selector = null)
 		{
 			if (selector == null)

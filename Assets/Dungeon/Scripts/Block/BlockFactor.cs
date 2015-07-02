@@ -29,21 +29,10 @@ namespace Memoria.Dungeon.BlockUtility
 			CreateBlock(shapeData, blockType);
 		}
 
-//		public void CreateBlock(int shapeType, BlockType type)
-//		{
-//			block = blockManager.CreateBlock(this, shapeType, type);
-//		}
-
 		public void CreateBlock(ShapeData shapeData, BlockType blockType)
 		{
 			block = blockManager.CreateBlock(this, shapeData, blockType);
 		}
-
-//		public void SetBlock(int shapeType, BlockType type)
-//		{
-//			block.shapeType = shapeType;
-//			block.blockType = type;
-//		}
 
 		public void SetBlock(ShapeData shapeData, BlockType blockType)
 		{

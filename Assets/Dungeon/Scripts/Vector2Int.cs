@@ -18,12 +18,6 @@ namespace Memoria.Dungeon
 
 		public int y { get; set; }
 
-		public float magnitude { get { return Mathf.Sqrt(SqrMagnitude()); } }
-
-		public float sqrMagnitude { get { return SqrMagnitude(); } }
-
-//		public Vector2Int normalized { get { return new Vector2Int(Sign(x), Sign(y)); } }
-
 		public Vector2Int(int x, int y)
 		{
 			this.x = x;
@@ -69,19 +63,7 @@ namespace Memoria.Dungeon
 			Set(this + ConvertDirectionToLocation(direction));
 		}
 
-
-//		public void Normalize()
-//		{
-//			x = Sign(x);
-//			y = Sign(y);
-//		}
-//
-//		private int Sign(int value)
-//		{
-//			return (value > 0) ? 1 : (value < 0) ? -1 : 0;
-//		}
-
-		public float SqrMagnitude()
+		public int SqrMagnitude()
 		{
 			return x * x + y * y;
 		}

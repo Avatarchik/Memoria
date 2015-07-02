@@ -64,23 +64,7 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-//		public int shapeType
-//		{
-//			get
-//			{
-//				return shapeData.type;
-//			}
-//			set
-//			{
-//				ShapeData _shape = shapeData;
-//				_shape.type = value;
-//				shapeData = _shape;
-//				SetSprite(shapeData, blockType);
-//			}
-//		}
-			
 		private ShapeData _shapeData;
-//		public ShapeData shapeData { get; private set; }
 
 		public ShapeData shapeData
 		{

@@ -79,7 +79,7 @@ namespace Memoria.Dungeon
 		void OnTouchMap(Vector2Int touchLocation)
 		{
 			Vector2Int distance = touchLocation - location;
-			if (distance.magnitude < 1)
+			if (distance.SqrMagnitude() < 1)
 			{
 				return;
 			}
@@ -90,16 +90,20 @@ namespace Memoria.Dungeon
 //        float ay = Mathf.Abs(distance.y);
 //        int[] checkDirections = (ax >= ay) ? (new [] { 0, 1 }) : (new [] { 1, 0 });
 
-			(new List<Vector2Int>() { Vector2Int.up, Vector2Int.right })
-			.Select(direction => ToNormalizeEachElement(distance * direction))
-			.Where(CanMove)
-			.ToList()
-			.ForEach(Move);
+			var canMoveDirections =
+				(new List<Vector2Int>() { Vector2Int.up, Vector2Int.right })
+				.Select(direction => ToNormalizeEachElement(distance * direction))
+				.Where(CanMove);
+
+			if (canMoveDirections.Count() > 0)
+			{
+				Move(canMoveDirections.First());
+			}
 		}
 
 		private bool CanMove(Vector2Int moveDirection)
 		{			
-			if (moveDirection.sqrMagnitude == 0)
+			if (moveDirection.SqrMagnitude() == 0)
 			{
 				return false;
 			}
@@ -154,7 +158,7 @@ namespace Memoria.Dungeon
 				normalize(vector.x),
 				normalize(vector.y));
 		}
-			
+
 		private int ToDirection(Vector2Int normalizedMoveDirection)
 		{
 			int[,] toDirectionTable = new int[,]

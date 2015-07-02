@@ -42,28 +42,14 @@ namespace Memoria.Dungeon.Managers
 
 		void Awake()
 		{
-//			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
-
-			//SetMap("");
 		}
-
-		// Use this for initialization
-		//	void Start()
-		//	{
-		//	}
-	
-		// Update is called once per frame
-		//	void Update()
-		//	{
-		//	}
 
 		public void SetMap(List<BlockData> blockDatas)
 		{
 			foreach (var blockData in blockDatas)
 			{
 				blockManager.CreateBlockAsDefault(blockData);
-//				blockManager.CreateBlock(null, data, true);
 			}
 		}
 
