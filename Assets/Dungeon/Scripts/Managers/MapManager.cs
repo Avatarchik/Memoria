@@ -10,7 +10,7 @@ namespace Memoria.Dungeon.Managers
 		/// <summary>
 		/// マップ
 		/// </summary>
-		public Dictionary<Location, Block> map = new Dictionary<Location, Block>();
+		public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
 		private DungeonManager _dungeonManager;
 		private DungeonManager dungeonManager
@@ -73,7 +73,7 @@ namespace Memoria.Dungeon.Managers
 		/// <param name="position">指定の位置</param>
 		public Vector3 ConvertPosition(Vector3 position)
 		{
-			Location location = ToLocation(position);
+			Vector2Int location = ToLocation(position);
 			Vector3 converted = ToPosition(location);
 			return converted;
 		}
@@ -83,10 +83,10 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>マップ座標</returns>
 		/// <param name="position">指定の位置</param>
-		public Location ToLocation(Vector3 position)
+		public Vector2Int ToLocation(Vector3 position)
 		{
 			Vector2 blockSize = dungeonManager.blockSize;
-			Location location = new Location();
+			Vector2Int location = new Vector2Int();
 
 			location.x = (int)Mathf.Round(position.x / blockSize.x * 100);
 			location.y = (int)Mathf.Round(position.y / blockSize.y * 100);
@@ -99,7 +99,7 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>位置</returns>
 		/// <param name="location">指定のマップ座標</param>
-		public Vector3 ToPosition(Location location)
+		public Vector3 ToPosition(Vector2Int location)
 		{
 			Vector2 blockSize = dungeonManager.blockSize;
 			Vector3 position = new Vector3();

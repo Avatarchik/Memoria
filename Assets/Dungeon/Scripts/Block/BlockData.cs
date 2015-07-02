@@ -5,7 +5,7 @@ namespace Memoria.Dungeon.BlockUtility
 {
 	public struct BlockData
 	{
-		public Location location { get; set; }
+		public Vector2Int location { get; set; }
 
 		public BlockShape shape { get; set; }
 
@@ -13,7 +13,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public bool hasEvent { get; set; }
 
-		public BlockData(Location location, BlockShape shape, BlockType type, bool hasEvent)
+		public BlockData(Vector2Int location, BlockShape shape, BlockType type, bool hasEvent)
 		{
 			this.location = location;
 			this.shape = shape;

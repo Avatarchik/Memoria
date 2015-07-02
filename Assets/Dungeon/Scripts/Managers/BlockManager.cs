@@ -19,7 +19,7 @@ namespace Memoria.Dungeon.Managers
 
 		public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
 
-		public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Location location = default(Location))
+		public Block CreateBlock(BlockFactor blockFactor, int shapeType = 0, BlockType type = BlockType.None, bool isDefault = false, Vector2Int location = default(Vector2Int))
 		{
 			GameObject blockObject = Instantiate<GameObject>(blockPrefab);
 			Block block = blockObject.GetComponent<Block>();

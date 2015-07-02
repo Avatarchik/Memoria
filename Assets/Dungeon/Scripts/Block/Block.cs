@@ -44,11 +44,11 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-		public Location location
+		public Vector2Int location
 		{
 			get
 			{
-				return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Location(0, 0);
+				return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Vector2Int(0, 0);
 			}
 
 			set
@@ -160,7 +160,7 @@ namespace Memoria.Dungeon.BlockUtility
 				.Subscribe(Break);
 		}
 
-		public void SetAsDefault(Location location, BlockShape shape, BlockType type)
+		public void SetAsDefault(Vector2Int location, BlockShape shape, BlockType type)
 		{
 			if (mapManager.map.ContainsKey(location))
 			{
@@ -247,9 +247,9 @@ namespace Memoria.Dungeon.BlockUtility
 
 			//Todo:Anyがつかえないか検証する
 			// 隣接ブロックのチェック
-			for (int i = 0; i < Location.directions.Length; i++)
+			for (int i = 0; i < Vector2Int.directions.Length; i++)
 			{
-				if (CheckConnectedRoad(i, Location.directions[i]))
+				if (CheckConnectedRoad(i, Vector2Int.directions[i]))
 				{
 					return true;
 				}
@@ -259,9 +259,9 @@ namespace Memoria.Dungeon.BlockUtility
 		}
 
 		// 指定した向きの道とつながるかどうか
-		private bool CheckConnectedRoad(int direction, Location checkDirection)
+		private bool CheckConnectedRoad(int direction, Vector2Int checkDirection)
 		{
-			Location checkLocation = location + checkDirection;
+			Vector2Int checkLocation = location + checkDirection;
 
 			bool opened1 = shape.directions[direction];
 			bool exsits = mapManager.map.ContainsKey(checkLocation);
