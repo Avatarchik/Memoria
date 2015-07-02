@@ -4,7 +4,7 @@ using UniRx;
 
 namespace UniRx.Triggers
 {
-	public class ObservableOnMouseShotUpAsButtonInColliderTrigger : ObservableTriggerBase
+	public class ObservableOnMouseShortUpAsButtonInColliderTrigger : ObservableTriggerBase
 	{
 		public float limitSecond = 1;
 
@@ -40,7 +40,7 @@ namespace UniRx.Triggers
 			raiseTime = null;
 		}
 
-		public IObservable<Unit> OnMouseDownOnScreenAsObservable()
+		public IObservable<Unit> OnMouseShortUpAsButtonInColliderAsObservable()
 		{
 			return onMouseUpAsButtonInCollider ?? (onMouseUpAsButtonInCollider = new Subject<Unit>());
 		}

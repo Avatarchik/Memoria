@@ -104,6 +104,18 @@ namespace Memoria.Dungeon.Managers
 		//            }
 		//        }
 
+		public void OnTapBlock(Block tappedBlock)
+		{
+			Debug.Log("tappedBlock : " + tappedBlock);
+			onTapBlock.OnNext(tappedBlock);
+		}
+
+		private Subject<Block> onTapBlock = new Subject<Block>();
+		public IObservable<Block> OnTapBlockAsObservable()
+		{
+			return onTapBlock.AsObservable();
+		}
+
 		private IEnumerator CoroutineBlockEvent(Block block)
 		{
 			DungeonParameter parameter = paramaterManager.parameter;

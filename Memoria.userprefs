@@ -1,10 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dungeon/Scripts/UniRx.Triggers/ObservableOnMouseUpAsButtonInColliderTrigger.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dungeon/Scripts/Block/Block.cs">
     <Files>
-      <File FileName="Assets/Dungeon/Scripts/Player.cs" Line="72" Column="4" />
+      <File FileName="Assets/Dungeon/Scripts/Player.cs" Line="90" Column="1" />
       <File FileName="Assets/Dungeon/Scripts/Vector2Int.cs" Line="20" Column="1" />
-      <File FileName="Assets/Dungeon/Scripts/UniRx.Triggers/ObservableOnMouseUpAsButtonInColliderTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets/Dungeon/Scripts/UniRx.Triggers/ObservableOnMouseLongDownTrigger.cs" Line="22" Column="33" />
+      <File FileName="Assets/Dungeon/Scripts/UniRx.Triggers/ObservableOnMouseDownOnScreenTrigger.cs" Line="21" Column="4" />
+      <File FileName="Assets/Dungeon/Scripts/Block/Block.cs" Line="163" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

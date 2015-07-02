@@ -139,25 +139,31 @@ namespace Memoria.Dungeon.BlockUtility
 
 			// 操作イベントの登録
 			this.OnMouseDownAsObservable()
-				.Where(CanOperation)
-				.Do(StartOperation)
-				.Subscribe(_ =>
-				{
-					var onMouseDrag = this.OnMouseDragAsObservable()
+			.Where(CanOperation)
+			.Do(StartOperation)
+			.Subscribe(_ =>
+			{
+				var onMouseDrag = this.OnMouseDragAsObservable()
 						.Subscribe(Operate);
-					this.OnMouseUpAsObservable()
+				this.OnMouseUpAsObservable()
 						.First()
 						.Do(__ => onMouseDrag.Dispose())
 						.Do(CheckAndPut)
 						.Subscribe(StopOperation);
-				});
+			});
 
 			// 破壊イベントの登録
 			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
 			onMouseLongDownComponent.intervalSecond = 0.5f;
 			onMouseLongDownComponent.OnMouseLongDownAsObservable()
-				.Where(CanBreak)
-				.Subscribe(Break);
+			.Where(CanBreak)
+			.Subscribe(Break);
+
+			// タップイベントの追加
+			var onMouseShortUpAsButtonInCollider = gameObject.AddComponent<ObservableOnMouseShortUpAsButtonInColliderTrigger>();
+			onMouseShortUpAsButtonInCollider.limitSecond = 0.5f;
+			onMouseShortUpAsButtonInCollider.OnMouseShortUpAsButtonInColliderAsObservable()
+			.Subscribe(_ => dungeonManager.eventManager.OnTapBlock(this));
 		}
 
 		public void SetAsDefault(Vector2Int location, BlockShape shape, BlockType type)
@@ -181,7 +187,7 @@ namespace Memoria.Dungeon.BlockUtility
 			hasEvent = type != BlockType.None;
 		}
 
-		#region Operating
+#region Operating
 
 		private bool CanOperation(Unit _ = null)
 		{
@@ -293,9 +299,9 @@ namespace Memoria.Dungeon.BlockUtility
 			isSpriteRenderer = false;
 		}
 
-		#endregion
+#endregion
 
-		#region Break
+#region Break
 
 		private bool CanBreak(Unit _ = null)
 		{
@@ -321,7 +327,7 @@ namespace Memoria.Dungeon.BlockUtility
 			Destroy(gameObject);
 		}
 
-		#endregion
+#endregion
 
 		// ブロックイベントが発生したとき
 		public void OnEnterBlockEvent()
