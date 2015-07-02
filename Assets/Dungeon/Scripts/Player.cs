@@ -116,7 +116,7 @@ namespace Memoria.Dungeon
 			int dir = ToDirection(moveDirection);
 
 			bool open1 = now.shapeData.directions[dir];
-			bool open2 = next.shapeData.directions[dir];
+			bool open2 = next.shapeData.directions[dir ^ 1];
 
 			return open1 && open2;
 		}
