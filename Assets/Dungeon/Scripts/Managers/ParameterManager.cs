@@ -18,10 +18,10 @@ namespace Memoria.Dungeon.Managers
 					_parameter = new DungeonParameter();
 
 					_parameter.HpAsObservable()
-					.Subscribe(_ => UpdateHpText());
+					.Subscribe(UpdateHpText);
 
 					_parameter.SpAsObservable()
-					.Subscribe(_ => UpdateSpText());
+					.Subscribe(UpdateSpText);
 				}
 
 				return _parameter;
@@ -41,14 +41,14 @@ namespace Memoria.Dungeon.Managers
 			this.parameter.Set(parameter);
 		}
 
-		private void UpdateHpText()
+		private void UpdateHpText(int _ = default(int))
 		{
 			int hp = parameter.hp;
 			int maxHp = parameter.maxHp;
 			hpText.text = string.Format("{0:000}/{1:000}", hp, maxHp);
 		}
 
-		private void UpdateSpText()
+		private void UpdateSpText(int _ = default(int))
 		{
 			int sp = parameter.sp;
 			int maxSp = parameter.maxSp;

@@ -26,7 +26,7 @@ namespace Memoria.Dungeon.Managers
 			block.Initialize();
 			block.blockFactor = blockFactor;
 
-			BlockShape shape = new BlockShape();
+			ShapeData shape = new ShapeData();
 			shape.type = shapeType;
 
 			if (isDefault)
@@ -63,7 +63,7 @@ namespace Memoria.Dungeon.Managers
 			return (BlockType)Random.Range(min, max);
 		}
 
-		public Sprite GetBlockSprite(BlockShape shape, BlockType type)
+		public Sprite GetBlockSprite(ShapeData shape, BlockType type)
 		{
 			return blockSprites[(int)type][shape.type];
 		}

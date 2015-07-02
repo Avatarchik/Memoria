@@ -72,14 +72,15 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 			set
 			{
-				BlockShape _shape = shape;
+				ShapeData _shape = shape;
 				_shape.type = value;
 				shape = _shape;
 				SetSprite(shape, type);
 			}
 		}
 
-		public BlockShape shape { get; private set; }
+		public ShapeData shape { get; private set; }
+		// public ShapeData blockShape { get; private set; }
 
 		private BlockType _type = BlockType.None;
 
@@ -169,7 +170,7 @@ namespace Memoria.Dungeon.BlockUtility
 			.Subscribe(_ => dungeonManager.eventManager.OnTapBlock(this));
 		}
 
-		public void SetAsDefault(Vector2Int location, BlockShape shape, BlockType type)
+		public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
 		{
 			if (mapManager.map.ContainsKey(location))
 			{
@@ -349,7 +350,7 @@ namespace Memoria.Dungeon.BlockUtility
 			hasEvent = false;
 		}
 
-		private void SetSprite(BlockShape blockShape, BlockType blockType)
+		private void SetSprite(ShapeData blockShape, BlockType blockType)
 		{
 			Sprite sprite = blockManager.GetBlockSprite(blockShape, blockType);
 			image.sprite = sprite;
