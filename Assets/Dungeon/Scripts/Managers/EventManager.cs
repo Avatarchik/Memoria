@@ -33,6 +33,8 @@ namespace Memoria.Dungeon.Managers
 			mapManager = dungeonManager.mapManager;
 			paramaterManager = dungeonManager.parameterManager;
 			player = dungeonManager.player;
+
+			// ブロックイベント発生の登録
 			dungeonManager.ActiveStateAsObservable()
 			.Buffer(2, 1)
 			.Select(states => new 
@@ -56,6 +58,7 @@ namespace Memoria.Dungeon.Managers
 							
 				StartCoroutine(CoroutineBlockEvent(block));
 			});
+
 			messageBoxText = messageBox.GetComponentInChildren<Text>();
 			messageBox.SetActive(false);
 

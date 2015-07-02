@@ -15,7 +15,7 @@ namespace Memoria.Dungeon.BlockUtility
 			blockManager = DungeonManager.instance.blockManager;
 		}
 
-		public virtual void OnPutBlock()
+		public void OnPutBlock()
 		{
 			int shapeType = blockManager.GetRandomBlockShapeType();
 			BlockType blockType;

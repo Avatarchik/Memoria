@@ -143,13 +143,15 @@ namespace Memoria.Dungeon.BlockUtility
 			.Do(StartOperation)
 			.Subscribe(_ =>
 			{
-				var onMouseDrag = this.OnMouseDragAsObservable()
-						.Subscribe(Operate);
+				var onMouseDrag =
+					this.OnMouseDragAsObservable()
+					.Subscribe(Operate);
+				
 				this.OnMouseUpAsObservable()
-						.First()
-						.Do(__ => onMouseDrag.Dispose())
-						.Do(CheckAndPut)
-						.Subscribe(StopOperation);
+				.First()
+				.Do(__ => onMouseDrag.Dispose())
+				.Do(CheckAndPut)
+				.Subscribe(StopOperation);
 			});
 
 			// 破壊イベントの登録
