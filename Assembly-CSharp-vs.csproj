@@ -112,6 +112,7 @@
      <Compile Include="Assets\Dungeon\Scripts\ToggleButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseDownOnScreenTrigger.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseLongDownTrigger.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseUpAsButtonInColliderTrigger.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseUpOnScreenTrigger.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Vector2Int.cs" />
      <Compile Include="Assets\InspectorButtonAttribute.cs" />

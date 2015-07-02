@@ -154,7 +154,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 			// 破壊イベントの登録
 			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
-			onMouseLongDownComponent.IntervalSecond = 0.5f;
+			onMouseLongDownComponent.intervalSecond = 0.5f;
 			onMouseLongDownComponent.OnMouseLongDownAsObservable()
 				.Where(CanBreak)
 				.Subscribe(Break);
