@@ -17,7 +17,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public void OnPutBlock()
 		{
-			int shapeType = blockManager.GetRandomShapeType();
+			ShapeData shapeData = blockManager.GetRandomShapeData();
 			BlockType blockType;
 
 			do
@@ -26,18 +26,29 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 			while (blockType == BlockType.None);
 
-			CreateBlock(shapeType, blockType);
+			CreateBlock(shapeData, blockType);
 		}
 
-		public void CreateBlock(int shapeType = 0, BlockType type = BlockType.None)
+//		public void CreateBlock(int shapeType, BlockType type)
+//		{
+//			block = blockManager.CreateBlock(this, shapeType, type);
+//		}
+
+		public void CreateBlock(ShapeData shapeData, BlockType blockType)
 		{
-			block = blockManager.CreateBlock(this, shapeType, type);
+			block = blockManager.CreateBlock(this, shapeData, blockType);
 		}
 
-		public void SetBlock(int shapeType = 0, BlockType type = BlockType.None)
+//		public void SetBlock(int shapeType, BlockType type)
+//		{
+//			block.shapeType = shapeType;
+//			block.blockType = type;
+//		}
+
+		public void SetBlock(ShapeData shapeData, BlockType blockType)
 		{
-			block.shapeType = shapeType;
-			block.type = type;
+			block.shapeData = shapeData;
+			block.blockType = blockType;
 		}
 	}
 }

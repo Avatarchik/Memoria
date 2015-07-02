@@ -51,7 +51,7 @@ namespace Memoria.Dungeon.Managers
 				}
 							
 				Block block = mapManager.map[player.location];
-				if (block.type == BlockType.None)
+				if (block.blockType == BlockType.None)
 				{
 					return;
 				}
@@ -112,9 +112,9 @@ namespace Memoria.Dungeon.Managers
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
 
-			if (eventCoroutineTable.ContainsKey(block.type))
+			if (eventCoroutineTable.ContainsKey(block.blockType))
 			{
-				yield return StartCoroutine(eventCoroutineTable[block.type].GetEventCoroutine(parameter));
+				yield return StartCoroutine(eventCoroutineTable[block.blockType].GetEventCoroutine(parameter));
 			}
 
 			block.OnExitBlockEvent();

@@ -115,7 +115,10 @@ namespace Memoria.Dungeon
 			Block next = mapManager.map[nextLocation];
 			int dir = ToDirection(moveDirection);
 
-			return now.shape.directions[dir] && next.shape.directions[dir ^ 1];
+			bool open1 = now.shapeData.directions[dir];
+			bool open2 = next.shapeData.directions[dir];
+
+			return open1 && open2;
 		}
 
 		private void Move(Vector2Int normalizedMoveDirection)

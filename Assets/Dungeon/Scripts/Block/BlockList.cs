@@ -46,12 +46,12 @@ namespace Memoria.Dungeon.BlockUtility
 
 			blockFactors.ForEach(blockFactor =>
 			{
-				int randomShapeType = GetRandomShapeType(shapeType => !flags[shapeType]);
-				BlockType randomBlockType = GetRandomBlockType(blockType => blockType != BlockType.None);
+				ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType]);
+				BlockType randomBlockType = blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
 
-				blockFactor.CreateBlock(randomShapeType, randomBlockType);
+				blockFactor.CreateBlock(randomShapeData, randomBlockType);
 
-				flags[randomShapeType] = true;
+				flags[randomShapeData.type] = true;
 			});
 		}
 
@@ -61,40 +61,16 @@ namespace Memoria.Dungeon.BlockUtility
 
 			blockFactors.ForEach(blockFactor =>
 			{
-				int randomShapeType = GetRandomShapeType(shapeType => !flags[shapeType] && !nextFlags[shapeType]);
-				BlockType randomBlockType = GetRandomBlockType(blockType => blockType != BlockType.None);
+				ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType] && !nextFlags[shapeType]);
+				BlockType randomBlockType =	blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
 
-				blockFactor.SetBlock(randomShapeType, randomBlockType);
+				blockFactor.SetBlock(randomShapeData, randomBlockType);
 
-				nextFlags[randomShapeType] = true;
+				nextFlags[randomShapeData.type] = true;
 			});
 
 			paramaterManager.parameter.sp -= 2;
 			flags = nextFlags;
-		}
-
-		private int GetRandomShapeType(Predicate<int> selector)
-		{
-			int randomShapeType;
-			do
-			{
-				randomShapeType = blockManager.GetRandomShapeType();
-			}
-			while(!selector(randomShapeType));
-
-			return randomShapeType;
-		}
-
-		private BlockType GetRandomBlockType(Predicate<BlockType> selector)
-		{
-			BlockType randomBlockType;
-			do
-			{
-				randomBlockType = blockManager.GetRandomBlockType();
-			}
-			while (!selector(randomBlockType));
-
-			return randomBlockType;
 		}
 	}
 }

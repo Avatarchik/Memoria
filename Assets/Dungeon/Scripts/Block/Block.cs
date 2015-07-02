@@ -40,7 +40,7 @@ namespace Memoria.Dungeon.BlockUtility
 		{
 			get
 			{
-				return new BlockData(location, shape, type, hasEvent);
+				return new BlockData(location, shapeData, blockType, hasEvent);
 			}
 		}
 
@@ -64,37 +64,51 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-		public int shapeType
+//		public int shapeType
+//		{
+//			get
+//			{
+//				return shapeData.type;
+//			}
+//			set
+//			{
+//				ShapeData _shape = shapeData;
+//				_shape.type = value;
+//				shapeData = _shape;
+//				SetSprite(shapeData, blockType);
+//			}
+//		}
+			
+		private ShapeData _shapeData;
+//		public ShapeData shapeData { get; private set; }
+
+		public ShapeData shapeData
 		{
 			get
 			{
-				return shape.type;
+				return _shapeData;
 			}
+
 			set
 			{
-				ShapeData _shape = shape;
-				_shape.type = value;
-				shape = _shape;
-				SetSprite(shape, type);
+				_shapeData = value;
+				SetSprite(_shapeData, _blockType);
 			}
 		}
 
-		public ShapeData shape { get; private set; }
-		// public ShapeData blockShape { get; private set; }
+		private BlockType _blockType;
 
-		private BlockType _type = BlockType.None;
-
-		public BlockType type
+		public BlockType blockType
 		{
 			get
 			{
-				return _type;
+				return _blockType;
 			}
 
 			set
 			{
-				_type = value;
-				SetSprite(shape, _type);
+				_blockType = value;
+				SetSprite(_shapeData, _blockType);
 			}
 		}
 
@@ -185,8 +199,8 @@ namespace Memoria.Dungeon.BlockUtility
 
 			// ブロックの位置, 形状, 種類を設定
 			this.location = location;
-			this.shape = shape;
-			this.type = type;
+			this.shapeData = shape;
+			this.blockType = type;
 
 			hasEvent = type != BlockType.None;
 		}
@@ -273,9 +287,9 @@ namespace Memoria.Dungeon.BlockUtility
 		{
 			Vector2Int checkLocation = location + checkDirection;
 
-			bool opened1 = shape.directions[direction];
+			bool opened1 = shapeData.directions[direction];
 			bool exsits = mapManager.map.ContainsKey(checkLocation);
-			bool opened2 = exsits && mapManager.map[checkLocation].shape.directions[direction ^ 1];
+			bool opened2 = exsits && mapManager.map[checkLocation].shapeData.directions[direction ^ 1];
 
 			return opened1 && exsits && opened2;
 		}
@@ -291,7 +305,7 @@ namespace Memoria.Dungeon.BlockUtility
 			float time = 1;
 			iTween.MoveTo(gameObject, target, time);
 
-			hasEvent = type != BlockType.None;
+			hasEvent = blockType != BlockType.None;
 			blockFactor.OnPutBlock();
 		}
 
@@ -346,7 +360,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public void OnExitBlockEvent()
 		{
-			type = BlockType.None;
+			blockType = BlockType.None;
 			hasEvent = false;
 		}
 
