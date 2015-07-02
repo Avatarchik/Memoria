@@ -77,15 +77,6 @@ namespace Memoria.Dungeon
 
 			speed = _speed;
 		}
-    
-		// Update is called once per frame
-		void Update()
-		{
-//			if (Input.GetMouseButtonDown(0) && dungeonManager.activeState == DungeonState.None)
-//			{
-//				StartCoroutine(CoroutineTouch());
-//			}
-		}
 
 		void OnTouchMap(Vector2Int touchLocation)
 		{
@@ -106,33 +97,6 @@ namespace Memoria.Dungeon
 			.Where(CanMove)
 			.ToList()
 			.ForEach(Move);
-
-//			Predicate<int> canMove = (dir) =>
-//			{
-//				moveDirection = distance.normalized;
-//
-//				switch (dir)
-//				{
-//					case 0:
-//						moveDirection.y = 0;
-//						break;
-//
-//					case 1:
-//						moveDirection.x = 0;
-//						break;
-//				}
-//
-//				return moveDirection.magnitude > 0 && CanMove(moveDirection);
-//			};
-//
-//			foreach (int checkDirection in checkDirections)
-//			{
-//				if (canMove(checkDirection))
-//				{
-//					Move(moveDirection);
-//					return;
-//				}
-//			}
 		}
 
 		private Vector2Int ToNormalizeEachElement(Vector2Int vector)
@@ -196,9 +160,7 @@ namespace Memoria.Dungeon
 		}
 
 		private bool CanMove(Vector2Int moveDirection)
-		{
-			Debug.Log("moveDirection : " + moveDirection);
-			
+		{			
 			if (moveDirection.sqrMagnitude == 0)
 			{
 				return false;
@@ -214,7 +176,6 @@ namespace Memoria.Dungeon
 			Block now = mapManager.map[location];
 			Block next = mapManager.map[nextLocation];
 			int dir = ToDirection(moveDirection);
-
 
 			return now.shape.directions[dir] && next.shape.directions[dir ^ 1];
 		}
