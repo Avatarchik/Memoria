@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* 
+ * 画面内のどこかで、マウスボタンが押された瞬間に呼び出されるトリガー
+ * */
+
+using UnityEngine;
 using System.Collections;
 using UniRx;
 

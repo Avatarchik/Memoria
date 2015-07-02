@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/*
+ * 指定した時間内に、範囲内を出ることなくOnMouseUpAsButtonを実行したときに呼び出されるトリガー 
+ * */
+
+using UnityEngine;
 using System.Collections;
 using UniRx;
 

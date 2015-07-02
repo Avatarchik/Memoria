@@ -70,10 +70,15 @@ namespace Memoria.Dungeon
 		// Use this for initialization
 		void Start()
 		{
-			this.UpdateAsObservable()
-				.Where(_ => Input.GetMouseButtonDown(0))
-				.Where(_ => dungeonManager.activeState == DungeonState.None)
-				.Subscribe(_ => StartCoroutine(CoroutineTouch()));
+//			this.UpdateAsObservable()
+//				.Where(_ => Input.GetMouseButtonDown(0))
+//				.Where(_ => dungeonManager.activeState == DungeonState.None)
+//				.Subscribe(_ => StartCoroutine(CoroutineTouch()));
+
+			dungeonManager.eventManager.OnTapBlockAsObservable()
+			.Where(_ => dungeonManager.activeState == DungeonState.None)
+			.Select(block => block.location)
+			.Subscribe(OnTouchMap);
 
 			speed = _speed;
 		}
@@ -129,29 +134,29 @@ namespace Memoria.Dungeon
 
 #endregion
 
-		private IEnumerator CoroutineTouch()
-		{
-			float time = 0;
-			while (Input.GetMouseButton(0))
-			{
-				time += Time.deltaTime;
-				yield return null;
-			}
-        
-			float limit = 0.5f;
-			if (time < limit)
-			{
-				Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				Vector2Int touchLocation = mapManager.ToLocation(touchPosition);
-
-				if (mapManager.canPutBlockArea.Contains(touchPosition) && mapManager.map.ContainsKey(touchLocation))
-				{
-					OnTouchMap(touchLocation);
-				}
-			}
-        
-			yield break;
-		}
+//		private IEnumerator CoroutineTouch()
+//		{
+//			float time = 0;
+//			while (Input.GetMouseButton(0))
+//			{
+//				time += Time.deltaTime;
+//				yield return null;
+//			}
+//        
+//			float limit = 0.5f;
+//			if (time < limit)
+//			{
+//				Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+//				Vector2Int touchLocation = mapManager.ToLocation(touchPosition);
+//
+//				if (mapManager.canPutBlockArea.Contains(touchPosition) && mapManager.map.ContainsKey(touchLocation))
+//				{
+//					OnTouchMap(touchLocation);
+//				}
+//			}
+//        
+//			yield break;
+//		}
 
 		private void CompleteMove()
 		{

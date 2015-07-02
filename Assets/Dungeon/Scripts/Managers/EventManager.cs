@@ -106,7 +106,6 @@ namespace Memoria.Dungeon.Managers
 
 		public void OnTapBlock(Block tappedBlock)
 		{
-			Debug.Log("tappedBlock : " + tappedBlock);
 			onTapBlock.OnNext(tappedBlock);
 		}
 

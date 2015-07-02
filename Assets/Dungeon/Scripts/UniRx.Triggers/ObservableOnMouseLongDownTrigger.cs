@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/*
+ * オブジェクト上で、指定した時間以上タップしていると呼び出されるトリガー
+ * */
+
+using UnityEngine;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;

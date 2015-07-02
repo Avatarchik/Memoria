@@ -163,6 +163,7 @@ namespace Memoria.Dungeon.BlockUtility
 			var onMouseShortUpAsButtonInCollider = gameObject.AddComponent<ObservableOnMouseShortUpAsButtonInColliderTrigger>();
 			onMouseShortUpAsButtonInCollider.limitSecond = 0.5f;
 			onMouseShortUpAsButtonInCollider.OnMouseShortUpAsButtonInColliderAsObservable()
+			.Where(_ => putted)
 			.Subscribe(_ => dungeonManager.eventManager.OnTapBlock(this));
 		}
 
