@@ -103,6 +103,8 @@ namespace Memoria.Battle.Managers
 
                 hero.GetComponent<Hero>().battleID = "h0" + i;
                 hero.transform.position = pos;
+                hero.transform.localScale *= 0.8f; //Temporary
+                hero.GetComponent<BoxCollider2D>().size *= 100;
                 actorList.Add(hero);
             }
         }

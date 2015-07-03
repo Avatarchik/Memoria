@@ -22,7 +22,17 @@ namespace Memoria.Battle.GameActors
 
             return obj;
         }
+        public GameObject SpawnUI<T> (string resource)
+        {
+            var spawnObj = (GameObject)Resources.Load(resource);
+            var obj = Instantiate(spawnObj);
 
+            obj.AddComponent(typeof(T));
+            obj.AddComponent<BoxCollider2D>();
+            obj.GetComponent<BoxCollider2D>().enabled = false;
+
+            return obj;
+        }
         public void InitObj(GameObject obj, IList<Type> components, Transform parent)
         {
             for(int i = 0; i < components.Count; i++)

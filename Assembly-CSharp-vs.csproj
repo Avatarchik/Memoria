@@ -63,9 +63,13 @@
      <Compile Include="Assets\Battle\Script\Battle\Entity\Damage.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Entity\Enemy.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Entity\Entity.cs" />
+     <Compile Include="Assets\Battle\Script\Battle\Entity\HealthBar.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Entity\Hero.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Entity\MainPlayer.cs" />
+     <Compile Include="Assets\Battle\Script\Battle\Entity\Namebar.cs" />
+     <Compile Include="Assets\Battle\Script\Battle\Entity\SkillIcon.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Entity\Status.cs" />
+     <Compile Include="Assets\Battle\Script\Battle\Entity\UIElement.cs" />
      <Compile Include="Assets\Battle\Script\Battle\FadeAttackScreen.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Manager\ActionMgr.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Manager\AttackTracker.cs" />
@@ -79,11 +83,12 @@
      <Compile Include="Assets\Battle\Script\Battle\Skills\FireAttack.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Skills\PlayerStrike.cs" />
      <Compile Include="Assets\Battle\Script\Battle\Skills\QuickAttack.cs" />
+     <Compile Include="Assets\Battle\Script\Battle\Skills\Test.cs" />
      <Compile Include="Assets\Battle\Script\Battle\States\BattleState.cs" />
      <Compile Include="Assets\Battle\Script\Battle\States\StateAnimation.cs" />
      <Compile Include="Assets\Battle\Script\Battle\States\StateBattleRunning.cs" />
      <Compile Include="Assets\Battle\Script\Battle\States\StatePlayerWon.cs" />
-     <Compile Include="Assets\Battle\Script\Battle\States\StatePrepae.cs" />
+     <Compile Include="Assets\Battle\Script\Battle\States\StatePrepare.cs" />
      <Compile Include="Assets\Battle\Script\Battle\States\StateSelectSkill.cs" />
      <Compile Include="Assets\Battle\Script\Battle\States\StateSelectTarget.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />

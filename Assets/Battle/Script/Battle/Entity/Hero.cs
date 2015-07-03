@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
 
@@ -9,11 +11,15 @@ namespace Memoria.Battle.GameActors
 {
     public class Hero : Entity {
 
+        const char ENEMY = 'e';
+        const char PARTY = 'h';
+
         public bool attackSelected;
         public bool passtToStock;
         public string nameplae;
         public int stock;
         private Button _iconButton;
+        private bool _enemyTarget;
 
         void Start () {
             entityType = "hero";
@@ -23,9 +29,17 @@ namespace Memoria.Battle.GameActors
             _iconButton = GetComponent<Button>();
         }
 
+        void Update()
+        {
+            for (int i = 0; i < stock; i++)
+            {
+                //Update stock icons
+            }
+        }
         override public void Init()
         {
             components.Add(typeof(TargetSelector));
+            components.Add(typeof(Namebar));
             base.Init();
         }
 
@@ -88,12 +102,20 @@ namespace Memoria.Battle.GameActors
                     chargeReady = false;
                 }
             }
+            if (attackType.targetType == ENEMY)
+            {
+                _enemyTarget = true;
+            }
+            if (attackType.targetType == PARTY)
+            {
+                _enemyTarget = false;
+            }
         }
 
-        public bool EnemySelected()
+        public bool TargetSelected()
         {
             if (target == null) {
-                return GetComponent<TargetSelector> ().TargetSelected ();
+                return GetComponent<TargetSelector> ().TargetSelected (_enemyTarget);
             } else
                   return true;
         }
@@ -110,7 +132,8 @@ namespace Memoria.Battle.GameActors
         {
             var list = new List<string>();
 
-            foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3)) {
+            foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
+            {
                 list.Add(skill.Key);
             }
             return list.ToArray();

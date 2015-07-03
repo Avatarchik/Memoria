@@ -31,7 +31,8 @@ namespace Memoria.Battle.States
             }
 
 
-            if(hero.EnemySelected()) {
+            if(hero.TargetSelected())
+            {
                 hero.SetTarget((IDamageable)hero.GetComponent<TargetSelector>().target);
                 SetSelectable(nowActor.attackType.targetType, false);
                 battleMgr.SetState(State.ANIMATOIN);
