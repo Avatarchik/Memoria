@@ -116,12 +116,12 @@ namespace Memoria.Battle.Managers
             Type[] enemies = _spawner.GetRandomEnemies();
             for(int i = 0; i < enemies.Length; i++)
             {
-                var randomEnemy = _spawner.Spawn<Enemy>(enemies[i], "enemy" + i);
+                var randomEnemy = _spawner.Spawn<Enemy>(enemies[i], "monster0" + i);
 
                 _spawner.InitObj(randomEnemy, randomEnemy.GetComponent<Enemy>().components, _spawner.parentObject);
 
                 randomEnemy.GetComponent<Enemy>().battleID = "e0" + i;
-                randomEnemy.transform.position = new Vector3((enemies.Length / 1.5f - enemies.Length + i) * 2, 1.5f, -9);
+                randomEnemy.transform.position = new Vector3((enemies.Length / 2.5f - enemies.Length + i * 3f), 0.0f, -9);
                 enemyList.Add(randomEnemy);
                 actorList.Add(randomEnemy);
             }
