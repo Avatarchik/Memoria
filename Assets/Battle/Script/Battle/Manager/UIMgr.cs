@@ -40,8 +40,8 @@ namespace Memoria.Battle.Managers
         {
             var frame = (GameObject)Resources.Load(resource);
             _descFrame = Instantiate(frame);
-            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
             _descFrame.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
+            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
         }
 
         public void RemoveDescBar()
@@ -73,9 +73,23 @@ namespace Memoria.Battle.Managers
         }
 
         //TODO: Set selection animation based on single/multiple targets
-        public void SetCurorAnimation(TargetType t, string s)
+        public void SetCurorAnimation(TargetType targets, string owner)
         {
-
+            Animator anim;
+            switch (targets)
+            {
+                case TargetType.ALL:
+                    foreach(var c in _cursor)
+                    {
+                        anim = c.Value.GetComponent<Animator>();
+                        anim.SetBool("select", true);
+                    }
+                    break;
+                case TargetType.SINGLE:
+                    anim = _cursor[owner].GetComponent<Animator>();
+                    anim.SetBool("select", true);
+                    break;
+            }
         }
 
         //************************************ Skills

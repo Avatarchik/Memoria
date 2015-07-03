@@ -115,7 +115,7 @@ namespace Memoria.Battle.GameActors
         public bool TargetSelected()
         {
             if (target == null) {
-                return GetComponent<TargetSelector> ().TargetSelected (_enemyTarget);
+                return GetComponent<TargetSelector> ().TargetSelected(_enemyTarget);
             } else
                   return true;
         }

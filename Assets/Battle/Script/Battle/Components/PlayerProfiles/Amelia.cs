@@ -16,7 +16,7 @@ namespace Memoria.Battle.GameActors
             parameter.elementAff = ElementType.WATER;
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
-            attackList.Add("Fire_Attack", gameObject.AddComponent<Test>());
+            attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
             //attackType = gameObject.AddComponent<PlayerStrike>();
 
         }

@@ -6,6 +6,7 @@ namespace Memoria.Battle.GameActors
 
         GameObject handlignObj;
         public Entity target;
+        public bool MouseButtonHit { get; set; }
 
         // Use this for initialization
         void Start () {
@@ -17,6 +18,7 @@ namespace Memoria.Battle.GameActors
         public bool TargetSelected(bool enemy)
         {
             if (Input.GetMouseButtonDown (0)) {
+                MouseButtonHit = true;
                 Vector3 tapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
                 Collider2D collition2d = Physics2D.OverlapPoint (tapPoint);
                 if (collition2d) {
@@ -35,6 +37,7 @@ namespace Memoria.Battle.GameActors
                     }
                 }
             }
+            MouseButtonHit = false;
             return false;
         }
     }
