@@ -42,33 +42,7 @@ namespace Memoria.Dungeon.Menu
 			SetUIActive(false);
 		}
 
-//		public void EnterMenu(Unit _ = null)
-//		{
-//			var dungeonManager = DungeonManager.instance;
-//						
-//			if (dungeonManager.activeState != DungeonState.None)
-//			{
-//				return;
-//			}
-//			
-//			dungeonManager.EnterState(DungeonState.OpenMenu);
-//			SetUIActive(true);
-//		}
-
-//		public void ExitMenu(Unit _ = null)
-//		{
-//			var dungeonManager = DungeonManager.instance;
-//			
-//			if (dungeonManager.activeState != DungeonState.OpenMenu)
-//			{
-//				return;
-//			}
-//
-//			SetUIActive(false);
-//			dungeonManager.ExitState();
-//		}
-
-		private void SetUIActive(bool value)
+		public void SetUIActive(bool value)
 		{
 			mapButton.SetActive(value);
 			leaveButton.SetActive(value);
