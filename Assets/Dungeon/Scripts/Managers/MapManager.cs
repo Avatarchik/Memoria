@@ -58,10 +58,10 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>マップ上に配置されるときの位置</returns>
 		/// <param name="position">指定の位置</param>
-		public Vector3 ConvertPosition(Vector3 position)
+		public Vector2 ConvertPosition(Vector2 position)
 		{
 			Vector2Int location = ToLocation(position);
-			Vector3 converted = ToPosition(location);
+			Vector2 converted = ToPosition(location);
 			return converted;
 		}
 
@@ -70,7 +70,7 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>マップ座標</returns>
 		/// <param name="position">指定の位置</param>
-		public Vector2Int ToLocation(Vector3 position)
+		public Vector2Int ToLocation(Vector2 position)
 		{
 			Vector2 blockSize = dungeonManager.blockSize;
 			Vector2Int location = new Vector2Int();
@@ -86,14 +86,13 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>位置</returns>
 		/// <param name="location">指定のマップ座標</param>
-		public Vector3 ToPosition(Vector2Int location)
+		public Vector2 ToPosition(Vector2Int location)
 		{
 			Vector2 blockSize = dungeonManager.blockSize;
-			Vector3 position = new Vector3();
+			Vector2 position = new Vector3();
 		
 			position.x = location.x / 100f * blockSize.x;
 			position.y = location.y / 100f * blockSize.y;
-			position.z = 0;
 
 			return position;
 		}

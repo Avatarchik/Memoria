@@ -13,7 +13,7 @@ namespace Memoria.Dungeon
 	public class Player : MonoBehaviour
 	{
 		[SerializeField]
-		private Vector3 offset;
+		private Vector2 offset;
 
 		private DungeonManager dungeonManager;
 		private MapManager mapManager;
@@ -68,6 +68,7 @@ namespace Memoria.Dungeon
 		// Use this for initialization
 		void Start()
 		{
+			// 歩くイベントの登録
 			dungeonManager.eventManager.OnTapBlockAsObservable()
 			.Where(_ => dungeonManager.activeState == DungeonState.None)
 			.Select(block => block.location)

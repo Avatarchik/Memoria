@@ -29,11 +29,7 @@ namespace Memoria.Dungeon
 			.Select(_ =>
 			{
 				Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				Vector2 blockSize = dungeonManager.blockSize;
-				return new Vector2(
-					Mathf.Round(touchPosition.x * 100 / blockSize.x) * (blockSize.x / 100),
-					Mathf.Round(touchPosition.y * 100 / blockSize.y) * (blockSize.y / 100)
-				);
+				return dungeonManager.mapManager.ConvertPosition(touchPosition);
 			})
 			.Subscribe(position => transform.position = position);
 		}
