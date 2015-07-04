@@ -29,6 +29,7 @@ namespace Memoria.Dungeon.BlockUtility
 		private DungeonManager dungeonManager;
 		private BlockManager blockManager;
 		private MapManager mapManager;
+		private ParameterManager parameterManager;
 
 		public Image image { get; set; }
 
@@ -100,6 +101,7 @@ namespace Memoria.Dungeon.BlockUtility
 			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
 			mapManager = dungeonManager.mapManager;
+			parameterManager = dungeonManager.parameterManager;
 
 			image = GetComponent<Image>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
@@ -282,8 +284,9 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックを破壊する
 		private void Break(Unit _ = null)
 		{
-			ParameterManager paramaterManager = dungeonManager.parameterManager;
-			paramaterManager.parameter.sp -= 2;
+			DungeonParameter parameter = parameterManager.parameter;
+			parameter.sp -= 2;
+			parameterManager.parameter = parameter;
 
 			mapManager.map.Remove(location);
 			Destroy(gameObject);

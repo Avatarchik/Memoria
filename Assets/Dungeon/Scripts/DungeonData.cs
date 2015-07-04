@@ -43,9 +43,7 @@ namespace Memoria.Dungeon
 				location = new Vector2Int(0, 0);
 
 				mapData = LoadMapData("");
-				parameter = new DungeonParameter();
-				parameter.Set(100, 100, 100, 100, 1, "none");
-
+				parameter = new DungeonParameter(100, 100, 100, 100, 1, "none");
 				stocks = new [] { 0, 0, 0, 0 };
 
 				Debug.Log("initialize!!");
@@ -56,7 +54,8 @@ namespace Memoria.Dungeon
 
 			mapManager.SetMap(mapData);
 
-			parameterManager.SetParamater(parameter);
+//			parameterManager.SetParamater(parameter);
+			parameterManager.parameter = parameter;
 
 			if (initialized)
 			{
@@ -80,7 +79,8 @@ namespace Memoria.Dungeon
 			mapData.Clear();
 			mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
-			parameter.Set(parameterManager.parameter);
+//			parameter.Set(parameterManager.parameter);
+			parameter = parameterManager.parameter;
 		}
 
 		public void SetBattleType(BlockType battleType)
@@ -92,7 +92,7 @@ namespace Memoria.Dungeon
 		{
 			print("load map : " + mapDataPath);
 
-			List<BlockData> result = new List<BlockData>();
+			var result = new List<BlockData>();
 
 			result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
 
