@@ -36,42 +36,20 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public Animator animator { get; set; }
 
-		public BlockData blockData
-		{
-			get
-			{
-				return new BlockData(location, shapeData, blockType, hasEvent);
-			}
-		}
+//		public BlockData blockData { get { return new BlockData(location, shapeData, blockType, hasEvent); } }
+		public BlockData blockData { get { return new BlockData(location, shapeData, blockType); } }
 
 		public Vector2Int location
 		{
-			get
-			{
-				return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Vector2Int(0, 0);
-			}
-
-			set
-			{
-				if (isSpriteRenderer)
-				{
-					transform.localPosition = mapManager.ToPosition(value);
-				}
-				else
-				{
-					transform.localPosition = Vector3.zero;
-				}
-			}
+			get { return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Vector2Int(0, 0); }
+			set { transform.localPosition = isSpriteRenderer ? (Vector3)mapManager.ToPosition(value) : Vector3.zero; }
 		}
 
 		private ShapeData _shapeData;
 
 		public ShapeData shapeData
 		{
-			get
-			{
-				return _shapeData;
-			}
+			get { return _shapeData; }
 
 			set
 			{
@@ -84,10 +62,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public BlockType blockType
 		{
-			get
-			{
-				return _blockType;
-			}
+			get { return _blockType; }
 
 			set
 			{
@@ -96,7 +71,7 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-		public bool hasEvent { get; private set; }
+//		public bool hasEvent { get; private set; }
 
 		private bool isSpriteRenderer
 		{
@@ -114,10 +89,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public BlockFactor blockFactor
 		{
-			get
-			{
-				return _blockFactor;
-			}
+			get { return _blockFactor; }
 
 			set
 			{
@@ -186,7 +158,7 @@ namespace Memoria.Dungeon.BlockUtility
 			this.shapeData = shape;
 			this.blockType = type;
 
-			hasEvent = type != BlockType.None;
+//			hasEvent = type != BlockType.None;
 		}
 
 #region Operating
@@ -283,7 +255,7 @@ namespace Memoria.Dungeon.BlockUtility
 			float time = 1;
 			iTween.MoveTo(gameObject, target, time);
 
-			hasEvent = blockType != BlockType.None;
+//			hasEvent = blockType != BlockType.None;
 			blockFactor.OnPutBlock();
 		}
 
@@ -328,18 +300,18 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックイベントが発生したとき
 		public void OnEnterBlockEvent()
 		{
-			if (!hasEvent)
-			{
-				return;
-			}
-
-			hasEvent = false;
+//			if (!hasEvent)
+//			{
+//				return;
+//			}
+//
+//			hasEvent = false;
 		}
 
 		public void OnExitBlockEvent()
 		{
 			blockType = BlockType.None;
-			hasEvent = false;
+//			hasEvent = false;
 		}
 
 		private void SetSprite(ShapeData blockShape, BlockType blockType)

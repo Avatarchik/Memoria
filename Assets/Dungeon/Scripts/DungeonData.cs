@@ -96,7 +96,8 @@ namespace Memoria.Dungeon
 
 			List<BlockData> result = new List<BlockData>();
 
-			result.Add(new BlockData(new Vector2Int(0, 0), new ShapeData(10), BlockType.None, false));
+//			result.Add(new BlockData(new Vector2Int(0, 0), new ShapeData(10), BlockType.None, false));
+			result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
 
 			return result;
 		}

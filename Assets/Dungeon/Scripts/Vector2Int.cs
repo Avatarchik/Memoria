@@ -101,6 +101,8 @@ namespace Memoria.Dungeon
 
 		public static Vector2Int up { get { return directionTable[3]; } }
 
+		public static Vector2Int zero { get { return new Vector2Int(0, 0); } }
+
 		public static Vector2Int operator +(Vector2Int v1, Vector2Int v2)
 		{
 			return new Vector2Int()

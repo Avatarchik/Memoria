@@ -104,10 +104,15 @@ namespace Memoria.Dungeon.Managers
 			DungeonParameter parameter = paramaterManager.parameter;
 			parameter.sp -= 1;
 
-			if (!block.hasEvent)
+			if (block.blockType == BlockType.None)
 			{
 				yield break;
 			}
+
+//			if (!block.hasEvent)
+//			{
+//				yield break;
+//			}
 
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
