@@ -22,6 +22,7 @@ namespace Memoria.Dungeon.Menu
 		{   
 			var dungeonManager = DungeonManager.instance;
 
+			// LeaveButton イベントの登録
 			GetComponent<Button>().OnClickAsObservable()
 			.Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
 			.Subscribe(_ =>
@@ -30,9 +31,11 @@ namespace Memoria.Dungeon.Menu
 				this.SetUIActive(true);
 			});
 
+			// yesButton イベントの登録
 			yesButton.GetComponent<Button>().OnClickAsObservable()
 			.Subscribe(_ => dungeonManager.Leave());
 
+			// noButton イベントの登録
 			noButton.GetComponent<Button>().OnClickAsObservable()
 			.Subscribe(_ =>
 			{
