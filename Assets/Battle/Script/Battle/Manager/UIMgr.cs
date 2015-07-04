@@ -9,54 +9,39 @@ namespace Memoria.Battle.Managers
 {
     public class UIMgr : MonoBehaviour {
 
+        private ActorSpawner _spawner;
         private AttackTracker _attackTracker;
         private Dictionary<string, GameObject>[] _obj;
         private GameObject[] _button;
         private Dictionary<string, GameObject> _cursor;
         private Dictionary<string, GameObject> _nameplate;
-        private Dictionary<int, Sprite> _healthBarSprites;
         private GameObject _descFrame;
-        private int _precentDivided;
-        private MainPlayer _mainPlayer;
-        private GameObject _hpBar;
+
+        private Dictionary<string, UIElement> _elements;
 
         // Use this for initialization
         void Awake () {
-
-            _mainPlayer = GameObject.FindObjectOfType<MainPlayer>() as MainPlayer;
+            _spawner = new ActorSpawner();
             _obj = new Dictionary<string, GameObject>[3];
             _cursor = new Dictionary<string, GameObject>();
-            _healthBarSprites = new Dictionary<int, Sprite>();
+
+            _elements = new Dictionary<string, UIElement>();
 
             for (int i = 0; i < _obj.Length; i++)
             {
                 _obj[i] = new Dictionary<string, GameObject>();
             }
-            for (int i = 4000; i <= 4010; i++)
-            {
-                _healthBarSprites[i - 4000] = Resources.Load<Sprite>("GOJCA" + i);
-            }
         }
 
         // Update is called once per frame
-        void LateUpdate()
-        {
-            _precentDivided = GetHealthPercent();
-            if(_precentDivided < 0)
-                _precentDivided = 0;
-            UpdateHealthBar(_precentDivided);
-        }
-        public void UpdateHealthBar(int hpPercent)
-        {
-            _hpBar.GetComponent<Image>().sprite = _healthBarSprites[hpPercent];
-        }
+
 
         public void ShowDescBar(string resource)
         {
             var frame = (GameObject)Resources.Load(resource);
             _descFrame = Instantiate(frame);
-            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
             _descFrame.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
+            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
         }
 
         public void RemoveDescBar()
@@ -86,18 +71,29 @@ namespace Memoria.Battle.Managers
                 }
             }
         }
+
         //TODO: Set selection animation based on single/multiple targets
-        public void SetCurorAnimation(TargetType t, string s)
+        public void SetCurorAnimation(TargetType targets, string owner)
         {
-
+            Animator anim;
+            switch (targets)
+            {
+                case TargetType.ALL:
+                    foreach(var c in _cursor)
+                    {
+                        anim = c.Value.GetComponent<Animator>();
+                        anim.SetBool("select", true);
+                    }
+                    break;
+                case TargetType.SINGLE:
+                    anim = _cursor[owner].GetComponent<Animator>();
+                    anim.SetBool("select", true);
+                    break;
+            }
         }
 
-        public int GetHealthPercent()
-        {
-            var _onePercent = _mainPlayer.health.maxHp / 100.0f;
-            var _healthPercent = _mainPlayer.health.hp / _onePercent;
-            return Mathf.CeilToInt(_healthPercent / 10);
-        }
+        //************************************ Skills
+
 
         public void ShowSkill(Hero player)
         {
@@ -123,6 +119,20 @@ namespace Memoria.Battle.Managers
             }
         }
 
+        public void SpawnSkills(Hero player)
+        {
+            var profile = player.GetComponent<Profile>();
+            string[] skills = player.GetSkills();
+            foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
+            {
+                var skillObj = _spawner.SpawnUI<SkillIcon>(skill.Key);
+                skillObj.GetComponent<SkillIcon>().SetOnClick(player.SetAttack, skill.Key);
+                skillObj.GetComponent<UIElement>().SetParent();
+                //
+
+            }
+        }
+
         public void DestroyButton()
         {
             for (int i = 0; i < _button.Length; i++)
@@ -135,6 +145,8 @@ namespace Memoria.Battle.Managers
             }
         }
 
+        //************************************ Nameplates
+
         public void DestroyNameplate(string battleID)
         {
             if(_nameplate[battleID])
@@ -143,14 +155,6 @@ namespace Memoria.Battle.Managers
                 _nameplate[battleID] = null;
             }
         }
-
-        public void CreateHpBar()
-        {
-            _hpBar = Instantiate ((GameObject)Resources.Load("hpBar")) as GameObject;
-            _hpBar.transform.SetParent (GameObject.FindObjectOfType<Canvas> ().gameObject.transform, false);
-            _hpBar.transform.position = new Vector3(-7.6f,0,2);
-        }
-
         public void SpawnAttackOrder ()
         {
             AttackTracker at = GetComponent<AttackTracker>();
@@ -170,6 +174,16 @@ namespace Memoria.Battle.Managers
                 _nameplate[ids[i]] = Instantiate(_obj[1][ids[i]]) as GameObject;
                 _nameplate[ids[i]].transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform,false);
                 _nameplate[ids[i]].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
+            }
+        }
+
+        public void SpawnNamebars(List<GameObject> actors)
+        {
+            foreach (GameObject actor in actors.OrderByDescending(x => x.GetComponent<Entity>().parameter.speed))
+            {
+                var namebar = actor.GetComponent<Namebar>();
+                Debug.Log(namebar.spriteResource);
+                _spawner.SpawnUI<Namebar>(namebar.spriteResource);
             }
         }
 

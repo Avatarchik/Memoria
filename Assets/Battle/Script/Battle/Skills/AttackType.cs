@@ -11,7 +11,7 @@ namespace Memoria.Battle.GameActors
 
     abstract public class AttackType : MonoBehaviour {
 
-        public TargetType attackType;
+        public TargetType selectType;
         public int phaseCost;
         public int stockCost;
         public ElementType elementalAff;

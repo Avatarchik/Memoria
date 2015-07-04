@@ -6,7 +6,7 @@ using Memoria.Battle.Utility;
 
 namespace Memoria.Battle.GameActors
 {
-    public struct Parameter {    
+    public struct Parameter {
         public int hp;
         public int attack;
         public int defense;
@@ -19,7 +19,7 @@ namespace Memoria.Battle.GameActors
     public class Entity : MonoBehaviour {
 
         public List<System.Type> components = new List<System.Type>();
-    
+
         public string nameplate;
         public string battleID;
         public IDamageable target;
@@ -28,36 +28,37 @@ namespace Memoria.Battle.GameActors
         //    public float attackDir;
         public string entityType;
         public Profile profile;
-    
+
         public int phaseTimer;
         public float orderIndex;
         public bool attackReady;
         public bool chargeReady;
         public bool charge;
-    
+
         public Parameter parameter;
-    
+
         //public Animator _animator;
         public HealthSystem health;
         public DeathSystem death;
         public AttackTracker tracker;
-    
+
         void Awake () {
             Init();
         }
 
         public virtual void Init()
-        {        
+        {
             tracker = GameObject.FindObjectOfType<AttackTracker>() as AttackTracker;
             EventListner.Instance.SubscribeTurnEnd(UpdateOrder);
             attackReady = false;
             chargeReady = true;
         }
-    
+
         public virtual bool Attack (AttackType attack)
         {
             if(!target.IsAlive())
-                return false;
+                return true;
+                //return false;
             if(charge) {
                 orderIndex = attack.phaseCost;
                 tracker.QueueAction(this, orderIndex);
@@ -81,7 +82,7 @@ namespace Memoria.Battle.GameActors
         public virtual void StartTurn()
         {
         }
-    
+
         public virtual void EndTurn()
         {
             attackReady = false;
@@ -99,7 +100,7 @@ namespace Memoria.Battle.GameActors
                 charge = false;
                 chargeReady = true;
             }
-        
+
         }
     }
 }
