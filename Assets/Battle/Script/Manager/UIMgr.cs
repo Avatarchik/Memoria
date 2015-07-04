@@ -21,7 +21,7 @@ namespace Memoria.Battle.Managers
 
         // Use this for initialization
         void Awake () {
-            _spawner = new ActorSpawner();
+            _spawner = new GameObject().AddComponent<ActorSpawner>();
             _obj = new Dictionary<string, GameObject>[3];
             _cursor = new Dictionary<string, GameObject>();
 
