@@ -72,7 +72,6 @@ namespace Memoria.Dungeon.BlockUtility
 			DungeonParameter parameter = parameterManager.parameter;
 			parameter.sp -= 2;
 			parameterManager.parameter = parameter;
-//			paramaterManager.parameter.sp -= 2;
 			flags = nextFlags;
 		}
 	}
