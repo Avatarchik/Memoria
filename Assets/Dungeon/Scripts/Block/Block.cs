@@ -36,7 +36,6 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public Animator animator { get; set; }
 
-//		public BlockData blockData { get { return new BlockData(location, shapeData, blockType, hasEvent); } }
 		public BlockData blockData { get { return new BlockData(location, shapeData, blockType); } }
 
 		public Vector2Int location
@@ -70,8 +69,6 @@ namespace Memoria.Dungeon.BlockUtility
 				SetSprite(_shapeData, _blockType);
 			}
 		}
-
-//		public bool hasEvent { get; private set; }
 
 		private bool isSpriteRenderer
 		{
@@ -157,8 +154,6 @@ namespace Memoria.Dungeon.BlockUtility
 			this.location = location;
 			this.shapeData = shape;
 			this.blockType = type;
-
-//			hasEvent = type != BlockType.None;
 		}
 
 #region Operating
@@ -255,7 +250,6 @@ namespace Memoria.Dungeon.BlockUtility
 			float time = 1;
 			iTween.MoveTo(gameObject, target, time);
 
-//			hasEvent = blockType != BlockType.None;
 			blockFactor.OnPutBlock();
 		}
 
@@ -300,18 +294,11 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックイベントが発生したとき
 		public void OnEnterBlockEvent()
 		{
-//			if (!hasEvent)
-//			{
-//				return;
-//			}
-//
-//			hasEvent = false;
 		}
 
 		public void OnExitBlockEvent()
 		{
 			blockType = BlockType.None;
-//			hasEvent = false;
 		}
 
 		private void SetSprite(ShapeData blockShape, BlockType blockType)

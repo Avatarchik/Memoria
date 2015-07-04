@@ -11,15 +11,11 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public BlockType blockType { get; set; }
 
-//		public bool hasEvent { get; set; }
-
 		public BlockData(Vector2Int location, ShapeData shapeData, BlockType blockType)
-//		public BlockData(Vector2Int location, ShapeData shapeData, BlockType blockType, bool hasEvent)
 		{
 			this.location = location;
 			this.shapeData = shapeData;
 			this.blockType = blockType;
-//			this.hasEvent = hasEvent;
 		}
 	}
 }
