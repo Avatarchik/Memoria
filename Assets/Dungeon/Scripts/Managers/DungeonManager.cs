@@ -127,8 +127,6 @@ namespace Memoria.Dungeon.Managers
 
 			EnterState(DungeonState.None);
 
-			parameterManager.Initialize();
-
 			dungeonData.Load();
 		}
 

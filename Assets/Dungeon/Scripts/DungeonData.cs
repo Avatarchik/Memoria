@@ -54,7 +54,6 @@ namespace Memoria.Dungeon
 
 			mapManager.SetMap(mapData);
 
-//			parameterManager.SetParamater(parameter);
 			parameterManager.parameter = parameter;
 
 			if (initialized)
@@ -79,7 +78,6 @@ namespace Memoria.Dungeon
 			mapData.Clear();
 			mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
-//			parameter.Set(parameterManager.parameter);
 			parameter = parameterManager.parameter;
 		}
 
