@@ -23,7 +23,7 @@ namespace Memoria.Battle.GameActors
 
         override public void Execute(IDamageable target)
         {
-            target.TakeDamage(20);
+            target.TakeDamage(-20);
         }
         override public void Execute(Damage damage, IDamageable target)
         {

@@ -44,7 +44,7 @@ namespace Memoria.Battle.GameActors
 
         public Type[] GetRandomEnemies()
         {
-            Type[] result = { typeof(Golem), typeof(Golem) };
+            Type[] result = { typeof(Golem) };
             return result;
         }
 
