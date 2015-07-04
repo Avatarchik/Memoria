@@ -75,7 +75,7 @@ namespace Memoria.Dungeon.Managers
 
 #region State
 
-		private Stack<DungeonState> states = new Stack<DungeonState>();//(new [] { DungeonState.None });
+		private Stack<DungeonState> states = new Stack<DungeonState>();
 
 		public DungeonState activeState { get { return activeStateProperty.Value; } }
 

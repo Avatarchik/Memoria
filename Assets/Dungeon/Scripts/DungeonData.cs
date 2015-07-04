@@ -10,8 +10,8 @@ namespace Memoria.Dungeon
 
 	public class DungeonData : MonoBehaviour
 	{
-		public int direction;
-		public Vector2Int location;
+		public int direction { get; set; }
+		public Vector2Int location { get; set; }
 
 		public DungeonParameter parameter { get; set; }
 
