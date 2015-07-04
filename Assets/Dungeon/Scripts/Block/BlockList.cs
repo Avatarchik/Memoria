@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Memoria.Dungeon.Managers;
+using UniRx;
+using UniRx.Triggers;
 
 namespace Memoria.Dungeon.BlockUtility
 {
@@ -9,73 +14,62 @@ namespace Memoria.Dungeon.BlockUtility
 	{
 		public List<BlockFactor> blockFactors = new List<BlockFactor>();
 
-		protected DungeonManager dungeonManager { get; private set; }
+		private DungeonManager dungeonManager;
 
-		protected BlockManager blockManager { get; private set; }
+		private BlockManager blockManager;
 
-		protected ParameterManager paramaterManager { get; private set; }
+		private ParameterManager paramaterManager;
 
 		private bool[] flags;
 
-		// Use this for initialization
-		protected virtual void Start()
-		{
-			Initialize();
-			flags = new bool[blockManager.NumberOfBlockShapeType];
-			RandomizeBlockList(true);
-		}
+		[SerializeField]
+		private Button randomizeButton;
 
-		protected void Initialize()
+		// Use this for initialization
+		private void Start()
 		{
 			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
 			paramaterManager = dungeonManager.parameterManager;
+
+			CreateBlockList();
+
+			// ランダマイズの登録
+			randomizeButton.OnClickAsObservable()
+			.Where(_ => dungeonManager.activeState == DungeonState.None)
+			.Subscribe(RandomizeBlockList);
 		}
 
-		public void RandomizeBlockList(bool initialize = false)
+		private void CreateBlockList()
 		{
-			if (dungeonManager.activeState != DungeonState.None)
-			{
-				return;
-			}
+			flags = new bool[blockManager.NumberOfBlockShapeType];
 
+			blockFactors.ForEach(blockFactor =>
+			{
+				ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType]);
+				BlockType randomBlockType = blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
+
+				blockFactor.CreateBlock(randomShapeData, randomBlockType);
+
+				flags[randomShapeData.type] = true;
+			});
+		}
+
+		public void RandomizeBlockList(Unit _ = null)
+		{
 			bool[] nextFlags = new bool[blockManager.NumberOfBlockShapeType];
 
-			foreach (BlockFactor blockFactor in blockFactors)
+			blockFactors.ForEach(blockFactor =>
 			{
-				// shapeTypeの決定
-				int shapeType;
-				do
-				{
-					shapeType = blockManager.GetRandomBlockShapeType();
-				}
-				while (flags[shapeType] || nextFlags[shapeType]);
-				nextFlags[shapeType] = true;
+				ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType] && !nextFlags[shapeType]);
+				BlockType randomBlockType =	blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
 
-				// blockTypeの決定
-				BlockType blockType;
-				do
-				{
-					blockType = blockManager.GetRandomBlockType();
-				}
-				while (blockType == BlockType.None);
+				blockFactor.SetBlock(randomShapeData, randomBlockType);
 
-				// 生成、または変更
-				if (initialize)
-				{
-					blockFactor.CreateBlock(shapeType, blockType);
-				}
-				else
-				{
-					blockFactor.SetBlock(shapeType, blockType);
-				}
-			}
+				nextFlags[randomShapeData.type] = true;
+			});
 
-			if (!initialize)
-			{
-				paramaterManager.parameter.sp -= 2;
-			}
-
+			paramaterManager.parameter.sp -= 2;
 			flags = nextFlags;
 		}
 	}

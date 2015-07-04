@@ -90,8 +90,8 @@
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockShape.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\ShapeData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BlockEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\RecoveryEvent.cs" />
@@ -99,7 +99,6 @@
      <Compile Include="Assets\Dungeon\Scripts\DungeonData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\DungeonParameter.cs" />
      <Compile Include="Assets\Dungeon\Scripts\DungeonUtility.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Location.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Managers\BlockManager.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Managers\DungeonManager.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Managers\EventManager.cs" />
@@ -113,7 +112,9 @@
      <Compile Include="Assets\Dungeon\Scripts\ToggleButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseDownOnScreenTrigger.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseLongDownTrigger.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseShortUpAsButtonInColliderTrigger.cs" />
      <Compile Include="Assets\Dungeon\Scripts\UniRx.Triggers\ObservableOnMouseUpOnScreenTrigger.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Vector2Int.cs" />
      <Compile Include="Assets\InspectorButtonAttribute.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuItem.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuTransition.cs" />

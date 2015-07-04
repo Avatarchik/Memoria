@@ -33,7 +33,8 @@ namespace Memoria.Dungeon.Managers
 			mapManager = dungeonManager.mapManager;
 			paramaterManager = dungeonManager.parameterManager;
 			player = dungeonManager.player;
-//			dungeonManager.changedDungeonState += HandleChangedDungeonState;
+
+			// ブロックイベント発生の登録
 			dungeonManager.ActiveStateAsObservable()
 			.Buffer(2, 1)
 			.Select(states => new 
@@ -50,13 +51,14 @@ namespace Memoria.Dungeon.Managers
 				}
 							
 				Block block = mapManager.map[player.location];
-				if (block.type == BlockType.None)
+				if (block.blockType == BlockType.None)
 				{
 					return;
 				}
 							
 				StartCoroutine(CoroutineBlockEvent(block));
 			});
+
 			messageBoxText = messageBox.GetComponentInChildren<Text>();
 			messageBox.SetActive(false);
 
@@ -85,42 +87,39 @@ namespace Memoria.Dungeon.Managers
 			};
 		}
 
-		//        private void HandleChangedDungeonState(object sender, ChangeDungeonStateEventArgs e)
-		//        {
-		//            if (e.nowState == DungeonState.PlayerMoving && e.nextState == DungeonState.None)
-		//            {
-		//                if (!mapManager.map.ContainsKey(player.location))
-		//                {
-		//                    return;
-		//                }
-		//
-		//                Block block = mapManager.map [player.location];
-		//                if (block.type == BlockType.None)
-		//                {
-		//                    return;
-		//                }
-		//
-		//                StartCoroutine(CoroutineBlockEvent(block));
-		//            }
-		//        }
+		// ブロックがタップされたときに呼び出される
+		public void OnTapBlock(Block tappedBlock)
+		{
+			onTapBlock.OnNext(tappedBlock);
+		}
+
+		private Subject<Block> onTapBlock = new Subject<Block>();
+		public IObservable<Block> OnTapBlockAsObservable()
+		{
+			return onTapBlock.AsObservable();
+		}
 
 		private IEnumerator CoroutineBlockEvent(Block block)
 		{
 			DungeonParameter parameter = paramaterManager.parameter;
 			parameter.sp -= 1;
-//            parameter.tp += 1;
 
-			if (!block.hasEvent)
+			if (block.blockType == BlockType.None)
 			{
 				yield break;
 			}
 
+//			if (!block.hasEvent)
+//			{
+//				yield break;
+//			}
+
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
 
-			if (eventCoroutineTable.ContainsKey(block.type))
+			if (eventCoroutineTable.ContainsKey(block.blockType))
 			{
-				yield return StartCoroutine(eventCoroutineTable[block.type].GetEventCoroutine(parameter));
+				yield return StartCoroutine(eventCoroutineTable[block.blockType].GetEventCoroutine(parameter));
 			}
 
 			block.OnExitBlockEvent();

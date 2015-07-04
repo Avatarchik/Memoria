@@ -10,7 +10,7 @@ namespace Memoria.Dungeon.Managers
 		/// <summary>
 		/// マップ
 		/// </summary>
-		public Dictionary<Location, Block> map = new Dictionary<Location, Block>();
+		public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
 		private DungeonManager _dungeonManager;
 		private DungeonManager dungeonManager
@@ -42,27 +42,14 @@ namespace Memoria.Dungeon.Managers
 
 		void Awake()
 		{
-//			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
-
-			//SetMap("");
 		}
-
-		// Use this for initialization
-		//	void Start()
-		//	{
-		//	}
-	
-		// Update is called once per frame
-		//	void Update()
-		//	{
-		//	}
 
 		public void SetMap(List<BlockData> blockDatas)
 		{
-			foreach (var data in blockDatas)
+			foreach (var blockData in blockDatas)
 			{
-				blockManager.CreateBlock(null, data, true);
+				blockManager.CreateBlockAsDefault(blockData);
 			}
 		}
 
@@ -71,10 +58,10 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>マップ上に配置されるときの位置</returns>
 		/// <param name="position">指定の位置</param>
-		public Vector3 ConvertPosition(Vector3 position)
+		public Vector2 ConvertPosition(Vector2 position)
 		{
-			Location location = ToLocation(position);
-			Vector3 converted = ToPosition(location);
+			Vector2Int location = ToLocation(position);
+			Vector2 converted = ToPosition(location);
 			return converted;
 		}
 
@@ -83,10 +70,10 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>マップ座標</returns>
 		/// <param name="position">指定の位置</param>
-		public Location ToLocation(Vector3 position)
+		public Vector2Int ToLocation(Vector2 position)
 		{
 			Vector2 blockSize = dungeonManager.blockSize;
-			Location location = new Location();
+			Vector2Int location = new Vector2Int();
 
 			location.x = (int)Mathf.Round(position.x / blockSize.x * 100);
 			location.y = (int)Mathf.Round(position.y / blockSize.y * 100);
@@ -99,14 +86,13 @@ namespace Memoria.Dungeon.Managers
 		/// </summary>
 		/// <returns>位置</returns>
 		/// <param name="location">指定のマップ座標</param>
-		public Vector3 ToPosition(Location location)
+		public Vector2 ToPosition(Vector2Int location)
 		{
 			Vector2 blockSize = dungeonManager.blockSize;
-			Vector3 position = new Vector3();
+			Vector2 position = new Vector3();
 		
 			position.x = location.x / 100f * blockSize.x;
 			position.y = location.y / 100f * blockSize.y;
-			position.z = 0;
 
 			return position;
 		}

@@ -8,8 +8,6 @@ namespace Memoria.Dungeon.Menu
 {
 	public class MenuButton : MonoBehaviour
 	{
-		//		private DungeonManager dungeonManager;
-
 		[SerializeField]
 		private GameObject mapButton;
 
@@ -19,16 +17,8 @@ namespace Memoria.Dungeon.Menu
 		[SerializeField]
 		private GameObject returnButton;
 
-		//		void Awake()
-		//		{
-		//			dungeonManager = DungeonManager.instance;
-		//		}
-
-		// Use this for initialization
 		void Start()
 		{
-//			var dungeonManager = DungeonManager.instance;
-
 			GetComponent<Button>().OnClickAsObservable()
 			.Subscribe(EnterMenu);
 
@@ -36,31 +26,7 @@ namespace Memoria.Dungeon.Menu
 			.Subscribe(ExitMenu);
 			
 			SetUIActive(false);
-//			mapButton.SetActive(false);
-//			leaveButton.SetActive(false);
-//			returnButton.SetActive(false);
 		}
-    
-		// Update is called once per frame
-		//    void Update()
-		//    {
-		//    }
-
-		//		public void OnMenuEnter()
-		//		{
-		//			var dungeonManager = DungeonManager.instance;
-		//
-		//			if (dungeonManager.activeState != DungeonState.None)
-		//			{
-		//				return;
-		//			}
-		//
-		//			dungeonManager.EnterState(DungeonState.OpenMenu);
-		//			SetUIActive(true);
-		//			mapButton.SetActive(true);
-		//			leaveButton.SetActive(true);
-		//			returnButton.SetActive(true);
-		//		}
 
 		public void EnterMenu(Unit _ = null)
 		{
@@ -75,7 +41,6 @@ namespace Memoria.Dungeon.Menu
 			SetUIActive(true);
 		}
 
-//		public void OnExitMenu()
 		public void ExitMenu(Unit _ = null)
 		{
 			var dungeonManager = DungeonManager.instance;
@@ -86,9 +51,6 @@ namespace Memoria.Dungeon.Menu
 			}
 
 			SetUIActive(false);
-//			mapButton.SetActive(false);
-//			leaveButton.SetActive(false);
-//			returnButton.SetActive(false);
 			dungeonManager.ExitState();
 		}
 

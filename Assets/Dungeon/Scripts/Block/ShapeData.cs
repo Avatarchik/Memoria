@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Memoria.Dungeon.BlockUtility
 {
-	public struct BlockShape
+	public struct ShapeData
 	{
 		private int _type;
 
@@ -11,7 +11,7 @@ namespace Memoria.Dungeon.BlockUtility
 		{
 			get
 			{
-				if (_type < 0 | _type > 10)
+				if (_type < 0 || _type > 10)
 				{
 					throw new UnityException("Error : Get Block Type, blockType = " + _type);
 				}
@@ -68,7 +68,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public bool up { get { return directions[3]; } }
 
-		public BlockShape(int type)
+		public ShapeData(int type)
 		{
 			_type = 0;
 			_directions = null;

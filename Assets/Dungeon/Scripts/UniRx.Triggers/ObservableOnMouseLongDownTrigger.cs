@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/*
+ * オブジェクト上で、指定した時間以上タップしていると呼び出されるトリガー
+ * */
+
+using UnityEngine;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -8,7 +12,7 @@ namespace UniRx.Triggers
 {
 	public class ObservableOnMouseLongDownTrigger : ObservableTriggerBase
 	{
-		public float IntervalSecond = 1f;
+		public float intervalSecond = 1f;
 
 		private Subject<Unit> onMouseLongDown;
 
@@ -17,7 +21,7 @@ namespace UniRx.Triggers
 		// Update is called once per frame
 		void Update()
 		{
-			if (raiseTime != null && raiseTime <= Time.realtimeSinceStartup)
+			if (raiseTime != null && Time.realtimeSinceStartup >= raiseTime)
 			{
 				if (onMouseLongDown != null)
 				{
@@ -30,7 +34,7 @@ namespace UniRx.Triggers
 
 		void OnMouseDown()
 		{
-			raiseTime = Time.realtimeSinceStartup + IntervalSecond;
+			raiseTime = Time.realtimeSinceStartup + intervalSecond;
 		}
 
 		void OnMouseExit()

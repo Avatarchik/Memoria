@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockUtility;
+using UniRx;
+using UniRx.Triggers;
 
 namespace Memoria.Dungeon
 {
 	public class Player : MonoBehaviour
 	{
 		[SerializeField]
-		private Vector3 offset;
+		private Vector2 offset;
 
 		private DungeonManager dungeonManager;
 		private MapManager mapManager;
@@ -50,12 +54,10 @@ namespace Memoria.Dungeon
 		[SerializeField]
 		private float _speed;
 
-#region messages
-
 		/// <summary>
 		/// プレイヤーのマップ上座標
 		/// </summary>
-		public Location location { get; set; }
+		public Vector2Int location { get; set; }
 
 		void Awake()
 		{
@@ -66,66 +68,69 @@ namespace Memoria.Dungeon
 		// Use this for initialization
 		void Start()
 		{
+			// 歩くイベントの登録
+			dungeonManager.eventManager.OnTapBlockAsObservable()
+			.Where(_ => dungeonManager.activeState == DungeonState.None)
+			.Select(block => block.location)
+			.Subscribe(OnTouchMap);
+
 			speed = _speed;
 		}
-    
-		// Update is called once per frame
-		void Update()
-		{
-			if (Input.GetMouseButtonDown(0) && dungeonManager.activeState == DungeonState.None)
-			{
-				StartCoroutine(CoroutineTouch());
-			}
-		}
 
-		void OnTouchMap(Location touchLocation)
+		void OnTouchMap(Vector2Int touchLocation)
 		{
-			Location distance = touchLocation - location;
-
-			if (distance.magnitude < 1)
+			Vector2Int distance = touchLocation - location;
+			if (distance.SqrMagnitude() < 1)
 			{
 				return;
 			}
 
-			Location moveDirection = new Location();
-			int[] checkDirections = new [] { 0, 1 };
+//			Vector2Int moveDirection = new Vector2Int();
+//			int[] checkDirections = new [] { 0, 1 };
 //        float ax = Mathf.Abs(distance.x);
 //        float ay = Mathf.Abs(distance.y);
 //        int[] checkDirections = (ax >= ay) ? (new [] { 0, 1 }) : (new [] { 1, 0 });
 
-			Predicate<int> canMove = (dir) =>
+			var canMoveDirections =
+				(new List<Vector2Int>() { Vector2Int.up, Vector2Int.right })
+				.Select(direction => ToNormalizeEachElement(distance * direction))
+				.Where(CanMove);
+
+			if (canMoveDirections.Count() > 0)
 			{
-				moveDirection = distance.normalized;
-
-				switch (dir)
-				{
-					case 0:
-						moveDirection.y = 0;
-						break;
-
-					case 1:
-						moveDirection.x = 0;
-						break;
-				}
-
-				return moveDirection.magnitude > 0 && CanMove(moveDirection);
-			};
-
-			foreach (int checkDirection in checkDirections)
-			{
-				if (canMove(checkDirection))
-				{
-					OnMove(moveDirection);
-					return;
-				}
+				Move(canMoveDirections.First());
 			}
 		}
 
-		void OnMove(Location moveDirection)
+		private bool CanMove(Vector2Int moveDirection)
+		{			
+			if (moveDirection.SqrMagnitude() == 0)
+			{
+				return false;
+			}
+
+			Vector2Int nextLocation = location + moveDirection;
+
+			if (!mapManager.map.ContainsKey(nextLocation))
+			{
+				return false;
+			}
+
+			Block now = mapManager.map[location];
+			Block next = mapManager.map[nextLocation];
+			int dir = ToDirection(moveDirection);
+
+			bool open1 = now.shapeData.directions[dir];
+			bool open2 = next.shapeData.directions[dir ^ 1];
+
+			return open1 && open2;
+		}
+
+		private void Move(Vector2Int normalizedMoveDirection)
 		{
 			dungeonManager.EnterState(DungeonState.PlayerMoving);
 
-			Vector3 position = mapManager.ToPosition(location + moveDirection);
+			Vector3 position = mapManager.ToPosition(location + normalizedMoveDirection);
 			float yOffset = -0.2f;
 			float time = 1 / speed;
 			position.y += yOffset;
@@ -135,36 +140,10 @@ namespace Memoria.Dungeon
 				"oncomplete", "CompleteMove",
 				"easetype", iTween.EaseType.linear));
 
-			direction = ToDirection(moveDirection);
+			direction = ToDirection(normalizedMoveDirection);
 			isMoving = true;
         
-			location += moveDirection;
-		}
-
-#endregion
-
-		private IEnumerator CoroutineTouch()
-		{
-			float time = 0;
-			while (Input.GetMouseButton(0))
-			{
-				time += Time.deltaTime;
-				yield return null;
-			}
-        
-			float limit = 0.5f;
-			if (time < limit)
-			{
-				Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				Location touchLocation = mapManager.ToLocation(touchPosition);
-
-				if (mapManager.canPutBlockArea.Contains(touchPosition) && mapManager.map.ContainsKey(touchLocation))
-				{
-					OnTouchMap(touchLocation);
-				}
-			}
-        
-			yield break;
+			location += normalizedMoveDirection;
 		}
 
 		private void CompleteMove()
@@ -173,22 +152,15 @@ namespace Memoria.Dungeon
 			dungeonManager.ExitState();
 		}
 
-		private bool CanMove(Location moveDirection)
+		private Vector2Int ToNormalizeEachElement(Vector2Int vector)
 		{
-			Location toLocation = location + moveDirection;
-
-			if (!mapManager.map.ContainsKey(toLocation))
-			{
-				return false;
-			}
-
-			Block now = mapManager.map[location];
-			Block next = mapManager.map[toLocation];
-			int dir = ToDirection(moveDirection);
-			return now.shape.directions[dir] && next.shape.directions[dir ^ 1];
+			Func<int, int> normalize = (int element) => ((element > 0) ? 1 : (element < 0) ? -1 : 0);
+			return new Vector2Int(
+				normalize(vector.x),
+				normalize(vector.y));
 		}
 
-		private int ToDirection(Location moveDirection)
+		private int ToDirection(Vector2Int normalizedMoveDirection)
 		{
 			int[,] toDirectionTable = new int[,]
 			{
@@ -196,12 +168,13 @@ namespace Memoria.Dungeon
 				{ 2, 0, 3 },
 			};
 
-			moveDirection.Normalize();
+			int directionX = toDirectionTable[0, normalizedMoveDirection.x + 1];
+			int directionY = toDirectionTable[1, normalizedMoveDirection.y + 1];
 
-			return toDirectionTable[0, moveDirection.x + 1] + toDirectionTable[1, moveDirection.y + 1];
+			return directionX + directionY;
 		}
 
-		public void SetPosition(Location location)
+		public void SetPosition(Vector2Int location)
 		{
 			this.location = location;
 			transform.position = mapManager.ToPosition(location) + offset;

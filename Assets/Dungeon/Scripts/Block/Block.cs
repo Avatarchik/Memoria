@@ -1,9 +1,9 @@
-﻿//#define TEST
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Memoria.Dungeon.Managers;
 using UniRx;
 using UniRx.Triggers;
@@ -36,68 +36,42 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public Animator animator { get; set; }
 
-		public BlockData blockData
+//		public BlockData blockData { get { return new BlockData(location, shapeData, blockType, hasEvent); } }
+		public BlockData blockData { get { return new BlockData(location, shapeData, blockType); } }
+
+		public Vector2Int location
 		{
-			get
-			{
-				return new BlockData(location, shape, type, hasEvent);
-			}
+			get { return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Vector2Int(0, 0); }
+			set { transform.localPosition = isSpriteRenderer ? (Vector3)mapManager.ToPosition(value) : Vector3.zero; }
 		}
 
-		public Location location
+		private ShapeData _shapeData;
+
+		public ShapeData shapeData
 		{
-			get
-			{
-				return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Location(0, 0);
-			}
+			get { return _shapeData; }
 
 			set
 			{
-				if (isSpriteRenderer)
-				{
-					transform.localPosition = mapManager.ToPosition(value);
-				}
-				else
-				{
-					transform.localPosition = Vector3.zero;
-				}
+				_shapeData = value;
+				SetSprite(_shapeData, _blockType);
 			}
 		}
 
-		public int shapeType
+		private BlockType _blockType;
+
+		public BlockType blockType
 		{
-			get
-			{
-				return shape.type;
-			}
-			set
-			{
-				BlockShape _shape = shape;
-				_shape.type = value;
-				shape = _shape;
-				SetSprite(shape, type);
-			}
-		}
-
-		public BlockShape shape { get; private set; }
-
-		private BlockType _type = BlockType.None;
-
-		public BlockType type
-		{
-			get
-			{
-				return _type;
-			}
+			get { return _blockType; }
 
 			set
 			{
-				_type = value;
-				SetSprite(shape, _type);
+				_blockType = value;
+				SetSprite(_shapeData, _blockType);
 			}
 		}
 
-		public bool hasEvent { get; private set; }
+//		public bool hasEvent { get; private set; }
 
 		private bool isSpriteRenderer
 		{
@@ -115,10 +89,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public BlockFactor blockFactor
 		{
-			get
-			{
-				return _blockFactor;
-			}
+			get { return _blockFactor; }
 
 			set
 			{
@@ -139,28 +110,37 @@ namespace Memoria.Dungeon.BlockUtility
 
 			// 操作イベントの登録
 			this.OnMouseDownAsObservable()
-				.Where(CanOperation)
-				.Do(StartOperation)
-				.Subscribe(_ =>
-				{
-					var onMouseDrag = this.OnMouseDragAsObservable()
-						.Subscribe(Operate);
-					this.OnMouseUpAsObservable()
-						.First()
-						.Do(__ => onMouseDrag.Dispose())
-						.Do(CheckAndPut)
-						.Subscribe(StopOperation);
-				});
+			.Where(CanOperation)
+			.Do(StartOperation)
+			.Subscribe(_ =>
+			{
+				var onMouseDrag =
+					this.OnMouseDragAsObservable()
+					.Subscribe(Operate);
+				
+				this.OnMouseUpAsObservable()
+				.First()
+				.Do(__ => onMouseDrag.Dispose())
+				.Do(CheckAndPut)
+				.Subscribe(StopOperation);
+			});
 
 			// 破壊イベントの登録
 			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
-			onMouseLongDownComponent.IntervalSecond = 0.5f;
+			onMouseLongDownComponent.intervalSecond = 0.5f;
 			onMouseLongDownComponent.OnMouseLongDownAsObservable()
-				.Where(CanBreak)
-				.Subscribe(Break);
+			.Where(CanBreak)
+			.Subscribe(Break);
+
+			// タップイベントの追加
+			var onMouseShortUpAsButtonInCollider = gameObject.AddComponent<ObservableOnMouseShortUpAsButtonInColliderTrigger>();
+			onMouseShortUpAsButtonInCollider.limitSecond = 0.5f;
+			onMouseShortUpAsButtonInCollider.OnMouseShortUpAsButtonInColliderAsObservable()
+			.Where(_ => putted)
+			.Subscribe(_ => dungeonManager.eventManager.OnTapBlock(this));
 		}
 
-		public void SetAsDefault(Location location, BlockShape shape, BlockType type)
+		public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
 		{
 			if (mapManager.map.ContainsKey(location))
 			{
@@ -175,13 +155,13 @@ namespace Memoria.Dungeon.BlockUtility
 
 			// ブロックの位置, 形状, 種類を設定
 			this.location = location;
-			this.shape = shape;
-			this.type = type;
+			this.shapeData = shape;
+			this.blockType = type;
 
-			hasEvent = type != BlockType.None;
+//			hasEvent = type != BlockType.None;
 		}
 
-		#region Operating
+#region Operating
 
 		private bool CanOperation(Unit _ = null)
 		{
@@ -247,25 +227,19 @@ namespace Memoria.Dungeon.BlockUtility
 
 			//Todo:Anyがつかえないか検証する
 			// 隣接ブロックのチェック
-			for (int i = 0; i < Location.directions.Length; i++)
-			{
-				if (CheckConnectedRoad(i, Location.directions[i]))
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return Vector2Int.directions
+				.Select((checkDirection, direction) => new { checkDirection, direction })
+				.Any(data => ConnectsRoad(data.direction, data.checkDirection));
 		}
 
 		// 指定した向きの道とつながるかどうか
-		private bool CheckConnectedRoad(int direction, Location checkDirection)
+		private bool ConnectsRoad(int direction, Vector2Int checkDirection)
 		{
-			Location checkLocation = location + checkDirection;
+			Vector2Int checkLocation = location + checkDirection;
 
-			bool opened1 = shape.directions[direction];
+			bool opened1 = shapeData.directions[direction];
 			bool exsits = mapManager.map.ContainsKey(checkLocation);
-			bool opened2 = exsits && mapManager.map[checkLocation].shape.directions[direction ^ 1];
+			bool opened2 = exsits && mapManager.map[checkLocation].shapeData.directions[direction ^ 1];
 
 			return opened1 && exsits && opened2;
 		}
@@ -281,7 +255,7 @@ namespace Memoria.Dungeon.BlockUtility
 			float time = 1;
 			iTween.MoveTo(gameObject, target, time);
 
-			hasEvent = type != BlockType.None;
+//			hasEvent = blockType != BlockType.None;
 			blockFactor.OnPutBlock();
 		}
 
@@ -293,9 +267,9 @@ namespace Memoria.Dungeon.BlockUtility
 			isSpriteRenderer = false;
 		}
 
-		#endregion
+#endregion
 
-		#region Break
+#region Break
 
 		private bool CanBreak(Unit _ = null)
 		{
@@ -321,26 +295,26 @@ namespace Memoria.Dungeon.BlockUtility
 			Destroy(gameObject);
 		}
 
-		#endregion
+#endregion
 
 		// ブロックイベントが発生したとき
 		public void OnEnterBlockEvent()
 		{
-			if (!hasEvent)
-			{
-				return;
-			}
-
-			hasEvent = false;
+//			if (!hasEvent)
+//			{
+//				return;
+//			}
+//
+//			hasEvent = false;
 		}
 
 		public void OnExitBlockEvent()
 		{
-			type = BlockType.None;
-			hasEvent = false;
+			blockType = BlockType.None;
+//			hasEvent = false;
 		}
 
-		private void SetSprite(BlockShape blockShape, BlockType blockType)
+		private void SetSprite(ShapeData blockShape, BlockType blockType)
 		{
 			Sprite sprite = blockManager.GetBlockSprite(blockShape, blockType);
 			image.sprite = sprite;
