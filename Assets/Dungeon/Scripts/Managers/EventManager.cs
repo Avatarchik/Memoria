@@ -109,6 +109,11 @@ namespace Memoria.Dungeon.Managers
 				yield break;
 			}
 
+//			if (!block.hasEvent)
+//			{
+//				yield break;
+//			}
+
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
 
