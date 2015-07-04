@@ -57,7 +57,8 @@ namespace Memoria.Battle.GameActors
         public virtual bool Attack (AttackType attack)
         {
             if(!target.IsAlive())
-                return false;
+                return true;
+                //return false;
             if(charge) {
                 orderIndex = attack.phaseCost;
                 tracker.QueueAction(this, orderIndex);
