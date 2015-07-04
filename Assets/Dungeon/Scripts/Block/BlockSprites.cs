@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Memoria.Dungeon.BlockUtility
 {
@@ -23,19 +24,7 @@ namespace Memoria.Dungeon.BlockUtility
 		{
 			get
 			{
-				if (blockSpriteArray == null)
-				{
-					List<Sprite[]> sl = new List<Sprite[]>();
-
-					foreach (Sprites sprites in _blockSprites)
-					{
-						sl.Add(sprites.sprites);
-					}
-
-					blockSpriteArray = sl.ToArray();
-				}
-
-				return blockSpriteArray;
+				return blockSpriteArray ?? (blockSpriteArray = _blockSprites.Select(s => s.sprites).ToArray());
 			}
 		}
 	}

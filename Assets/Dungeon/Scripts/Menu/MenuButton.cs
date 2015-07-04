@@ -32,7 +32,7 @@ namespace Memoria.Dungeon.Menu
 
 			// メニューを閉じるイベントの登録
 			returnButton.GetComponent<Button>().OnClickAsObservable()
-			.Where(_ => dungeonManager.activeState != DungeonState.OpenMenu)
+			.Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
 			.Subscribe(_ =>
 			{
 				SetUIActive(false);

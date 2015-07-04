@@ -17,6 +17,7 @@ namespace Memoria.Dungeon
 
 		private DungeonManager dungeonManager;
 		private MapManager mapManager;
+		private ParameterManager parameterManager;
 
 		public Animator animator { get { return GetComponent<Animator>(); } }
 
@@ -63,6 +64,7 @@ namespace Memoria.Dungeon
 		{
 			dungeonManager = DungeonManager.instance;
 			mapManager = dungeonManager.mapManager;
+			parameterManager = dungeonManager.parameterManager;
 		}
 
 		// Use this for initialization
@@ -120,10 +122,10 @@ namespace Memoria.Dungeon
 			Block next = mapManager.map[nextLocation];
 			int dir = ToDirection(moveDirection);
 
-			bool open1 = now.shapeData.directions[dir];
-			bool open2 = next.shapeData.directions[dir ^ 1];
+			bool opened1 = now.shapeData.directions[dir];
+			bool opened2 = next.shapeData.directions[dir ^ 1];
 
-			return open1 && open2;
+			return opened1 && opened2;
 		}
 
 		private void Move(Vector2Int normalizedMoveDirection)
@@ -149,6 +151,11 @@ namespace Memoria.Dungeon
 		private void CompleteMove()
 		{
 			isMoving = false;
+
+			var parameter = parameterManager.parameter;
+			parameter.sp -= 1;
+			parameterManager.parameter = parameter;
+
 			dungeonManager.ExitState();
 		}
 

@@ -31,12 +31,13 @@ namespace Memoria.Dungeon
 
 		public void Load()
 		{
-			DungeonManager dungeonManager = DungeonManager.instance;
-			MapManager mapManager = dungeonManager.mapManager;
-			ParameterManager parameterManager = dungeonManager.parameterManager;
+			var dungeonManager = DungeonManager.instance;
+			var mapManager = dungeonManager.mapManager;
+			var parameterManager = dungeonManager.parameterManager;
 
-			Player player = dungeonManager.player;
+			var player = dungeonManager.player;
 
+			// 初期化時
 			if (!initialized)
 			{
 				direction = 2;
@@ -66,11 +67,11 @@ namespace Memoria.Dungeon
 
 		public void Save()
 		{
-			DungeonManager dungeonManager = DungeonManager.instance;
-			MapManager mapManager = dungeonManager.mapManager;
-			ParameterManager parameterManager = dungeonManager.parameterManager;
+			var dungeonManager = DungeonManager.instance;
+			var mapManager = dungeonManager.mapManager;
+			var parameterManager = dungeonManager.parameterManager;
 
-			Player player = dungeonManager.player;
+			var player = dungeonManager.player;
 
 			direction = player.direction;
 			location = player.location;
