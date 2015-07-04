@@ -28,17 +28,34 @@ namespace Memoria.Dungeon.Managers
 		public void Start()
 		{
 			var parameterChanged = _parameter.AsObservable();
-			string format = "{0:000}/{1:000}";
 
 			// HPの変化イベントの追加
 			parameterChanged
 			.DistinctUntilChanged(param => param.hp)
-			.Subscribe(param => hpText.text = string.Format(format, parameter.hp, parameter.maxHp));
+			.Subscribe(UpdateHpText);
+			
+			parameterChanged
+			.DistinctUntilChanged(param => param.maxHp)
+			.Subscribe(UpdateHpText);
 
 			// SPの変化イベントの追加
 			parameterChanged
 			.DistinctUntilChanged(param => param.sp)
-			.Subscribe(param => spText.text = string.Format(format, parameter.sp, parameter.maxSp));
+			.Subscribe(UpdateSpText);
+
+			parameterChanged
+			.DistinctUntilChanged(param => param.maxSp)
+			.Subscribe(UpdateSpText);
+		}
+
+		private void UpdateHpText(DungeonParameter parameter)
+		{
+			hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
+		}
+
+		private void UpdateSpText(DungeonParameter parameter)
+		{
+			spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
 		}
 	}
 }
