@@ -15,10 +15,10 @@ namespace Memoria.Battle.GameActors
 
     public enum Element
     {
-        FIRE,
-        WIND,
-        WATER,
-        THUNDER
+        FIRE = 0,
+        WIND = 1,
+        WATER = 2,
+        THUNDER = 3
     }
 
     public class ElementalPowerStock : MonoBehaviour
@@ -50,7 +50,6 @@ namespace Memoria.Battle.GameActors
         public void Awake()
         {
             _stockObj = new GameObject[stockLength];
-
         }
 
         void Start()
@@ -72,11 +71,9 @@ namespace Memoria.Battle.GameActors
                 {
                     case ObjectType.UI_OBJECT:
                         _stockObj[i].GetComponent<Image>().sprite = _sprite;
-//                        _stockObj[i].GetComponent<Image>().enabled = false;
                         break;
                     case ObjectType.NORMAL:
                         _stockObj[i].GetComponent<SpriteRenderer>().sprite = _sprite;
-//                        _stockObj[i].GetComponent<SpriteRenderer>().enabled = false;
                         break;
                 }
 
