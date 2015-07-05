@@ -17,7 +17,7 @@ namespace Memoria.Battle.Managers
         private Dictionary<string, GameObject> _nameplate;
         private GameObject _descFrame;
 
-        private Dictionary<string, UIElement> _elements;
+//        private Dictionary<string, UIElement> _elements;
 
         // Use this for initialization
         void Awake () {
@@ -25,7 +25,7 @@ namespace Memoria.Battle.Managers
             _obj = new Dictionary<string, GameObject>[3];
             _cursor = new Dictionary<string, GameObject>();
 
-            _elements = new Dictionary<string, UIElement>();
+//            _elements = new Dictionary<string, UIElement>();
 
             for (int i = 0; i < _obj.Length; i++)
             {
@@ -122,7 +122,7 @@ namespace Memoria.Battle.Managers
         public void SpawnSkills(Hero player)
         {
             var profile = player.GetComponent<Profile>();
-            string[] skills = player.GetSkills();
+//            string[] skills = player.GetSkills();
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
                 var skillObj = _spawner.SpawnUI<SkillIcon>(skill.Key);
@@ -195,7 +195,7 @@ namespace Memoria.Battle.Managers
             AttackTracker at = GetComponent<AttackTracker>();
             foreach(var obj in at.attackOrder.OrderByDescending(x => x.Value))
             {
-                //_nameplate[obj.Key.battleID].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
+                _nameplate[obj.Key.battleID].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
                 i++;
             }
         }
