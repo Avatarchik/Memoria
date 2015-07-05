@@ -1,31 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 using UniRx;
+using UniRx.Triggers;
 
 namespace Memoria.Dungeon.Managers
 {
 	public class ParameterManager : MonoBehaviour
 	{
-		private DungeonParameter _parameter;
+		private ReactiveProperty<DungeonParameter> _parameter = new ReactiveProperty<DungeonParameter>();
 
 		public DungeonParameter parameter
-		{
-			get
-			{
-				if (_parameter == null)
-				{
-					_parameter = new DungeonParameter();
-
-					_parameter.HpAsObservable()
-					.Subscribe(UpdateHpText);
-
-					_parameter.SpAsObservable()
-					.Subscribe(UpdateSpText);
-				}
-
-				return _parameter;
-			}
+		{ 
+			get { return _parameter.Value; } 
+			set { _parameter.Value = value; }
 		}
 
 		[SerializeField]
@@ -36,23 +25,37 @@ namespace Memoria.Dungeon.Managers
 		private Text
 			spText;
 
-		public void SetParamater(DungeonParameter parameter)
+		public void Start()
 		{
-			this.parameter.Set(parameter);
+			var parameterChanged = _parameter.AsObservable();
+
+			// HPの変化イベントの追加
+			parameterChanged
+			.DistinctUntilChanged(param => param.hp)
+			.Subscribe(UpdateHpText);
+			
+			parameterChanged
+			.DistinctUntilChanged(param => param.maxHp)
+			.Subscribe(UpdateHpText);
+
+			// SPの変化イベントの追加
+			parameterChanged
+			.DistinctUntilChanged(param => param.sp)
+			.Subscribe(UpdateSpText);
+
+			parameterChanged
+			.DistinctUntilChanged(param => param.maxSp)
+			.Subscribe(UpdateSpText);
 		}
 
-		private void UpdateHpText(int _ = default(int))
+		private void UpdateHpText(DungeonParameter parameter)
 		{
-			int hp = parameter.hp;
-			int maxHp = parameter.maxHp;
-			hpText.text = string.Format("{0:000}/{1:000}", hp, maxHp);
+			hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
 		}
 
-		private void UpdateSpText(int _ = default(int))
+		private void UpdateSpText(DungeonParameter parameter)
 		{
-			int sp = parameter.sp;
-			int maxSp = parameter.maxSp;
-			spText.text = string.Format("{0:000}/{1:000}", sp, maxSp);
+			spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
 		}
 	}
 }

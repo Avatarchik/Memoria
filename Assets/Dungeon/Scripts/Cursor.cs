@@ -11,10 +11,10 @@ namespace Memoria.Dungeon
 		// Use this for initialization
 		void Start()
 		{
-			Animator animator = GetComponent<Animator>();
+			var animator = GetComponent<Animator>();
 			animator.SetBool("visible", false);
 
-			DungeonManager dungeonManager = DungeonManager.instance;
+			var dungeonManager = DungeonManager.instance;
 
 			// 表示切り替えの登録
 			dungeonManager.ActiveStateAsObservable()

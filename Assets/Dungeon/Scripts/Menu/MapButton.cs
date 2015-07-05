@@ -23,7 +23,6 @@ namespace Memoria.Dungeon.Menu
 		// Use this for initialization
 		void Start()
 		{
-			
 			var dungeonManager = DungeonManager.instance;
 			var activeObjects = new List<GameObject>();
 
@@ -51,7 +50,8 @@ namespace Memoria.Dungeon.Menu
 			{
 				returnButton.SetActive(false);
 				activeObjects.ForEach(g => g.SetActive(true));
-				menuButton.ExitMenu();
+				menuButton.SetUIActive(false);
+				dungeonManager.ExitState();
 			});
 
 			returnButton.SetActive(false);

@@ -101,18 +101,13 @@ namespace Memoria.Dungeon.Managers
 
 		private IEnumerator CoroutineBlockEvent(Block block)
 		{
-			DungeonParameter parameter = paramaterManager.parameter;
+			var parameter = paramaterManager.parameter;
 			parameter.sp -= 1;
 
 			if (block.blockType == BlockType.None)
 			{
 				yield break;
 			}
-
-//			if (!block.hasEvent)
-//			{
-//				yield break;
-//			}
 
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
@@ -136,7 +131,7 @@ namespace Memoria.Dungeon.Managers
 		public void ReturnFromBattle()
 		{
 			Block block = mapManager.map[player.location];
-			DungeonParameter parameter = paramaterManager.parameter;
+			var parameter = paramaterManager.parameter;
 
 			block.OnExitBlockEvent();
 

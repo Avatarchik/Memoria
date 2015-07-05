@@ -29,6 +29,7 @@ namespace Memoria.Dungeon.BlockUtility
 		private DungeonManager dungeonManager;
 		private BlockManager blockManager;
 		private MapManager mapManager;
+		private ParameterManager parameterManager;
 
 		public Image image { get; set; }
 
@@ -36,7 +37,6 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public Animator animator { get; set; }
 
-//		public BlockData blockData { get { return new BlockData(location, shapeData, blockType, hasEvent); } }
 		public BlockData blockData { get { return new BlockData(location, shapeData, blockType); } }
 
 		public Vector2Int location
@@ -71,8 +71,6 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-//		public bool hasEvent { get; private set; }
-
 		private bool isSpriteRenderer
 		{
 			get { return animator.GetBool("isSpriteRenderer"); }
@@ -103,6 +101,7 @@ namespace Memoria.Dungeon.BlockUtility
 			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
 			mapManager = dungeonManager.mapManager;
+			parameterManager = dungeonManager.parameterManager;
 
 			image = GetComponent<Image>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
@@ -157,8 +156,6 @@ namespace Memoria.Dungeon.BlockUtility
 			this.location = location;
 			this.shapeData = shape;
 			this.blockType = type;
-
-//			hasEvent = type != BlockType.None;
 		}
 
 #region Operating
@@ -255,7 +252,6 @@ namespace Memoria.Dungeon.BlockUtility
 			float time = 1;
 			iTween.MoveTo(gameObject, target, time);
 
-//			hasEvent = blockType != BlockType.None;
 			blockFactor.OnPutBlock();
 		}
 
@@ -288,8 +284,9 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックを破壊する
 		private void Break(Unit _ = null)
 		{
-			ParameterManager paramaterManager = dungeonManager.parameterManager;
-			paramaterManager.parameter.sp -= 2;
+			DungeonParameter parameter = parameterManager.parameter;
+			parameter.sp -= 2;
+			parameterManager.parameter = parameter;
 
 			mapManager.map.Remove(location);
 			Destroy(gameObject);
@@ -300,18 +297,15 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックイベントが発生したとき
 		public void OnEnterBlockEvent()
 		{
-//			if (!hasEvent)
-//			{
-//				return;
-//			}
-//
-//			hasEvent = false;
+			if (blockType == BlockType.None)
+			{
+				return;
+			}
 		}
 
 		public void OnExitBlockEvent()
 		{
 			blockType = BlockType.None;
-//			hasEvent = false;
 		}
 
 		private void SetSprite(ShapeData blockShape, BlockType blockType)

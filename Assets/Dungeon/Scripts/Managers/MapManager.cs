@@ -47,10 +47,7 @@ namespace Memoria.Dungeon.Managers
 
 		public void SetMap(List<BlockData> blockDatas)
 		{
-			foreach (var blockData in blockDatas)
-			{
-				blockManager.CreateBlockAsDefault(blockData);
-			}
+			blockDatas.ForEach(data => blockManager.CreateBlockAsDefault(data));
 		}
 
 		/// <summary>

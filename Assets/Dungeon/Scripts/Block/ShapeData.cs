@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Memoria.Dungeon.BlockUtility
 {
@@ -27,21 +29,7 @@ namespace Memoria.Dungeon.BlockUtility
 				}
 
 				_type = value;
-				int flags = value + 3;
-
-				if (value > 3)
-				{
-					flags += 2;
-				}
-				else if (value > 0)
-				{
-					flags += 1;
-				}
-
-				for (int i = 0; i < directions.Length; i++)
-				{
-					_directions[i] = ((flags & (1 << i))) != 0;
-				}
+				_directions = ConvertTypeToFlags(_type);
 			}
 		}
 
@@ -73,6 +61,25 @@ namespace Memoria.Dungeon.BlockUtility
 			_type = 0;
 			_directions = null;
 			this.type = type;
+		}
+
+		// type から 各方向のオープンフラグへ変換
+		private bool[] ConvertTypeToFlags(int type)
+		{
+			int flags = type + 3;
+
+			if (type > 3)
+			{
+				flags += 2;
+			}
+			else if (type > 0)
+			{
+				flags += 1;
+			}
+
+			return Enumerable.Range(0, directions.Length)
+				.Select(i => (flags & (1 << i)) != 0)
+				.ToArray();
 		}
 	}
 }

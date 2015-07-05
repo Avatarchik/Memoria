@@ -19,7 +19,7 @@ namespace Memoria.Dungeon.BlockEvents
 
 		public override IEnumerator GetEventCoroutine(DungeonParameter paramater)
 		{
-			DungeonManager dungeonManager = DungeonManager.instance;
+			var dungeonManager = DungeonManager.instance;
 			dungeonManager.dungeonData.SetBattleType(battleType);
 			dungeonManager.dungeonData.Save();
 			yield return new WaitForSeconds(0.5f);

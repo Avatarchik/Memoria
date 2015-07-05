@@ -18,7 +18,7 @@ namespace Memoria.Dungeon.BlockUtility
 
 		private BlockManager blockManager;
 
-		private ParameterManager paramaterManager;
+		private ParameterManager parameterManager;
 
 		private bool[] flags;
 
@@ -30,7 +30,7 @@ namespace Memoria.Dungeon.BlockUtility
 		{
 			dungeonManager = DungeonManager.instance;
 			blockManager = dungeonManager.blockManager;
-			paramaterManager = dungeonManager.parameterManager;
+			parameterManager = dungeonManager.parameterManager;
 
 			CreateBlockList();
 
@@ -69,7 +69,9 @@ namespace Memoria.Dungeon.BlockUtility
 				nextFlags[randomShapeData.type] = true;
 			});
 
-			paramaterManager.parameter.sp -= 2;
+			DungeonParameter parameter = parameterManager.parameter;
+			parameter.sp -= 2;
+			parameterManager.parameter = parameter;
 			flags = nextFlags;
 		}
 	}

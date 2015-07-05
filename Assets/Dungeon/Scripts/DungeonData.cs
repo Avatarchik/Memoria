@@ -10,16 +10,14 @@ namespace Memoria.Dungeon
 
 	public class DungeonData : MonoBehaviour
 	{
-		public int direction;
-		public Vector2Int location;
+		public int direction { get; set; }
+		public Vector2Int location { get; set; }
 
 		public DungeonParameter parameter { get; set; }
 
 		public List<BlockData> mapData { get; set; }
 
 		public BlockType battleType { get; private set; }
-
-		//public string[] heros { get; set; }
 
 		public int[] stocks { get; set; }
 
@@ -33,24 +31,21 @@ namespace Memoria.Dungeon
 
 		public void Load()
 		{
-			DungeonManager dungeonManager = DungeonManager.instance;
-			MapManager mapManager = dungeonManager.mapManager;
-			ParameterManager parameterManager = dungeonManager.parameterManager;
+			var dungeonManager = DungeonManager.instance;
+			var mapManager = dungeonManager.mapManager;
+			var parameterManager = dungeonManager.parameterManager;
 
-			Player player = dungeonManager.player;
+			var player = dungeonManager.player;
 
+			// 初期化時
 			if (!initialized)
 			{
 				direction = 2;
 				location = new Vector2Int(0, 0);
 
 				mapData = LoadMapData("");
-				parameter = new DungeonParameter();
-				parameter.Set(100, 100, 100, 100, 1, "none");
-
+				parameter = new DungeonParameter(100, 100, 100, 100, 1, "none");
 				stocks = new [] { 0, 0, 0, 0 };
-
-				Debug.Log("initialize!!");
 			}
 
 			player.direction = direction;
@@ -58,7 +53,7 @@ namespace Memoria.Dungeon
 
 			mapManager.SetMap(mapData);
 
-			parameterManager.SetParamater(parameter);
+			parameterManager.parameter = parameter;
 
 			if (initialized)
 			{
@@ -70,11 +65,11 @@ namespace Memoria.Dungeon
 
 		public void Save()
 		{
-			DungeonManager dungeonManager = DungeonManager.instance;
-			MapManager mapManager = dungeonManager.mapManager;
-			ParameterManager parameterManager = dungeonManager.parameterManager;
+			var dungeonManager = DungeonManager.instance;
+			var mapManager = dungeonManager.mapManager;
+			var parameterManager = dungeonManager.parameterManager;
 
-			Player player = dungeonManager.player;
+			var player = dungeonManager.player;
 
 			direction = player.direction;
 			location = player.location;
@@ -82,7 +77,7 @@ namespace Memoria.Dungeon
 			mapData.Clear();
 			mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
-			parameter.Set(parameterManager.parameter);
+			parameter = parameterManager.parameter;
 		}
 
 		public void SetBattleType(BlockType battleType)
@@ -94,9 +89,8 @@ namespace Memoria.Dungeon
 		{
 			print("load map : " + mapDataPath);
 
-			List<BlockData> result = new List<BlockData>();
+			var result = new List<BlockData>();
 
-//			result.Add(new BlockData(new Vector2Int(0, 0), new ShapeData(10), BlockType.None, false));
 			result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
 
 			return result;
