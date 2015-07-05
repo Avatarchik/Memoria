@@ -50,6 +50,10 @@ namespace Memoria.Battle.GameActors
         public void Awake()
         {
             _stockObj = new GameObject[stockLength];
+            for(int i = 0; i < _stockObj.Length; i++)
+            {
+                _stockObj[i] = new GameObject();
+            }
         }
 
         void Start()
@@ -60,25 +64,26 @@ namespace Memoria.Battle.GameActors
 
             _imageType = GetImageType(objType);
 
-            for(int i = 0; i < _stockObj.Length; i++)
+            var i = 0;
+            foreach (GameObject obj in _stockObj)
             {
-                _stockObj[i] = new GameObject();
-                _stockObj[i].name = "PowerStock_" + i;
-                _stockObj[i].AddComponent(_imageType);
-                _stockObj[i].transform.SetParent(this.transform, false);
+                obj.name = "PowerStock_" + i;
+                obj.AddComponent(_imageType);
+                obj.transform.SetParent(this.transform, false);
 
                 switch(objType)
                 {
                     case ObjectType.UI_OBJECT:
-                        _stockObj[i].GetComponent<Image>().sprite = _sprite;
+                        obj.GetComponent<Image>().sprite = _sprite;
                         break;
                     case ObjectType.NORMAL:
-                        _stockObj[i].GetComponent<SpriteRenderer>().sprite = _sprite;
+                        obj.GetComponent<SpriteRenderer>().sprite = _sprite;
                         break;
                 }
 
-                var pos = _stockObj[i].transform.position;
-                _stockObj[i].transform.position = new Vector3(pos.x + offsetX + (i * spaceOffset), pos.y + offsetY);
+                var pos = obj.transform.position;
+                obj.transform.position = new Vector3(pos.x + offsetX + (i * spaceOffset), pos.y + offsetY);
+                i++;
             }
         }
 

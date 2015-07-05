@@ -21,7 +21,7 @@ namespace Memoria.Battle.Managers
 
         // Use this for initialization
         void Awake () {
-            _spawner = new GameObject().AddComponent<ActorSpawner>();
+            _spawner = FindObjectOfType<ActorSpawner>();
             _obj = new Dictionary<string, GameObject>[3];
             _cursor = new Dictionary<string, GameObject>();
 
@@ -121,11 +121,12 @@ namespace Memoria.Battle.Managers
 
         public void SpawnSkills(Hero player)
         {
+
             var profile = player.GetComponent<Profile>();
 //            string[] skills = player.GetSkills();
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
-                var skillObj = _spawner.SpawnUI<SkillIcon>(skill.Key);
+                var skillObj = _spawner.Spawn<SkillIcon>(skill.Key);
                 skillObj.GetComponent<SkillIcon>().SetOnClick(player.SetAttack, skill.Key);
                 skillObj.GetComponent<UIElement>().SetParent();
                 //
@@ -183,7 +184,7 @@ namespace Memoria.Battle.Managers
             {
                 var namebar = obj.Key.GetComponentInParent<Namebar>();
                 var actorId = obj.Key.battleID;
-                var spawnedBar = _spawner.SpawnUI<Namebar>(namebar.spriteResource);
+                var spawnedBar = _spawner.Spawn<Namebar>(namebar.spriteResource);
                 spawnedBar.GetComponent<Namebar>().SetParent();
                 _nameplate.Add(actorId, spawnedBar);
             }

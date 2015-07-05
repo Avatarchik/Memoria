@@ -71,6 +71,7 @@
      <Compile Include="Assets\Battle\Script\Entity\SkillIcon.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Status.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UIElement.cs" />
+     <Compile Include="Assets\Battle\Script\Extensions.cs" />
      <Compile Include="Assets\Battle\Script\FadeAttackScreen.cs" />
      <Compile Include="Assets\Battle\Script\Manager\ActionMgr.cs" />
      <Compile Include="Assets\Battle\Script\Manager\AttackTracker.cs" />

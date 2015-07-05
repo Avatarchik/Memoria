@@ -9,18 +9,25 @@ using Memoria.Battle.States;
 
 namespace Memoria.Battle.GameActors
 {
-    public class Hero : Entity {
+    public class Hero : Entity
+    {
 
         public bool attackSelected;
+
         public bool passToStock;
+
         public string nameplae;
+
         private Button _iconButton;
+
         private bool _enemyTarget;
+
         private bool _initializedTurn;
 
         public ElementalPowerStock power;
 
-        void Start () {
+        void Start ()
+        {
             entityType = "hero";
 
             profile = GetComponent<Profile>();
@@ -32,13 +39,6 @@ namespace Memoria.Battle.GameActors
             power.objType = ObjectType.UI_OBJECT;
         }
 
-        void Update()
-        {
-
-//            for (int i = 0; i < _power.stock; i++)
-  //          {
- //           }
-        }
         override public void Init()
         {
             components.Add(typeof(TargetSelector));
@@ -50,11 +50,11 @@ namespace Memoria.Battle.GameActors
 
         override public bool Attack (AttackType attack)
         {
-            if(passToStock)
-            {
+            if(passToStock) {
                 return true;
             }
-            if(!attackReady) {
+            if(!attackReady)
+            {
                 StartTurn();
                 BattleMgr.Instance.SetState(State.SELECT_SKILL);
                 return false;
@@ -74,18 +74,19 @@ namespace Memoria.Battle.GameActors
         override public void EndTurn()
         {
             _iconButton.onClick.RemoveAllListeners();
-            if(!charge && !passToStock) {
+            if(!charge && !passToStock)
+            {
                 attackSelected = false;
                 attackType.attacked = false;
                 attackType = null;
                 target = null;
             }
-            if(passToStock) {
+            if(passToStock)
+            {
                 passToStock = false;
                 target = null;
             }
-            if(charge)
-            {
+            if(charge) {
                 power.UseStock(attackType.stockCost);
             }
 
@@ -102,41 +103,35 @@ namespace Memoria.Battle.GameActors
 
         public void SetAttack(string attack)
         {
+            _iconButton.onClick.RemoveAllListeners();
             if(!charge) {
                 attackType = profile.attackList[attack];
-
-                if(attackType.stockCost > power.stock)
-                    return;
-
                 attackSelected = true;
                 if(attackType.phaseCost > 1) {
                     charge = true;
                     chargeReady = false;
                 }
             }
-            if (attackType.targetType == ENEMY)
-            {
+            if (attackType.targetType == ENEMY) {
                 _enemyTarget = true;
             }
-            if (attackType.targetType == PARTY)
-            {
+            if (attackType.targetType == PARTY) {
                 _enemyTarget = false;
             }
-            _iconButton.onClick.RemoveAllListeners();
-
         }
 
         public bool TargetSelected()
         {
             if (target == null) {
                 return GetComponent<TargetSelector> ().TargetSelected(_enemyTarget);
-            } else
-                  return true;
+            } else {
+                return true;
+            }
         }
 
         public void SetTarget(IDamageable e)
         {
-            if (target == null){
+            if (target == null) {
                 target = e;
             }
             attackReady = true;
@@ -146,8 +141,7 @@ namespace Memoria.Battle.GameActors
         {
             var list = new List<string>();
 
-            foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
-            {
+            foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3)) {
                 list.Add(skill.Key);
             }
             return list.ToArray();

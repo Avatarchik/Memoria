@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 using Memoria.Battle.States;
 using Memoria.Battle.GameActors;
@@ -25,8 +24,10 @@ namespace Memoria.Battle.Managers
 
         private DungeonData _dungeonData;
         private Dictionary<State, BattleState> _battleStates;
-        private Dictionary<Type, string>  _profiles = new Dictionary<Type, string>(); //Temporary hero list
-        private Type[] _party;
+
+        private string[] _party;
+        private Type[] _profileType;
+
         private ActorSpawner _spawner;
 
         public List<GameObject> enemyList = new List<GameObject> ();
@@ -41,7 +42,8 @@ namespace Memoria.Battle.Managers
 
         public static BattleMgr Instance
         {
-            get {
+            get
+            {
                 if(_instance == null)
                 {
                     _instance = GameObject.FindObjectOfType<BattleMgr>() as BattleMgr;
@@ -52,27 +54,39 @@ namespace Memoria.Battle.Managers
 
         void Awake ()
         {
-            //set variables sent from dungeon scene
             _dungeonData = FindObjectOfType<DungeonData>();
+
             if(_dungeonData != null)
             {
                 elementalAffinity = _dungeonData.battleType.ToEnum<ElementType, BlockType>();
             }
-            _party = new Type[] {
-                typeof(Amelia),
-                typeof(Claude),
-                typeof(Tracy),
-                typeof(Aria)
-            };
 
-            //
+            _party = new string[]
+                {
+                    "Amelia",
+                    "Tracy",
+                    "Aria",
+                    "Claude"
+                };
+
+            _profileType = new Type[]
+                {
+                    typeof(Amelia),
+                    typeof(Tracy),
+                    typeof(Aria),
+                    typeof(Claude)
+                };
+
             InitBattleStates();
             _spawner = FindObjectOfType<ActorSpawner>();
             AttackTracker = GetComponent<AttackTracker>();
             UiMgr = GetComponent<UIMgr> ();
         }
+
         void Start()
         {
+            _spawner._defaultComponents.Add(typeof(BoxCollider2D));
+
             SpawnHeroes();
             SpawnEnemies();
             CurrentState = _battleStates[State.PREPARE];
@@ -81,9 +95,12 @@ namespace Memoria.Battle.Managers
         void Update () {
             UiMgr.SetAttackOrder();
             CheckWinLoss();
-            if(CurrentState.Initialized) {
+            if(CurrentState.Initialized)
+            {
                 CurrentState.Update();
-            } else {
+            }
+            else
+            {
                 CurrentState.PreInitialize(this, UiMgr, NowActor);
                 CurrentState.Initialize();
                 CurrentState.Initialized = true;
@@ -92,36 +109,42 @@ namespace Memoria.Battle.Managers
 
         private void SpawnHeroes()
         {
-            _profiles = _spawner.GetProfiles(_party);
-            Transform ui =  GameObject.FindObjectOfType<Canvas>().gameObject.transform;
-            for(int i = 0; i < _profiles.Count; i++)
+
+            for(int i = 0; i < _party.Length; i++)
             {
+                _spawner.parentObject =  GameObject.FindObjectOfType<Canvas>().gameObject.transform;
+
                 var pos = new Vector3((3.8f / 1.5f - 4f + i) * 3.5f, -3, 1);
-                var hero = _spawner.Spawn<Hero>(_profiles.ElementAt(i).Key , _profiles.ElementAt(i).Value);
+                GameObject hero = _spawner.Spawn<Hero>("Char_" + _party[i], _profileType[i]);
 
-                _spawner.InitObj(hero, hero.GetComponent<Hero>().components, ui);
-
-                hero.GetComponent<Hero>().battleID = "h0" + i;
+                hero.LoadComponentsFromList(hero.GetComponent<Entity>().components);
                 hero.transform.position = pos;
                 hero.transform.localScale *= 0.8f; //Temporary
-                hero.GetComponent<BoxCollider2D>().size *= 100;
-                hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.name = hero.GetComponent<Profile>().GetType().ToString();
+
+                hero.GetComponent<BoxCollider2D>().size *= 100;
+                hero.GetComponent<BoxCollider2D>().enabled = false;
+                hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
+                hero.GetComponent<Hero>().battleID = "h0" + i;
+
                 actorList.Add(hero);
             }
         }
 
         private void SpawnEnemies()
         {
-            Type[] enemies = _spawner.GetRandomEnemies();
+            _spawner.parentObject =  GameObject.Find("Enemies").gameObject.transform;
+
+            Type[] enemies = GetRandomEnemies();
             for(int i = 0; i < enemies.Length; i++)
             {
-                var randomEnemy = _spawner.Spawn<Enemy>(enemies[i], "monster0" + i);
+                var pos = new Vector3((enemies.Length / 2.5f - enemies.Length + i * 3f), 0.0f, -9);
+                GameObject randomEnemy = _spawner.Spawn<Enemy>("monster0" + i, enemies[i]);
 
-                _spawner.InitObj(randomEnemy, randomEnemy.GetComponent<Enemy>().components, _spawner.parentObject);
-
+                randomEnemy.LoadComponentsFromList(randomEnemy.GetComponent<Entity>().components);
+                randomEnemy.transform.position = pos;
                 randomEnemy.GetComponent<Enemy>().battleID = "e0" + i;
-                randomEnemy.transform.position = new Vector3((enemies.Length / 2.5f - enemies.Length + i * 3f), 0.0f, -9);
+                randomEnemy.GetComponent<BoxCollider2D>().enabled = false;
                 enemyList.Add(randomEnemy);
                 actorList.Add(randomEnemy);
             }
@@ -144,10 +167,6 @@ namespace Memoria.Battle.Managers
             if(_battleStates.ContainsKey(state))
             {
                 CurrentState = _battleStates[state];
-            }
-            else
-            {
-                Debug.Log("[E] Battle state missing.");
             }
         }
 
@@ -180,14 +199,12 @@ namespace Memoria.Battle.Managers
             UiMgr.DestroyNameplate(e.battleID);
             actorList.RemoveAll(x => x.GetComponent<Entity>().Equals(e));
         }
-    }
 
-    public static class Extensions
-    {
-        public static T1 ToEnum<T1, T2>(this T2 sender)
+        private Type[] GetRandomEnemies()
         {
-            string s = sender.ToString().ToUpper();
-            return (T1)Enum.Parse(typeof(T1), s);
+            Type[] result = { typeof(Golem) };
+            return result;
         }
+
     }
 }
