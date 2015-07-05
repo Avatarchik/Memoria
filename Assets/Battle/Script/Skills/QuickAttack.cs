@@ -18,7 +18,7 @@ namespace Memoria.Battle.GameActors
 
         override public void Execute(IDamageable target)
         {
-            target.TakeDamage(110);
+            target.TakeDamage(70);
         }
         override public void Execute(Damage damage, IDamageable target)
         {

@@ -18,6 +18,9 @@ namespace Memoria.Battle.GameActors
 
     public class Entity : MonoBehaviour {
 
+        protected const char ENEMY = 'e';
+        protected const char PARTY = 'h';
+
         public List<System.Type> components = new List<System.Type>();
 
         public string nameplate;

@@ -1,5 +1,4 @@
 ﻿using Memoria.Battle.Managers;
-using UnityEngine;
 
 namespace Memoria.Battle.States
 {

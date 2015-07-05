@@ -17,6 +17,7 @@ namespace Memoria.Battle.States
             BattleMgr.actorList = BattleMgr.actorList.OrderByDescending (x => x.GetComponent<Entity> ().parameter.speed).ToList ();
             GenerateOrderIndex ();
             uiMgr.SpawnAttackOrder();
+//            uiMgr.SpawnNamebars(battleMgr.AttackTracker.attackOrder);
             //uiMgr.CreateHpBar();
         }
 

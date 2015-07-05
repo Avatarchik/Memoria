@@ -6,7 +6,6 @@ namespace Memoria.Battle.GameActors
 {
     abstract public class UIElement : MonoBehaviour
     {
-        protected ActorSpawner spawner;
 
         public string spriteResource;
 
@@ -15,11 +14,6 @@ namespace Memoria.Battle.GameActors
         public void SetParent()
         {
             this.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
-        }
-
-        public void SetPosition(Vector2 pos) 
-        {
-            this.transform.position = pos;
         }
 
         public void Destroy()

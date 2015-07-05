@@ -38,10 +38,13 @@ namespace Memoria.Battle.Managers
 
         public void ShowDescBar(string resource)
         {
-            var frame = (GameObject)Resources.Load(resource);
-            _descFrame = Instantiate(frame);
-            _descFrame.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
-            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
+            if(!_descFrame)
+            {
+                var frame = (GameObject)Resources.Load(resource);
+                _descFrame = Instantiate(frame);
+                _descFrame.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
+                _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
+            }
         }
 
         public void RemoveDescBar()
@@ -61,11 +64,8 @@ namespace Memoria.Battle.Managers
             }
             else
             {
-                Debug.Log(_cursor.ContainsKey(owner));
-                Debug.Log(_cursor.Count);
                 if(_cursor.ContainsKey(owner))
                 {
-                    Debug.Log(_cursor[owner]);
                     Destroy(_cursor[owner]);
                     _cursor.Remove(owner);
                 }
@@ -177,13 +177,15 @@ namespace Memoria.Battle.Managers
             }
         }
 
-        public void SpawnNamebars(List<GameObject> actors)
+        public void SpawnNamebars(Dictionary<Entity, float> actors)
         {
-            foreach (GameObject actor in actors.OrderByDescending(x => x.GetComponent<Entity>().parameter.speed))
+            foreach(var obj in actors.OrderByDescending(x => x.Value))
             {
-                var namebar = actor.GetComponent<Namebar>();
-                Debug.Log(namebar.spriteResource);
-                _spawner.SpawnUI<Namebar>(namebar.spriteResource);
+                var namebar = obj.Key.GetComponentInParent<Namebar>();
+                var actorId = obj.Key.battleID;
+                var spawnedBar = _spawner.SpawnUI<Namebar>(namebar.spriteResource);
+                spawnedBar.GetComponent<Namebar>().SetParent();
+                _nameplate.Add(actorId, spawnedBar);
             }
         }
 
@@ -193,7 +195,7 @@ namespace Memoria.Battle.Managers
             AttackTracker at = GetComponent<AttackTracker>();
             foreach(var obj in at.attackOrder.OrderByDescending(x => x.Value))
             {
-                _nameplate[obj.Key.battleID].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
+                //_nameplate[obj.Key.battleID].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
                 i++;
             }
         }

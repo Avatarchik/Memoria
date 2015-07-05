@@ -15,9 +15,25 @@ namespace Memoria.Battle.GameActors
 
         // Update is called once per frame
 
-        public void TakeDamage(int i)
+        public void TakeDamage(int damage)
         {
-            health.hp -= i;
+            if(damage < 0)
+                Heal(damage);
+            else
+                health.hp -= damage;
+        }
+
+        public void Heal(int healValue)
+        {
+            var effectiveHeal = (healValue * (-1));
+            if(health.hp + effectiveHeal > health.maxHp)
+            {
+                health.hp = health.maxHp;
+            }
+            else
+            {
+                health.hp += effectiveHeal;
+            }
         }
 
         public void TakeDamage(Damage d)

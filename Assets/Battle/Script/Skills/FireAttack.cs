@@ -8,7 +8,7 @@ namespace Memoria.Battle.GameActors
         void Start ()
         {
             phaseCost = 2;
-            stockCost = 2;
+            stockCost = 1;
             animationDur = 310;
             targetType = 'e';
             selectType = TargetType.ALL;
@@ -18,7 +18,7 @@ namespace Memoria.Battle.GameActors
 
         override public void Execute(IDamageable target)
         {
-            target.TakeDamage(120);
+            target.TakeDamage(80);
         }
 
         override public void Execute(Damage damage, IDamageable target)

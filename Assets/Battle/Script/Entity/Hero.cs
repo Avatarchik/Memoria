@@ -11,42 +11,46 @@ namespace Memoria.Battle.GameActors
 {
     public class Hero : Entity {
 
-        const char ENEMY = 'e';
-        const char PARTY = 'h';
-
         public bool attackSelected;
-        public bool passtToStock;
+        public bool passToStock;
         public string nameplae;
-        public int stock;
         private Button _iconButton;
         private bool _enemyTarget;
+        private bool _initializedTurn;
+
+        public ElementalPowerStock power;
 
         void Start () {
             entityType = "hero";
+
             profile = GetComponent<Profile>();
+            power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
             nameplate = profile.nameplate;
             _iconButton = GetComponent<Button>();
+            power.elementType = parameter.elementAff.ToEnum<Element, ElementType>();
+            power.objType = ObjectType.UI_OBJECT;
         }
 
         void Update()
         {
-            for (int i = 0; i < stock; i++)
-            {
-                //Update stock icons
-            }
+
+//            for (int i = 0; i < _power.stock; i++)
+  //          {
+ //           }
         }
         override public void Init()
         {
             components.Add(typeof(TargetSelector));
             components.Add(typeof(Namebar));
+            components.Add(typeof(ElementalPowerStock));
             base.Init();
         }
 
+
         override public bool Attack (AttackType attack)
         {
-            SetIconSkill(stock);
-            if(passtToStock)
+            if(passToStock)
             {
                 return true;
             }
@@ -60,42 +64,50 @@ namespace Memoria.Battle.GameActors
 
         override public void StartTurn()
         {
+            SetIconSkill();
+            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff && attackType == null) {
+                power.AddStock();
+            }
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);
         }
 
         override public void EndTurn()
         {
             _iconButton.onClick.RemoveAllListeners();
-            if(!charge && !passtToStock) {
+            if(!charge && !passToStock) {
                 attackSelected = false;
                 attackType.attacked = false;
                 attackType = null;
                 target = null;
             }
-            passtToStock = false;
+            if(passToStock) {
+                passToStock = false;
+                target = null;
+            }
+            if(charge)
+            {
+                power.UseStock(attackType.stockCost);
+            }
+
             transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);
             base.EndTurn();
         }
 
         public void StockUp()
         {
-            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff) {
-                stock += 1;
-            }
-            stock += 1;
-            if(stock > 3)
-            {
-                stock = 3;
-            }
-            passtToStock = true;
-            Debug.Log(this +"Elemetal Stock"+ stock);
+            power.AddStock();
+            passToStock = true;
+            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
         }
 
         public void SetAttack(string attack)
         {
-            _iconButton.onClick.RemoveAllListeners();
             if(!charge) {
                 attackType = profile.attackList[attack];
+
+                if(attackType.stockCost > power.stock)
+                    return;
+
                 attackSelected = true;
                 if(attackType.phaseCost > 1) {
                     charge = true;
@@ -110,6 +122,8 @@ namespace Memoria.Battle.GameActors
             {
                 _enemyTarget = false;
             }
+            _iconButton.onClick.RemoveAllListeners();
+
         }
 
         public bool TargetSelected()
@@ -139,9 +153,9 @@ namespace Memoria.Battle.GameActors
             return list.ToArray();
         }
 
-        private void SetIconSkill(int i)
+        private void SetIconSkill()
         {
-            if(i < 3)
+            if(!power.Full)
             {
                 _iconButton.onClick.AddListener(() => StockUp());
                 return;

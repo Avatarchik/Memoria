@@ -14,7 +14,7 @@ namespace Memoria.Battle.States
         {
             var hero = (Hero)nowActor;
             uiMgr.ShowSkill(hero);
-            if(hero.attackSelected || hero.passtToStock) {
+            if(hero.attackSelected || hero.passToStock) {
                 uiMgr.DestroyButton();
                 battleMgr.SetState(State.SELECT_TARGET);
             }
