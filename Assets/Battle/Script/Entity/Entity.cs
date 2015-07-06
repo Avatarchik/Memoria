@@ -6,16 +6,6 @@ using Memoria.Battle.Utility;
 
 namespace Memoria.Battle.GameActors
 {
-    public struct Parameter {
-        public int hp;
-        public int attack;
-        public int defense;
-        public int mattack;
-        public int mdefense;
-        public int speed;
-        public ElementType elementAff;
-    }
-
     public class Entity : MonoBehaviour {
 
         protected const char ENEMY = 'e';
@@ -73,7 +63,7 @@ namespace Memoria.Battle.GameActors
             if(!attack.attacked)
             {
                 Damage damage = ScriptableObject.CreateInstance<Damage>();
-                damage.PlayerParameters = parameter;
+                damage.AttackerParameters = parameter;
                 attack.Execute(damage, target);
                 attack.attacked = true;
             }

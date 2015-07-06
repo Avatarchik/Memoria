@@ -9,6 +9,7 @@ namespace Memoria.Battle.GameActors
         void Start () {
             animationDur = 7;
             effectObj = (GameObject)Resources.Load("dmg");
+            elementalAff = new NoElement(Element.NONE);
         }
 
         // Update is called once per frame

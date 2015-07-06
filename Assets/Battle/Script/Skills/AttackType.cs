@@ -3,12 +3,6 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public enum TargetType
-    {
-        SINGLE,
-        ALL
-    }
-
     abstract public class AttackType : MonoBehaviour {
 
         public TargetType selectType;
@@ -32,7 +26,7 @@ namespace Memoria.Battle.GameActors
         {
             get { return animationDur; }
         }
-        abstract public void Execute(Damage dmg, IDamageable target);
+        abstract public void Execute(Damage damage, IDamageable target);
         abstract public void PlayEffect(Entity target);
     }
 }

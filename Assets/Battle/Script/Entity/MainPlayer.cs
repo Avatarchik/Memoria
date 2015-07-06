@@ -11,6 +11,7 @@ namespace Memoria.Battle.GameActors
             health = GetComponent<HealthSystem> ();
             health.maxHp = 250;
             health.hp = 250;
+            parameter.elementAff = new NoElement(Element.NONE);
         }
 
         // Update is called once per frame
@@ -31,6 +32,7 @@ namespace Memoria.Battle.GameActors
         public void TakeDamage(Damage damage)
         {
             damage.TargetParameters = parameter;
+
             if(damage.Calculate() < 0)
                 Heal(damage.Calculate());
             else

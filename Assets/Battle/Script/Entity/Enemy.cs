@@ -11,17 +11,23 @@ namespace Memoria.Battle.GameActors
 
         void Start()
         {
-            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
-            parameter.speed = 100;
             entityType = "enemy";
+
             health = GetComponent<HealthSystem> ();
             death = GetComponent<DeathSystem> ();
             profile = GetComponent<EnemyAI>();
+
+            parameter = profile.parameter;
             attackType = profile.attackType;
 
             death.isAlive = true;
-            health.maxHp = 150;
+            health.maxHp = parameter.hp;
             health.hp = health.maxHp;
+
+            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
+
+            transform.SetParent(GameObject.Find("Enemies").gameObject.transform, false);
+
         }
 
         void Update()

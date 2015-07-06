@@ -6,6 +6,7 @@ using System;
 
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
+using Memoria.Battle;
 
 namespace Memoria.Battle.GameActors
 {
@@ -32,14 +33,15 @@ namespace Memoria.Battle.GameActors
         void Start ()
         {
             entityType = "hero";
-
             profile = GetComponent<Profile>();
             power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
             nameplate = profile.nameplate;
             _iconButton = GetComponent<Button>();
-            power.elementType = parameter.elementAff.ToEnum<Element, ElementType>();
+            power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
+
+            transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
         }
 
 
@@ -77,7 +79,7 @@ namespace Memoria.Battle.GameActors
         override public void StartTurn()
         {
             SetIconSkill();
-            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff && attackType == null) {
+            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
                 power.AddStock();
             }
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);

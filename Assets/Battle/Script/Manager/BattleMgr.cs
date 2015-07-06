@@ -6,17 +6,10 @@ using Memoria.Battle.GameActors;
 using Memoria.Battle.Utility;
 using Memoria.Dungeon.BlockUtility;
 using Memoria.Dungeon;
+using Memoria.Battle;
 
 namespace Memoria.Battle.Managers
 {
-    public enum ElementType
-    {
-        FIRE = 0,
-        WATER = 1,
-        WIND = 2,
-        THUNDER = 3
-    }
-
     public class BattleMgr : MonoBehaviour {
 
         public static List<GameObject> actorList = new List<GameObject>();
@@ -37,7 +30,7 @@ namespace Memoria.Battle.Managers
         public AttackTracker AttackTracker { get; private set; }
         public BattleState CurrentState { get; private set; }
 
-        public ElementType elementalAffinity = ElementType.FIRE;
+        public Element elementalAffinity = Element.FIRE;
         public float AttackAnimation { get; set; }
 
         public static BattleMgr Instance
@@ -58,7 +51,7 @@ namespace Memoria.Battle.Managers
 
             if(_dungeonData != null)
             {
-                elementalAffinity = _dungeonData.battleType.ToEnum<ElementType, BlockType>();
+                elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
             }
 
             _party = new string[]
@@ -112,9 +105,6 @@ namespace Memoria.Battle.Managers
 
             for(int i = 0; i < _party.Length; i++)
             {
-                _spawner.parentObject =  GameObject.Find("Player").gameObject.transform;
-
-                //                _spawner.parentObject =  GameObject.FindObjectOfType<Canvas>().gameObject.transform;
 
                 var pos = new Vector3((3.8f / 1.5f - 4f + i) * 3.5f, -3, 1);
                 GameObject hero = _spawner.Spawn<Hero>("Char_" + _party[i], _profileType[i]);
@@ -135,7 +125,6 @@ namespace Memoria.Battle.Managers
 
         private void SpawnEnemies()
         {
-            _spawner.parentObject =  GameObject.Find("Enemies").gameObject.transform;
 
             Type[] enemies = GetRandomEnemies();
             for(int i = 0; i < enemies.Length; i++)

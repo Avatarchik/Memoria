@@ -41,8 +41,6 @@ namespace Memoria.Battle.GameActors
 
             obj.transform.SetParent(parentObject, false);
 
-            parentObject = this.transform;
-
             return obj;
         }
     }

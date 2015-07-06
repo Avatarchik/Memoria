@@ -1,34 +1,28 @@
 ﻿using UnityEngine;
+using Memoria.Battle;
+using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public interface IDamageable
-    {
-        void TakeDamage(Damage d);
-        bool IsAlive();
-    }
-
-    public struct DmgParameters
-    {
-        public int totalDamage;
-        public int percentMod;
-        public int attackPower;
-        public int defencePower;
-        public int offElementalPower;
-        public int defElementalPower;
-
-    }
-
     public class Damage : ScriptableObject {
 
-        public Parameter PlayerParameters { get; set;}
-        public Parameter TargetParameters { get; set;}
+        public Parameter AttackerParameters { get; set; }
+        public Parameter TargetParameters { get; set; }
         public DmgParameters DamageParameters { get; set; }
 
 
         public int Calculate()
         {
-            return 10;
+            var totalDmg = 11.0f;
+            totalDmg *= GetElementalBonus(TargetParameters.elementAff);
+            Debug.Log(totalDmg);
+            return Mathf.CeilToInt(totalDmg);
+        }
+
+        public float GetElementalBonus(ElementType testElement)
+        {
+            Debug.Log(AttackerParameters.elementAff.CheckElements(testElement));
+            return((float)(int)AttackerParameters.elementAff.CheckElements(testElement) / 2);
         }
     }
 }

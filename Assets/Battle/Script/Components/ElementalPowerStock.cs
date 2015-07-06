@@ -13,16 +13,18 @@ namespace Memoria.Battle.GameActors
         NORMAL = 1
     }
 
-    public enum Element
+    public enum StockType
     {
         FIRE = 0,
         WIND = 1,
         WATER = 2,
         THUNDER = 3
     }
-
     public class ElementalPowerStock : MonoBehaviour
     {
+
+
+
         [SerializeField]
         private Sprite _sprite;
 
@@ -41,7 +43,7 @@ namespace Memoria.Battle.GameActors
 
         public int stock;
         public ObjectType objType;
-        public Element elementType;
+        public StockType elementType;
 
         public bool Full { get; private set; }
         public float scale = 1.5f;

@@ -12,7 +12,7 @@ namespace Memoria.Battle.GameActors
             animationDur = 310;
             targetType = 'e';
             selectType = TargetType.ALL;
-            elementalAff = ElementType.FIRE;
+            elementalAff = new ElementFire(Element.FIRE);
             effectObj = (GameObject)Resources.Load("explode");
         }
 
