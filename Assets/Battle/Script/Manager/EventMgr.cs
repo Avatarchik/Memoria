@@ -95,7 +95,6 @@ namespace Memoria.Battle.Managers
         public event TurnEnds TurnEnd;
         public event BattleEnds BattleEnd;
         public event EnemyDies EnemyDied;
-        public event RecievedStatus GotStatus;
 
         public Dictionary<string, System.Delegate> delegateList;
 

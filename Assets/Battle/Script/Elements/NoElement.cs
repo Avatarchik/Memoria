@@ -8,40 +8,22 @@ namespace Memoria.Battle
             : base(elementType)
         {
         }
-        override public StrengthType GetResultWithFire
+        override protected StrengthType GetResultWithFire()
         {
-            get
-            {
-                return StrengthType.NORMAL;
-            }
+            return StrengthType.NORMAL;
         }
-        override public StrengthType GetResultWithWater
+        override protected StrengthType GetResultWithWater()
         {
-            get
-            {
-                return StrengthType.NORMAL;
-            }
+            return StrengthType.NORMAL;
         }
-        override public StrengthType GetResultWithWind
+        override protected StrengthType GetResultWithWind()
         {
-            get
-            {
-                return StrengthType.NORMAL;
-            }
+            return StrengthType.NORMAL;
         }
-        override public StrengthType GetResultWithThunder
+        override protected StrengthType GetResultWithThunder()
         {
-            get
-            {
-                return StrengthType.NORMAL;
-            }
+            return StrengthType.NORMAL;
         }
-        override public StrengthType GetResultWithNormal
-        {
-            get
-            {
-                return StrengthType.NORMAL;
-            }
-        }
+
     }
 }

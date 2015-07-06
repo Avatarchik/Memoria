@@ -20,5 +20,26 @@ namespace Memoria.Battle
             }
             return gameObject;
         }
+
+        public static int[] ToArray(this int number)
+        {
+            int[] result = new int[GetDigitArrayLength(number)];
+
+            for(int i = 0; i < result.Length; i++)
+            {
+                result[result.Length - i -1] = number % 10;
+                number /= 10;
+            }
+            return result;
+        }
+
+        public static int GetDigitArrayLength(int number)
+        {
+            if(number == 0)
+            {
+                return 1;
+            }
+            return (int)Math.Log10(number);
+        }
     }
 }

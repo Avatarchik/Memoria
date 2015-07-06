@@ -5,6 +5,11 @@ namespace Memoria.Battle.GameActors
 {
     public class FireAttack : AttackType, ITriggerable  {
 
+        void Awake()
+        {
+            parameters.attackPower = 100;
+        }
+
         void Start ()
         {
             phaseCost = 2;

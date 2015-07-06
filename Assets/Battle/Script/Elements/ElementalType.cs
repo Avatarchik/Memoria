@@ -1,35 +1,41 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Memoria.Battle
 {
     abstract public class ElementType
     {
+        protected Dictionary<Element, Func<StrengthType>> result;
+
         protected ElementType(Element elementType)
         {
             Type = elementType;
+
+            result = new Dictionary<Element, Func<StrengthType>>
+                {
+                    { Element.FIRE,    () => GetResultWithFire()    },
+                    { Element.THUNDER, () => GetResultWithThunder() },
+                    { Element.WATER,   () => GetResultWithWater()   },
+                    { Element.WIND,    () => GetResultWithWind()    },
+                    { Element.NONE,    () => GetResultWithNormal()  }
+                };
         }
 
-        public Element Type { get; set; }
+        public Element Type { get; private set; }
+
         public StrengthType CheckElements(ElementType elementType)
         {
-            switch(elementType.Type)
-            {
-                case Element.FIRE:
-                    return GetResultWithFire;
-                case Element.THUNDER:
-                    return GetResultWithThunder;
-                case Element.WATER:
-                    return GetResultWithWater;
-                case Element.WIND:
-                    return GetResultWithWind;
-            }
-            return GetResultWithNormal;
+            return result[elementType.Type].Invoke();
         }
 
-        abstract public StrengthType GetResultWithFire { get; }
-        abstract public StrengthType GetResultWithWater { get; }
-        abstract public StrengthType GetResultWithWind { get; }
-        abstract public StrengthType GetResultWithThunder { get; }
-        abstract public StrengthType GetResultWithNormal { get; }
+        abstract protected StrengthType GetResultWithFire();
+        abstract protected StrengthType GetResultWithWater();
+        abstract protected StrengthType GetResultWithWind();
+        abstract protected StrengthType GetResultWithThunder();
+        protected StrengthType GetResultWithNormal()
+        {
+            return StrengthType.NORMAL;
+        }
     }
 
 }

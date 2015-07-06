@@ -71,6 +71,7 @@ namespace Memoria.Battle.GameActors
         public void TakeDamage(Damage d)
         {
             d.TargetParameters = parameter;
+            d.DamageEffect(this);
             this.health.hp -= d.Calculate();
         }
 
