@@ -10,7 +10,7 @@ namespace Memoria.Battle.GameActors
         {
             attackList.Add ("Quick_attack", gameObject.AddComponent<QuickAttack>());
             attackType = attackList["Quick_attack"];
-            nameplate = "GOJBNA6000";
+            nameplate = "Namebar_Golem";
         }
 
         void Update()

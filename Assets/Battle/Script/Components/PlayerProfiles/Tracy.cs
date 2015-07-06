@@ -9,7 +9,7 @@ namespace Memoria.Battle.GameActors
 
         // Use this for initialization
         void Awake () {
-            nameplate = "GOJBNA4004";
+            nameplate = "Namebar_Tracy";
 
             parameter.attack = 317;
             parameter.defense = 239;

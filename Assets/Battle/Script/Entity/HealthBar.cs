@@ -15,12 +15,15 @@ namespace Memoria.Battle.GameActors
         void Awake()
         {
             _mainPlayer = GameObject.FindObjectOfType<MainPlayer>() as MainPlayer;
-            _hpBarSprite = GetComponent<Image>();	
+            _hpBarSprite = GetComponent<Image>();
             _healthBarSprites = new Dictionary<int, Sprite>();
 
-            for (int i = 4000; i <= 4010; i++)
+            for (int i = 0; i <= 10; i++)
             {
-                _healthBarSprites[i - 4000] = Resources.Load<Sprite>("GOJCA" + i);
+                if(i < 10)
+                    _healthBarSprites[i] = Resources.Load<Sprite>("health0" + i);
+                else
+                    _healthBarSprites[i] = Resources.Load<Sprite>("health" + i);
             }
         }
 

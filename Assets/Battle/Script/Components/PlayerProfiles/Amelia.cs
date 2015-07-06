@@ -5,7 +5,7 @@ namespace Memoria.Battle.GameActors
     public class Amelia : Profile {
         // Use this for initialization
         void Awake () {
-            nameplate = "GOJBNA4000";
+            nameplate = "Namebar_Amelia";
 
             parameter.attack = 317;
             parameter.defense = 239;

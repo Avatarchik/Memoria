@@ -178,6 +178,7 @@ namespace Memoria.Battle.Managers
             }
         }
 
+        /* WIP
         public void SpawnNamebars(Dictionary<Entity, float> actors)
         {
             foreach(var obj in actors.OrderByDescending(x => x.Value))
@@ -189,6 +190,7 @@ namespace Memoria.Battle.Managers
                 _nameplate.Add(actorId, spawnedBar);
             }
         }
+        */
 
         public void SetAttackOrder()
         {
