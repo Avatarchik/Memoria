@@ -16,10 +16,14 @@ namespace Memoria.Battle.GameActors
         public int stockCost;
         public ElementType elementalAff;
 
+
         protected int animationDur;
         public char targetType; // e = enemy, h = se;f
         public bool attacked { get; set; }
         public bool useStock { get; private set; }
+
+        public DmgParameters parameters;
+
         public GameObject particleEffect;
         public GameObject effectObj;
         public GameObject normalEffect;
@@ -29,7 +33,6 @@ namespace Memoria.Battle.GameActors
             get { return animationDur; }
         }
         abstract public void Execute(Damage dmg, IDamageable target);
-        abstract public void Execute(IDamageable target);
         abstract public void PlayEffect(Entity target);
     }
 }

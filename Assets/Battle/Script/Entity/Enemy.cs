@@ -57,14 +57,10 @@ namespace Memoria.Battle.GameActors
             base.EndTurn();
         }
 
-        public void TakeDamage(int i)
-        {
-            this.health.hp -= i;
-        }
-
         public void TakeDamage(Damage d)
         {
-
+            d.TargetParameters = parameter;
+            this.health.hp -= d.Calculate();
         }
 
         public bool IsAlive()

@@ -16,14 +16,10 @@ namespace Memoria.Battle.GameActors
             effectObj = (GameObject)Resources.Load("explode");
         }
 
-        override public void Execute(IDamageable target)
-        {
-            target.TakeDamage(80);
-        }
-
         override public void Execute(Damage damage, IDamageable target)
         {
-            //       target.TakeDamage(damage);
+            damage.DamageParameters = parameters;
+            target.TakeDamage(damage);
         }
 
 

@@ -1,34 +1,34 @@
-﻿using Memoria.Battle.Managers;
+﻿using UnityEngine;
 
 namespace Memoria.Battle.GameActors
 {
     public interface IDamageable
     {
-        void TakeDamage(int i);
         void TakeDamage(Damage d);
         bool IsAlive();
     }
 
-    public class Damage : ITriggerable {
+    public struct DmgParameters
+    {
+        public int totalDamage;
+        public int percentMod;
+        public int attackPower;
+        public int defencePower;
+        public int offElementalPower;
+        public int defElementalPower;
 
-        public int totalDamage { get; set; }
-        public int percentMod { get; set; }
-        public int attackPower { get; set; }
-        public int defencePower { get; set; }
-        public bool criticalHit { get; set; }
-        public int hitChance { get; set; }
-        public int offElementalPower { get; set; }
-        public int defElementalPower { get; set; }
+    }
+
+    public class Damage : ScriptableObject {
+
+        public Parameter PlayerParameters { get; set;}
+        public Parameter TargetParameters { get; set;}
+        public DmgParameters DamageParameters { get; set; }
 
 
-        public void Calculate()
+        public int Calculate()
         {
-
-        }
-
-        public void TakeDamageEvent()
-        {
-
+            return 10;
         }
     }
 }

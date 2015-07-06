@@ -21,13 +21,10 @@ namespace Memoria.Battle.GameActors
 
         }
 
-        override public void Execute(IDamageable target)
-        {
-            target.TakeDamage(-20);
-        }
         override public void Execute(Damage damage, IDamageable target)
         {
-            //        target.TakeDamage(damage);
+            damage.DamageParameters = parameters;
+            target.TakeDamage(damage);
         }
 
         override public void PlayEffect (Entity target)

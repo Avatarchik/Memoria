@@ -24,23 +24,24 @@ namespace Memoria.Battle.GameActors
         public List<System.Type> components = new List<System.Type>();
 
         public string nameplate;
-        public string battleID;
+        public string battleID { get ; set; }
         public IDamageable target;
         public AttackType attackType;
+
         public int attackTimer = 0;
-        //    public float attackDir;
+
         public string entityType;
         public Profile profile;
 
         public int phaseTimer;
         public float orderIndex;
+
         public bool attackReady;
         public bool chargeReady;
         public bool charge;
 
         public Parameter parameter;
 
-        //public Animator _animator;
         public HealthSystem health;
         public DeathSystem death;
         public AttackTracker tracker;
@@ -71,7 +72,9 @@ namespace Memoria.Battle.GameActors
             attackTimer++;
             if(!attack.attacked)
             {
-                attack.Execute(target);
+                Damage damage = ScriptableObject.CreateInstance<Damage>();
+                damage.PlayerParameters = parameter;
+                attack.Execute(damage, target);
                 attack.attacked = true;
             }
             if (attackTimer > attack.AttackTime) {

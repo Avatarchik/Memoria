@@ -15,14 +15,6 @@ namespace Memoria.Battle.GameActors
 
         // Update is called once per frame
 
-        public void TakeDamage(int damage)
-        {
-            if(damage < 0)
-                Heal(damage);
-            else
-                health.hp -= damage;
-        }
-
         public void Heal(int healValue)
         {
             var effectiveHeal = (healValue * (-1));
@@ -36,9 +28,13 @@ namespace Memoria.Battle.GameActors
             }
         }
 
-        public void TakeDamage(Damage d)
+        public void TakeDamage(Damage damage)
         {
-
+            damage.TargetParameters = parameter;
+            if(damage.Calculate() < 0)
+                Heal(damage.Calculate());
+            else
+                health.hp -= damage.Calculate();
         }
 
         public bool IsAlive()
