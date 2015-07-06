@@ -38,7 +38,7 @@ namespace Memoria.Battle.Managers
         public BattleState CurrentState { get; private set; }
 
         public ElementType elementalAffinity = ElementType.FIRE;
-        public float _attackAnimation;
+        public float AttackAnimation { get; set; }
 
         public static BattleMgr Instance
         {
@@ -112,7 +112,9 @@ namespace Memoria.Battle.Managers
 
             for(int i = 0; i < _party.Length; i++)
             {
-                _spawner.parentObject =  GameObject.FindObjectOfType<Canvas>().gameObject.transform;
+                _spawner.parentObject =  GameObject.Find("Player").gameObject.transform;
+
+                //                _spawner.parentObject =  GameObject.FindObjectOfType<Canvas>().gameObject.transform;
 
                 var pos = new Vector3((3.8f / 1.5f - 4f + i) * 3.5f, -3, 1);
                 GameObject hero = _spawner.Spawn<Hero>("Char_" + _party[i], _profileType[i]);
@@ -122,7 +124,7 @@ namespace Memoria.Battle.Managers
                 hero.transform.localScale *= 0.8f; //Temporary
                 hero.name = hero.GetComponent<Profile>().GetType().ToString();
 
-                hero.GetComponent<BoxCollider2D>().size *= 100;
+//                hero.GetComponent<BoxCollider2D>().size *= 100;
                 hero.GetComponent<BoxCollider2D>().enabled = false;
                 hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.GetComponent<Hero>().battleID = "h0" + i;
@@ -181,7 +183,7 @@ namespace Memoria.Battle.Managers
             if (actorList.Count == 4)
             {
                 SetState(State.PLAYER_WON);
-                Invoke("LoadLevelTitle", _attackAnimation + 0.5f);
+                Invoke("LoadLevelTitle", AttackAnimation + 0.5f);
             }
         }
 

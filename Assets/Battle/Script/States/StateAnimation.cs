@@ -13,7 +13,7 @@ namespace Memoria.Battle.States
             {
                 uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, false);
             }
-            battleMgr._attackAnimation = (float)(nowActor.attackType.AttackTime / 60);
+            battleMgr.AttackAnimation = (float)(nowActor.attackType.AttackTime / 60);
         }
         override public void Update()
         {

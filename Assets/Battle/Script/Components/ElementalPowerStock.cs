@@ -38,11 +38,13 @@ namespace Memoria.Battle.GameActors
         [SerializeField]
         private float spaceOffset = 0.8f;
 
+
         public int stock;
         public ObjectType objType;
         public Element elementType;
 
         public bool Full { get; private set; }
+        public float scale = 1.5f;
 
         private Type _imageType;
         private GameObject[] _stockObj;
@@ -53,6 +55,7 @@ namespace Memoria.Battle.GameActors
             for(int i = 0; i < _stockObj.Length; i++)
             {
                 _stockObj[i] = new GameObject();
+                _stockObj[i].transform.localScale *= scale;
             }
         }
 

@@ -11,6 +11,9 @@ namespace Memoria.Battle.GameActors
 {
     public class Hero : Entity
     {
+        public delegate void OnHit();
+        private OnHit stockUp;
+
 
         public bool attackSelected;
 
@@ -36,7 +39,16 @@ namespace Memoria.Battle.GameActors
             nameplate = profile.nameplate;
             _iconButton = GetComponent<Button>();
             power.elementType = parameter.elementAff.ToEnum<Element, ElementType>();
-            power.objType = ObjectType.UI_OBJECT;
+            power.objType = ObjectType.NORMAL;
+        }
+
+
+        public void CheckIfhit()
+        {
+            if(GetComponent<TargetSelector>().hitBoxCollider)
+            {
+                stockUp.Invoke();
+            }
         }
 
         override public void Init()
@@ -103,23 +115,29 @@ namespace Memoria.Battle.GameActors
 
         public void SetAttack(string attack)
         {
-            _iconButton.onClick.RemoveAllListeners();
             if(!charge) {
                 attackType = profile.attackList[attack];
+
+                if(attackType.stockCost > power.stock)
+                    return;
+
                 attackSelected = true;
                 if(attackType.phaseCost > 1) {
                     charge = true;
                     chargeReady = false;
                 }
             }
-            if (attackType.targetType == ENEMY) {
+            if (attackType.targetType == ENEMY)
+            {
                 _enemyTarget = true;
             }
-            if (attackType.targetType == PARTY) {
+            if (attackType.targetType == PARTY)
+            {
                 _enemyTarget = false;
             }
-        }
+            _iconButton.onClick.RemoveAllListeners();
 
+        }
         public bool TargetSelected()
         {
             if (target == null) {
@@ -151,10 +169,17 @@ namespace Memoria.Battle.GameActors
         {
             if(!power.Full)
             {
+                stockUp = StockUp;
                 _iconButton.onClick.AddListener(() => StockUp());
                 return;
             }
+            stockUp = SetUltimate;
             _iconButton.onClick.AddListener(() => SetAttack(profile.ultimateAttack));
+        }
+
+        private void SetUltimate()
+        {
+            SetAttack(profile.ultimateAttack);
         }
     }
 }
