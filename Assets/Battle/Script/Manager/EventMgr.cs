@@ -87,7 +87,6 @@ namespace Memoria.Battle.Managers
 
         public static EventMgr Instance = new EventMgr();
 
-        public delegate bool RecievedStatus(object sender, Status s);
         public delegate void TurnEnds();
         public delegate void EnemyDies(Enemy e);
         public delegate void BattleEnds();
@@ -121,14 +120,6 @@ namespace Memoria.Battle.Managers
             if(EnemyDied != null)
             {
                 EnemyDied(e);
-            }
-        }
-
-        public void OnGotStatus()
-        {
-            if(GotStatus != null)
-            {
-                GotStatus(this,null);
             }
         }
     }

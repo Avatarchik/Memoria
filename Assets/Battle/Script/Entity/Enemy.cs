@@ -32,7 +32,8 @@ namespace Memoria.Battle.GameActors
 
         void Update()
         {
-            if (isAlive && health.hp <= 0) {
+            if (isAlive && health.hp <= 0)
+            {
                 isAlive = false;
                 BattleMgr.Instance.RemoveFromBattle(this);
                 StartCoroutine(death.DeadEffect());
@@ -48,11 +49,15 @@ namespace Memoria.Battle.GameActors
 
         override public bool Attack (AttackType attackType)
         {
-            if(!isAlive) { return false; }
+            if(!isAlive) {
+                return false;
+            }
+
             phaseTimer = attackType.phaseCost;
-            if (!attackReady && isAlive) {
+            if (!attackReady && isAlive)
+            {
                 FadeAttackScreen.Flash(); //TODO: temporary
-                BattleMgr.Instance.SetState(State.RUNNING);
+                BattleMgr.Instance.SetState(State.ANIMATOIN);
             }
             return base.Attack (attackType);
         }

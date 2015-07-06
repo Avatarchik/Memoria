@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Memoria.Battle;
-using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -9,7 +8,6 @@ namespace Memoria.Battle.GameActors
         public Parameter AttackerParameters { get; set; }
         public Parameter TargetParameters { get; set; }
         public DmgParameters DamageParameters { get; set; }
-
 
         public int Calculate()
         {

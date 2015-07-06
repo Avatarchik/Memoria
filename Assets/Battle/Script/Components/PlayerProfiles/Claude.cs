@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using Memoria.Battle.Managers;
-
-namespace Memoria.Battle.GameActors
+﻿namespace Memoria.Battle.GameActors
 {
     public class Claude : Profile {
 
@@ -20,12 +16,6 @@ namespace Memoria.Battle.GameActors
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-            //attackType = gameObject.AddComponent<PlayerStrike>();
-
-        }
-        // Update is called once per frame
-        void Update () {
-
         }
     }
 }

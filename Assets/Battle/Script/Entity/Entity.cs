@@ -36,7 +36,8 @@ namespace Memoria.Battle.GameActors
         public DeathSystem death;
         public AttackTracker tracker;
 
-        void Awake () {
+        void Awake ()
+        {
             Init();
         }
 
@@ -50,29 +51,35 @@ namespace Memoria.Battle.GameActors
 
         public virtual bool Attack (AttackType attack)
         {
-            if(!target.IsAlive())
+            if(!target.IsAlive()) {
                 return true;
-                //return false;
-            if(charge) {
+            }
+
+            if(charge)
+            {
                 orderIndex = attack.phaseCost;
                 tracker.QueueAction(this, orderIndex);
                 BattleMgr.Instance.SetState(State.RUNNING);
                 return true;
             }
             attackTimer++;
-            if(!attack.attacked)
+
+            if (attackTimer > attack.AttackTime)
             {
+                attackTimer = 0;
+                attackReady = true;
+                DealDamage(attack);
+                return true;
+            }
+            return false;
+        }
+
+        public void DealDamage(AttackType attack)
+        {
                 Damage damage = ScriptableObject.CreateInstance<Damage>();
                 damage.AttackerParameters = parameter;
                 attack.Execute(damage, target);
                 attack.attacked = true;
-            }
-            if (attackTimer > attack.AttackTime) {
-                attackTimer = 0;
-                attackReady = true;
-                return true;
-            }
-            return false;
         }
 
         public virtual void StartTurn()
@@ -86,17 +93,19 @@ namespace Memoria.Battle.GameActors
 
         protected virtual void UpdateOrder()
         {
-            if(!charge) {
+            if(!charge)
+            {
                 orderIndex--;
                 if(orderIndex < 0) {
                     orderIndex = BattleMgr.actorList.Count - 1;
                 }
                 tracker.MoveTo(this, orderIndex);
-            } else {
+            }
+            else
+            {
                 charge = false;
                 chargeReady = true;
             }
-
         }
     }
 }

@@ -8,10 +8,6 @@ namespace Memoria.Battle
             Type = elementType;
         }
 
-        public delegate StrengthType Result();
-        public Result getResult { get; set; }
-
-
         public Element Type { get; set; }
         public StrengthType CheckElements(ElementType elementType)
         {

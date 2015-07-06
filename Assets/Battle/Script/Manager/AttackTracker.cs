@@ -13,7 +13,8 @@ namespace Memoria.Battle.Managers
         public float test;
 
         // Use this for initialization
-        void Start () {
+        void Start ()
+        {
             attackOrder = new Dictionary<Entity, float> ();
         }
 
@@ -21,10 +22,6 @@ namespace Memoria.Battle.Managers
         void Update ()
         {
             nowActor = currentActor;
-        }
-
-        public void OrderUpdate()
-        {
         }
 
         public void QueueAction(Entity e, float pos)
@@ -45,14 +42,17 @@ namespace Memoria.Battle.Managers
             if(attackOrder.ContainsKey(e))
             {
                 attackOrder[e] = pos;
-            } else {
+            }
+            else
+            {
                 Debug.LogWarning("[E] Actor missing in attack order "+ e);
             }
         }
 
         public Entity currentActor
         {
-            get {
+            get
+            {
                 return attackOrder.OrderBy(x => x.Value).FirstOrDefault().Key;
             }
         }

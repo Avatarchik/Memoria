@@ -24,7 +24,8 @@ namespace Memoria.Battle.States
         override public void Update()
         {
             _timeBeforeStart--;
-            if((_timeBeforeStart) <= 0) {
+            if((_timeBeforeStart) <= 0)
+            {
                 _timeBeforeStart = 120;
                 battleMgr.SetState(State.RUNNING);
             }
@@ -35,8 +36,7 @@ namespace Memoria.Battle.States
             foreach (GameObject go in BattleMgr.actorList) {
                 Entity actor = go.GetComponent<Entity>();
                 actor.orderIndex = _orderIndex;
-                if(!battleMgr.AttackTracker.attackOrder.ContainsKey(actor))
-                {
+                if(!battleMgr.AttackTracker.attackOrder.ContainsKey(actor)) {
                     battleMgr.AttackTracker.attackOrder.Add(actor, _orderIndex);
                 }
                 _orderIndex++;

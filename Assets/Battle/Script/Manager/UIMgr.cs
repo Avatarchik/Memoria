@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Memoria.Battle.GameActors;
 
 namespace Memoria.Battle.Managers
 {
-    public class UIMgr : MonoBehaviour {
+    public class UIMgr : MonoBehaviour
+    {
 
         private ActorSpawner _spawner;
         private AttackTracker _attackTracker;
@@ -20,7 +20,8 @@ namespace Memoria.Battle.Managers
 //        private Dictionary<string, UIElement> _elements;
 
         // Use this for initialization
-        void Awake () {
+        void Awake ()
+        {
             _spawner = FindObjectOfType<ActorSpawner>();
             _obj = new Dictionary<string, GameObject>[3];
             _cursor = new Dictionary<string, GameObject>();
@@ -123,14 +124,11 @@ namespace Memoria.Battle.Managers
         {
 
             var profile = player.GetComponent<Profile>();
-//            string[] skills = player.GetSkills();
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
                 var skillObj = _spawner.Spawn<SkillIcon>(skill.Key);
                 skillObj.GetComponent<SkillIcon>().SetOnClick(player.SetAttack, skill.Key);
                 skillObj.GetComponent<UIElement>().SetParent();
-                //
-
             }
         }
 
@@ -156,6 +154,7 @@ namespace Memoria.Battle.Managers
                 _nameplate[battleID] = null;
             }
         }
+
         public void SpawnAttackOrder ()
         {
             AttackTracker at = GetComponent<AttackTracker>();

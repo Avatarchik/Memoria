@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Memoria.Battle.GameActors;
 using Memoria.Battle.Managers;
-using System.Linq;
 
 namespace Memoria.Battle.States
 {

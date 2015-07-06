@@ -1,11 +1,12 @@
 ﻿
 namespace Memoria.Battle.GameActors
 {
-    public class Golem : EnemyAI {
-
-        // Use this for initialization
+    public class Golem : EnemyAI
+    {
         void Awake ()
         {
+            nameplate = "Namebar_Golem";
+
             parameter.attack = 10;
             parameter.defense = 10;
             parameter.mattack = 10;
@@ -17,11 +18,6 @@ namespace Memoria.Battle.GameActors
 
             attackList.Add ("Quick_attack", gameObject.AddComponent<QuickAttack>());
             attackType = attackList["Quick_attack"];
-            nameplate = "Namebar_Golem";
-        }
-
-        void Update()
-        {
         }
     }
 }

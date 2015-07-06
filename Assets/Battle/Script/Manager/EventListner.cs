@@ -18,10 +18,5 @@
         {
             EventMgr.Instance.EnemyDied += enemyDies;
         }
-
-        public void SubscribeRecievedStatus(RecievedStatus recivedStatus)
-        {
-            EventMgr.Instance.GotStatus += recivedStatus;
-        }
     }
 }

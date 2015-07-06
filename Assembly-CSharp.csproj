@@ -60,7 +60,6 @@
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Claude.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Tracy.cs" />
      <Compile Include="Assets\Battle\Script\Components\Profile.cs" />
-     <Compile Include="Assets\Battle\Script\Components\Selectable.cs" />
      <Compile Include="Assets\Battle\Script\Elements\Element.cs" />
      <Compile Include="Assets\Battle\Script\Elements\ElementFire.cs" />
      <Compile Include="Assets\Battle\Script\Elements\ElementThunder.cs" />
@@ -81,12 +80,10 @@
      <Compile Include="Assets\Battle\Script\Entity\UIElement.cs" />
      <Compile Include="Assets\Battle\Script\Extensions.cs" />
      <Compile Include="Assets\Battle\Script\FadeAttackScreen.cs" />
-     <Compile Include="Assets\Battle\Script\Manager\ActionMgr.cs" />
      <Compile Include="Assets\Battle\Script\Manager\AttackTracker.cs" />
      <Compile Include="Assets\Battle\Script\Manager\BattleMgr.cs" />
      <Compile Include="Assets\Battle\Script\Manager\EventListner.cs" />
      <Compile Include="Assets\Battle\Script\Manager\EventMgr.cs" />
-     <Compile Include="Assets\Battle\Script\Manager\InputMgr.cs" />
      <Compile Include="Assets\Battle\Script\Manager\TargetSelector.cs" />
      <Compile Include="Assets\Battle\Script\Manager\UIMgr.cs" />
      <Compile Include="Assets\Battle\Script\Skills\AttackType.cs" />

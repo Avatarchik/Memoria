@@ -63,8 +63,7 @@ namespace Memoria.Battle.States
             foreach(var actor in BattleMgr.actorList)
             {
                 var e = actor.GetComponent<Entity>();
-                if (e.battleID.ToLowerInvariant().IndexOf(c) != -1)
-                {
+                if (e.battleID.ToLowerInvariant().IndexOf(c) != -1) {
                     e.GetComponent<BoxCollider2D>().enabled = state;
                 }
             }

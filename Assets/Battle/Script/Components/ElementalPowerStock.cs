@@ -20,11 +20,9 @@ namespace Memoria.Battle.GameActors
         WATER = 2,
         THUNDER = 3
     }
+
     public class ElementalPowerStock : MonoBehaviour
     {
-
-
-
         [SerializeField]
         private Sprite _sprite;
 
@@ -39,7 +37,6 @@ namespace Memoria.Battle.GameActors
 
         [SerializeField]
         private float spaceOffset = 0.8f;
-
 
         public int stock;
         public ObjectType objType;

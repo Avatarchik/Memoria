@@ -11,7 +11,8 @@ namespace Memoria.Battle.States
         }
         override public void Update()
         {
-            if(nowActor.Attack (nowActor.attackType)){
+            if(nowActor.Attack (nowActor.attackType))
+            {
                 nowActor.EndTurn();
                 EventMgr.Instance.OnTurnEnd();
                 Initialized = false;
