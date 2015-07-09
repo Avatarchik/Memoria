@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
@@ -36,7 +35,6 @@ namespace Memoria.Battle.GameActors
             profile = GetComponent<Profile>();
             power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
-            nameplate = profile.nameplate;
             _iconButton = GetComponent<Button>();
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
@@ -115,6 +113,13 @@ namespace Memoria.Battle.GameActors
             target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
         }
 
+        public void Cancel ()
+        {
+            attackSelected = false;
+            charge = false;
+            BattleMgr.Instance.SetState(State.SELECT_SKILL);
+        }
+
         public void SetAttack(string attack)
         {
             if(!charge) {
@@ -124,7 +129,7 @@ namespace Memoria.Battle.GameActors
                     return;
 
                 attackSelected = true;
-                if(attackType.phaseCost > 1) {
+                if(attackType.phaseCost > 0) {
                     charge = true;
                     chargeReady = false;
                 }

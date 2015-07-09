@@ -44,6 +44,7 @@ namespace Memoria.Battle.GameActors
         {
             components.Add(typeof(HealthSystem));
             components.Add(typeof(DeathSystem));
+            components.Add(typeof(Namebar));
             base.Init();
         }
 
@@ -71,8 +72,12 @@ namespace Memoria.Battle.GameActors
         public void TakeDamage(Damage d)
         {
             d.TargetParameters = parameter;
-            d.DamageEffect(this);
+            ShowDamage();
             this.health.hp -= d.Calculate();
+        }
+
+        public void ShowDamage()
+        {
         }
 
         public bool IsAlive()

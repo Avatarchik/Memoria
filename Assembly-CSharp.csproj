@@ -68,7 +68,9 @@
      <Compile Include="Assets\Battle\Script\Elements\ElementalType.cs" />
      <Compile Include="Assets\Battle\Script\Elements\NoElement.cs" />
      <Compile Include="Assets\Battle\Script\Elements\StrengthType.cs" />
+     <Compile Include="Assets\Battle\Script\Entity\Cursor.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Damage.cs" />
+     <Compile Include="Assets\Battle\Script\Entity\DescriptionFrame.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Enemy.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Entity.cs" />
      <Compile Include="Assets\Battle\Script\Entity\HealthBar.cs" />

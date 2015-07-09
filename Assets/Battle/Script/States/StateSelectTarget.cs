@@ -12,15 +12,17 @@ namespace Memoria.Battle.States
         override public void Initialize()
         {
             hero = (Hero)nowActor;
+
             if(!hero.passToStock)
             {
                 SetSelectable(nowActor.attackType.targetType, true);
             }
+
             if(hero.target == null) {
                 uiMgr.ShowDescBar("description_frame");
                 foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
-                    uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, true);
+                    uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor);
                 }
             }
         }
@@ -36,16 +38,17 @@ namespace Memoria.Battle.States
 
             if(hero.TargetSelected())
             {
-                _timer++;
                 hero.SetTarget((IDamageable)hero.GetComponent<TargetSelector>().target);
                 uiMgr.SetCurorAnimation(hero.attackType.selectType, hero.target.ToString());
-                uiMgr.RemoveDescBar();
+                uiMgr.DestroyElement("frame");
                 SetSelectable(nowActor.attackType.targetType, false);
+
+                _timer++;
                 if(_timer > 20)
                 {
                     foreach(var actor in BattleMgr.actorList)
                     {
-                        uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, false);
+                        uiMgr.DestroyElement("cursor_" + actor.GetComponent<Entity>().battleID);
                     }
                     if(_timer > 40)
                     {

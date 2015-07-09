@@ -1,24 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Memoria.Battle.GameActors
 {
     abstract public class UIElement : MonoBehaviour
     {
-
         public string spriteResource;
+
+        public bool moveable { get; private set; }
 
         abstract public void Init();
 
-        public void SetParent()
+        public void ParentToUI()
         {
-            this.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
+            transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform , false);
         }
 
         public void Destroy()
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

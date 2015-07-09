@@ -23,7 +23,7 @@ namespace Memoria.Battle
 
         public Element Type { get; private set; }
 
-        public StrengthType CheckElements(ElementType elementType)
+        public StrengthType CheckAgainstElement(ElementType elementType)
         {
             return result[elementType.Type].Invoke();
         }
@@ -37,5 +37,4 @@ namespace Memoria.Battle
             return StrengthType.NORMAL;
         }
     }
-
 }

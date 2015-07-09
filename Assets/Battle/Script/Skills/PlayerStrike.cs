@@ -5,20 +5,15 @@ namespace Memoria.Battle.GameActors
 {
     public class PlayerStrike : AttackType, ITriggerable
     {
-
         void Start ()
         {
-            phaseCost = 1;
+            phaseCost = 0;
             stockCost = 0;
             animationDur = 210;
             targetType = 'h';
             selectType = TargetType.ALL;
             elementalAff = new ElementThunder(Element.THUNDER);
             effectObj = (GameObject)Resources.Load("explode2");
-        }
-
-        void Update () {
-
         }
 
         override public void Execute(Damage damage, IDamageable target)

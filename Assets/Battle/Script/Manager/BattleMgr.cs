@@ -86,7 +86,6 @@ namespace Memoria.Battle.Managers
         }
 
         void Update () {
-            UiMgr.SetAttackOrder();
             CheckWinLoss();
             if(CurrentState.Initialized)
             {
@@ -114,7 +113,6 @@ namespace Memoria.Battle.Managers
                 hero.transform.localScale *= 0.8f; //Temporary
                 hero.name = hero.GetComponent<Profile>().GetType().ToString();
 
-//                hero.GetComponent<BoxCollider2D>().size *= 100;
                 hero.GetComponent<BoxCollider2D>().enabled = false;
                 hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.GetComponent<Hero>().battleID = "h0" + i;
@@ -135,6 +133,7 @@ namespace Memoria.Battle.Managers
                 randomEnemy.LoadComponentsFromList(randomEnemy.GetComponent<Entity>().components);
                 randomEnemy.transform.position = pos;
                 randomEnemy.GetComponent<Enemy>().battleID = "e0" + i;
+                randomEnemy.GetComponent<Namebar>().spriteResource = randomEnemy.GetComponent<Profile>().nameplate;
                 randomEnemy.GetComponent<BoxCollider2D>().enabled = false;
                 enemyList.Add(randomEnemy);
                 actorList.Add(randomEnemy);
@@ -143,13 +142,15 @@ namespace Memoria.Battle.Managers
 
         public void InitBattleStates()
         {
-            _battleStates = new Dictionary<State, BattleState>();
-            _battleStates.Add(State.PREPARE       ,new StatePrepare());
-            _battleStates.Add(State.RUNNING       ,new StateBattleRunning());
-            _battleStates.Add(State.SELECT_SKILL  ,new StateSelectSkill());
-            _battleStates.Add(State.SELECT_TARGET ,new StateSelectTarget());
-            _battleStates.Add(State.ANIMATOIN     ,new StateAnimation());
-            _battleStates.Add(State.PLAYER_WON    ,new StatePlayerWon());
+            _battleStates = new Dictionary<State, BattleState>()
+                {
+                    { State.PREPARE       ,new StatePrepare()       },
+                    { State.RUNNING       ,new StateBattleRunning() },
+                    { State.SELECT_SKILL  ,new StateSelectSkill()   },
+                    { State.SELECT_TARGET ,new StateSelectTarget()  },
+                    { State.ANIMATOIN     ,new StateAnimation()     },
+                    { State.PLAYER_WON    ,new StatePlayerWon()     }
+                };
         }
 
         public void SetState(State state)
@@ -187,7 +188,7 @@ namespace Memoria.Battle.Managers
         public void RemoveFromBattle(Entity e)
         {
             AttackTracker.DestroyActor(e);
-            UiMgr.DestroyNameplate(e.battleID);
+            UiMgr.DestroyElement(e.GetComponent<Namebar>().spriteResource);
             actorList.RemoveAll(x => x.GetComponent<Entity>().Equals(e));
         }
 

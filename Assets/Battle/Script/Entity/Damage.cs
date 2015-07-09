@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Memoria.Battle;
-using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -21,12 +19,7 @@ namespace Memoria.Battle.GameActors
 
         public float GetElementalBonus(ElementType testElement)
         {
-            Debug.Log(AttackerParameters.elementAff.CheckElements(testElement));
-            return((float)(int)AttackerParameters.elementAff.CheckElements(testElement) / 2);
-        }
-
-        public void DamageEffect(IDamageable target)
-        {
+            return((float)(int)AttackerParameters.elementAff.CheckAgainstElement(testElement) / 2);
         }
     }
 }

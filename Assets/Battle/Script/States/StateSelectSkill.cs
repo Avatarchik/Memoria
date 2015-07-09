@@ -11,15 +11,19 @@ namespace Memoria.Battle.States
             FadeAttackScreen.DeFlash();
             hero = (Hero)nowActor;
             hero.GetComponent<BoxCollider2D>().enabled = true;
+            if(!hero.attackSelected || hero.passToStock)
+            {
+                uiMgr.SpawnSkills(hero);
+                //Show cancel button
+            }
         }
         override public void Update()
         {
-            uiMgr.ShowSkill(hero);
             hero.CheckIfhit();
             if(hero.attackSelected || hero.passToStock)
             {
                 hero.GetComponent<BoxCollider2D>().enabled = false;
-                uiMgr.DestroyButton();
+                uiMgr.DestroyElement("skill");
                 battleMgr.SetState(State.SELECT_TARGET);
             }
         }

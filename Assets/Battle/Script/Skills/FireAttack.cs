@@ -27,7 +27,6 @@ namespace Memoria.Battle.GameActors
             target.TakeDamage(damage);
         }
 
-
         override public void PlayEffect (Entity target)
         {
             particleEffect = Instantiate (effectObj);

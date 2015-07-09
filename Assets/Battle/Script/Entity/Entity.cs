@@ -13,7 +13,6 @@ namespace Memoria.Battle.GameActors
 
         public List<System.Type> components = new List<System.Type>();
 
-        public string nameplate;
         public string battleID { get ; set; }
         public IDamageable target;
         public AttackType attackType;

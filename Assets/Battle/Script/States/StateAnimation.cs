@@ -8,10 +8,6 @@ namespace Memoria.Battle.States
     {
         override public void Initialize()
         {
-            foreach(var actor in BattleMgr.actorList)
-            {
-                uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, false);
-            }
             battleMgr.AttackAnimation = (float)(nowActor.attackType.AttackTime / 60);
         }
         override public void Update()
