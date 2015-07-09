@@ -19,10 +19,10 @@ namespace Memoria.Battle.States
             }
 
             if(hero.target == null) {
-                uiMgr.ShowDescBar("description_frame");
+                uiMgr.SpawnDescription("description_frame");
                 foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
-                    uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor);
+                    uiMgr.SpawnCursor(actor.GetComponent<Entity>().battleID, actor);
                 }
             }
         }

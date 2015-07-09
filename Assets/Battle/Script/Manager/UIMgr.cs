@@ -34,20 +34,9 @@ namespace Memoria.Battle.Managers
             }
         }
 
-        //************************************ Skill frame
-
-        public void ShowDescBar(string resource)
-        {
-            var frame = (_spawner.Spawn<DescriptionFrame>(resource)).GetComponent<DescriptionFrame>();
-            frame.ParentToUI();
-            frame.Init();
-            frame.name = "Frame_" + resource;
-            _elements.Add("frame_"+ resource, frame);
-        }
-
         //************************************ Cursor
 
-        public void SetCursor(string owner, GameObject obj)
+        public void SpawnCursor(string owner, GameObject obj)
         {
             Vector3 pos = obj.transform.position;
             pos.y += 2f;
@@ -111,7 +100,19 @@ namespace Memoria.Battle.Managers
             }
         }
 
-        //************************************ Destroyx
+        //************************************ Description frame
+
+        public void SpawnDescription(string resource)
+        {
+            var frame = (_spawner.Spawn<DescriptionFrame>(resource)).GetComponent<DescriptionFrame>();
+            frame.ParentToUI();
+            frame.Init();
+            frame.name = "Frame_" + resource;
+            _elements.Add("frame_"+ resource, frame);
+        }
+
+
+        //************************************ Destroy
 
         public void DestroyElement(string elementType)
         {
