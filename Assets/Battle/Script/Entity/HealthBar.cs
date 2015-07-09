@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 
@@ -20,18 +19,20 @@ namespace Memoria.Battle.GameActors
 
             for (int i = 0; i <= 10; i++)
             {
-                if(i < 10)
-                    _healthBarSprites[i] = Resources.Load<Sprite>("health0" + i);
-                else
-                    _healthBarSprites[i] = Resources.Load<Sprite>("health" + i);
+                _healthBarSprites[i] = (i < 10) ?
+                    Resources.Load<Sprite>("health0" + i) :
+                    Resources.Load<Sprite>("health" + i);
             }
         }
 
         void LateUpdate()
         {
-            _precentDivided = GetHealthPercent();
-            if(_precentDivided < 0)
+            _precentDivided = GetHealthPercent10();
+
+            if(_precentDivided < 0) {
                 _precentDivided = 0;
+            }
+
             UpdateHealthBar(_precentDivided);
         }
 
@@ -39,7 +40,8 @@ namespace Memoria.Battle.GameActors
         {
             _hpBarSprite.sprite = _healthBarSprites[hpPercent];
         }
-        public int GetHealthPercent()
+
+        public int GetHealthPercent10()
         {
             var _onePercent = _mainPlayer.health.maxHp / 100.0f;
             var _healthPercent = _mainPlayer.health.hp / _onePercent;

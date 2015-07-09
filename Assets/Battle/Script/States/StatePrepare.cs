@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Linq;
 using Memoria.Battle.Managers;
 using Memoria.Battle.GameActors;
@@ -16,7 +15,6 @@ namespace Memoria.Battle.States
 
             BattleMgr.actorList = BattleMgr.actorList.OrderByDescending (x => x.GetComponent<Entity> ().parameter.speed).ToList ();
             GenerateOrderIndex ();
-//            uiMgr.SpawnAttackOrder();
             uiMgr.SpawnNamebars(battleMgr.AttackTracker.attackOrder);
         }
 

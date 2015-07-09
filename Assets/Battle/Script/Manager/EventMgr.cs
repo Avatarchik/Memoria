@@ -90,13 +90,11 @@ namespace Memoria.Battle.Managers
         public delegate void TurnEnds();
         public delegate void EnemyDies(Enemy e);
         public delegate void BattleEnds();
-        public delegate void GameEvent(object sender, EventArgs e);
 
         public event TurnEnds TurnEnd;
         public event BattleEnds BattleEnd;
         public event EnemyDies EnemyDied;
 
-        public Dictionary<string, System.Delegate> delegateList;
 
         public void OnTurnEnd()
         {
