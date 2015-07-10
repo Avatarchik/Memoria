@@ -43,22 +43,7 @@ namespace Memoria.Dungeon.Managers
 				next = states.ElementAt(1)
 			})
 			.Where(states => states.current == DungeonState.PlayerMoving && states.next == DungeonState.None)
-			.Subscribe(_ =>
-			{
-				OnArrivePlayer();
-//				if (!mapManager.map.ContainsKey(player.location))
-//				{
-//					return;
-//				}
-//							
-//				Block block = mapManager.map[player.location];
-//				if (block.blockType == BlockType.None)
-//				{
-//					return;
-//				}
-//							
-//				StartCoroutine(CoroutineBlockEvent(block));
-			});
+			.Subscribe(_ => OnArrivePlayer());
 
 			messageBoxText = messageBox.GetComponentInChildren<Text>();
 			messageBox.SetActive(false);
@@ -113,6 +98,7 @@ namespace Memoria.Dungeon.Managers
 		}
 
 		private Subject<Block> onTapBlock = new Subject<Block>();
+
 		public IObservable<Block> OnTapBlockAsObservable()
 		{
 			return onTapBlock.AsObservable();
@@ -120,14 +106,6 @@ namespace Memoria.Dungeon.Managers
 
 		private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
 		{
-//			var parameter = parameterManager.parameter;
-//			parameter.sp -= 1;
-//
-//			if (block.blockType == BlockType.None)
-//			{
-//				yield break;
-//			}
-
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
 
