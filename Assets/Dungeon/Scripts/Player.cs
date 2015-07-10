@@ -17,7 +17,7 @@ namespace Memoria.Dungeon
 
 		private DungeonManager dungeonManager;
 		private MapManager mapManager;
-		private ParameterManager parameterManager;
+//		private ParameterManager parameterManager;
 
 		public Animator animator { get { return GetComponent<Animator>(); } }
 
@@ -64,7 +64,7 @@ namespace Memoria.Dungeon
 		{
 			dungeonManager = DungeonManager.instance;
 			mapManager = dungeonManager.mapManager;
-			parameterManager = dungeonManager.parameterManager;
+//			parameterManager = dungeonManager.parameterManager;
 		}
 
 		// Use this for initialization
@@ -98,7 +98,7 @@ namespace Memoria.Dungeon
 				.Select(direction => ToNormalizeEachElement(distance * direction))
 				.Where(CanMove);
 
-			if (canMoveDirections.Count() > 0)
+			if (canMoveDirections.Any())
 			{
 				Move(canMoveDirections.First());
 			}
@@ -151,11 +151,6 @@ namespace Memoria.Dungeon
 		private void CompleteMove()
 		{
 			isMoving = false;
-
-			var parameter = parameterManager.parameter;
-			parameter.sp -= 1;
-			parameterManager.parameter = parameter;
-
 			dungeonManager.ExitState();
 		}
 

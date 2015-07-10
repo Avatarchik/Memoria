@@ -13,7 +13,7 @@ namespace Memoria.Dungeon.Managers
 	{
 		private DungeonManager dungeonManager;
 		private MapManager mapManager;
-		private ParameterManager paramaterManager;
+		private ParameterManager parameterManager;
 		private Player player;
 
 		// 0 : root/Rizell/reaction
@@ -31,7 +31,7 @@ namespace Memoria.Dungeon.Managers
 		{
 			dungeonManager = DungeonManager.instance;
 			mapManager = dungeonManager.mapManager;
-			paramaterManager = dungeonManager.parameterManager;
+			parameterManager = dungeonManager.parameterManager;
 			player = dungeonManager.player;
 
 			// ブロックイベント発生の登録
@@ -45,18 +45,19 @@ namespace Memoria.Dungeon.Managers
 			.Where(states => states.current == DungeonState.PlayerMoving && states.next == DungeonState.None)
 			.Subscribe(_ =>
 			{
-				if (!mapManager.map.ContainsKey(player.location))
-				{
-					return;
-				}
-							
-				Block block = mapManager.map[player.location];
-				if (block.blockType == BlockType.None)
-				{
-					return;
-				}
-							
-				StartCoroutine(CoroutineBlockEvent(block));
+				OnArrivePlayer();
+//				if (!mapManager.map.ContainsKey(player.location))
+//				{
+//					return;
+//				}
+//							
+//				Block block = mapManager.map[player.location];
+//				if (block.blockType == BlockType.None)
+//				{
+//					return;
+//				}
+//							
+//				StartCoroutine(CoroutineBlockEvent(block));
 			});
 
 			messageBoxText = messageBox.GetComponentInChildren<Text>();
@@ -87,6 +88,24 @@ namespace Memoria.Dungeon.Managers
 			};
 		}
 
+		// プレイヤーが歩き終わったときに呼び出される
+		public void OnArrivePlayer()
+		{
+			// sp を減らす
+			var parameter = parameterManager.parameter;
+			parameter.sp -= 1;
+			parameterManager.parameter = parameter;
+
+			// プレイヤーがいるブロックを取得
+			Block block = mapManager.map[player.location];
+			if (block.blockType == BlockType.None)
+			{
+				return;
+			}
+
+			StartCoroutine(CoroutineBlockEvent(block, parameter));
+		}
+
 		// ブロックがタップされたときに呼び出される
 		public void OnTapBlock(Block tappedBlock)
 		{
@@ -99,15 +118,15 @@ namespace Memoria.Dungeon.Managers
 			return onTapBlock.AsObservable();
 		}
 
-		private IEnumerator CoroutineBlockEvent(Block block)
+		private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
 		{
-			var parameter = paramaterManager.parameter;
-			parameter.sp -= 1;
-
-			if (block.blockType == BlockType.None)
-			{
-				yield break;
-			}
+//			var parameter = parameterManager.parameter;
+//			parameter.sp -= 1;
+//
+//			if (block.blockType == BlockType.None)
+//			{
+//				yield break;
+//			}
 
 			dungeonManager.EnterState(DungeonState.BlockEvent);
 			block.OnEnterBlockEvent();
@@ -131,7 +150,7 @@ namespace Memoria.Dungeon.Managers
 		public void ReturnFromBattle()
 		{
 			Block block = mapManager.map[player.location];
-			var parameter = paramaterManager.parameter;
+			var parameter = parameterManager.parameter;
 
 			block.OnExitBlockEvent();
 
