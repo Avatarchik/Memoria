@@ -106,26 +106,28 @@ namespace Memoria.Dungeon
 
 		private bool CanMove(Vector2Int moveDirection)
 		{			
-			if (moveDirection.SqrMagnitude() == 0)
+			if (moveDirection == Vector2Int.zero)
 			{
 				return false;
 			}
 
-			Vector2Int nextLocation = location + moveDirection;
-
-			if (!mapManager.map.ContainsKey(nextLocation))
-			{
-				return false;
-			}
-
-			Block now = mapManager.map[location];
-			Block next = mapManager.map[nextLocation];
-			int dir = ToDirection(moveDirection);
-
-			bool opened1 = now.shapeData.directions[dir];
-			bool opened2 = next.shapeData.directions[dir ^ 1];
-
-			return opened1 && opened2;
+			return mapManager.map[location].Connected(moveDirection);
+			
+//			Vector2Int nextLocation = location + moveDirection;
+//
+//			if (!mapManager.map.ContainsKey(nextLocation))
+//			{
+//				return false;
+//			}
+//
+//			Block now = mapManager.map[location];
+//			Block next = mapManager.map[nextLocation];
+//			int dir = ToDirection(moveDirection);
+//
+//			bool opened1 = now.shapeData.directions[dir];
+//			bool opened2 = next.shapeData.directions[dir ^ 1];
+//
+//			return opened1 && opened2;
 		}
 
 		private void Move(Vector2Int normalizedMoveDirection)

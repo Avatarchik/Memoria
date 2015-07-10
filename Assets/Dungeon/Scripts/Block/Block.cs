@@ -158,6 +158,43 @@ namespace Memoria.Dungeon.BlockUtility
 			this.blockType = type;
 		}
 
+		public bool Connected(Vector2Int checkBaseDirection)
+		{	
+			if (!shapeData.Opend(checkBaseDirection))
+			{
+				return false;
+			}
+			
+			Vector2Int checkLocation = location + checkBaseDirection;
+
+			if (!mapManager.map.ContainsKey(checkLocation))
+			{
+				return false;
+			}
+
+			Block checkBlock = mapManager.map[checkLocation];
+			return checkBlock.shapeData.Opend(-checkBaseDirection);
+
+//			if (normalizedDirection == Vector2Int.left)
+//			{
+//				return checkBlock.shapeData.right;
+//			}
+//			if (normalizedDirection == Vector2Int.right)
+//			{
+//				return checkBlock.shapeData.left;
+//			}
+//			if (normalizedDirection == Vector2Int.down)
+//			{
+//				return checkBlock.shapeData.up;
+//			}
+//			if (normalizedDirection == Vector2Int.up)
+//			{
+//				return checkBlock.shapeData.down;
+//			}
+//
+//			return false;
+		}
+
 #region Operating
 
 		private bool CanOperation(Unit _ = null)
@@ -200,6 +237,12 @@ namespace Memoria.Dungeon.BlockUtility
 			if (CanPut())
 			{
 				Put();
+
+				Debug.Log("shape code : " + shapeData.typeCode + ", id : " + shapeData.typeID);
+				Debug.Log("left : " + shapeData.left); 
+				Debug.Log("right : " + shapeData.right); 
+				Debug.Log("down : " + shapeData.down); 
+				Debug.Log("up : " + shapeData.up); 
 			}
 			else
 			{
@@ -224,22 +267,30 @@ namespace Memoria.Dungeon.BlockUtility
 
 			//Todo:Anyがつかえないか検証する
 			// 隣接ブロックのチェック
-			return Vector2Int.directions
-				.Select((checkDirection, direction) => new { checkDirection, direction })
-				.Any(data => ConnectsRoad(data.direction, data.checkDirection));
+			return new []
+			{
+				Vector2Int.left,
+				Vector2Int.right,
+				Vector2Int.down,
+				Vector2Int.up,
+			}
+				.Any(dir => Connected(dir));
+//				.Any();
+//				.Select((checkDirection, direction) => new { checkDirection, direction })
+//				.Any(data => ConnectsRoad(data.direction, data.checkDirection));
 		}
 
 		// 指定した向きの道とつながるかどうか
-		private bool ConnectsRoad(int direction, Vector2Int checkDirection)
-		{
-			Vector2Int checkLocation = location + checkDirection;
-
-			bool opened1 = shapeData.directions[direction];
-			bool exsits = mapManager.map.ContainsKey(checkLocation);
-			bool opened2 = exsits && mapManager.map[checkLocation].shapeData.directions[direction ^ 1];
-
-			return opened1 && exsits && opened2;
-		}
+		//		private bool ConnectsRoad(int direction, Vector2Int checkDirection)
+		//		{
+		//			Vector2Int checkLocation = location + checkDirection;
+		//
+		//			bool opened1 = shapeData.directions[direction];
+		//			bool exsits = mapManager.map.ContainsKey(checkLocation);
+		//			bool opened2 = exsits && mapManager.map[checkLocation].shapeData.directions[direction ^ 1];
+		//
+		//			return opened1 && exsits && opened2;
+		//		}
 
 		// ブロックを置く
 		private void Put()

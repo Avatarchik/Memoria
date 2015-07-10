@@ -51,7 +51,8 @@ namespace Memoria.Dungeon.BlockUtility
 
 				blockFactor.CreateBlock(randomShapeData, randomBlockType);
 
-				flags[randomShapeData.type] = true;
+//				flags[randomShapeData.type] = true;
+				flags[randomShapeData.typeID] = true;
 			});
 		}
 
@@ -66,7 +67,8 @@ namespace Memoria.Dungeon.BlockUtility
 
 				blockFactor.SetBlock(randomShapeData, randomBlockType);
 
-				nextFlags[randomShapeData.type] = true;
+//				nextFlags[randomShapeData.type] = true;
+				nextFlags[randomShapeData.typeID] = true;
 			});
 
 			DungeonParameter parameter = parameterManager.parameter;
