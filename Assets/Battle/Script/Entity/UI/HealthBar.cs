@@ -20,8 +20,8 @@ namespace Memoria.Battle.GameActors
             for (int i = 0; i <= 10; i++)
             {
                 _healthBarSprites[i] = (i < 10) ?
-                    Resources.Load<Sprite>("health0" + i) :
-                    Resources.Load<Sprite>("health" + i);
+                    Resources.Load<Sprite>("HealthBar/health0" + i) :
+                    Resources.Load<Sprite>("HealthBar/health" + i);
             }
         }
 

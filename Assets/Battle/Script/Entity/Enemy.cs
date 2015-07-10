@@ -72,12 +72,8 @@ namespace Memoria.Battle.GameActors
         public void TakeDamage(Damage d)
         {
             d.TargetParameters = parameter;
-            ShowDamage();
             this.health.hp -= d.Calculate();
-        }
-
-        public void ShowDamage()
-        {
+            d.Appear();
         }
 
         public bool IsAlive()

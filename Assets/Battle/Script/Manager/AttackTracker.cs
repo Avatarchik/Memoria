@@ -37,6 +37,7 @@ namespace Memoria.Battle.Managers
                 }
             }
         }
+
         public void MoveTo(Entity e, float pos)
         {
             if(attackOrder.ContainsKey(e))
@@ -61,5 +62,17 @@ namespace Memoria.Battle.Managers
         {
             attackOrder.Remove(e);
         }
+
+        public Vector3[] GetSlots()
+        {
+            Vector3[] result = new Vector3[attackOrder.Count];
+            for(int i = 0; i < attackOrder.Count; i++)
+            {
+                result[i] = new Vector3(Namebar.X, Namebar.Y - ((i - 4)), 1);
+            }
+            System.Array.Reverse(result);
+            return result;
+        }
+
     }
 }

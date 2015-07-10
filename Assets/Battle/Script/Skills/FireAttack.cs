@@ -18,7 +18,7 @@ namespace Memoria.Battle.GameActors
             targetType = 'e';
             selectType = TargetType.ALL;
             elementalAff = new ElementFire(Element.FIRE);
-            effectObj = (GameObject)Resources.Load("explode");
+            effectObj = (GameObject)Resources.Load("Skills/explode");
         }
 
         override public void Execute(Damage damage, IDamageable target)

@@ -74,6 +74,7 @@
      <Compile Include="Assets\Battle\Script\Entity\Entity.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Hero.cs" />
      <Compile Include="Assets\Battle\Script\Entity\MainPlayer.cs" />
+     <Compile Include="Assets\Battle\Script\Entity\UI\DamageNumber.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\DescriptionFrame.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\HealthBar.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\Namebar.cs" />

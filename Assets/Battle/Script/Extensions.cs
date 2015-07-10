@@ -39,7 +39,7 @@ namespace Memoria.Battle
             {
                 return 1;
             }
-            return (int)Math.Log10(number);
+            return (int)Math.Ceiling(Math.Log10(number));
         }
     }
 }

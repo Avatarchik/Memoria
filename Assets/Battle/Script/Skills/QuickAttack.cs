@@ -7,7 +7,7 @@ namespace Memoria.Battle.GameActors
 
         void Start () {
             animationDur = 7;
-            effectObj = (GameObject)Resources.Load("dmg");
+            effectObj = (GameObject)Resources.Load("Skills/dmg");
             elementalAff = new NoElement(Element.NONE);
         }
 

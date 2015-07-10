@@ -10,12 +10,11 @@ namespace Memoria.Battle.Utility
         public bool isAlive;
         public static List<GameObject> deadEnemy = new List<GameObject>();
 
-        //Initialize
         void Start()
         {
 
         }
-        //Graphic Updates
+
         void Update()
         {
             foreach (GameObject enemy in BattleMgr.Instance.enemyList)

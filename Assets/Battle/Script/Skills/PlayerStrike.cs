@@ -13,7 +13,7 @@ namespace Memoria.Battle.GameActors
             targetType = 'h';
             selectType = TargetType.ALL;
             elementalAff = new ElementThunder(Element.THUNDER);
-            effectObj = (GameObject)Resources.Load("explode2");
+            effectObj = (GameObject)Resources.Load("Skills/explode2");
         }
 
         override public void Execute(Damage damage, IDamageable target)

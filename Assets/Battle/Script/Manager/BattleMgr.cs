@@ -106,7 +106,7 @@ namespace Memoria.Battle.Managers
             {
 
                 var pos = new Vector3((3.8f / 1.5f - 4f + i) * 3.5f, -3, 1);
-                GameObject hero = _spawner.Spawn<Hero>("Char_" + _party[i], _profileType[i]);
+                GameObject hero = _spawner.Spawn<Hero>("Chars/Char_" + _party[i], _profileType[i]);
 
                 hero.LoadComponentsFromList(hero.GetComponent<Entity>().components);
                 hero.transform.position = pos;
@@ -128,7 +128,7 @@ namespace Memoria.Battle.Managers
             for(int i = 0; i < enemies.Length; i++)
             {
                 var pos = new Vector3((enemies.Length / 2.5f - enemies.Length + i * 3f), 0.0f, -9);
-                GameObject randomEnemy = _spawner.Spawn<Enemy>("monster0" + i, enemies[i]);
+                GameObject randomEnemy = _spawner.Spawn<Enemy>("Monsters/monster0" + i, enemies[i]);
 
                 randomEnemy.LoadComponentsFromList(randomEnemy.GetComponent<Entity>().components);
                 randomEnemy.transform.position = pos;

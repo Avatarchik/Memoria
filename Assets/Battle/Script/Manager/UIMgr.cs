@@ -12,6 +12,7 @@ namespace Memoria.Battle.Managers
         private AttackTracker _attackTracker;
         private Dictionary<string, GameObject> _cursor;
         private Dictionary<string, UIElement> _elements;
+        private Vector3[] _queueSlots;
 
         void Awake ()
         {
@@ -24,13 +25,10 @@ namespace Memoria.Battle.Managers
         void Update()
         {
            // Update nameplate order
-
-            int i = 0;
             foreach(var obj in _attackTracker.attackOrder.OrderByDescending(x => x.Value))
             {
                 var namebar = obj.Key.GetComponent<Namebar>().spriteResource;
-                _elements[namebar].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
-                i++;
+                _elements[namebar].transform.position = _queueSlots[(int)obj.Key.orderIndex];
             }
         }
 
@@ -41,7 +39,7 @@ namespace Memoria.Battle.Managers
             Vector3 pos = obj.transform.position;
             pos.y += 2f;
 
-            var cursorObj = (_spawner.Spawn<BattleCursor>("cursor")).GetComponent<BattleCursor>();
+            var cursorObj = (_spawner.Spawn<BattleCursor>("UI/cursor")).GetComponent<BattleCursor>();
             cursorObj.ParentToUI();
             cursorObj.Init();
             cursorObj.transform.position = pos;
@@ -72,7 +70,7 @@ namespace Memoria.Battle.Managers
             var cnt = 0;
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
-                var skillObj = (_spawner.Spawn<SkillIcon>(skill.Key)).GetComponent<SkillIcon>();
+                var skillObj = (_spawner.Spawn<SkillIcon>("Skills/"+ skill.Key)).GetComponent<SkillIcon>();
                 skillObj.ParentToUI();
                 skillObj.Init();
                 skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
@@ -87,16 +85,16 @@ namespace Memoria.Battle.Managers
 
         public void SpawnNamebars(Dictionary<Entity, float> actors)
         {
-            var i = 0;
+            _queueSlots = _attackTracker.GetSlots();
+
             foreach(var obj in actors.OrderByDescending(x => x.Value))
             {
                 var namebar = obj.Key.GetComponent<Namebar>();
-                var barObj = (_spawner.Spawn<Namebar>(namebar.spriteResource)).GetComponent<Namebar>();
+                var barObj = (_spawner.Spawn<Namebar>("UI/"+ namebar.spriteResource)).GetComponent<Namebar>();
                 barObj.ParentToUI();
                 barObj.Init();
-                barObj.transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
+                barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
                 _elements.Add(namebar.spriteResource, barObj);
-               i++;
             }
         }
 
@@ -104,13 +102,12 @@ namespace Memoria.Battle.Managers
 
         public void SpawnDescription(string resource)
         {
-            var frame = (_spawner.Spawn<DescriptionFrame>(resource)).GetComponent<DescriptionFrame>();
+            var frame = (_spawner.Spawn<DescriptionFrame>("UI/"+ resource)).GetComponent<DescriptionFrame>();
             frame.ParentToUI();
             frame.Init();
             frame.name = "Frame_" + resource;
             _elements.Add("frame_"+ resource, frame);
         }
-
 
         //************************************ Destroy
 

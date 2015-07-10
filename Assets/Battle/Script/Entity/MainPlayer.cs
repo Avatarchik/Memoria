@@ -38,13 +38,7 @@ namespace Memoria.Battle.GameActors
             }
             else {
                 health.hp -= damage.Calculate();
-                ShowDamage();
             }
-        }
-
-        public void ShowDamage()
-        {
-
         }
 
         public bool IsAlive()
