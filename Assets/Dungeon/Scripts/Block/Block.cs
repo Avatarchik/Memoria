@@ -296,10 +296,7 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックを破壊する
 		private void Break(Unit _ = null)
 		{
-			DungeonParameter parameter = parameterManager.parameter;
-			parameter.sp -= 2;
-			parameterManager.parameter = parameter;
-
+			dungeonManager.eventManager.OnBreakBlcok();
 			mapManager.map.Remove(location);
 			Destroy(gameObject);
 		}

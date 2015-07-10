@@ -91,6 +91,13 @@ namespace Memoria.Dungeon.Managers
 			StartCoroutine(CoroutineBlockEvent(block, parameter));
 		}
 
+		public void OnBreakBlcok()
+		{
+			DungeonParameter parameter = parameterManager.parameter;
+			parameter.sp -= 2;
+			parameterManager.parameter = parameter;
+		}
+
 		// ブロックがタップされたときに呼び出される
 		public void OnTapBlock(Block tappedBlock)
 		{
