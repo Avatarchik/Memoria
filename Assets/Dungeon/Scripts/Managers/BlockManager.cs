@@ -82,7 +82,7 @@ namespace Memoria.Dungeon.Managers
 
 		public Sprite GetBlockSprite(ShapeData shape, BlockType type)
 		{
-			return blockSprites[(int)type][shape.type];
+			return blockSprites[(int)type][shape.typeID];
 		}
 	}
 }

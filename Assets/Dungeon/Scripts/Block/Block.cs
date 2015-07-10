@@ -158,6 +158,8 @@ namespace Memoria.Dungeon.BlockUtility
 			this.blockType = type;
 		}
 
+
+
 #region Operating
 
 		private bool CanOperation(Unit _ = null)
@@ -222,23 +224,33 @@ namespace Memoria.Dungeon.BlockUtility
 				return false;
 			}
 
-			//Todo:Anyがつかえないか検証する
 			// 隣接ブロックのチェック
-			return Vector2Int.directions
-				.Select((checkDirection, direction) => new { checkDirection, direction })
-				.Any(data => ConnectsRoad(data.direction, data.checkDirection));
+			return new []
+			{
+				Vector2Int.left,
+				Vector2Int.right,
+				Vector2Int.down,
+				Vector2Int.up,
+			}
+				.Any(dir => Connected(dir));
 		}
 
 		// 指定した向きの道とつながるかどうか
-		private bool ConnectsRoad(int direction, Vector2Int checkDirection)
-		{
-			Vector2Int checkLocation = location + checkDirection;
+		public bool Connected(Vector2Int checkBaseDirection)
+		{	
+			if (!shapeData.Opend(checkBaseDirection))
+			{
+				return false;
+			}
 
-			bool opened1 = shapeData.directions[direction];
-			bool exsits = mapManager.map.ContainsKey(checkLocation);
-			bool opened2 = exsits && mapManager.map[checkLocation].shapeData.directions[direction ^ 1];
+			Vector2Int checkLocation = location + checkBaseDirection;
+			if (!mapManager.map.ContainsKey(checkLocation))
+			{
+				return false;
+			}
 
-			return opened1 && exsits && opened2;
+			Block checkBlock = mapManager.map[checkLocation];
+			return checkBlock.shapeData.Opend(-checkBaseDirection);
 		}
 
 		// ブロックを置く
@@ -284,10 +296,7 @@ namespace Memoria.Dungeon.BlockUtility
 		// ブロックを破壊する
 		private void Break(Unit _ = null)
 		{
-			DungeonParameter parameter = parameterManager.parameter;
-			parameter.sp -= 2;
-			parameterManager.parameter = parameter;
-
+			dungeonManager.eventManager.OnBreakBlcok();
 			mapManager.map.Remove(location);
 			Destroy(gameObject);
 		}

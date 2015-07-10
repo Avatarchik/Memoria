@@ -83,25 +83,20 @@ namespace Memoria.Dungeon
 			return base.GetHashCode();
 		}
 
-		private static Vector2Int[] directionTable =
-			{
-				new Vector2Int() { x = -1, y = 0 },
-				new Vector2Int() { x = 1, y = 0 },
-				new Vector2Int() { x = 0, y = -1 },
-				new Vector2Int() { x = 0, y = 1 },
-			};
+		public static Vector2Int left { get { return new Vector2Int(-1, 0); } }
 
-		public static Vector2Int[] directions { get { return directionTable.Clone() as Vector2Int[]; } }
+		public static Vector2Int right { get { return new Vector2Int(1, 0); } }
 
-		public static Vector2Int left { get { return directionTable[0]; } }
+		public static Vector2Int down { get { return new Vector2Int(0, -1); } }
 
-		public static Vector2Int right { get { return directionTable[1]; } }
-
-		public static Vector2Int down { get { return directionTable[2]; } }
-
-		public static Vector2Int up { get { return directionTable[3]; } }
+		public static Vector2Int up { get { return new Vector2Int(0, 1); } }
 
 		public static Vector2Int zero { get { return new Vector2Int(0, 0); } }
+
+		public static Vector2Int operator -(Vector2Int v)
+		{
+			return new Vector2Int(-v.x, -v.y);
+		}
 
 		public static Vector2Int operator +(Vector2Int v1, Vector2Int v2)
 		{
@@ -114,11 +109,7 @@ namespace Memoria.Dungeon
 
 		public static Vector2Int operator -(Vector2Int v1, Vector2Int v2)
 		{
-			return new Vector2Int()
-			{
-				x = v1.x - v2.x,
-				y = v1.y - v2.y,
-			};
+			return v1 + (-v2);
 		}
 
 		public static Vector2Int operator *(Vector2Int v1, Vector2Int v2)
@@ -142,7 +133,22 @@ namespace Memoria.Dungeon
 
 		public static Vector2Int ConvertDirectionToLocation(Direction direction)
 		{
-			return directionTable[(int)direction];
+			switch (direction)
+			{
+				case Direction.Left:
+					return left;
+
+				case Direction.Right:
+					return right;
+
+				case Direction.Down:
+					return down;
+
+				case Direction.Up:
+					return up;
+			}
+
+			return zero;
 		}
 	}
 }
