@@ -10,7 +10,6 @@ namespace Memoria.Battle.Managers
     {
         private ActorSpawner _spawner;
         private AttackTracker _attackTracker;
-        private Dictionary<string, GameObject> _cursor;
         private Dictionary<string, UIElement> _elements;
         private Vector3[] _queueSlots;
 
@@ -18,7 +17,6 @@ namespace Memoria.Battle.Managers
         {
             _attackTracker = GetComponent<AttackTracker>();
             _spawner = FindObjectOfType<ActorSpawner>();
-            _cursor = new Dictionary<string, GameObject>();
             _elements = new Dictionary<string, UIElement>();
         }
 

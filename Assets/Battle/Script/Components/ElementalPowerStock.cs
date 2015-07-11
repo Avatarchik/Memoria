@@ -62,7 +62,7 @@ namespace Memoria.Battle.GameActors
         {
             Full = false;
 
-            _sprite = Resources.Load<Sprite>(elementType.ToString().ToLower() + "_power");
+            _sprite = Resources.Load<Sprite>("ElementalPowerStock/"+ elementType.ToString().ToLower() + "_power");
 
             _imageType = GetImageType(objType);
 

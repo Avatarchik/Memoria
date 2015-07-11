@@ -68,12 +68,12 @@
      <Compile Include="Assets\Battle\Script\Elements\ElementalType.cs" />
      <Compile Include="Assets\Battle\Script\Elements\NoElement.cs" />
      <Compile Include="Assets\Battle\Script\Elements\StrengthType.cs" />
-     <Compile Include="Assets\Battle\Script\Entity\Cursor.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Damage.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Enemy.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Entity.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Hero.cs" />
      <Compile Include="Assets\Battle\Script\Entity\MainPlayer.cs" />
+     <Compile Include="Assets\Battle\Script\Entity\UI\Cursor.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\DamageNumber.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\DescriptionFrame.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\HealthBar.cs" />
