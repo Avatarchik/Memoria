@@ -80,7 +80,7 @@ namespace Memoria.Battle.GameActors
             if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
                 power.AddStock();
             }
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, -10);
         }
 
         override public void EndTurn()
@@ -102,7 +102,7 @@ namespace Memoria.Battle.GameActors
                 power.UseStock(attackType.stockCost);
             }
 
-            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);
+            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, -10);
             base.EndTurn();
         }
 

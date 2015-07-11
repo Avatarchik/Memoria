@@ -101,18 +101,23 @@ namespace Memoria.Battle.Managers
 
         private void SpawnHeroes()
         {
-
+            Vector2 skillPos = new Vector2();
             for(int i = 0; i < _party.Length; i++)
             {
-
-                var pos = new Vector3((3.8f / 1.5f - 4f + i) * 3.5f, -3, 1);
+                var pos = new Vector3((3.8f / 1.5f - 4f + i) * 2.8f, -3.2f, -10);
                 GameObject hero = _spawner.Spawn<Hero>("Chars/Char_" + _party[i], _profileType[i]);
 
                 hero.LoadComponentsFromList(hero.GetComponent<Entity>().components);
                 hero.transform.position = pos;
-                hero.transform.localScale *= 0.8f; //Temporary
-                hero.name = hero.GetComponent<Profile>().GetType().ToString();
+//                hero.transform.localScale *= 0.8f; //Temporary
 
+                //Change to relative positions
+                float xOffset = (i < 2) ? 2.0f : -5.3f;
+                skillPos.x = hero.transform.position.x + xOffset;
+                skillPos.y = hero.transform.position.y;
+
+                hero.name = hero.GetComponent<Profile>().GetType().ToString();
+                hero.GetComponent<Profile>().skillPos = skillPos;
                 hero.GetComponent<BoxCollider2D>().enabled = false;
                 hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.GetComponent<Hero>().battleID = "h0" + i;

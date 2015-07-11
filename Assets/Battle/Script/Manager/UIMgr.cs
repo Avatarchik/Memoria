@@ -72,7 +72,10 @@ namespace Memoria.Battle.Managers
                 skillObj.ParentToUI();
                 skillObj.Init();
                 skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
-                skillObj.transform.position = new Vector3(player.transform.position.x - 1.6f, player.transform.position.y + 1.9f + cnt, 1);
+                skillObj.transform.position = new Vector3(
+                                                          (player.GetComponent<Profile>().skillPos.x),
+                                                          (player.GetComponent<Profile>().skillPos.y - 1.0f) + cnt,
+                                                          1);
                 skillObj.name = skill.Key;
                 _elements.Add("skill_" + skill.Key, skillObj);
                 cnt++;

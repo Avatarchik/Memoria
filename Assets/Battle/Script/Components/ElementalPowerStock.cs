@@ -38,6 +38,9 @@ namespace Memoria.Battle.GameActors
         [SerializeField]
         private float spaceOffset = 0.8f;
 
+        [SerializeField]
+        private int layerOffset = 0;
+
         public int stock;
         public ObjectType objType;
         public StockType elementType;
@@ -84,7 +87,7 @@ namespace Memoria.Battle.GameActors
                 }
 
                 var pos = obj.transform.position;
-                obj.transform.position = new Vector3(pos.x + offsetX + (i * spaceOffset), pos.y + offsetY);
+                obj.transform.position = new Vector3(pos.x + offsetX + (i * spaceOffset), pos.y + offsetY, transform.parent.position.z + layerOffset);
                 i++;
             }
         }

@@ -13,7 +13,7 @@ namespace Memoria.Battle.GameActors
 
         public int Calculate()
         {
-            var totalDmg = 12.0f;
+            var totalDmg = (float)AttackerParameters.attack;
             totalDmg *= GetElementalBonus(TargetParameters.elementAff);
             totalDamage = Mathf.CeilToInt(totalDmg);
             return Mathf.CeilToInt(totalDmg);
@@ -37,7 +37,7 @@ namespace Memoria.Battle.GameActors
                 number.ParentToUI();
                 number.Init();
                 number.transform.position = new Vector3(0 + (i * 0.3f), 0, 1);
-                DestroyObject(number.gameObject, 0.4f);
+                DestroyObject(number.gameObject, 0.6f);
             }
         }
  

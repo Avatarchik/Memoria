@@ -8,7 +8,7 @@ namespace Memoria.Battle.GameActors
         {
             get
             {
-                return 7.2f;
+                return -7.5f;
             }
         }
         public static float Y

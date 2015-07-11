@@ -5,6 +5,7 @@ namespace Memoria.Battle.GameActors
 {
     abstract public class Profile : MonoBehaviour
     {
+        public Vector2 skillPos { get; set; }
         public Parameter parameter;
         public AttackType attackType;
         public string ultimateAttack;
