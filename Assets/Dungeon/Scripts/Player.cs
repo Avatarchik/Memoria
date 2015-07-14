@@ -109,7 +109,7 @@ namespace Memoria.Dungeon
 				return false;
 			}
 
-			return mapManager.map[location].Connected(moveDirection);
+			return mapManager.map[location].setter.Connected(moveDirection);
 		}
 
 		private void Move(Vector2Int normalizedMoveDirection)

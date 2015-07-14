@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
+using UniRx.Triggers;
 using Memoria.Dungeon.BlockUtility;
 
 namespace Memoria.Dungeon.Managers
@@ -19,10 +21,23 @@ namespace Memoria.Dungeon.Managers
 
 		public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
 
+		private Subject<Block> onCreateBlock;
+
+		public IObservable<Block> OnCreateBlockAsObservable()
+		{
+			return onCreateBlock ?? (onCreateBlock = new Subject<Block>());
+		}
+
 		public Block CreateBlock()
 		{
 			Block block = Instantiate<GameObject>(blockPrefab).GetComponent<Block>();
 			block.Initialize();
+
+			if (onCreateBlock != null)
+			{
+				onCreateBlock.OnNext(block);
+			}
+
 			return block;
 		}
 

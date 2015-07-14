@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Memoria.Dungeon.BlockUtility;
+using UniRx;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -13,6 +14,7 @@ namespace Memoria.Dungeon.Managers
 		public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
 		private DungeonManager _dungeonManager;
+
 		private DungeonManager dungeonManager
 		{
 			get
@@ -43,6 +45,13 @@ namespace Memoria.Dungeon.Managers
 		void Awake()
 		{
 			blockManager = dungeonManager.blockManager;
+			blockManager.OnCreateBlockAsObservable()
+				.Subscribe(block =>
+			{
+				block.breaker.OnBreakBlockAsObservable()
+					.Subscribe(_ => map.Remove(block.location))
+					.AddTo(block.gameObject);
+			});
 		}
 
 		public void SetMap(List<BlockData> blockDatas)

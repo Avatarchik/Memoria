@@ -24,6 +24,8 @@ namespace Memoria.Dungeon.BlockUtility
 	[RequireComponent(typeof(SpriteRenderer))]
 	[RequireComponent(typeof(BoxCollider2D))]
 	[RequireComponent(typeof(Animator))]
+	[RequireComponent(typeof(BlockMover))]
+	[RequireComponent(typeof(BlockSetter))]
 	public class Block : MonoBehaviour
 	{
 		private DungeonManager dungeonManager;
@@ -41,8 +43,8 @@ namespace Memoria.Dungeon.BlockUtility
 
 		public Vector2Int location
 		{
-			get { return (isSpriteRenderer) ? mapManager.ToLocation(transform.localPosition) : new Vector2Int(0, 0); }
-			set { transform.localPosition = isSpriteRenderer ? (Vector3)mapManager.ToPosition(value) : Vector3.zero; }
+			get { return mapManager.ToLocation(transform.localPosition); }
+			set { transform.localPosition = (Vector3)mapManager.ToPosition(value); }
 		}
 
 		private ShapeData _shapeData;
@@ -71,18 +73,6 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
-		private bool isSpriteRenderer
-		{
-			get { return animator.GetBool("isSpriteRenderer"); }
-			set { animator.SetBool("isSpriteRenderer", value); }
-		}
-
-		public bool putted
-		{
-			get { return animator.GetBool("putted"); }
-			private set { animator.SetBool("putted", value); }
-		}
-
 		private BlockFactor _blockFactor;
 
 		public BlockFactor blockFactor
@@ -96,6 +86,40 @@ namespace Memoria.Dungeon.BlockUtility
 			}
 		}
 
+		// TODO: private BlockMover mover;
+		public BlockMover mover { get; private set; }
+
+		// TOOD: private BlockSetter setter;
+		public BlockSetter setter { get; private set; }
+
+		// TODO: private BlockBreaker breaker;
+		public BlockBreaker breaker { get; private set; }
+
+		public IObservable<Unit> OnBeginDragAndDropAsObservable()
+		{
+			return mover.OnBeginDragAndDropAsObservable();
+		}
+
+		public IObservable<Unit> OnDragAndDropAsObservable()
+		{
+			return mover.OnDragAndDropAsObservable();
+		}
+
+		public IObservable<Unit> OnEndDragAndDropAsObservable()
+		{
+			return mover.OnEndDragAndDropAsObservable();
+		}
+
+		public IObservable<Unit> OnPutBlockAsObservable()
+		{
+			return setter.OnPutBlockAsObservable();
+		}
+
+		public IObservable<Unit> OnBreakBlockAsObservable()
+		{
+			return breaker.OnBreakBlockAsObservable();
+		}
+
 		public void Initialize()
 		{
 			dungeonManager = DungeonManager.instance;
@@ -107,35 +131,69 @@ namespace Memoria.Dungeon.BlockUtility
 			spriteRenderer = GetComponent<SpriteRenderer>();
 			animator = GetComponent<Animator>();
 
-			// 操作イベントの登録
-			this.OnMouseDownAsObservable()
-			.Where(CanOperation)
-			.Do(StartOperation)
+			mover = GetComponent<BlockMover>();
+			setter = GetComponent<BlockSetter>();
+			breaker = GetComponent<BlockBreaker>();
+
+			// 移動開始時
+			mover.OnBeginDragAndDropAsObservable()
 			.Subscribe(_ =>
 			{
-				var onMouseDrag =
-					this.OnMouseDragAsObservable()
-					.Subscribe(Operate);
-				
-				this.OnMouseUpAsObservable()
-				.First()
-				.Do(__ => onMouseDrag.Dispose())
-				.Do(CheckAndPut)
-				.Subscribe(StopOperation);
+				transform.SetParent(null);
+				animator.SetBool("isSpriteRenderer", true);
+				dungeonManager.operatingBlock = this;
+				dungeonManager.EnterState(DungeonState.BlockOperating);
 			});
 
-			// 破壊イベントの登録
-			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
-			onMouseLongDownComponent.intervalSecond = 0.5f;
-			onMouseLongDownComponent.OnMouseLongDownAsObservable()
-			.Where(CanBreak)
-			.Subscribe(Break);
+			// 移動終了時
+			mover.OnEndDragAndDropAsObservable()
+			.Subscribe(_ =>
+			{
+				dungeonManager.operatingBlock = null;
+				dungeonManager.ExitState();
+			});
+
+			// 設置時
+			setter.OnPutBlockAsObservable()
+			.Subscribe(_ =>
+			{
+				animator.SetBool("putted", true);
+				animator.SetBool("isSpriteRenderer", true);
+
+				mapManager.map[location] = this;
+				spriteRenderer.sortingOrder = 0;
+
+				Vector3 target = mapManager.ToPosition(location);
+				float time = 1;
+				iTween.MoveTo(gameObject, target, time);
+
+				if (blockFactor != null)
+				{
+					blockFactor.OnPutBlock();
+				}
+			});
+
+			// 返却時
+			setter.OnBackBlockAsObservable()
+			.Subscribe(_ =>
+			{
+				transform.SetParent(blockFactor.transform);
+				transform.localPosition = Vector3.zero;
+				animator.SetBool("isSpriteRenderer", false);
+			});
+
+//			// 破壊イベントの登録
+//			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
+//			onMouseLongDownComponent.intervalSecond = 0.5f;
+//			onMouseLongDownComponent.OnMouseLongDownAsObservable()
+//			.Where(CanBreak)
+//			.Subscribe(Break);
 
 			// タップイベントの追加
 			var onMouseShortUpAsButtonInCollider = gameObject.AddComponent<ObservableOnMouseShortUpAsButtonInColliderTrigger>();
 			onMouseShortUpAsButtonInCollider.limitSecond = 0.5f;
 			onMouseShortUpAsButtonInCollider.OnMouseShortUpAsButtonInColliderAsObservable()
-			.Where(_ => putted)
+			.Where(_ => setter.putted)
 			.Subscribe(_ => dungeonManager.eventManager.OnTapBlock(this));
 		}
 
@@ -146,11 +204,7 @@ namespace Memoria.Dungeon.BlockUtility
 				throw new UnityException("指定した場所にはすでにブロックがあります " + location);
 			}
 
-			// 各種設定
-			mapManager.map[location] = this;
-			isSpriteRenderer = true;
-			putted = true;
-			spriteRenderer.sortingOrder = 0;
+			setter.Put();
 
 			// ブロックの位置, 形状, 種類を設定
 			this.location = location;
@@ -158,148 +212,29 @@ namespace Memoria.Dungeon.BlockUtility
 			this.blockType = type;
 		}
 
-
-
-#region Operating
-
-		private bool CanOperation(Unit _ = null)
-		{
-			if (putted)
-			{
-				return false;
-			}
-
-			bool isNoneState = dungeonManager.activeState == DungeonState.None;
-			return isNoneState;
-		}
-
-		// 操作を開始するとき
-		private void StartOperation(Unit _ = null)
-		{
-			transform.SetParent(null);
-			Operate();
-			isSpriteRenderer = true;
-			dungeonManager.operatingBlock = this;
-			dungeonManager.EnterState(DungeonState.BlockOperating);
-		}
-
-		// 操作を終了するとき
-		private void StopOperation(Unit _ = null)
-		{
-			dungeonManager.operatingBlock = null;
-			dungeonManager.ExitState();
-		}
-
-		private void Operate(Unit _ = null)
-		{
-			Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			pos.z = 0;
-			transform.position = pos;
-		}
-
-		private void CheckAndPut(Unit _ = null)
-		{
-			if (CanPut())
-			{
-				Put();
-			}
-			else
-			{
-				Back();
-			}
-		}
-
-		// ブロックを置くことができるか判定する
-		public bool CanPut()
-		{
-			// 範囲外チェック
-			if (!mapManager.canPutBlockArea.Contains(transform.position))
-			{
-				return false;
-			}
-
-			// 置くところのブロックチェック
-			if (mapManager.map.ContainsKey(location))
-			{
-				return false;
-			}
-
-			// 隣接ブロックのチェック
-			return new []
-			{
-				Vector2Int.left,
-				Vector2Int.right,
-				Vector2Int.down,
-				Vector2Int.up,
-			}
-				.Any(dir => Connected(dir));
-		}
-
-		// 指定した向きの道とつながるかどうか
-		public bool Connected(Vector2Int checkBaseDirection)
-		{	
-			if (!shapeData.Opend(checkBaseDirection))
-			{
-				return false;
-			}
-
-			Vector2Int checkLocation = location + checkBaseDirection;
-			if (!mapManager.map.ContainsKey(checkLocation))
-			{
-				return false;
-			}
-
-			Block checkBlock = mapManager.map[checkLocation];
-			return checkBlock.shapeData.Opend(-checkBaseDirection);
-		}
-
-		// ブロックを置く
-		private void Put()
-		{
-			mapManager.map[location] = this;
-			putted = true;
-			spriteRenderer.sortingOrder = 0;
-
-			Vector3 target = mapManager.ToPosition(location);
-			float time = 1;
-			iTween.MoveTo(gameObject, target, time);
-
-			blockFactor.OnPutBlock();
-		}
-
-		// BlockFactor に戻す
-		private void Back()
-		{
-			transform.SetParent(blockFactor.transform);
-			transform.localPosition = Vector3.zero;
-			isSpriteRenderer = false;
-		}
-
-#endregion
-
 #region Break
 
-		private bool CanBreak(Unit _ = null)
-		{
-			if (!putted)
-			{
-				return false;
-			}
+//		private bool CanBreak(Unit _ = null)
+//		{
+//			if (!setter.putted)
+//			{
+//				return false;
+//			}
+//
+//			bool isNoneState = dungeonManager.activeState == DungeonState.None;
+//			bool onPlayer = location == dungeonManager.player.location;
+//			Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+//			bool contains = mapManager.canPutBlockArea.Contains(touchPosition);
+//			return isNoneState && !onPlayer && contains;
+//		}
 
-			bool isNoneState = dungeonManager.activeState == DungeonState.None;
-			bool onPlayer = location == dungeonManager.player.location;
-			Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			bool contains = mapManager.canPutBlockArea.Contains(touchPosition);
-			return isNoneState && !onPlayer && contains;
-		}
-
-		// ブロックを破壊する
-		private void Break(Unit _ = null)
-		{
-			dungeonManager.eventManager.OnBreakBlcok();
-			mapManager.map.Remove(location);
-			Destroy(gameObject);
-		}
+//		// ブロックを破壊する
+//		private void Break(Unit _ = null)
+//		{
+//			dungeonManager.eventManager.OnBreakBlcok();
+//			mapManager.map.Remove(location);
+//			Destroy(gameObject);
+//		}
 
 #endregion
 

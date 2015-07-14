@@ -24,7 +24,7 @@ namespace Memoria.Dungeon
 
 			// 画像切り替えの登録
 			this.UpdateAsObservable()
-			.Select(_ => dungeonManager.operatingBlock ? dungeonManager.operatingBlock.CanPut() : false)
+			.Select(_ => dungeonManager.operatingBlock ? dungeonManager.operatingBlock.setter.CanPut() : false)
 			.Do(canPut => animator.SetBool("canPut", canPut))
 			.Select(_ =>
 			{

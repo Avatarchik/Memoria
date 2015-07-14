@@ -45,6 +45,18 @@ namespace Memoria.Dungeon.Managers
 			.Where(states => states.current == DungeonState.PlayerMoving && states.next == DungeonState.None)
 			.Subscribe(_ => OnArrivePlayer());
 
+			dungeonManager.blockManager.OnCreateBlockAsObservable()
+			.Subscribe(block =>
+			{
+				block.OnBreakBlockAsObservable()
+				.Subscribe(_ =>
+				{
+					var parameter = parameterManager.parameter;
+					parameter.sp -= 2;
+					parameterManager.parameter = parameter;
+				});
+			});
+
 			messageBoxText = messageBox.GetComponentInChildren<Text>();
 			messageBox.SetActive(false);
 

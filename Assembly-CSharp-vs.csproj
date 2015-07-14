@@ -92,9 +92,12 @@
      <Compile Include="Assets\Battle\Script\States\StateSelectSkill.cs" />
      <Compile Include="Assets\Battle\Script\States\StateSelectTarget.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockBreaker.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockMover.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSetter.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\ShapeData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
