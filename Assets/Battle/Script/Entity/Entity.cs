@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Memoria.Battle.States;
 using Memoria.Battle.Managers;
 using Memoria.Battle.Utility;
+using Memoria.Battle.Events;
 
 namespace Memoria.Battle.GameActors
 {
@@ -43,7 +44,8 @@ namespace Memoria.Battle.GameActors
         public virtual void Init()
         {
             tracker = GameObject.FindObjectOfType<AttackTracker>() as AttackTracker;
-            EventListner.Instance.SubscribeTurnEnd(UpdateOrder);
+            EventManager.Instance.AddListener<TurnEnds>(UpdateOrder);
+            EventManager.Instance.AddListener<MonsterDies>(Die);
             attackReady = false;
             chargeReady = true;
         }
@@ -90,9 +92,9 @@ namespace Memoria.Battle.GameActors
             attackReady = false;
         }
 
-        protected virtual void UpdateOrder()
+        protected void UpdateOrder(TurnEnds gameEvent)
         {
-            if(!charge)
+           if(!charge)
             {
                 orderIndex--;
                 if(orderIndex < 0) {
@@ -104,6 +106,18 @@ namespace Memoria.Battle.GameActors
             {
                 charge = false;
                 chargeReady = true;
+            }
+        }
+
+        protected void Die(MonsterDies gameEvent)
+        {
+            if(this.Equals(gameEvent.killedEntity))
+            {
+                EventManager.Instance.RemoveListener<TurnEnds>(UpdateOrder);
+            }
+            if((this.orderIndex) > gameEvent.killedEntity.orderIndex)
+            {
+                tracker.MoveTo(this, orderIndex--);
             }
         }
     }

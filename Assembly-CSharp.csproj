@@ -78,8 +78,12 @@
      <Compile Include="Assets\Battle\Script\Entity\UI\DescriptionFrame.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\HealthBar.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\Namebar.cs" />
+     <Compile Include="Assets\Battle\Script\Entity\UI\Result.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\SkillIcon.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\UIElement.cs" />
+     <Compile Include="Assets\Battle\Script\Events\MonsterDies.cs" />
+     <Compile Include="Assets\Battle\Script\Events\TakeDamage.cs" />
+     <Compile Include="Assets\Battle\Script\Events\TurnEnds.cs" />
      <Compile Include="Assets\Battle\Script\Extensions.cs" />
      <Compile Include="Assets\Battle\Script\FadeAttackScreen.cs" />
      <Compile Include="Assets\Battle\Script\Manager\AttackTracker.cs" />
@@ -96,6 +100,7 @@
      <Compile Include="Assets\Battle\Script\States\State.cs" />
      <Compile Include="Assets\Battle\Script\States\StateAnimation.cs" />
      <Compile Include="Assets\Battle\Script\States\StateBattleRunning.cs" />
+     <Compile Include="Assets\Battle\Script\States\StatePlayerLost.cs" />
      <Compile Include="Assets\Battle\Script\States\StatePlayerWon.cs" />
      <Compile Include="Assets\Battle\Script\States\StatePrepare.cs" />
      <Compile Include="Assets\Battle\Script\States\StateSelectSkill.cs" />

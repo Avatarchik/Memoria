@@ -43,7 +43,7 @@ namespace Memoria.Battle.GameActors
 
         public int GetHealthPercent10()
         {
-            var _onePercent = _mainPlayer.health.maxHp / 100.0f;
+            var _onePercent = _mainPlayer.health.maxHp / 100;
             var _healthPercent = _mainPlayer.health.hp / _onePercent;
             return Mathf.CeilToInt(_healthPercent / 10);
         }

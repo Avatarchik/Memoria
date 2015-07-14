@@ -3,7 +3,7 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public class FireAttack : AttackType, ITriggerable  {
+    public class FireAttack : AttackType  {
 
         void Awake()
         {

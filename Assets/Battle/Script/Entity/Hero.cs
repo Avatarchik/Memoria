@@ -38,8 +38,11 @@ namespace Memoria.Battle.GameActors
             _iconButton = GetComponent<Button>();
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
-
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
+
+            BattleMgr.Instance.mainPlayer.health.hp += parameter.hp;
+            BattleMgr.Instance.mainPlayer.health.maxHp += parameter.hp;
+
         }
 
 

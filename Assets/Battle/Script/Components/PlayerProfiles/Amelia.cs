@@ -7,13 +7,13 @@ namespace Memoria.Battle.GameActors
         void Awake () {
             nameplate = "Namebar_Amelia";
 
-            parameter.attack = 100;
-            parameter.defense = 100;
-            parameter.mattack = 100;
-            parameter.mdefense = 100;
-            parameter.speed = 100;
-            parameter.hp = 100;
-            parameter.elementAff = new ElementFire(Element.FIRE);
+            parameter.attack = 3197;
+            parameter.defense = 2268;
+      //    parameter.mattack = 100;
+      //    parameter.mdefense = 100;
+            parameter.speed = 3972;
+            parameter.hp = 2014;
+            parameter.elementAff = new ElementThunder(Element.THUNDER);
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());

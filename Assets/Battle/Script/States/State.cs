@@ -7,6 +7,7 @@
         SELECT_TARGET = 2,
         SELECT_SKILL = 3,
         ANIMATOIN = 4,
-        PLAYER_WON = 5
+        PLAYER_WON = 5,
+        PLAYER_LOST = 6,
     }
 }

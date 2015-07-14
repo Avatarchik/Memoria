@@ -4,22 +4,22 @@ namespace Memoria.Battle.GameActors
 {
     public class Namebar : UIElement
     {
-        public static float X
+        public float X
         {
             get
             {
-                return -7.5f;
+                return  -8.0f;
             }
         }
-        public static float Y
+        public float Y
         {
             get
             {
-                return -1.0f;
+                return 0.5f;
             }
         }
         override public void Init()
-        {       
+        {
         }
 
         public void CurvedMove(Vector3[] param)

@@ -1,18 +1,19 @@
 ﻿namespace Memoria.Battle.GameActors
 {
-    public class Tracy : Profile
+    public class Diel : Profile
     {
+        //現ディエル
         void Awake ()
         {
-            nameplate = "Namebar_Tracy";
+            nameplate = "Namebar_Diel";
 
-            parameter.attack = 100;
-            parameter.defense = 100;
-            parameter.mattack = 100;
-            parameter.mdefense = 100;
-            parameter.speed = 100;
-            parameter.hp = 100;
-            parameter.elementAff = new ElementWater(Element.WATER);
+            parameter.attack = 3612;
+            parameter.defense = 1714;
+//          parameter.mattack = 100;
+//          parameter.mdefense = 100;
+            parameter.speed = 3038;
+            parameter.hp = 2499;
+            parameter.elementAff = new ElementWind(Element.WIND); 
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());

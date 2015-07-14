@@ -3,7 +3,7 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public class QuickAttack : AttackType, ITriggerable {
+    public class QuickAttack : AttackType {
 
         void Start () {
             animationDur = 7;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using Memoria.Battle.States;
@@ -15,20 +16,22 @@ namespace Memoria.Battle.Managers
         public static List<GameObject> actorList = new List<GameObject>();
         private static BattleMgr _instance;
 
+        private ActorSpawner _spawner;
         private DungeonData _dungeonData;
         private Dictionary<State, BattleState> _battleStates;
-
+ 
         private string[] _party;
         private Type[] _profileType;
 
-        private ActorSpawner _spawner;
-
         public List<GameObject> enemyList = new List<GameObject> ();
+
+        public MainPlayer mainPlayer;
 
         public Entity NowActor { get; private set; }
         public UIMgr UiMgr { get; private set; }
         public AttackTracker AttackTracker { get; private set; }
         public BattleState CurrentState { get; private set; }
+        private bool _setResultRunning;
 
         public Element elementalAffinity = Element.FIRE;
         public float AttackAnimation { get; set; }
@@ -57,21 +60,22 @@ namespace Memoria.Battle.Managers
             _party = new string[]
                 {
                     "Amelia",
-                    "Tracy",
+                    "Diel",
                     "Aria",
-                    "Claude"
+                    "Iska"
                 };
 
             _profileType = new Type[]
                 {
                     typeof(Amelia),
-                    typeof(Tracy),
+                    typeof(Diel),
                     typeof(Aria),
-                    typeof(Claude)
+                    typeof(Iska)
                 };
 
             InitBattleStates();
             _spawner = FindObjectOfType<ActorSpawner>();
+            mainPlayer = FindObjectOfType<MainPlayer>();
             AttackTracker = GetComponent<AttackTracker>();
             UiMgr = GetComponent<UIMgr> ();
         }
@@ -85,8 +89,8 @@ namespace Memoria.Battle.Managers
             CurrentState = _battleStates[State.PREPARE];
         }
 
-        void Update () {
-            CheckWinLoss();
+        void Update ()
+        {
             if(CurrentState.Initialized)
             {
                 CurrentState.Update();
@@ -109,7 +113,6 @@ namespace Memoria.Battle.Managers
 
                 hero.LoadComponentsFromList(hero.GetComponent<Entity>().components);
                 hero.transform.position = pos;
-//                hero.transform.localScale *= 0.8f; //Temporary
 
                 //Change to relative positions
                 float xOffset = (i < 2) ? 2.0f : -5.3f;
@@ -128,7 +131,6 @@ namespace Memoria.Battle.Managers
 
         private void SpawnEnemies()
         {
-
             Type[] enemies = GetRandomEnemies();
             for(int i = 0; i < enemies.Length; i++)
             {
@@ -154,7 +156,8 @@ namespace Memoria.Battle.Managers
                     { State.SELECT_SKILL  ,new StateSelectSkill()   },
                     { State.SELECT_TARGET ,new StateSelectTarget()  },
                     { State.ANIMATOIN     ,new StateAnimation()     },
-                    { State.PLAYER_WON    ,new StatePlayerWon()     }
+                    { State.PLAYER_WON    ,new StatePlayerWon()     },
+                    { State.PLAYER_LOST   ,new StatePlayerLost()    }
                 };
         }
 
@@ -172,14 +175,33 @@ namespace Memoria.Battle.Managers
             NowActor = AttackTracker.currentActor;
         }
 
-        //TODO: Temporary
-        private void CheckWinLoss()
+        public bool BattleOver()
         {
-            if (actorList.Count == 4)
+            if (actorList.Count == 4 && !_setResultRunning)
             {
-                SetState(State.PLAYER_WON);
-                Invoke("LoadLevelTitle", AttackAnimation + 0.5f);
+                StartCoroutine(SetResult(State.PLAYER_WON, AttackAnimation));
+                return true;
             }
+            if(mainPlayer.health.hp <= 0 && !_setResultRunning) 
+            {
+                StartCoroutine(SetResult(State.PLAYER_LOST, AttackAnimation));
+                return true;
+            }
+            return false;
+        }
+
+        public bool StateResult()
+        {
+            return (actorList.Count <= 4 || mainPlayer.health.hp <= 0);
+        }
+
+        private IEnumerator SetResult(State state, float waitTime)
+        {
+            _setResultRunning = true;
+            yield return new WaitForSeconds (waitTime);
+            SetState(state);
+
+            yield return null;
         }
 
         private void LoadLevelTitle()
@@ -192,14 +214,17 @@ namespace Memoria.Battle.Managers
 
         public void RemoveFromBattle(Entity e)
         {
+            var entityId = e.GetComponent<Entity>().battleID;
             AttackTracker.DestroyActor(e);
-            UiMgr.DestroyElement(e.GetComponent<Namebar>().spriteResource);
-            actorList.RemoveAll(x => x.GetComponent<Entity>().Equals(e));
+            UiMgr.DestroyElement("Namebar_"+ entityId);
+            actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
+            EventManager.Instance.Raise(new Memoria.Battle.Events.MonsterDies(e));
+//            e.Die();
         }
 
         private Type[] GetRandomEnemies()
         {
-            Type[] result = { typeof(Golem) };
+            Type[] result = { typeof(Golem), typeof(Golem) };
             return result;
         }
 

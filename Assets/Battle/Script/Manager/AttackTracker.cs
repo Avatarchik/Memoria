@@ -46,7 +46,7 @@ namespace Memoria.Battle.Managers
             }
             else
             {
-                Debug.LogWarning("[E] Actor missing in attack order "+ e);
+                Debug.LogWarning("[E] Actor missing in attack order "+ e.ToString());
             }
         }
 
@@ -61,14 +61,20 @@ namespace Memoria.Battle.Managers
         public void DestroyActor(Entity e)
         {
             attackOrder.Remove(e);
+            //TODO: Implement method which moves down everyv actors after.
+        }
+
+        private void RefreshQueue(int i)
+        {
         }
 
         public Vector3[] GetSlots()
         {
+            Namebar n = FindObjectOfType<Namebar>();
             Vector3[] result = new Vector3[attackOrder.Count];
             for(int i = 0; i < attackOrder.Count; i++)
             {
-                result[i] = new Vector3(Namebar.X, Namebar.Y - ((i - 4)), 1);
+                result[i] = new Vector3(n.X, n.Y - ((i - 4)), 1);
             }
             System.Array.Reverse(result);
             return result;

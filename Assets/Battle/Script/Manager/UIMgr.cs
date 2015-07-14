@@ -20,13 +20,12 @@ namespace Memoria.Battle.Managers
             _elements = new Dictionary<string, UIElement>();
         }
 
-        void Update()
+        void LateUpdate()
         {
            // Update nameplate order
             foreach(var obj in _attackTracker.attackOrder.OrderByDescending(x => x.Value))
             {
-                var namebar = obj.Key.GetComponent<Namebar>().spriteResource;
-                _elements[namebar].transform.position = _queueSlots[(int)obj.Key.orderIndex];
+                _elements["Namebar_"+ obj.Key.battleID].transform.position = _queueSlots[(int)obj.Key.orderIndex];
             }
         }
 
@@ -95,7 +94,7 @@ namespace Memoria.Battle.Managers
                 barObj.ParentToUI();
                 barObj.Init();
                 barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
-                _elements.Add(namebar.spriteResource, barObj);
+                _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
             }
         }
 
@@ -108,6 +107,17 @@ namespace Memoria.Battle.Managers
             frame.Init();
             frame.name = "Frame_" + resource;
             _elements.Add("frame_"+ resource, frame);
+        }
+
+        //************************************ Result
+
+        public void SpawnResult(Sprite resultSprite)
+        {
+            var result = (_spawner.Spawn<Result>("UI/result")).GetComponent<Result>();
+            result.ParentToUI();
+            result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
+            result.transform.position = new Vector3(0, 0, 1);
+            _elements.Add("result", result);
         }
 
         //************************************ Destroy

@@ -9,6 +9,7 @@ namespace Memoria.Battle.States
         protected  UIMgr uiMgr;
         protected Entity nowActor;
         public bool Initialized { get; set; }
+        public bool Run { get; set; }
 
         public void PreInitialize(BattleMgr bMgr, UIMgr uMgr, Entity nActor)
         {

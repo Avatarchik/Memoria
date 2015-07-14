@@ -3,7 +3,7 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public class PlayerStrike : AttackType, ITriggerable
+    public class PlayerStrike : AttackType
     {
         void Start ()
         {
@@ -14,6 +14,7 @@ namespace Memoria.Battle.GameActors
             selectType = TargetType.ALL;
             elementalAff = new ElementThunder(Element.THUNDER);
             effectObj = (GameObject)Resources.Load("Skills/explode2");
+            parameters.attackPower = -1;
         }
 
         override public void Execute(Damage damage, IDamageable target)
