@@ -8,9 +8,8 @@ namespace Memoria.Battle.Managers
     public class AttackTracker : MonoBehaviour {
 
         public Dictionary<Entity, float> attackOrder;
-        private int _orderIndex;
-        private int _actors;    public Entity nowActor;
-        public float test;
+
+        public Entity nowActor;
 
         // Use this for initialization
         void Start ()

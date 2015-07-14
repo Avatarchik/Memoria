@@ -15,7 +15,7 @@ namespace Memoria.Battle.States
 
             BattleMgr.actorList = BattleMgr.actorList.OrderByDescending (x => x.GetComponent<Entity> ().parameter.speed).ToList ();
             GenerateOrderIndex ();
-            uiMgr.SpawnNamebars(battleMgr.AttackTracker.attackOrder);
+            uiMgr.SpawnNamebars(attackTracker.attackOrder);
         }
 
         override public void Update()
@@ -33,8 +33,8 @@ namespace Memoria.Battle.States
             foreach (GameObject go in BattleMgr.actorList) {
                 Entity actor = go.GetComponent<Entity>();
                 actor.orderIndex = _orderIndex;
-                if(!battleMgr.AttackTracker.attackOrder.ContainsKey(actor)) {
-                    battleMgr.AttackTracker.attackOrder.Add(actor, _orderIndex);
+                if(!attackTracker.attackOrder.ContainsKey(actor)) {
+                    attackTracker.attackOrder.Add(actor, _orderIndex);
                 }
                 _orderIndex++;
             }

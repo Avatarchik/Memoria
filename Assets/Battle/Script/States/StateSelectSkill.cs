@@ -21,7 +21,7 @@ namespace Memoria.Battle.States
             Color fadeOutColor;
             fadeOutColor = new Color(1, 1, 1, 0.5f);
 
-            foreach (var entity in battleMgr.AttackTracker.attackOrder)
+            foreach (var entity in attackTracker.attackOrder)
             {
                 if(entity.Key != nowActor && !entity.Key.entityType.Equals("enemy"))
                 {
@@ -37,7 +37,7 @@ namespace Memoria.Battle.States
             hero.CheckIfhit();
             if(hero.attackSelected || hero.passToStock)
             {
-                foreach (var entity in battleMgr.AttackTracker.attackOrder)
+                foreach (var entity in attackTracker.attackOrder)
                 {
                     if(entity.Key != nowActor && !entity.Key.entityType.Equals("enemy"))
                     {

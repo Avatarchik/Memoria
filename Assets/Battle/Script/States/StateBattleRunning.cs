@@ -8,7 +8,7 @@ namespace Memoria.Battle.States
         override public void Initialize()
         {
             battleMgr.SetCurrentActor();
-            nowActor = battleMgr.NowActor;
+            nowActor = attackTracker.nowActor;
         }
         override public void Update()
         {

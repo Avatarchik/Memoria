@@ -13,27 +13,36 @@ namespace Memoria.Battle.Managers
 {
     public class BattleMgr : Singleton<BattleMgr> {
 
-        public static List<GameObject> actorList = new List<GameObject>();
-        private static BattleMgr _instance;
-
-        private ActorSpawner _spawner;
         private DungeonData _dungeonData;
-        private Dictionary<State, BattleState> _battleStates;
- 
+
+        public static List<GameObject> actorList = new List<GameObject>();
+
+        public Element elementalAffinity = Element.FIRE;
+
+        [SerializeField]
+        private ActorSpawner _spawner;
+
+        [SerializeField]
+        private UIMgr _uiMgr;
+
+        [SerializeField]
+        private AttackTracker _attackTracker;
+
+        [SerializeField]
+        private Entity _nowActor;
+
+        [SerializeField]
         private string[] _party;
-        private Type[] _profileType;
 
         public List<GameObject> enemyList = new List<GameObject> ();
 
         public MainPlayer mainPlayer;
 
-        public Entity NowActor { get; private set; }
-        public UIMgr UiMgr { get; private set; }
-        public AttackTracker AttackTracker { get; private set; }
-        public BattleState CurrentState { get; private set; }
+        private Type[] _profileType;
+       
+        private Dictionary<State, BattleState> _battleStates;
         private bool _setResultRunning;
-
-        public Element elementalAffinity = Element.FIRE;
+        public BattleState CurrentState { get; private set; }
         public float AttackAnimation { get; set; }
 
         void Awake ()
@@ -62,10 +71,10 @@ namespace Memoria.Battle.Managers
                 };
 
             InitBattleStates();
-            _spawner = FindObjectOfType<ActorSpawner>();
             mainPlayer = FindObjectOfType<MainPlayer>();
-            AttackTracker = GetComponent<AttackTracker>();
-            UiMgr = GetComponent<UIMgr> ();
+            _spawner = FindObjectOfType<ActorSpawner>();
+            _attackTracker = GetComponent<AttackTracker>();
+            _uiMgr = GetComponent<UIMgr> ();
         }
 
         void Start()
@@ -85,7 +94,7 @@ namespace Memoria.Battle.Managers
             }
             else
             {
-                CurrentState.PreInitialize(this, UiMgr, NowActor);
+                CurrentState.PreInitialize(this, _uiMgr, _nowActor, _attackTracker);
                 CurrentState.Initialize();
                 CurrentState.Initialized = true;
             }
@@ -160,7 +169,7 @@ namespace Memoria.Battle.Managers
 
         public void SetCurrentActor()
         {
-            NowActor = AttackTracker.currentActor;
+            _nowActor = _attackTracker.currentActor;
         }
 
         public bool BattleOver()
@@ -203,8 +212,8 @@ namespace Memoria.Battle.Managers
         public void RemoveFromBattle(Entity e)
         {
             var entityId = e.GetComponent<Entity>().battleID;
-            AttackTracker.DestroyActor(e);
-            UiMgr.DestroyElement("Namebar_"+ entityId);
+            _attackTracker.DestroyActor(e);
+            _uiMgr.DestroyElement("Namebar_"+ entityId);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
             EventMgr.Instance.Raise(new Memoria.Battle.Events.MonsterDies(e));
 //            e.Die();

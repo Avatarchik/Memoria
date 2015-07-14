@@ -14,7 +14,7 @@ namespace Memoria.Battle.GameActors
         public int Calculate()
         {
             var totalDmg = (float)AttackerParameters.attack;
-            totalDmg *= (float)DamageParameters.attackPower;
+//            totalDmg *= (float)DamageParameters.attackPower;
             totalDmg *= GetElementalBonus(TargetParameters.elementAff);
             totalDamage = Mathf.CeilToInt(totalDmg);
             return Mathf.CeilToInt(totalDmg);
