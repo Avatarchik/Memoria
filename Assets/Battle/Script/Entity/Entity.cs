@@ -44,8 +44,8 @@ namespace Memoria.Battle.GameActors
         public virtual void Init()
         {
             tracker = GameObject.FindObjectOfType<AttackTracker>() as AttackTracker;
-            EventManager.Instance.AddListener<TurnEnds>(UpdateOrder);
-            EventManager.Instance.AddListener<MonsterDies>(Die);
+            EventMgr.Instance.AddListener<TurnEnds>(UpdateOrder);
+            EventMgr.Instance.AddListener<MonsterDies>(Die);
             attackReady = false;
             chargeReady = true;
         }
@@ -113,7 +113,7 @@ namespace Memoria.Battle.GameActors
         {
             if(this.Equals(gameEvent.killedEntity))
             {
-                EventManager.Instance.RemoveListener<TurnEnds>(UpdateOrder);
+                EventMgr.Instance.RemoveListener<TurnEnds>(UpdateOrder);
             }
             if((this.orderIndex) > gameEvent.killedEntity.orderIndex)
             {

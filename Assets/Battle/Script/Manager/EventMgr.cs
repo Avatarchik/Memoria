@@ -20,10 +20,8 @@ namespace Memoria.Battle.Managers
 
 
 
-    public class EventManager
+    public class EventMgr : Singleton<EventMgr>
     {
-        private static EventManager _instance;
-        
         public delegate void EventDel<T> (T e) where T : GameEvent;
 
         private delegate void EventDel (GameEvent e);
@@ -31,18 +29,6 @@ namespace Memoria.Battle.Managers
         private Dictionary<Type, EventDel> _events = new Dictionary<Type, EventDel>();
         private Dictionary<Delegate, EventDel> _eventHash = new Dictionary<Delegate, EventDel>();
         
-        public static EventManager Instance
-        {
-            get
-            {
-                if(_instance == null)
-                {
-                    _instance = new EventManager();
-                }
-                return _instance;
-            }
-        }
-
         public void AddListener<T>(EventDel<T> e) where T : GameEvent
         {
             if(_eventHash.ContainsKey(e))
@@ -53,14 +39,9 @@ namespace Memoria.Battle.Managers
             _eventHash[e] = newEvent;
             
             EventDel tmpVar;
-            if(_events.TryGetValue(typeof(T), out tmpVar))
-            {
-                _events[typeof(T)] = tmpVar += newEvent;
-            }
-            else
-            {
-                _events[typeof(T)] = newEvent;
-            }
+            _events[typeof(T)] = (_events.TryGetValue(typeof(T), out tmpVar)) ?
+                (tmpVar += newEvent) :
+                newEvent;
         }
 
         public void RemoveListener<T> (EventDel<T> e) where T : GameEvent 
@@ -84,13 +65,7 @@ namespace Memoria.Battle.Managers
                 _eventHash.Remove(e);
             }
         }
-                                                                                                                    
-        public void Clear()
-        {
-            _events.Clear();
-            _eventHash.Clear();
-        }
-        
+
         public void Raise (GameEvent e)
         {
             EventDel eDel;

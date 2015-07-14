@@ -108,6 +108,7 @@
      <Compile Include="Assets\Battle\Script\Support\DmgParameter.cs" />
      <Compile Include="Assets\Battle\Script\Support\IDamageable.cs" />
      <Compile Include="Assets\Battle\Script\Support\Parameter.cs" />
+     <Compile Include="Assets\Battle\Script\Support\Singleton.cs" />
      <Compile Include="Assets\Battle\Script\Support\TargetType.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />

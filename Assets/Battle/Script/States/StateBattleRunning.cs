@@ -18,7 +18,7 @@ namespace Memoria.Battle.States
                 {
                     nowActor.EndTurn();
 //                    EventMgr.Instance.OnTurnEnd();
-                    EventManager.Instance.Raise(new TurnEnds());
+                    EventMgr.Instance.Raise(new TurnEnds());
                     Initialized = false;
                 }
             }

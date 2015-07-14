@@ -11,7 +11,7 @@ using Memoria.Battle;
 
 namespace Memoria.Battle.Managers
 {
-    public class BattleMgr : MonoBehaviour {
+    public class BattleMgr : Singleton<BattleMgr> {
 
         public static List<GameObject> actorList = new List<GameObject>();
         private static BattleMgr _instance;
@@ -35,18 +35,6 @@ namespace Memoria.Battle.Managers
 
         public Element elementalAffinity = Element.FIRE;
         public float AttackAnimation { get; set; }
-
-        public static BattleMgr Instance
-        {
-            get
-            {
-                if(_instance == null)
-                {
-                    _instance = GameObject.FindObjectOfType<BattleMgr>() as BattleMgr;
-                }
-                return _instance;
-            }
-        }
 
         void Awake ()
         {
@@ -218,7 +206,7 @@ namespace Memoria.Battle.Managers
             AttackTracker.DestroyActor(e);
             UiMgr.DestroyElement("Namebar_"+ entityId);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
-            EventManager.Instance.Raise(new Memoria.Battle.Events.MonsterDies(e));
+            EventMgr.Instance.Raise(new Memoria.Battle.Events.MonsterDies(e));
 //            e.Die();
         }
 
