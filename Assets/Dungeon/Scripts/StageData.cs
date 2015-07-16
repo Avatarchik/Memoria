@@ -1,4 +1,4 @@
-﻿//  using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 namespace Memoria.Dungeon
@@ -7,7 +7,7 @@ namespace Memoria.Dungeon
     public struct StageData// : MonoBehaviour
     {
 		public string areaSpritePath;
-		public Vector2Int stageSize;
+		public Rect stageSize;
 		public List<Vector2Int> keyLocations;
     }
 }

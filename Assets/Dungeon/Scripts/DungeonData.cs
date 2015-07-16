@@ -9,16 +9,21 @@ namespace Memoria.Dungeon
 
     public class DungeonData : MonoBehaviour
     {
-        public int direction { get; set; }
-        public Vector2Int location { get; set; }
-
         public DungeonParameter parameter { get; set; }
 
-        public List<BlockData> mapData { get; set; }
-
         public BlockType battleType { get; private set; }
-        
-        public List<Vector2Int> keyLocations { get; private set; }
+
+        //  public int direction { get; set; }
+        private int direction;
+
+        //  public Vector2Int location { get; set; }
+        private Vector2Int location;
+
+        //  public List<BlockData> mapData { get; set; }
+        private List<BlockData> mapData;
+
+        //  public List<Vector2Int> keyLocations { get; private set; }
+        private List<Vector2Int> keyLocations;
 
         public int[] stocks { get; set; }
 
@@ -33,8 +38,8 @@ namespace Memoria.Dungeon
         public void Load()
         {
             var dungeonManager = DungeonManager.instance;
-            var mapManager = dungeonManager.mapManager;
-            var parameterManager = dungeonManager.parameterManager;
+            var mapManager = MapManager.instance;
+            var parameterManager = ParameterManager.instance;
 
             var player = dungeonManager.player;
 
@@ -52,7 +57,8 @@ namespace Memoria.Dungeon
             player.direction = direction;
             player.SetPosition(location);
 
-            mapManager.SetMap(mapData);
+            var stageData = StageDataManager.instance.Prepare(parameter.floor);
+            mapManager.SetMap(mapData, stageData, keyLocations);
 
             parameterManager.parameter = parameter;
 

@@ -113,11 +113,11 @@
      <Compile Include="Assets\Dungeon\Scripts\Managers\EventManager.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Managers\MapManager.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Managers\ParameterManager.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Managers\StageDataManager.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Menu\LeaveButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Menu\MapViewer.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Menu\MenuButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Player.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\StageArea.cs" />
      <Compile Include="Assets\Dungeon\Scripts\StageData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Vector2Int.cs" />
      <Compile Include="Assets\InspectorButtonAttribute.cs" />

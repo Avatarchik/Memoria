@@ -15,6 +15,8 @@ namespace Memoria.Dungeon.Managers
         public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
+        
+        private Rect stageArea;
 
         public Rect canPutBlockArea
         {
@@ -22,6 +24,12 @@ namespace Memoria.Dungeon.Managers
             {
                 Rect ret = _canPutBlockArea;
                 ret.position += (Vector2)Camera.main.transform.position;
+                
+                ret.yMin = Mathf.Max(ret.yMin, stageArea.yMin);
+                ret.yMax = Mathf.Min(ret.yMax, stageArea.yMax);
+                ret.xMin = Mathf.Max(ret.xMin, stageArea.xMin);
+                ret.xMax = Mathf.Min(ret.xMax, stageArea.xMax);
+                
                 return ret;
             }
         }
@@ -41,9 +49,10 @@ namespace Memoria.Dungeon.Managers
                 });
         }
 
-        public void SetMap(List<BlockData> blockDatas)
+        public void SetMap(List<BlockData> blockDatas, StageData stageData, List<Vector2Int> keyLocations)
         {
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
+            stageArea = stageData.stageSize;
         }
 
         /// <summary>
