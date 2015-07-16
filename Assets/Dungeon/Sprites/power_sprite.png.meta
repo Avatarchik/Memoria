@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 3b16a8bb65a60485b8f9d30a5897835e
-timeCreated: 1437045374
+guid: f2672c3345a0c4abf8210d17da906929
+timeCreated: 1437045496
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: soul_sprite_0
-    21300002: soul_sprite_1
-    21300004: soul_sprite_2
-    21300006: soul_sprite_3
+    21300000: power_sprite_0
+    21300002: power_sprite_1
+    21300004: power_sprite_2
+    21300006: power_sprite_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,43 +53,43 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: soul_sprite_0
+    - name: power_sprite_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
-        width: 100
-        height: 100
+        y: 50
+        width: 50
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: soul_sprite_1
+    - name: power_sprite_1
       rect:
         serializedVersion: 2
-        x: 100
-        y: 100
-        width: 100
-        height: 100
+        x: 50
+        y: 50
+        width: 50
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: soul_sprite_2
+    - name: power_sprite_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 50
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: soul_sprite_3
+    - name: power_sprite_3
       rect:
         serializedVersion: 2
-        x: 100
+        x: 50
         y: 0
-        width: 100
-        height: 100
+        width: 50
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
