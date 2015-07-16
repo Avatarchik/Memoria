@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Memoria.Dungeon.Managers;
@@ -34,16 +35,29 @@ namespace Memoria.Dungeon.Menu
             dungeonManager = DungeonManager.instance;
             basePosition = transform.localPosition;
 
+            var dragObservable = Observable.Create<Unit>(observer =>
+                this.UpdateAsObservable()
+                    .Where(_ => Input.GetMouseButton(0))
+                    .Subscribe(observer.OnNext))
+                .Select(_ => Input.mousePosition);
+
+            IDisposable drag = null;
+
             mapViewButton.OnClickAsObservable()
                 .Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
-                .First()
                 .Do(_ => EnterMapViewer())
-                .SelectMany(_ => this.UpdateAsObservable())
-                .TakeUntil(returnButton.OnClickAsObservable()
-                    .Do(_ => ExitMapViewer()))
-                .Repeat()
-                .Where(_ => Input.GetMouseButton(0))
-                .Subscribe(_ => transform.Translate(speed * GetInput()));
+                .Do(_ =>
+                {
+                    drag = dragObservable
+                        .Zip(dragObservable.Skip(1), (p1, p2) => p1 - p2)
+                        .TakeUntil(this.UpdateAsObservable()
+                            .Where(__ => Input.GetMouseButtonUp(0)))
+                        .Repeat()
+                        .Subscribe(input => transform.Translate(speed * input));
+                })
+                .SelectMany(_ => returnButton.OnClickAsObservable().First())
+                .Do(_ => ExitMapViewer())
+                .Subscribe(_ => drag.Dispose());
 
             returnButton.gameObject.SetActive(false);
         }
