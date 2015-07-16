@@ -50,7 +50,7 @@ namespace Memoria.Dungeon
                 location = new Vector2Int(0, 0);
 
                 mapData = LoadMapData("");
-                parameter = new DungeonParameter(100, 100, 100, 100, 1, "none");
+                parameter = new DungeonParameter(100, 100, 100, 100, 0, "none");
                 stocks = new[] { 0, 0, 0, 0 };
             }
 

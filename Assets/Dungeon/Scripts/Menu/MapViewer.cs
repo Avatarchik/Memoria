@@ -44,6 +44,8 @@ namespace Memoria.Dungeon.Menu
                 .Repeat()
                 .Where(_ => Input.GetMouseButton(0))
                 .Subscribe(_ => transform.Translate(speed * GetInput()));
+
+            returnButton.gameObject.SetActive(false);
         }
 
         private void EnterMapViewer()
