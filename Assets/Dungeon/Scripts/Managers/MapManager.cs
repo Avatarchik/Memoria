@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Memoria.Dungeon.BlockComponent;
+using System.Linq;
 using UniRx;
+using Memoria.Dungeon.BlockComponent;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -15,8 +16,9 @@ namespace Memoria.Dungeon.Managers
         /// マップ
         /// </summary>
         public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
+        public List<GameObject> keys = new List<GameObject>();
 
-        private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
+        private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);        
         
         private Rect stageArea;
 
@@ -56,10 +58,14 @@ namespace Memoria.Dungeon.Managers
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
             
-            keyLocations.ForEach(location =>
-                {
-                    Instantiate(keyPrefab, (Vector3)ToPosition(location), Quaternion.identity); 
-                });
+            keys.AddRange(keyLocations
+                .Select(location => (Vector3)ToPosition(location))
+                .Select(position => Instantiate(keyPrefab, position, Quaternion.identity) as GameObject));
+            
+            //  keyLocations.ForEach(location =>
+            //      {
+            //          Instantiate(keyPrefab, (Vector3)ToPosition(location), Quaternion.identity); 
+            //      });
         }
 
         /// <summary>

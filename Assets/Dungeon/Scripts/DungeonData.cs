@@ -21,6 +21,9 @@ namespace Memoria.Dungeon
         
         private List<Vector2Int> keyLocations;
 
+        // TODO : CreateJewelData
+        private List<Vector2Int> jewelLocations;
+
         public int[] stocks { get; set; }
 
         private bool initialized = false;
@@ -80,7 +83,10 @@ namespace Memoria.Dungeon
 
             mapData.Clear();
             mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
-
+            
+            keyLocations.Clear();
+            keyLocations.AddRange(mapManager.keys.Select(key => mapManager.ToLocation(key.transform.position)));
+            
             parameter = parameterManager.parameter;
         }
 
