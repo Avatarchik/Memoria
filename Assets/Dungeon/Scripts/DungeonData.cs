@@ -12,17 +12,13 @@ namespace Memoria.Dungeon
         public DungeonParameter parameter { get; set; }
 
         public BlockType battleType { get; private set; }
-
-        //  public int direction { get; set; }
+        
         private int direction;
-
-        //  public Vector2Int location { get; set; }
+        
         private Vector2Int location;
-
-        //  public List<BlockData> mapData { get; set; }
+        
         private List<BlockData> mapData;
-
-        //  public List<Vector2Int> keyLocations { get; private set; }
+        
         private List<Vector2Int> keyLocations;
 
         public int[] stocks { get; set; }
