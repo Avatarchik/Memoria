@@ -17,6 +17,8 @@ namespace Memoria.Dungeon
         public List<BlockData> mapData { get; set; }
 
         public BlockType battleType { get; private set; }
+        
+        public List<Vector2Int> keyLocations { get; private set; }
 
         public int[] stocks { get; set; }
 

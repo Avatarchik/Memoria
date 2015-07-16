@@ -1,18 +1,32 @@
-﻿namespace Memoria.Dungeon
-{    
+﻿using UnityEngine;
+
+namespace Memoria.Dungeon
+{
     [System.Serializable]
     public struct Vector2Int
     {
-        public int x { get; set; }
+        [SerializeField]
+        private int _x;
+        public int x
+        {
+            get { return _x; }
+            set { _x = value; }
+        }
 
-        public int y { get; set; }
+        [SerializeField]
+        private int _y;
+        public int y
+        {
+            get { return _y; }
+            set { _y = value; }
+        }
 
         public Vector2Int(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            _x = x;
+            _y = y;
         }
-        
+
         public int SqrMagnitude()
         {
             return x * x + y * y;

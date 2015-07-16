@@ -24,7 +24,7 @@ namespace Memoria.Dungeon
 
         public int maxSp { get; set; }
 
-        private int floor { get; set; }
+        public int floor { get; set; }
 
         private string skill { get; set; }
 
