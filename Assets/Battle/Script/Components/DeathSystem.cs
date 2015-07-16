@@ -10,21 +10,23 @@ namespace Memoria.Battle.Utility
         public bool isAlive;
         public static List<GameObject> deadEnemy = new List<GameObject>();
 
-        //Initialize
         void Start()
         {
 
         }
-        //Graphic Updates
+
         void Update()
         {
-            foreach (GameObject enemy in BattleMgr.Instance.enemyList) {
-                if(!enemy.GetComponent<DeathSystem>().isAlive) {
+            foreach (GameObject enemy in BattleMgr.Instance.enemyList)
+            {
+                if(!enemy.GetComponent<DeathSystem>().isAlive)
+                {
                     BattleMgr.actorList.Remove(enemy);
                     deadEnemy.Add(enemy);
                 }
             }
-            foreach (GameObject obj in deadEnemy) {
+            foreach (GameObject obj in deadEnemy)
+            {
                 BattleMgr.Instance.enemyList.Remove (obj);
                 Destroy (obj);
             }
@@ -43,7 +45,8 @@ namespace Memoria.Battle.Utility
 
             yield return new WaitForSeconds (0.5f);
 
-            while (time < interval) {
+            while (time < interval)
+            {
                 Color color = sr.color;
                 color.a = Mathf.Lerp(1, 0, time / interval);
                 sr.color = color;

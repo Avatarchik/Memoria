@@ -2,55 +2,74 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
+using Memoria.Battle;
 
 namespace Memoria.Battle.GameActors
 {
-    public class Hero : Entity {
+    public class Hero : Entity
+    {
+        public delegate void OnHit();
+        private OnHit stockUp;
 
-        const char ENEMY = 'e';
-        const char PARTY = 'h';
 
         public bool attackSelected;
-        public bool passtToStock;
+
+        public bool passToStock;
+
         public string nameplae;
-        public int stock;
+
         private Button _iconButton;
+
         private bool _enemyTarget;
 
-        void Start () {
+        private bool _initializedTurn;
+
+        public ElementalPowerStock power;
+
+        void Start ()
+        {
             entityType = "hero";
             profile = GetComponent<Profile>();
+            power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
-            nameplate = profile.nameplate;
             _iconButton = GetComponent<Button>();
+            power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
+            power.objType = ObjectType.NORMAL;
+            transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
+
+            BattleMgr.Instance.mainPlayer.health.hp += parameter.hp;
+            BattleMgr.Instance.mainPlayer.health.maxHp += parameter.hp;
+
         }
 
-        void Update()
+
+        public void CheckIfhit()
         {
-            for (int i = 0; i < stock; i++)
+            if(GetComponent<TargetSelector>().hitBoxCollider)
             {
-                //Update stock icons
+                stockUp.Invoke();
             }
         }
+
         override public void Init()
         {
             components.Add(typeof(TargetSelector));
             components.Add(typeof(Namebar));
+            components.Add(typeof(ElementalPowerStock));
             base.Init();
         }
 
+
         override public bool Attack (AttackType attack)
         {
-            SetIconSkill(stock);
-            if(passtToStock)
-            {
+            if(passToStock) {
                 return true;
             }
-            if(!attackReady) {
+            if(!attackReady)
+            {
                 StartTurn();
                 BattleMgr.Instance.SetState(State.SELECT_SKILL);
                 return false;
@@ -60,44 +79,60 @@ namespace Memoria.Battle.GameActors
 
         override public void StartTurn()
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, 1);
+            SetIconSkill();
+            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
+                power.AddStock();
+            }
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, -10);
         }
 
         override public void EndTurn()
         {
             _iconButton.onClick.RemoveAllListeners();
-            if(!charge && !passtToStock) {
+            if(!charge && !passToStock)
+            {
                 attackSelected = false;
                 attackType.attacked = false;
                 attackType = null;
                 target = null;
             }
-            passtToStock = false;
-            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, 1);
+            if(passToStock)
+            {
+                passToStock = false;
+                target = null;
+            }
+            if(charge) {
+                power.UseStock(attackType.stockCost);
+            }
+
+            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, -10);
             base.EndTurn();
         }
 
         public void StockUp()
         {
-            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff) {
-                stock += 1;
-            }
-            stock += 1;
-            if(stock > 3)
-            {
-                stock = 3;
-            }
-            passtToStock = true;
-            Debug.Log(this +"Elemetal Stock"+ stock);
+            power.AddStock();
+            passToStock = true;
+            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
+        }
+
+        public void Cancel ()
+        {
+            attackSelected = false;
+            charge = false;
+            BattleMgr.Instance.SetState(State.SELECT_SKILL);
         }
 
         public void SetAttack(string attack)
         {
-            _iconButton.onClick.RemoveAllListeners();
             if(!charge) {
                 attackType = profile.attackList[attack];
+
+                if(attackType.stockCost > power.stock)
+                    return;
+
                 attackSelected = true;
-                if(attackType.phaseCost > 1) {
+                if(attackType.phaseCost > 0) {
                     charge = true;
                     chargeReady = false;
                 }
@@ -110,19 +145,21 @@ namespace Memoria.Battle.GameActors
             {
                 _enemyTarget = false;
             }
-        }
+            _iconButton.onClick.RemoveAllListeners();
 
+        }
         public bool TargetSelected()
         {
             if (target == null) {
                 return GetComponent<TargetSelector> ().TargetSelected(_enemyTarget);
-            } else
-                  return true;
+            } else {
+                return true;
+            }
         }
 
         public void SetTarget(IDamageable e)
         {
-            if (target == null){
+            if (target == null) {
                 target = e;
             }
             attackReady = true;
@@ -132,21 +169,27 @@ namespace Memoria.Battle.GameActors
         {
             var list = new List<string>();
 
-            foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
-            {
+            foreach (var skill in profile.attackList.Where(x => x.Value.stockCost < 3)) {
                 list.Add(skill.Key);
             }
             return list.ToArray();
         }
 
-        private void SetIconSkill(int i)
+        private void SetIconSkill()
         {
-            if(i < 3)
+            if(!power.Full)
             {
+                stockUp = StockUp;
                 _iconButton.onClick.AddListener(() => StockUp());
                 return;
             }
+            stockUp = SetUltimate;
             _iconButton.onClick.AddListener(() => SetAttack(profile.ultimateAttack));
+        }
+
+        private void SetUltimate()
+        {
+            SetAttack(profile.ultimateAttack);
         }
     }
 }

@@ -5,11 +5,13 @@ namespace Memoria.Battle.Utility
     public class DestoryParticle : MonoBehaviour {
         ParticleSystem ps;
 
-        void Start () {
+        void Start ()
+        {
             ps = GetComponent<ParticleSystem> ();
         }
 
-        void Update () {
+        void Update ()
+        {
             if(!ps.IsAlive(true)) {
                 Destroy(gameObject);
             }

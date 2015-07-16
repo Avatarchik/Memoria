@@ -3,29 +3,29 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public class FireAttack : AttackType, ITriggerable  {
+    public class FireAttack : AttackType  {
+
+        void Awake()
+        {
+            parameters.attackPower = 100;
+        }
 
         void Start ()
         {
             phaseCost = 2;
-            stockCost = 2;
+            stockCost = 1;
             animationDur = 310;
             targetType = 'e';
             selectType = TargetType.ALL;
-            elementalAff = ElementType.FIRE;
-            effectObj = (GameObject)Resources.Load("explode");
-        }
-
-        override public void Execute(IDamageable target)
-        {
-            target.TakeDamage(120);
+            elementalAff = new ElementFire(Element.FIRE);
+            effectObj = (GameObject)Resources.Load("Skills/explode");
         }
 
         override public void Execute(Damage damage, IDamageable target)
         {
-            //       target.TakeDamage(damage);
+            damage.DamageParameters = parameters;
+            target.TakeDamage(damage);
         }
-
 
         override public void PlayEffect (Entity target)
         {

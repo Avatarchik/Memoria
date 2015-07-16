@@ -5,15 +5,15 @@ namespace Memoria.Battle.GameActors
     public class Amelia : Profile {
         // Use this for initialization
         void Awake () {
-            nameplate = "GOJBNA4000";
+            nameplate = "Namebar_Amelia";
 
-            parameter.attack = 317;
-            parameter.defense = 239;
-            parameter.mattack = 224;
-            parameter.mdefense = 260;
-            parameter.speed = 342;
-            parameter.hp = 484;
-            parameter.elementAff = ElementType.WATER;
+            parameter.attack = 3197;
+            parameter.defense = 2268;
+      //    parameter.mattack = 100;
+      //    parameter.mdefense = 100;
+            parameter.speed = 3972;
+            parameter.hp = 2014;
+            parameter.elementAff = new ElementThunder(Element.THUNDER);
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());

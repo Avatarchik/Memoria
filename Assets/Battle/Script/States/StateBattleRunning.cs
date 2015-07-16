@@ -1,5 +1,5 @@
 ﻿using Memoria.Battle.Managers;
-using UnityEngine;
+using Memoria.Battle.Events;
 
 namespace Memoria.Battle.States
 {
@@ -8,14 +8,19 @@ namespace Memoria.Battle.States
         override public void Initialize()
         {
             battleMgr.SetCurrentActor();
-            nowActor = battleMgr.NowActor;
+            nowActor = attackTracker.nowActor;
         }
         override public void Update()
         {
-            if(nowActor.Attack (nowActor.attackType)){
-                nowActor.EndTurn();
-                EventMgr.Instance.OnTurnEnd();
-                Initialized = false;
+            if(!battleMgr.BattleOver() && !battleMgr.StateResult())
+            {
+                if(nowActor.Attack (nowActor.attackType))
+                {
+                    nowActor.EndTurn();
+//                    EventMgr.Instance.OnTurnEnd();
+                    EventMgr.Instance.Raise(new TurnEnds());
+                    Initialized = false;
+                }
             }
         }
     }

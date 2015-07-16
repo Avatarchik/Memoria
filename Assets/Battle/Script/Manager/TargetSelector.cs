@@ -2,20 +2,23 @@
 
 namespace Memoria.Battle.GameActors
 {
-    public class TargetSelector : MonoBehaviour {
 
+    public class TargetSelector : MonoBehaviour {
         GameObject handlignObj;
         public Entity target;
         public bool MouseButtonHit { get; set; }
+        public bool hitBoxCollider { get; set; }
 
         // Use this for initialization
         void Start () {
         }
 
         // Update is called once per frame
-        void Update () {
+        void Update ()
+        {
+            hitBoxCollider = (TargetSelected(false, false));
         }
-        public bool TargetSelected(bool enemy)
+        public bool TargetSelected(bool enemy, bool setTarget = true)
         {
             if (Input.GetMouseButtonDown (0)) {
                 MouseButtonHit = true;
@@ -24,13 +27,13 @@ namespace Memoria.Battle.GameActors
                 if (collition2d) {
                     RaycastHit2D hitObject = Physics2D.Raycast (tapPoint, - Vector2.up);
                     if (hitObject) {
-                        Debug.Log(hitObject);
-                        if(enemy)
-                        {
+                        if(!setTarget)
+                            return true;
+
+                        if(enemy) {
                             target = (Entity)hitObject.collider.gameObject.GetComponent<Enemy>();
                         }
-                        else
-                        {
+                        else {
                             target = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>();
                         }
                         return true;

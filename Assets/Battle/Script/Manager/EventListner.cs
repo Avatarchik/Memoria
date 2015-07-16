@@ -1,4 +1,8 @@
-﻿namespace Memoria.Battle.Managers
+﻿using UnityEngine;
+
+//  Deprecated
+
+namespace Memoria.Battle.Managers
 {
     public class EventListner : EventMgr {
 
@@ -7,21 +11,24 @@
         public void SubscribeTurnEnd(TurnEnds turnEnds)
         {
             EventMgr.Instance.TurnEnd += turnEnds;
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
 
         public void SubscribeBattleEnd(BattleEnds battleEnds)
         {
             EventMgr.Instance.BattleEnd += battleEnds;
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
 
         public void SubscribeEnemyDies(EnemyDies enemyDies)
         {
             EventMgr.Instance.EnemyDied += enemyDies;
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
-
-        public void SubscribeRecievedStatus(RecievedStatus recivedStatus)
+        public void UnsubscribeTurnEnd(TurnEnds turnEnds)
         {
-            EventMgr.Instance.GotStatus += recivedStatus;
+            EventMgr.Instance.TurnEnd -= turnEnds;
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
     }
 }

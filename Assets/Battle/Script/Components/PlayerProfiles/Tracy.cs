@@ -1,32 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
-using Memoria.Battle.Managers;
-
-
-namespace Memoria.Battle.GameActors
+﻿namespace Memoria.Battle.GameActors
 {
-    public class Tracy : Profile {
+    public class Diel : Profile
+    {
+        //現ディエル
+        void Awake ()
+        {
+            nameplate = "Namebar_Diel";
 
-        // Use this for initialization
-        void Awake () {
-            nameplate = "GOJBNA4004";
-
-            parameter.attack = 317;
-            parameter.defense = 239;
-            parameter.mattack = 224;
-            parameter.defense = 260;
-            parameter.speed = 342;
-            parameter.hp = 484;
-            parameter.elementAff = ElementType.FIRE;
+            parameter.attack = 3612;
+            parameter.defense = 1714;
+//          parameter.mattack = 100;
+//          parameter.mdefense = 100;
+            parameter.speed = 3038;
+            parameter.hp = 2499;
+            parameter.elementAff = new ElementWind(Element.WIND); 
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-            //attackType = gameObject.AddComponent<PlayerStrike>();
-
-        }
-
-        // Update is called once per frame
-        void Update () {
         }
     }
 }

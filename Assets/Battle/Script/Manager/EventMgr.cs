@@ -1,104 +1,94 @@
 ﻿using System;
 using System.Collections.Generic;
 using Memoria.Battle.GameActors;
+using UnityEngine;
+
 
 namespace Memoria.Battle.Managers
 {
-    public interface ITriggerable
+    public class GameEvent
     {
+        /*
+          Useage:
+
+          AddListener<GameEvent>(Method(GameEvent e));
+          RemoveListener<GameEvent>(Method(GameEvent e));
+          Raise(new GameEvent());
+        */
 
     }
 
-    /*
-      WORK IN PROGRESS
-      Useage:
-
-      AddListener<ITriggerable>(EventDel(ITriggerable e))
-      RemoveListener<ITriggerable>(EventDel(ITriggerable e))
-      TrigEvent(ITriggerable e)
 
 
+    public class EventMgr : Singleton<EventMgr>
+    {
+        public delegate void EventDel<T> (T e) where T : GameEvent;
 
-      public class EventMgr
-      {
-      private static EventManager _instance;
+        private delegate void EventDel (GameEvent e);
 
-      public delegate void EventDel<T> (T e) where T : ITriggerable;
-      private delegate void EventDel (ITriggerable e);
+        private Dictionary<Type, EventDel> _events = new Dictionary<Type, EventDel>();
+        private Dictionary<Delegate, EventDel> _eventHash = new Dictionary<Delegate, EventDel>();
+        
+        public void AddListener<T>(EventDel<T> e) where T : GameEvent
+        {
+            if(_eventHash.ContainsKey(e))
+            {
+                return;
+            }
+            EventDel newEvent = (x) => e((T)x);
+            _eventHash[e] = newEvent;
+            
+            EventDel tmpVar;
+            _events[typeof(T)] = (_events.TryGetValue(typeof(T), out tmpVar)) ?
+                (tmpVar += newEvent) :
+                newEvent;
+        }
 
-      private Dictionary<Type, EventDel> _events;
-      private Dictionary<Delegate, EventDel> _eventHasg;
+        public void RemoveListener<T> (EventDel<T> e) where T : GameEvent 
+        {
+            EventDel lookupEvent;
+            if(_eventHash.TryGetValue(e, out lookupEvent))
+            {
+                EventDel tempDel;
+                if(_events.TryGetValue(typeof(T), out tempDel))
+                {
+                    tempDel -= lookupEvent;
+                    if(tempDel == null)
+                    {
+                        _events.Remove(typeof(T));
+                    }
+                    else
+                    {
+                        _events[typeof(T)] = tempDel;
+                    }
+                }
+                _eventHash.Remove(e);
+            }
+        }
 
-      public static EventManager Instance
-      {
-      if(_instance == null) {
-      _instance = new EventManager();
-      }
-      return _instance
-      }
+        public void Raise (GameEvent e)
+        {
+            EventDel eDel;
+            if(_events.TryGetValue(e.GetType(), out eDel))
+            {
+                eDel.Invoke(e);
+            }
+            else
+            {
+                Debug.LogWarning("[E] Missing listener for event: "+ e.GetType());
+            }
+        }
 
-      private EventDel AddEvent<T>(EventDel<T> e) where T : ITriggerable
-      {
-      if(_eventHash.ContainsKey(e)) {
-      return null;
-      }
-      EventDel internalEvent = (x) => e((T)x);
-      _eventHash[e] = newEvent;
+        // ************************ Deprecated functionality
 
-      EventDel tmpVar;
-      if(events.TryGetValue(typeof(T), out tmpVar)) {
-      events[typeof(T)] = tmpVar += internalEvent;
-      } else {
-      events[typeof(T)] = interalEvent;
-      }
-      return internalEvent;
-      }
-
-      public void AddListener<T> (EventDel<T> e) where T : ITriggerable
-      {
-      AddEvent<T>(e);
-      }
-
-      public void RemoveListener<T> (EventDel<T> e)
-      {
-
-      }
-
-      public void Clear()
-      {
-      _events.Clear();
-      _eventHash.Clear();
-      }
-
-      public void Raise (ITriggerable e)
-      {
-      EventDel eDel;
-      if(events.TryGetValue(e.GetValue(), out eDel)) {
-      eDel.Invoke(e);
-      } else {
-      Debub.LogWarning("[E] Missing listener for event: "+ e.GetType());
-      }
-      }
-      }
-
-    */
-
-    public class EventMgr {
-
-        public static EventMgr Instance = new EventMgr();
-
-        public delegate bool RecievedStatus(object sender, Status s);
         public delegate void TurnEnds();
         public delegate void EnemyDies(Enemy e);
         public delegate void BattleEnds();
-        public delegate void GameEvent(object sender, EventArgs e);
 
         public event TurnEnds TurnEnd;
         public event BattleEnds BattleEnd;
         public event EnemyDies EnemyDied;
-        public event RecievedStatus GotStatus;
 
-        public Dictionary<string, System.Delegate> delegateList;
 
         public void OnTurnEnd()
         {
@@ -106,6 +96,7 @@ namespace Memoria.Battle.Managers
             {
                 TurnEnd();
             }
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
 
         public void OnBattleEnd()
@@ -113,7 +104,8 @@ namespace Memoria.Battle.Managers
             if(BattleEnd != null)
             {
                 BattleEnd();
-            }
+            } 
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
 
         public void OnEnemyDied(Enemy e)
@@ -121,14 +113,7 @@ namespace Memoria.Battle.Managers
             if(EnemyDied != null)
             {
                 EnemyDied(e);
-            }
-        }
-
-        public void OnGotStatus()
-        {
-            if(GotStatus != null)
-            {
-                GotStatus(this,null);
+            Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
             }
         }
     }

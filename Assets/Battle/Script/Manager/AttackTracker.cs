@@ -8,12 +8,12 @@ namespace Memoria.Battle.Managers
     public class AttackTracker : MonoBehaviour {
 
         public Dictionary<Entity, float> attackOrder;
-        private int _orderIndex;
-        private int _actors;    public Entity nowActor;
-        public float test;
+
+        public Entity nowActor;
 
         // Use this for initialization
-        void Start () {
+        void Start ()
+        {
             attackOrder = new Dictionary<Entity, float> ();
         }
 
@@ -21,10 +21,6 @@ namespace Memoria.Battle.Managers
         void Update ()
         {
             nowActor = currentActor;
-        }
-
-        public void OrderUpdate()
-        {
         }
 
         public void QueueAction(Entity e, float pos)
@@ -40,19 +36,23 @@ namespace Memoria.Battle.Managers
                 }
             }
         }
+
         public void MoveTo(Entity e, float pos)
         {
             if(attackOrder.ContainsKey(e))
             {
                 attackOrder[e] = pos;
-            } else {
-                Debug.LogWarning("[E] Actor missing in attack order "+ e);
+            }
+            else
+            {
+                Debug.LogWarning("[E] Actor missing in attack order "+ e.ToString());
             }
         }
 
         public Entity currentActor
         {
-            get {
+            get
+            {
                 return attackOrder.OrderBy(x => x.Value).FirstOrDefault().Key;
             }
         }
@@ -60,6 +60,24 @@ namespace Memoria.Battle.Managers
         public void DestroyActor(Entity e)
         {
             attackOrder.Remove(e);
+            //TODO: Implement method which moves down everyv actors after.
         }
+
+        private void RefreshQueue(int i)
+        {
+        }
+
+        public Vector3[] GetSlots()
+        {
+            Namebar n = FindObjectOfType<Namebar>();
+            Vector3[] result = new Vector3[attackOrder.Count];
+            for(int i = 0; i < attackOrder.Count; i++)
+            {
+                result[i] = new Vector3(n.X, n.Y - ((i - 4)), 1);
+            }
+            System.Array.Reverse(result);
+            return result;
+        }
+
     }
 }
