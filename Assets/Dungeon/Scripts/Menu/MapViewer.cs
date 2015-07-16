@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
-//  using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Memoria.Dungeon.Managers;
@@ -29,6 +27,7 @@ namespace Memoria.Dungeon.Menu
         private DungeonManager dungeonManager;
         private Vector3 basePosition;
         private List<GameObject> activeObjects = new List<GameObject>();
+
         // Use this for initialization
         void Start()
         {

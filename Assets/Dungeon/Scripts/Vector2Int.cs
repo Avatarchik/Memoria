@@ -1,15 +1,5 @@
-﻿using UnityEngine;
-
-namespace Memoria.Dungeon
-{
-    //  public enum Direction
-    //  {
-    //      Left,
-    //      Right,
-    //      Down,
-    //      Up,
-    //  }
-
+﻿namespace Memoria.Dungeon
+{    
     [System.Serializable]
     public struct Vector2Int
     {
@@ -22,46 +12,7 @@ namespace Memoria.Dungeon
             this.x = x;
             this.y = y;
         }
-
-        //  public Vector2Int(Direction direction)
-        //  {
-        //      Vector2Int location = ConvertDirectionToLocation(direction);
-        //      this.x = location.x;
-        //      this.y = location.y;
-        //  }
-
-        //  public Vector2Int(Vector2 vector)
-        //  {
-        //      this.x = Mathf.FloorToInt(vector.x);
-        //      this.y = Mathf.FloorToInt(vector.y);
-        //  }
-
-        //  public void Set(int x, int y)
-        //  {
-        //      this.x = x;
-        //      this.y = y;
-        //  }
-
-        //  public void Set(Vector2Int location)
-        //  {
-        //      Set(location.x, location.y);
-        //  }
-
-        //  public void Set(Direction direction)
-        //  {
-        //      Set(ConvertDirectionToLocation(direction));
-        //  }
-
-        //  public void Move(Vector2Int displacement)
-        //  {
-        //      Set(this + displacement);
-        //  }
-
-        //  public void Move(Direction direction)
-        //  {
-        //      Set(this + ConvertDirectionToLocation(direction));
-        //  }
-
+        
         public int SqrMagnitude()
         {
             return x * x + y * y;
@@ -129,25 +80,5 @@ namespace Memoria.Dungeon
         {
             return location1.x != location2.x || location1.y != location2.y;
         }
-
-        //  public static Vector2Int ConvertDirectionToLocation(Direction direction)
-        //  {
-        //      switch (direction)
-        //      {
-        //          case Direction.Left:
-        //              return left;
-
-        //          case Direction.Right:
-        //              return right;
-
-        //          case Direction.Down:
-        //              return down;
-
-        //          case Direction.Up:
-        //              return up;
-        //      }
-
-        //      return zero;
-        //  }
     }
 }

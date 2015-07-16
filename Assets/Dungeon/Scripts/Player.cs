@@ -31,15 +31,6 @@ namespace Memoria.Dungeon
         }
 
         /// <summary>
-        /// プレイヤーの移動中フラグ
-        /// </summary>
-        //  public bool isMoving
-        //  {
-        //      get { return animator.GetBool("moving"); }
-        //      set { animator.SetBool("moving", value); }
-        //  }
-
-        /// <summary>
         /// プレイヤーの歩く速さ
         /// </summary>
         public float speed

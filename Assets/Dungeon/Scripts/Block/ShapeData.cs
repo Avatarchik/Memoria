@@ -48,13 +48,7 @@ namespace Memoria.Dungeon.BlockComponent
 			_typeCode = "";
 			this.typeID = typeID;
 		}
-
-		public ShapeData(string typeCode)
-		{
-			_typeCode = "";
-			this.typeCode = typeCode;
-		}
-
+		
 		private string _typeCode;
 
 		public string typeCode

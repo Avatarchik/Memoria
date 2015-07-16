@@ -8,10 +8,8 @@ namespace Memoria.Dungeon.Managers
     {
         None,
         BlockOperating,
-        //  BlockPutting,
         PlayerMoving,
         BlockEvent,
-        //  CharacterEvent,
         OpenMenu,
         LeaveSelect,
         MapViewer,
@@ -76,11 +74,6 @@ namespace Memoria.Dungeon.Managers
         public DungeonState activeState { get { return activeStateProperty.Value; } }
 
         private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
-
-        //  public IObservable<DungeonState> ActiveStateAsObservable()
-        //  {
-        //      return activeStateProperty.AsObservable();
-        //  }
 
         #endregion
 

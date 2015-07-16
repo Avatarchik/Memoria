@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-//  using System.Collections;
 using Memoria.Dungeon.Managers;
 using UniRx;
 
@@ -31,7 +30,6 @@ namespace Memoria.Dungeon.Menu
                 });
 
             // メニューを閉じるイベントの登録
-            //  returnButton.GetComponent<Button>().OnClickAsObservable()
             returnButton.OnClickAsObservable()
                 .Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
                 .Subscribe(_ =>

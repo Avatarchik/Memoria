@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-//  using System.Collections;
 using Memoria.Dungeon.Managers;
 using UniRx;
 

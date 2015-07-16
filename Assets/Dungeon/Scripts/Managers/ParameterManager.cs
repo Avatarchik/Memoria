@@ -18,12 +18,10 @@ namespace Memoria.Dungeon.Managers
         }
 
         [SerializeField]
-        private Text
-            hpText;
+        private Text hpText;
 
         [SerializeField]
-        private Text
-            spText;
+        private Text spText;
 
         public void Awake()
         {
