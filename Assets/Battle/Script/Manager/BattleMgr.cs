@@ -5,7 +5,7 @@ using System;
 using Memoria.Battle.States;
 using Memoria.Battle.GameActors;
 using Memoria.Battle.Utility;
-using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon;
 
 namespace Memoria.Battle.Managers

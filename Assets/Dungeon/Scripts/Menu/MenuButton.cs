@@ -1,52 +1,51 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using Memoria.Dungeon.Managers;
 using UniRx;
 
 namespace Memoria.Dungeon.Menu
 {
-	public class MenuButton : MonoBehaviour
-	{
-		[SerializeField]
-		private GameObject mapButton;
+    public class MenuButton : MonoBehaviour
+    {
+        [SerializeField]
+        private Button mapButton;
 
-		[SerializeField]
-		private GameObject leaveButton;
+        [SerializeField]
+        private Button leaveButton;
 
-		[SerializeField]
-		private GameObject returnButton;
+        [SerializeField]
+        private Button returnButton;
 
-		void Start()
-		{
-			var dungeonManager = DungeonManager.instance;
+        void Start()
+        {
+            var dungeonManager = DungeonManager.instance;
 
-			// メニューを開くイベントの登録
-			GetComponent<Button>().OnClickAsObservable()
-			.Where(_ => dungeonManager.activeState == DungeonState.None)
-			.Subscribe(_ =>
-			{
-				dungeonManager.EnterState(DungeonState.OpenMenu);
-				SetUIActive(true);
-			});
+            // メニューを開くイベントの登録
+            GetComponent<Button>().OnClickAsObservable()
+                .Where(_ => dungeonManager.activeState == DungeonState.None)
+                .Subscribe(_ =>
+                {
+                    dungeonManager.EnterState(DungeonState.OpenMenu);
+                    SetUIActive(true);
+                });
 
-			// メニューを閉じるイベントの登録
-			returnButton.GetComponent<Button>().OnClickAsObservable()
-			.Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
-			.Subscribe(_ =>
-			{
-				SetUIActive(false);
-				dungeonManager.ExitState();
-			});
-			
-			SetUIActive(false);
-		}
+            // メニューを閉じるイベントの登録
+            returnButton.OnClickAsObservable()
+                .Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
+                .Subscribe(_ =>
+                {
+                    SetUIActive(false);
+                    dungeonManager.ExitState();
+                });
 
-		public void SetUIActive(bool value)
-		{
-			mapButton.SetActive(value);
-			leaveButton.SetActive(value);
-			returnButton.SetActive(value);
-		}
-	}
+            SetUIActive(false);
+        }
+
+        public void SetUIActive(bool value)
+        {
+            mapButton.gameObject.SetActive(value);
+            leaveButton.gameObject.SetActive(value);
+            returnButton.gameObject.SetActive(value);
+        }
+    }
 }

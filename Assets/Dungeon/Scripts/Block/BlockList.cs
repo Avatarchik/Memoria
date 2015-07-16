@@ -1,78 +1,78 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Memoria.Dungeon.Managers;
 using UniRx;
-using UniRx.Triggers;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent
 {
-	public class BlockList : MonoBehaviour
-	{
-		public List<BlockFactor> blockFactors = new List<BlockFactor>();
+    public class BlockList : MonoBehaviour
+    {
+        private static DungeonManager dungeonManager { get { return DungeonManager.instance; } }
+        private static BlockManager blockManager { get { return BlockManager.instance; } }
+        //  private static ParameterManager parameterManager { get { return ParameterManager.instance; } }
 
-		private DungeonManager dungeonManager;
+        public List<BlockFactor> blockFactors = new List<BlockFactor>();
 
-		private BlockManager blockManager;
+        private bool[] flags;
 
-		private ParameterManager parameterManager;
+        [SerializeField]
+        private Button randomizeButton;
 
-		private bool[] flags;
+        private Subject<Unit> onRandomize;
 
-		[SerializeField]
-		private Button randomizeButton;
+        public IObservable<Unit> OnRandomizeAsObservable()
+        {
+            return onRandomize ?? (onRandomize = new Subject<Unit>());
+        }
 
-		// Use this for initialization
-		private void Start()
-		{
-			dungeonManager = DungeonManager.instance;
-			blockManager = dungeonManager.blockManager;
-			parameterManager = dungeonManager.parameterManager;
+        // Use this for initialization
+        private void Start()
+        {
+            CreateBlockList();
 
-			CreateBlockList();
+            // ランダマイズの登録
+            randomizeButton.OnClickAsObservable()
+            .Where(_ => dungeonManager.activeState == DungeonState.None)
+            .Subscribe(RandomizeBlockList);
+        }
 
-			// ランダマイズの登録
-			randomizeButton.OnClickAsObservable()
-			.Where(_ => dungeonManager.activeState == DungeonState.None)
-			.Subscribe(RandomizeBlockList);
-		}
+        private void CreateBlockList()
+        {
+            flags = new bool[blockManager.NumberOfBlockShapeType];
 
-		private void CreateBlockList()
-		{
-			flags = new bool[blockManager.NumberOfBlockShapeType];
+            blockFactors.ForEach(blockFactor =>
+                {
+                    ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType]);
+                    BlockType randomBlockType = blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
 
-			blockFactors.ForEach(blockFactor =>
-			{
-				ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType]);
-				BlockType randomBlockType = blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
+                    blockFactor.CreateBlock(randomShapeData, randomBlockType);
 
-				blockFactor.CreateBlock(randomShapeData, randomBlockType);
+                    flags[randomShapeData.typeID] = true;
+                });
+        }
 
-				flags[randomShapeData.typeID] = true;
-			});
-		}
+        public void RandomizeBlockList(Unit _ = null)
+        {
+            bool[] nextFlags = new bool[blockManager.NumberOfBlockShapeType];
 
-		public void RandomizeBlockList(Unit _ = null)
-		{
-			bool[] nextFlags = new bool[blockManager.NumberOfBlockShapeType];
+            blockFactors.ForEach(blockFactor =>
+                {
+                    ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType] && !nextFlags[shapeType]);
+                    BlockType randomBlockType = blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
 
-			blockFactors.ForEach(blockFactor =>
-			{
-				ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType] && !nextFlags[shapeType]);
-				BlockType randomBlockType =	blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
+                    blockFactor.SetBlock(randomShapeData, randomBlockType);
 
-				blockFactor.SetBlock(randomShapeData, randomBlockType);
+                    nextFlags[randomShapeData.typeID] = true;
+                });
 
-				nextFlags[randomShapeData.typeID] = true;
-			});
+            if (onRandomize != null)
+            {
+                onRandomize.OnNext(Unit.Default);
+            }
 
-			DungeonParameter parameter = parameterManager.parameter;
-			parameter.sp -= 2;
-			parameterManager.parameter = parameter;
-			flags = nextFlags;
-		}
-	}
+            flags = nextFlags;
+        }
+    }
 }

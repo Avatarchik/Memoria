@@ -2,147 +2,115 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.BlockEvents;
 using UniRx;
 
 namespace Memoria.Dungeon.Managers
 {
-	public class EventManager : MonoBehaviour
-	{
-		private DungeonManager dungeonManager;
-		private MapManager mapManager;
-		private ParameterManager parameterManager;
-		private Player player;
+    public class EventManager : MonoBehaviour
+    {
+        public static EventManager instance { get { return DungeonManager.instance.eventManager; } }
 
-		// 0 : root/Rizell/reaction
-		[SerializeField]
-		private Animator[] eventAnimators;
+        private DungeonManager dungeonManager;
+        private MapManager mapManager;
+        private ParameterManager parameterManager;
+        private Player player;
 
-		[SerializeField]
-		private GameObject messageBox;
+        // 0 : root/Rizell/reaction
+        [SerializeField]
+        private Animator[] eventAnimators;
 
-		public Text messageBoxText { get; set; }
+        [SerializeField]
+        private GameObject messageBox;
 
-		private Dictionary<BlockType, BlockEvent> eventCoroutineTable = null;
+        public Text messageBoxText { get; set; }
 
-		void Awake()
-		{
-			dungeonManager = DungeonManager.instance;
-			mapManager = dungeonManager.mapManager;
-			parameterManager = dungeonManager.parameterManager;
-			player = dungeonManager.player;
+        private Dictionary<BlockType, BlockEvent> eventCoroutineTable = null;
 
-			// ブロックイベント発生の登録
-			dungeonManager.ActiveStateAsObservable()
-			.Buffer(2, 1)
-			.Select(states => new 
-			{
-				current = states.ElementAt(0),
-				next = states.ElementAt(1)
-			})
-			.Where(states => states.current == DungeonState.PlayerMoving && states.next == DungeonState.None)
-			.Subscribe(_ => OnArrivePlayer());
+        void Awake()
+        {
+            dungeonManager = DungeonManager.instance;
+            mapManager = dungeonManager.mapManager;
+            parameterManager = dungeonManager.parameterManager;
+            player = dungeonManager.player;
 
-			messageBoxText = messageBox.GetComponentInChildren<Text>();
-			messageBox.SetActive(false);
+            player.OnWalkEndAsObservable()
+                .Subscribe(_ => OnArrivePlayer());
 
-			eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
-			{
-				{
-					BlockType.Fire,
-					new BattleEvent(BlockType.Fire, eventAnimators, messageBox, messageBoxText)
-				},
-				{
-					BlockType.Wind,
-					new BattleEvent(BlockType.Wind, eventAnimators, messageBox, messageBoxText)
-				},
-				{
-					BlockType.Thunder,
-					new BattleEvent(BlockType.Thunder, eventAnimators, messageBox, messageBoxText)
-				},
-				{
-					BlockType.Water,
-					new BattleEvent(BlockType.Water, eventAnimators, messageBox, messageBoxText)
-				},
-				{
-					BlockType.Recovery,
-					new RecoveryEvent(eventAnimators, messageBox, messageBoxText)
-				},
-			};
-		}
+            messageBoxText = messageBox.GetComponentInChildren<Text>();
+            messageBox.SetActive(false);
 
-		// プレイヤーが歩き終わったときに呼び出される
-		public void OnArrivePlayer()
-		{
-			// sp を減らす
-			var parameter = parameterManager.parameter;
-			parameter.sp -= 1;
-			parameterManager.parameter = parameter;
+            eventCoroutineTable = new Dictionary<BlockType, BlockEvent>()
+            {
+                {
+                    BlockType.Fire,
+                    new BattleEvent(BlockType.Fire, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Wind,
+                    new BattleEvent(BlockType.Wind, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Thunder,
+                    new BattleEvent(BlockType.Thunder, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Water,
+                    new BattleEvent(BlockType.Water, eventAnimators, messageBox, messageBoxText)
+                },
+                {
+                    BlockType.Recovery,
+                    new RecoveryEvent(eventAnimators, messageBox, messageBoxText)
+                },
+            };
+        }
 
-			// プレイヤーがいるブロックを取得
-			Block block = mapManager.map[player.location];
-			if (block.blockType == BlockType.None)
-			{
-				return;
-			}
+        // プレイヤーが歩き終わったときに呼び出される
+        public void OnArrivePlayer()
+        {
+            // プレイヤーがいるブロックを取得
+            Block block = mapManager.map[player.location];
+            if (block.blockType == BlockType.None)
+            {
+                return;
+            }
 
-			StartCoroutine(CoroutineBlockEvent(block, parameter));
-		}
+            StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
+        }
 
-		public void OnBreakBlcok()
-		{
-			DungeonParameter parameter = parameterManager.parameter;
-			parameter.sp -= 2;
-			parameterManager.parameter = parameter;
-		}
+        private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
+        {
+            dungeonManager.EnterState(DungeonState.BlockEvent);
+            block.OnBlockEventEnter();
 
-		// ブロックがタップされたときに呼び出される
-		public void OnTapBlock(Block tappedBlock)
-		{
-			onTapBlock.OnNext(tappedBlock);
-		}
+            if (eventCoroutineTable.ContainsKey(block.blockType))
+            {
+                yield return StartCoroutine(eventCoroutineTable[block.blockType].GetEventCoroutine(parameter));
+            }
 
-		private Subject<Block> onTapBlock = new Subject<Block>();
+            block.OnBlockEventExit();
+            dungeonManager.ExitState();
 
-		public IObservable<Block> OnTapBlockAsObservable()
-		{
-			return onTapBlock.AsObservable();
-		}
+            if (parameter.sp <= 0)
+            {
+                Debug.Log("leave dungeon!!");
+            }
 
-		private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
-		{
-			dungeonManager.EnterState(DungeonState.BlockEvent);
-			block.OnEnterBlockEvent();
+            yield break;
+        }
 
-			if (eventCoroutineTable.ContainsKey(block.blockType))
-			{
-				yield return StartCoroutine(eventCoroutineTable[block.blockType].GetEventCoroutine(parameter));
-			}
+        public void ReturnFromBattle()
+        {
+            Block block = mapManager.map[player.location];
+            var parameter = parameterManager.parameter;
 
-			block.OnExitBlockEvent();
-			dungeonManager.ExitState();
+            block.OnBlockEventExit();
 
-			if (parameter.sp <= 0)
-			{
-				Debug.Log("leave dungeon!!");
-			}
-
-			yield break;
-		}
-
-		public void ReturnFromBattle()
-		{
-			Block block = mapManager.map[player.location];
-			var parameter = parameterManager.parameter;
-
-			block.OnExitBlockEvent();
-
-			if (parameter.sp <= 0)
-			{
-				Debug.Log("leave dungeon!!");
-			}
-		}
-	}
+            if (parameter.sp <= 0)
+            {
+                Debug.Log("leave dungeon!!");
+            }
+        }
+    }
 }

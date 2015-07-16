@@ -1,99 +1,109 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon
 {
+    public class DungeonData : MonoBehaviour
+    {
+        public DungeonParameter parameter { get; set; }
 
-	public class DungeonData : MonoBehaviour
-	{
-		public int direction { get; set; }
-		public Vector2Int location { get; set; }
+        public BlockType battleType { get; private set; }
+        
+        private int direction;
+        
+        private Vector2Int location;
+        
+        private List<BlockData> mapData;
+        
+        private List<Vector2Int> keyLocations;
 
-		public DungeonParameter parameter { get; set; }
+        // TODO : CreateJewelData
+        private List<Vector2Int> jewelLocations;
 
-		public List<BlockData> mapData { get; set; }
+        public int[] stocks { get; set; }
 
-		public BlockType battleType { get; private set; }
+        private bool initialized = false;
 
-		public int[] stocks { get; set; }
+        // Use this for initialization
+        void Start()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
-		private bool initialized = false;
+        public void Load()
+        {
+            var dungeonManager = DungeonManager.instance;
+            var mapManager = MapManager.instance;
+            var parameterManager = ParameterManager.instance;
 
-		// Use this for initialization
-		void Start()
-		{
-			DontDestroyOnLoad(gameObject);
-		}
+            var player = dungeonManager.player;
+            var stageData = StageDataManager.instance.Prepare(parameter.floor);
 
-		public void Load()
-		{
-			var dungeonManager = DungeonManager.instance;
-			var mapManager = dungeonManager.mapManager;
-			var parameterManager = dungeonManager.parameterManager;
+            // 初期化時
+            if (!initialized)
+            {
+                direction = 2;
+                location = new Vector2Int(0, 0);
 
-			var player = dungeonManager.player;
+                mapData = LoadMapData("");
+                keyLocations = new List<Vector2Int>(stageData.keyLocations);
+                jewelLocations = new List<Vector2Int>(stageData.jewelLocations);
+                parameter = new DungeonParameter(100, 100, 100, 100, 0, keyLocations.Count, 1000, "none");
+                stocks = new[] { 0, 0, 0, 0 };
+            }
 
-			// 初期化時
-			if (!initialized)
-			{
-				direction = 2;
-				location = new Vector2Int(0, 0);
+            player.direction = direction;
+            player.SetPosition(location);
 
-				mapData = LoadMapData("");
-				parameter = new DungeonParameter(100, 100, 100, 100, 1, "none");
-				stocks = new [] { 0, 0, 0, 0 };
-			}
+            mapManager.SetMap(mapData, stageData, keyLocations, jewelLocations);
 
-			player.direction = direction;
-			player.SetPosition(location);
+            parameterManager.parameter = parameter;
 
-			mapManager.SetMap(mapData);
+            if (initialized)
+            {
+                dungeonManager.eventManager.ReturnFromBattle();
+            }
 
-			parameterManager.parameter = parameter;
+            initialized = true;
+        }
 
-			if (initialized)
-			{
-				dungeonManager.eventManager.ReturnFromBattle();
-			}
+        public void Save()
+        {
+            var dungeonManager = DungeonManager.instance;
+            var mapManager = dungeonManager.mapManager;
+            var parameterManager = dungeonManager.parameterManager;
 
-			initialized = true;
-		}
+            var player = dungeonManager.player;
 
-		public void Save()
-		{
-			var dungeonManager = DungeonManager.instance;
-			var mapManager = dungeonManager.mapManager;
-			var parameterManager = dungeonManager.parameterManager;
+            direction = player.direction;
+            location = player.location;
 
-			var player = dungeonManager.player;
+            mapData.Clear();
+            mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
+            
+            keyLocations.Clear();
+            keyLocations.AddRange(mapManager.keys.Select(key => mapManager.ToLocation(key.transform.position)));
+            
+            parameter = parameterManager.parameter;
+        }
 
-			direction = player.direction;
-			location = player.location;
+        public void SetBattleType(BlockType battleType)
+        {
+            this.battleType = battleType;
+        }
 
-			mapData.Clear();
-			mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
+        public List<BlockData> LoadMapData(string mapDataPath)
+        {
+            print("load map : " + mapDataPath);
 
-			parameter = parameterManager.parameter;
-		}
+            var result = new List<BlockData>();
 
-		public void SetBattleType(BlockType battleType)
-		{
-			this.battleType = battleType;
-		}
+            result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
 
-		public List<BlockData> LoadMapData(string mapDataPath)
-		{
-			print("load map : " + mapDataPath);
-
-			var result = new List<BlockData>();
-
-			result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
-
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

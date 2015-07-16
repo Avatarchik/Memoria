@@ -1,97 +1,116 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Memoria.Dungeon.BlockUtility;
+using System.Linq;
+using UniRx;
+using Memoria.Dungeon.BlockComponent;
 
 namespace Memoria.Dungeon.Managers
 {
-	public class MapManager : MonoBehaviour
-	{
-		/// <summary>
-		/// マップ
-		/// </summary>
-		public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
+    public class MapManager : MonoBehaviour
+    {
+        public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
 
-		private DungeonManager _dungeonManager;
-		private DungeonManager dungeonManager
-		{
-			get
-			{
-				if (_dungeonManager == null)
-				{
-					_dungeonManager = DungeonManager.instance;
-				}
+        public GameObject keyPrefab;
+        public GameObject jewelPrefab;        
 
-				return _dungeonManager;
-			}
-		}
+        /// <summary>
+        /// マップ
+        /// </summary>
+        public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
-		private BlockManager blockManager;
+        public List<GameObject> keys = new List<GameObject>();
+        public List<GameObject> jewels = new List<GameObject>();
 
-		private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
+        private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
+        private Rect stageArea;
 
-		public Rect canPutBlockArea
-		{
-			get
-			{
-				Rect ret = _canPutBlockArea;
-				ret.position += (Vector2)Camera.main.transform.position;
-				return ret;
-			} 
-		}
+        public Rect canPutBlockArea
+        {
+            get
+            {
+                Rect ret = _canPutBlockArea;
+                ret.position += (Vector2)Camera.main.transform.position;
 
-		void Awake()
-		{
-			blockManager = dungeonManager.blockManager;
-		}
+                ret.yMin = Mathf.Max(ret.yMin, stageArea.yMin);
+                ret.yMax = Mathf.Min(ret.yMax, stageArea.yMax);
+                ret.xMin = Mathf.Max(ret.xMin, stageArea.xMin);
+                ret.xMax = Mathf.Min(ret.xMax, stageArea.xMax);
 
-		public void SetMap(List<BlockData> blockDatas)
-		{
-			blockDatas.ForEach(data => blockManager.CreateBlockAsDefault(data));
-		}
+                return ret;
+            }
+        }
 
-		/// <summary>
-		/// 指定の位置からマップ上に配置されるときの位置を取得する
-		/// </summary>
-		/// <returns>マップ上に配置されるときの位置</returns>
-		/// <param name="position">指定の位置</param>
-		public Vector2 ConvertPosition(Vector2 position)
-		{
-			Vector2Int location = ToLocation(position);
-			Vector2 converted = ToPosition(location);
-			return converted;
-		}
+        void Awake()
+        {
+            BlockManager.instance.OnCreateBlockAsObservable()
+                .Subscribe(block =>
+                {
+                    var onPut = block.OnPutAsObservable()
+                        .Subscribe(_ => map.Add(block.location, block));
 
-		/// <summary>
-		/// 指定の位置からマップ座標を取得する
-		/// </summary>
-		/// <returns>マップ座標</returns>
-		/// <param name="position">指定の位置</param>
-		public Vector2Int ToLocation(Vector2 position)
-		{
-			Vector2 blockSize = dungeonManager.blockSize;
-			Vector2Int location = new Vector2Int();
+                    block.OnBreakAsObservable()
+                        .Do(_ => onPut.Dispose())
+                        .Subscribe(_ => map.Remove(block.location))
+                        .AddTo(block.gameObject);
+                });
+        }
 
-			location.x = (int)Mathf.Round(position.x / blockSize.x * 100);
-			location.y = (int)Mathf.Round(position.y / blockSize.y * 100);
+        public void SetMap(List<BlockData> blockDatas, StageData stageData, List<Vector2Int> keyLocations, List<Vector2Int> jewelLocations)
+        {
+            blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
+            stageArea = stageData.stageSize;
 
-			return location;
-		}
+            keys.AddRange(keyLocations
+                .Select(location => (Vector3)ToPosition(location))
+                .Select(position => Instantiate(keyPrefab, position, Quaternion.identity) as GameObject));
+                
+              jewels.AddRange(jewelLocations
+                  .Select(location => (Vector3)ToPosition(location))
+                  .Select(position => Instantiate(jewelPrefab, position, Quaternion.identity) as GameObject));
+        }
 
-		/// <summary>
-		/// 指定のマップ座標から位置を取得する
-		/// </summary>
-		/// <returns>位置</returns>
-		/// <param name="location">指定のマップ座標</param>
-		public Vector2 ToPosition(Vector2Int location)
-		{
-			Vector2 blockSize = dungeonManager.blockSize;
-			Vector2 position = new Vector3();
-		
-			position.x = location.x / 100f * blockSize.x;
-			position.y = location.y / 100f * blockSize.y;
+        /// <summary>
+        /// 指定の位置からマップ上に配置されるときの位置を取得する
+        /// </summary>
+        /// <returns>マップ上に配置されるときの位置</returns>
+        /// <param name="position">指定の位置</param>
+        public Vector2 ConvertPosition(Vector2 position)
+        {
+            Vector2Int location = ToLocation(position);
+            Vector2 converted = ToPosition(location);
+            return converted;
+        }
 
-			return position;
-		}
-	}
+        /// <summary>
+        /// 指定の位置からマップ座標を取得する
+        /// </summary>
+        /// <returns>マップ座標</returns>
+        /// <param name="position">指定の位置</param>
+        public Vector2Int ToLocation(Vector2 position)
+        {
+            Vector2 blockSize = DungeonManager.instance.blockSize;
+            Vector2Int location = new Vector2Int();
+
+            location.x = (int)Mathf.Round(position.x / blockSize.x * 100);
+            location.y = (int)Mathf.Round(position.y / blockSize.y * 100);
+
+            return location;
+        }
+
+        /// <summary>
+        /// 指定のマップ座標から位置を取得する
+        /// </summary>
+        /// <returns>位置</returns>
+        /// <param name="location">指定のマップ座標</param>
+        public Vector2 ToPosition(Vector2Int location)
+        {
+            Vector2 blockSize = DungeonManager.instance.blockSize;
+            Vector2 position = new Vector3();
+
+            position.x = location.x / 100f * blockSize.x;
+            position.y = location.y / 100f * blockSize.y;
+
+            return position;
+        }
+    }
 }

@@ -1,61 +1,117 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Linq;
 using UniRx;
-using UniRx.Triggers;
 
 namespace Memoria.Dungeon.Managers
 {
-	public class ParameterManager : MonoBehaviour
-	{
-		private ReactiveProperty<DungeonParameter> _parameter = new ReactiveProperty<DungeonParameter>();
+    public class ParameterManager : MonoBehaviour
+    {
+        public static ParameterManager instance { get { return DungeonManager.instance.parameterManager; } }
 
-		public DungeonParameter parameter
-		{ 
-			get { return _parameter.Value; } 
-			set { _parameter.Value = value; }
-		}
+        private ReactiveProperty<DungeonParameter> _parameter = new ReactiveProperty<DungeonParameter>();
 
-		[SerializeField]
-		private Text
-			hpText;
+        public DungeonParameter parameter
+        {
+            get { return _parameter.Value; }
+            set { _parameter.Value = value; }
+        }
 
-		[SerializeField]
-		private Text
-			spText;
+        [SerializeField]
+        private Text hpText;
 
-		public void Start()
-		{
-			var parameterChanged = _parameter.AsObservable();
+        [SerializeField]
+        private Text spText;
 
-			// HPの変化イベントの追加
-			parameterChanged
-			.DistinctUntilChanged(param => param.hp)
-			.Subscribe(UpdateHpText);
-			
-			parameterChanged
-			.DistinctUntilChanged(param => param.maxHp)
-			.Subscribe(UpdateHpText);
+        [SerializeField]
+        private Text keyText;
 
-			// SPの変化イベントの追加
-			parameterChanged
-			.DistinctUntilChanged(param => param.sp)
-			.Subscribe(UpdateSpText);
+        [SerializeField]
+        private Text sillingText;
 
-			parameterChanged
-			.DistinctUntilChanged(param => param.maxSp)
-			.Subscribe(UpdateSpText);
-		}
+        public void Awake()
+        {
+            var parameterChanged = _parameter.AsObservable();
 
-		private void UpdateHpText(DungeonParameter parameter)
-		{
-			hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
-		}
+            // HPの変化イベントの追加
+            parameterChanged
+                .DistinctUntilChanged(param => param.hp)
+                .Subscribe(UpdateHpText);
 
-		private void UpdateSpText(DungeonParameter parameter)
-		{
-			spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
-		}
-	}
+            parameterChanged
+                .DistinctUntilChanged(param => param.maxHp)
+                .Subscribe(UpdateHpText);
+
+            // SPの変化イベントの追加
+            parameterChanged
+                .DistinctUntilChanged(param => param.sp)
+                .Subscribe(UpdateSpText);
+
+            parameterChanged
+                .DistinctUntilChanged(param => param.maxSp)
+                .Subscribe(UpdateSpText);
+
+            // Keyの変化イベントの追加
+            parameterChanged
+                .DistinctUntilChanged(param => param.getKeyNum)
+                .Subscribe(UpdateKeyText);
+
+            parameterChanged
+                .DistinctUntilChanged(param => param.allKeyNum)
+                .Subscribe(UpdateKeyText);
+
+            // Sillingの変化イベントの追加
+            parameterChanged
+                .DistinctUntilChanged(param => param.silling)
+                .Subscribe(UpdateSillingText);
+
+            // プレイヤーが歩き終わったあと
+            DungeonManager.instance.player.OnWalkEndAsObservable()
+                .Subscribe(_ =>
+                {
+                    var param = parameter;
+                    param.sp -= 1;
+                    parameter = param;
+                });
+
+            // ブロックの破壊時
+            BlockManager.instance.OnCreateBlockAsObservable()
+                .SelectMany(block => block.OnBreakAsObservable())
+                .Subscribe(_ =>
+                {
+                    var param = parameter;
+                    param.sp -= 2;
+                    parameter = param;
+                });
+
+            // ブロックのリセット時
+            BlockManager.instance.OnRandomizeAsObservable()
+                .Subscribe(_ =>
+                {
+                    var param = parameter;
+                    param.sp -= 2;
+                    parameter = param;
+                });
+        }
+
+        private void UpdateHpText(DungeonParameter parameter)
+        {
+            hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
+        }
+
+        private void UpdateSpText(DungeonParameter parameter)
+        {
+            spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
+        }
+
+        private void UpdateKeyText(DungeonParameter parameter)
+        {
+            keyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
+        }
+
+        private void UpdateSillingText(DungeonParameter parameter)
+        {
+            sillingText.text = string.Format("{0:0000}", 0);
+        }
+    }
 }

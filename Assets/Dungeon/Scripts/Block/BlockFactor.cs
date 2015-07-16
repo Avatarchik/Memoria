@@ -1,43 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UniRx;
 using Memoria.Dungeon.Managers;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent
 {
-	public class BlockFactor : MonoBehaviour
-	{
-		public Block block { get; set; }
+    public class BlockFactor : MonoBehaviour
+    {
+        private static BlockManager blockManager { get { return BlockManager.instance; } }
+        private Block block;
 
-		private BlockManager blockManager;
+        public void CreateBlock(ShapeData shapeData, BlockType blockType)
+        {
+            block = blockManager.CreateBlock(this, shapeData, blockType);
 
-		void Awake()
-		{
-			blockManager = DungeonManager.instance.blockManager;
-		}
+            block.OnPutAsObservable()
+                .Subscribe(_ =>
+                {
+                    ShapeData nextShapeData = blockManager.GetRandomShapeData();
+                    BlockType nextBlockType = blockManager.GetRandomBlockType(type => type != BlockType.None);
+                    CreateBlock(nextShapeData, nextBlockType);
+                });
+        }
 
-		public void OnPutBlock()
-		{
-			ShapeData shapeData = blockManager.GetRandomShapeData();
-			BlockType blockType;
-
-			do
-			{
-				blockType = blockManager.GetRandomBlockType();
-			}
-			while (blockType == BlockType.None);
-
-			CreateBlock(shapeData, blockType);
-		}
-
-		public void CreateBlock(ShapeData shapeData, BlockType blockType)
-		{
-			block = blockManager.CreateBlock(this, shapeData, blockType);
-		}
-
-		public void SetBlock(ShapeData shapeData, BlockType blockType)
-		{
-			block.shapeData = shapeData;
-			block.blockType = blockType;
-		}
-	}
+        public void SetBlock(ShapeData shapeData, BlockType blockType)
+        {
+            block.shapeData = shapeData;
+            block.blockType = blockType;
+        }
+    }
 }

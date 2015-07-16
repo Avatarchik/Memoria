@@ -1,157 +1,150 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System;
-using System.Linq;
-using Memoria.Dungeon.BlockUtility;
 using UniRx;
 
 namespace Memoria.Dungeon.Managers
 {
-	public enum DungeonState
-	{
-		None,
-		BlockOperating,
-		BlockPutting,
-		PlayerMoving,
-		BlockEvent,
-		CharacterEvent,
-		OpenMenu,
-		LeaveSelect,
-		MapViewer,
-	}
+    public enum DungeonState
+    {
+        None,
+        BlockOperating,
+        PlayerMoving,
+        BlockEvent,
+        OpenMenu,
+        LeaveSelect,
+        MapViewer,
+    }
 
-	public class DungeonManager : MonoBehaviour
-	{
-		private static DungeonManager _instance = null;
+    public class DungeonManager : MonoBehaviour
+    {
+        private static DungeonManager _instance = null;
 
-		public static DungeonManager instance
-		{
-			get
-			{
-				if (!_instance)
-				{
-					_instance = GameObject.FindObjectOfType<DungeonManager>();
+        public static DungeonManager instance
+        {
+            get
+            {
+                if (!_instance)
+                {
+                    _instance = GameObject.FindObjectOfType<DungeonManager>();
 
-					if (!_instance)
-					{
-						throw new UnityException("Dungeon Manager is not found.");
-					}
-				}
+                    if (!_instance)
+                    {
+                        throw new UnityException("Dungeon Manager is not found.");
+                    }
+                }
 
-				return _instance;
-			}
-		}
+                return _instance;
+            }
+        }
 
-		[SerializeField]
-		private Player _player;
+        [SerializeField]
+        private Player _player;
 
-		public Player player { get { return _player; } }
+        public Player player { get { return _player; } }
 
-#region Manager
+        #region Manager
 
-		[SerializeField]
-		private EventManager _eventManager;
+        [SerializeField]
+        private EventManager _eventManager;
 
-		public EventManager eventManager { get { return _eventManager; } }
+        public EventManager eventManager { get { return _eventManager; } }
 
-		[SerializeField]
-		private MapManager _mapManager;
+        [SerializeField]
+        private MapManager _mapManager;
 
-		public MapManager mapManager { get { return _mapManager; } }
+        public MapManager mapManager { get { return _mapManager; } }
 
-		[SerializeField]
-		private BlockManager _blockManager;
+        [SerializeField]
+        private BlockManager _blockManager;
 
-		public BlockManager blockManager { get { return _blockManager; } }
+        public BlockManager blockManager { get { return _blockManager; } }
 
-		[SerializeField]
-		private ParameterManager _parameterManager;
+        [SerializeField]
+        private ParameterManager _parameterManager;
 
-		public ParameterManager parameterManager { get { return _parameterManager; } }
+        public ParameterManager parameterManager { get { return _parameterManager; } }
 
-#endregion
+        [SerializeField]
+        private StageDataManager _stageDataManager;
+
+        public StageDataManager stageDataManager { get { return _stageDataManager; } }
+
+        #endregion
 
 
-#region State
+        #region State
 
-		private Stack<DungeonState> states = new Stack<DungeonState>();
+        private Stack<DungeonState> states = new Stack<DungeonState>();
 
-		public DungeonState activeState { get { return activeStateProperty.Value; } }
+        public DungeonState activeState { get { return activeStateProperty.Value; } }
 
-		private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
+        private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
 
-		public IObservable<DungeonState> ActiveStateAsObservable()
-		{
-			return activeStateProperty.AsObservable();
-		}
+        #endregion
 
-#endregion
+        public Vector2 blockSize = new Vector2(200, 200);
 
-		public Vector2 blockSize = new Vector2(200, 200);
-		public Block operatingBlock { get; set; }
+        [SerializeField]
+        private GameObject dungeonDataPrefab;
 
-		[SerializeField]
-		private GameObject dungeonDataPrefab;
-	
-		private DungeonData _dungeonData;
+        private DungeonData _dungeonData;
 
-		public DungeonData dungeonData
-		{
-			get
-			{
-				if (!_dungeonData)
-				{
-					_dungeonData = FindObjectOfType<DungeonData>();
+        public DungeonData dungeonData
+        {
+            get
+            {
+                if (!_dungeonData)
+                {
+                    _dungeonData = FindObjectOfType<DungeonData>();
 
-					if (!_dungeonData)
-					{
-						_dungeonData = Instantiate<GameObject>(dungeonDataPrefab).GetComponent<DungeonData>();
-					}
-				}
+                    if (!_dungeonData)
+                    {
+                        _dungeonData = Instantiate<GameObject>(dungeonDataPrefab).GetComponent<DungeonData>();
+                    }
+                }
 
-				return _dungeonData;
-			}
-		}
+                return _dungeonData;
+            }
+        }
 
-		void Awake()
-		{
-			// DungeonManager の重複チェック
-			if (_instance != null && _instance != this)
-			{
-				Destroy(gameObject);
-				return;
-			}
+        void Start()
+        {
+            // DungeonManager の重複チェック
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
-			_instance = this;
+            _instance = this;
 
-			EnterState(DungeonState.None);
+            EnterState(DungeonState.None);
 
-			dungeonData.Load();
-		}
+            dungeonData.Load();
+        }
 
-		public void EnterState(DungeonState nextState)
-		{
-			states.Push(nextState);
-			activeStateProperty.Value = nextState;
-		}
+        public void EnterState(DungeonState nextState)
+        {
+            states.Push(nextState);
+            activeStateProperty.Value = nextState;
+        }
 
-		public void ExitState()
-		{
-			if (activeState == DungeonState.None)
-			{
-				throw new UnityException("State Stack Error!!");
-			}
+        public void ExitState()
+        {
+            if (activeState == DungeonState.None)
+            {
+                throw new UnityException("State Stack Error!!");
+            }
 
-			states.Pop();
-			DungeonState nextState = states.Peek();
-			activeStateProperty.Value = nextState;
-		}
+            states.Pop();
+            DungeonState nextState = states.Peek();
+            activeStateProperty.Value = nextState;
+        }
 
-		public void Leave()
-		{
-			Destroy(dungeonData.gameObject);
-			Application.LoadLevel("menu");
-		}
-	}
+        public void Leave()
+        {
+            Destroy(dungeonData.gameObject);
+            Application.LoadLevel("menu");
+        }
+    }
 }

@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent
 {
 	public struct ShapeData
 	{
@@ -50,13 +48,7 @@ namespace Memoria.Dungeon.BlockUtility
 			_typeCode = "";
 			this.typeID = typeID;
 		}
-
-		public ShapeData(string typeCode)
-		{
-			_typeCode = "";
-			this.typeCode = typeCode;
-		}
-
+		
 		private string _typeCode;
 
 		public string typeCode
