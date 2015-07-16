@@ -23,6 +23,9 @@ namespace Memoria.Dungeon.Managers
         [SerializeField]
         private Text spText;
 
+        [SerializeField]
+        private Text keyText;
+
         public void Awake()
         {
             var parameterChanged = _parameter.AsObservable();
@@ -44,6 +47,15 @@ namespace Memoria.Dungeon.Managers
             parameterChanged
                 .DistinctUntilChanged(param => param.maxSp)
                 .Subscribe(UpdateSpText);
+
+            // Keyの変化イベントの追加
+            parameterChanged
+                .DistinctUntilChanged(param => param.getKeyNum)
+                .Subscribe(UpdateKeyText);
+            
+            parameterChanged
+                .DistinctUntilChanged(param => param.allKeyNum)
+                .Subscribe(UpdateKeyText);
 
             // プレイヤーが歩き終わったあと
             DungeonManager.instance.player.OnWalkEndAsObservable()
@@ -82,6 +94,11 @@ namespace Memoria.Dungeon.Managers
         private void UpdateSpText(DungeonParameter parameter)
         {
             spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
+        }
+        
+        private void UpdateKeyText(DungeonParameter parameter)
+        {
+            keyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
         }
     }
 }
