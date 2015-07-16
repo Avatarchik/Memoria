@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon.BlockComponent.Utility
 {
     public class BlockTapListener
     {
+        private Block block;
+        private float? raiseTime = null;
         private Subject<Unit> onTap;
 
         public IObservable<Unit> OnTapAsObservable()
@@ -15,7 +18,7 @@ namespace Memoria.Dungeon.BlockComponent.Utility
 
         public void Bind(Block block)
         {
-            float? raiseTime = null;
+            this.block = block;
             block.UpdateAsObservable()
                 .Where(_ => raiseTime != null && Time.realtimeSinceStartup > raiseTime)
                 .Subscribe(_ => raiseTime = null);
@@ -28,12 +31,22 @@ namespace Memoria.Dungeon.BlockComponent.Utility
                 .Subscribe(_ => raiseTime = null);
 
             block.OnMouseUpAsObservable()
-                .Do(_ => { if (Time.realtimeSinceStartup <= raiseTime) OnTap(); })
+                .Do(_ => OnTap())
                 .Subscribe(_ => raiseTime = null);
         }
 
         private void OnTap()
-        {
+        {   
+            if (raiseTime == null || Time.realtimeSinceStartup > raiseTime)
+            {
+                return;
+            }         
+            
+            if (!MapManager.instance.canPutBlockArea.Contains(block.transform.position))
+            {
+                return;   
+            }
+            
             if (onTap != null)
             {
                 onTap.OnNext(Unit.Default);

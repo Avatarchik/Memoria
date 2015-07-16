@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Memoria.Dungeon
 {
 	[System.Serializable]
-    public struct StageData// : MonoBehaviour
+    public struct StageData
     {
 		public string areaSpritePath;
 		public Rect stageSize;
