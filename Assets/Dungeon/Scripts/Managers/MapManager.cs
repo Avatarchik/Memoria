@@ -8,6 +8,8 @@ namespace Memoria.Dungeon.Managers
     public class MapManager : MonoBehaviour
     {
         public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
+        
+        public GameObject keyPrefab;
 
         /// <summary>
         /// マップ
@@ -53,6 +55,11 @@ namespace Memoria.Dungeon.Managers
         {
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
+            
+            keyLocations.ForEach(location =>
+                {
+                    Instantiate(keyPrefab, (Vector3)ToPosition(location), Quaternion.identity); 
+                });
         }
 
         /// <summary>

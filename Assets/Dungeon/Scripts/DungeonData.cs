@@ -42,6 +42,7 @@ namespace Memoria.Dungeon
             var parameterManager = ParameterManager.instance;
 
             var player = dungeonManager.player;
+            var stageData = StageDataManager.instance.Prepare(parameter.floor);
 
             // 初期化時
             if (!initialized)
@@ -50,6 +51,7 @@ namespace Memoria.Dungeon
                 location = new Vector2Int(0, 0);
 
                 mapData = LoadMapData("");
+                keyLocations = new List<Vector2Int>(stageData.keyLocations);
                 parameter = new DungeonParameter(100, 100, 100, 100, 0, "none");
                 stocks = new[] { 0, 0, 0, 0 };
             }
@@ -57,7 +59,6 @@ namespace Memoria.Dungeon
             player.direction = direction;
             player.SetPosition(location);
 
-            var stageData = StageDataManager.instance.Prepare(parameter.floor);
             mapManager.SetMap(mapData, stageData, keyLocations);
 
             parameterManager.parameter = parameter;
