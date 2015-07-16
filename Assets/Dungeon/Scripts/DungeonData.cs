@@ -48,7 +48,7 @@ namespace Memoria.Dungeon
 
                 mapData = LoadMapData("");
                 keyLocations = new List<Vector2Int>(stageData.keyLocations);
-                parameter = new DungeonParameter(100, 100, 100, 100, 0, keyLocations.Count, "none");
+                parameter = new DungeonParameter(100, 100, 100, 100, 0, keyLocations.Count, 1000, "none");
                 stocks = new[] { 0, 0, 0, 0 };
             }
 

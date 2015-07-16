@@ -26,6 +26,9 @@ namespace Memoria.Dungeon.Managers
         [SerializeField]
         private Text keyText;
 
+        [SerializeField]
+        private Text sillingText;
+
         public void Awake()
         {
             var parameterChanged = _parameter.AsObservable();
@@ -52,10 +55,15 @@ namespace Memoria.Dungeon.Managers
             parameterChanged
                 .DistinctUntilChanged(param => param.getKeyNum)
                 .Subscribe(UpdateKeyText);
-            
+
             parameterChanged
                 .DistinctUntilChanged(param => param.allKeyNum)
                 .Subscribe(UpdateKeyText);
+
+            // Sillingの変化イベントの追加
+            parameterChanged
+                .DistinctUntilChanged(param => param.silling)
+                .Subscribe(UpdateSillingText);
 
             // プレイヤーが歩き終わったあと
             DungeonManager.instance.player.OnWalkEndAsObservable()
@@ -95,10 +103,15 @@ namespace Memoria.Dungeon.Managers
         {
             spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
         }
-        
+
         private void UpdateKeyText(DungeonParameter parameter)
         {
             keyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
+        }
+
+        private void UpdateSillingText(DungeonParameter parameter)
+        {
+            sillingText.text = string.Format("{0:0000}", 0);
         }
     }
 }

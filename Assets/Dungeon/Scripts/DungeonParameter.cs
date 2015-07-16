@@ -36,9 +36,11 @@ namespace Memoria.Dungeon
 
         public int allKeyNum { get; set; }
         
+        public int silling { get; set; }
+        
         private string skill { get; set; }
 
-        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, string skill)
+        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill)
         {
             this.maxHp = maxHp;
             this.hp = hp;
@@ -47,6 +49,7 @@ namespace Memoria.Dungeon
             this.floor = floor;
             this.allKeyNum = allKeyNum;
             this.getKeyNum = 0;
+            this.silling = silling;
             this.skill = skill;
         }
     }
