@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent
 {
 	public struct ShapeData
 	{

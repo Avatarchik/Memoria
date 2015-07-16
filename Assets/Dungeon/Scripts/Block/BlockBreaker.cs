@@ -1,54 +1,43 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using Memoria.Dungeon.Managers;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent.Utility
 {
-	public class BlockBreaker : MonoBehaviour
-	{
-		[SerializeField]
-		private float breakTapSecond = 1f;
+    public class BlockBreaker
+    {
+        private Subject<Unit> onBreak;
 
-		private DungeonManager dungeonManager;
-		private MapManager mapManager;
+        public Subject<Unit> OnBreakAsObservable()
+        {
+            return onBreak ?? (onBreak = new Subject<Unit>());
+        }
 
-		private Subject<Unit> onBreakBlock;
+        public void Bind(Block block)
+        {
+            float raiseTime = 0;
+            block.UpdateAsObservable()
+                .Where(_ => block.putted)
+                .Where(_ => DungeonManager.instance.activeState == DungeonState.None)
+                .Where(_ => block.location != DungeonManager.instance.player.location)
+                .SkipUntil(block.OnMouseDownAsObservable()
+                    .Do(_ => raiseTime = Time.realtimeSinceStartup + 0.5f))
+                .TakeUntil(block.OnMouseUpAsObservable()
+                    .Merge(block.OnMouseExitAsObservable()))
+                .Repeat()
+                .Where(_ => Time.realtimeSinceStartup >= raiseTime)
+                .Do(OnBreak)
+                .Subscribe(_ => GameObject.Destroy(block.gameObject));
+        }
 
-		public Subject<Unit> OnBreakBlockAsObservable()
-		{
-			return onBreakBlock ?? (onBreakBlock = new Subject<Unit>());
-		}
-
-		// Use this for initialization
-		void Start()
-		{
-			dungeonManager = DungeonManager.instance;
-			
-			var block = GetComponent<Block>();
-			var setter = GetComponent<BlockSetter>();
-
-			float raiseTime = 0;
-			this.UpdateAsObservable()
-			.Where(_ => setter.putted)
-			.Where(_ => dungeonManager.activeState == DungeonState.None)
-			.Where(_ => block.location != dungeonManager.player.location)
-			.SkipUntil(this.OnMouseDownAsObservable()
-				       .Do(_ => raiseTime = Time.realtimeSinceStartup + breakTapSecond))
-			.TakeUntil(this.OnMouseUpAsObservable()
-			           .Merge(this.OnMouseExitAsObservable()))
-			.Repeat()
-			.Where(_ => Time.realtimeSinceStartup >= raiseTime)
-			.Subscribe(_ =>
-			{
-				if (onBreakBlock != null)
-				{
-					onBreakBlock.OnNext(Unit.Default);
-				}
-
-				Destroy(gameObject);
-			});
-		}
-	}
+        private void OnBreak(Unit unit)
+        {
+            if (onBreak != null)
+            {
+                onBreak.OnNext(Unit.Default);
+                onBreak.OnCompleted();
+            }
+        }
+    }
 }

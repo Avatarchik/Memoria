@@ -1,103 +1,109 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UniRx;
-using UniRx.Triggers;
-using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockComponent;
 
 namespace Memoria.Dungeon.Managers
 {
-	public class BlockManager : MonoBehaviour
-	{
-		[SerializeField]
-		private GameObject blockPrefab;
+    public class BlockManager : MonoBehaviour
+    {
+        public static BlockManager instance { get { return DungeonManager.instance.blockManager; } }
 
-		public readonly int NumberOfBlockShapeType = 11;
-		public readonly int NumberOfBlockType = 6;
+        [SerializeField]
+        private GameObject blockPrefab;
 
-		[SerializeField]
-		private BlockSprites _blockSprites = new BlockSprites();
+        public readonly int NumberOfBlockShapeType = 11;
+        public readonly int NumberOfBlockType = 6;
 
-		public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
+        [SerializeField]
+        private BlockList blockList;
 
-		private Subject<Block> onCreateBlock;
+        [SerializeField]
+        private BlockSprites _blockSprites = new BlockSprites();
 
-		public IObservable<Block> OnCreateBlockAsObservable()
-		{
-			return onCreateBlock ?? (onCreateBlock = new Subject<Block>());
-		}
+        public Sprite[][] blockSprites { get { return _blockSprites.blockSprites; } }
 
-		public Block CreateBlock()
-		{
-			Block block = Instantiate<GameObject>(blockPrefab).GetComponent<Block>();
-			block.Initialize();
+        private Subject<Block> onCreateBlock;
 
-			if (onCreateBlock != null)
-			{
-				onCreateBlock.OnNext(block);
-			}
+        public IObservable<Block> OnCreateBlockAsObservable()
+        {
+            return onCreateBlock ?? (onCreateBlock = new Subject<Block>());
+        }
 
-			return block;
-		}
+        public IObservable<Unit> OnRandomizeAsObservable()
+        {
+            return blockList.OnRandomizeAsObservable();
+        }
 
-		public Block CreateBlock(BlockFactor blockFactor, ShapeData shapeData, BlockType blockType)
-		{
-			Block block = CreateBlock();
-			block.blockFactor = blockFactor;
-			block.shapeData = shapeData;
-			block.blockType = blockType;
-			block.transform.SetParent(blockFactor.transform);
-			block.transform.localPosition = Vector3.zero;
-			return block;
-		}
+        public Block CreateBlock()
+        {
+            Block block = Instantiate<GameObject>(blockPrefab).GetComponent<Block>();
+            block.Initialize();
 
-		public Block CreateBlockAsDefault(Vector2Int location, ShapeData shapeData, BlockType blockType)
-		{
-			Block block = CreateBlock();
-			block.SetAsDefault(location, shapeData, blockType);
-			return block;
-		}
+            if (onCreateBlock != null)
+            {
+                onCreateBlock.OnNext(block);
+            }
 
-		public Block CreateBlockAsDefault(BlockData blockData)
-		{
-			return CreateBlockAsDefault(blockData.location, blockData.shapeData, blockData.blockType);
-		}
+            return block;
+        }
 
-		private T GetRandomType<T>(System.Func<T> getRandomType, System.Predicate<T> selector = null)
-		{
-			if (selector == null)
-			{
-				selector = _ => true;
-			}
+        public Block CreateBlock(BlockFactor blockFactor, ShapeData shapeData, BlockType blockType)
+        {
+            Block block = CreateBlock();
+            block.blockFactor = blockFactor;
+            block.shapeData = shapeData;
+            block.blockType = blockType;
+            block.transform.SetParent(blockFactor.transform);
+            block.transform.localPosition = Vector3.zero;
+            return block;
+        }
 
-			T result;
-			do
-			{
-				result = getRandomType();
-			}
-			while (!selector(result));
+        public Block CreateBlockAsDefault(Vector2Int location, ShapeData shapeData, BlockType blockType)
+        {
+            Block block = CreateBlock();
+            block.SetAsDefault(location, shapeData, blockType);
+            return block;
+        }
 
-			return result;
-		}
+        public Block CreateBlockAsDefault(BlockData blockData)
+        {
+            return CreateBlockAsDefault(blockData.location, blockData.shapeData, blockData.blockType);
+        }
 
-		public ShapeData GetRandomShapeData(System.Predicate<int> selector = null)
-		{
-			int min = 0;
-			int max = NumberOfBlockShapeType;
-			return new ShapeData(GetRandomType(() => Random.Range(min, max), selector));
-		}
+        private T GetRandomType<T>(System.Func<T> getRandomType, System.Predicate<T> selector = null)
+        {
+            if (selector == null)
+            {
+                selector = _ => true;
+            }
 
-		public BlockType GetRandomBlockType(System.Predicate<BlockType> selector = null)
-		{
-			int min = 0;
-			int max = NumberOfBlockType;
-			return GetRandomType(() => (BlockType)Random.Range(min, max), selector);
-		}
+            T result;
+            do
+            {
+                result = getRandomType();
+            }
+            while (!selector(result));
 
-		public Sprite GetBlockSprite(ShapeData shape, BlockType type)
-		{
-			return blockSprites[(int)type][shape.typeID];
-		}
-	}
+            return result;
+        }
+
+        public ShapeData GetRandomShapeData(System.Predicate<int> selector = null)
+        {
+            int min = 0;
+            int max = NumberOfBlockShapeType;
+            return new ShapeData(GetRandomType(() => Random.Range(min, max), selector));
+        }
+
+        public BlockType GetRandomBlockType(System.Predicate<BlockType> selector = null)
+        {
+            int min = 0;
+            int max = NumberOfBlockType;
+            return GetRandomType(() => (BlockType)Random.Range(min, max), selector);
+        }
+
+        public Sprite GetBlockSprite(ShapeData shape, BlockType type)
+        {
+            return blockSprites[(int)type][shape.typeID];
+        }
+    }
 }

@@ -1,262 +1,183 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Memoria.Dungeon.Managers;
 using UniRx;
-using UniRx.Triggers;
+using Memoria.Dungeon.Managers;
+using Memoria.Dungeon.BlockComponent.Utility;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent
 {
-	public enum BlockType
-	{
-		None = 0,
-		Fire = 1,
-		Wind = 2,
-		Thunder = 3,
-		Water = 4,
-		Recovery = 5,
-	}
+    public enum BlockType
+    {
+        None = 0,
+        Fire = 1,
+        Wind = 2,
+        Thunder = 3,
+        Water = 4,
+        Recovery = 5,
+    }
 
-	[RequireComponent(typeof(Image))]
-	[RequireComponent(typeof(SpriteRenderer))]
-	[RequireComponent(typeof(BoxCollider2D))]
-	[RequireComponent(typeof(Animator))]
-	[RequireComponent(typeof(BlockMover))]
-	[RequireComponent(typeof(BlockSetter))]
-	public class Block : MonoBehaviour
-	{
-		private DungeonManager dungeonManager;
-		private BlockManager blockManager;
-		private MapManager mapManager;
-		private ParameterManager parameterManager;
+    [RequireComponent(typeof(Image))]
+    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Animator))]
+    public class Block : MonoBehaviour
+    {
+        private static DungeonManager dungeonManager { get { return DungeonManager.instance; } }
 
-		public Image image { get; set; }
+        private static BlockManager blockManager { get { return BlockManager.instance; } }
 
-		public SpriteRenderer spriteRenderer { get; set; }
+        private static MapManager mapManager { get { return MapManager.instance; } }
 
-		public Animator animator { get; set; }
+        private static ParameterManager parameterManager { get { return ParameterManager.instance; } }
 
-		public BlockData blockData { get { return new BlockData(location, shapeData, blockType); } }
+        public BlockData blockData { get { return new BlockData(location, shapeData, blockType); } }
 
-		public Vector2Int location
-		{
-			get { return mapManager.ToLocation(transform.localPosition); }
-			set { transform.localPosition = (Vector3)mapManager.ToPosition(value); }
-		}
+        public Vector2Int location
+        {
+            get { return mapManager.ToLocation(transform.localPosition); }
+            set { transform.localPosition = (Vector3)mapManager.ToPosition(value); }
+        }
 
-		private ShapeData _shapeData;
+        public ShapeData shapeData { get; set; }
 
-		public ShapeData shapeData
-		{
-			get { return _shapeData; }
+        public BlockType blockType { get; set; }
 
-			set
-			{
-				_shapeData = value;
-				SetSprite(_shapeData, _blockType);
-			}
-		}
+        private BlockFactor _blockFactor;
 
-		private BlockType _blockType;
+        public BlockFactor blockFactor
+        {
+            get { return _blockFactor; }
 
-		public BlockType blockType
-		{
-			get { return _blockType; }
+            set
+            {
+                _blockFactor = value;
+                transform.SetParent((value) ? value.transform : null);
+            }
+        }
 
-			set
-			{
-				_blockType = value;
-				SetSprite(_shapeData, _blockType);
-			}
-		}
+        private BlockMover mover = new BlockMover();
 
-		private BlockFactor _blockFactor;
+        private BlockSetter setter = new BlockSetter();
 
-		public BlockFactor blockFactor
-		{
-			get { return _blockFactor; }
+        private BlockBreaker breaker = new BlockBreaker();
 
-			set
-			{
-				_blockFactor = value;
-				transform.SetParent((value) ? value.transform : null);
-			}
-		}
+        private BlockTapListener tapListener = new BlockTapListener();
 
-		// TODO: private BlockMover mover;
-		public BlockMover mover { get; private set; }
+        private BlockSprite sprite = new BlockSprite();
 
-		// TOOD: private BlockSetter setter;
-		public BlockSetter setter { get; private set; }
+        #region wrapper
 
-		// TODO: private BlockBreaker breaker;
-		public BlockBreaker breaker { get; private set; }
+        public IObservable<Unit> OnMoveBeginAsObservable()
+        {
+            return mover.OnMoveBeginAsObservable();
+        }
 
-		public IObservable<Unit> OnBeginDragAndDropAsObservable()
-		{
-			return mover.OnBeginDragAndDropAsObservable();
-		}
+        public IObservable<Unit> OnMoveAsObservable()
+        {
+            return mover.OnMoveAsObservable();
+        }
 
-		public IObservable<Unit> OnDragAndDropAsObservable()
-		{
-			return mover.OnDragAndDropAsObservable();
-		}
+        public IObservable<Unit> OnMoveEndAsObservable()
+        {
+            return mover.OnMoveEndAsObservable();
+        }
 
-		public IObservable<Unit> OnEndDragAndDropAsObservable()
-		{
-			return mover.OnEndDragAndDropAsObservable();
-		}
+        public IObservable<Unit> OnPutAsObservable()
+        {
+            return setter.OnPutAsObservable();
+        }
 
-		public IObservable<Unit> OnPutBlockAsObservable()
-		{
-			return setter.OnPutBlockAsObservable();
-		}
+        public IObservable<Unit> OnBackAsObservable()
+        {
+            return setter.OnBackAsObservable();
+        }
 
-		public IObservable<Unit> OnBreakBlockAsObservable()
-		{
-			return breaker.OnBreakBlockAsObservable();
-		}
+        public IObservable<Unit> OnBreakAsObservable()
+        {
+            return breaker.OnBreakAsObservable();
+        }
 
-		public void Initialize()
-		{
-			dungeonManager = DungeonManager.instance;
-			blockManager = dungeonManager.blockManager;
-			mapManager = dungeonManager.mapManager;
-			parameterManager = dungeonManager.parameterManager;
+        public IObservable<Unit> OnTapAsObservable()
+        {
+            return tapListener.OnTapAsObservable();
+        }
 
-			image = GetComponent<Image>();
-			spriteRenderer = GetComponent<SpriteRenderer>();
-			animator = GetComponent<Animator>();
+        public bool putted { get { return setter.putted; } }
 
-			mover = GetComponent<BlockMover>();
-			setter = GetComponent<BlockSetter>();
-			breaker = GetComponent<BlockBreaker>();
+        public bool CanPut()
+        {
+            return setter.CanPut();
+        }
 
-			// 移動開始時
-			mover.OnBeginDragAndDropAsObservable()
-			.Subscribe(_ =>
-			{
-				transform.SetParent(null);
-				animator.SetBool("isSpriteRenderer", true);
-				dungeonManager.operatingBlock = this;
-				dungeonManager.EnterState(DungeonState.BlockOperating);
-			});
+        public bool Connected(Vector2Int checkBaseDirection)
+        {
+            return setter.Connected(checkBaseDirection);
+        }
 
-			// 移動終了時
-			mover.OnEndDragAndDropAsObservable()
-			.Subscribe(_ =>
-			{
-				dungeonManager.operatingBlock = null;
-				dungeonManager.ExitState();
-			});
+        #endregion
 
-			// 設置時
-			setter.OnPutBlockAsObservable()
-			.Subscribe(_ =>
-			{
-				animator.SetBool("putted", true);
-				animator.SetBool("isSpriteRenderer", true);
+        public void Initialize()
+        {
+            var animator = GetComponent<Animator>();
 
-				mapManager.map[location] = this;
-				spriteRenderer.sortingOrder = 0;
+            shapeData = new ShapeData(0);
+            blockType = BlockType.None;
 
-				Vector3 target = mapManager.ToPosition(location);
-				float time = 1;
-				iTween.MoveTo(gameObject, target, time);
+            setter.Bind(this);
+            mover.Bind(this);
+            breaker.Bind(this);
+            tapListener.Bind(this);
+            sprite.Bind(this);
 
-				if (blockFactor != null)
-				{
-					blockFactor.OnPutBlock();
-				}
-			});
+            // 移動開始時
+            var onMoveBegin = OnMoveBeginAsObservable()
+                .Subscribe(_ =>
+                {
+                    transform.SetParent(null);
+                    dungeonManager.EnterState(DungeonState.BlockOperating);
+                });
 
-			// 返却時
-			setter.OnBackBlockAsObservable()
-			.Subscribe(_ =>
-			{
-				transform.SetParent(blockFactor.transform);
-				transform.localPosition = Vector3.zero;
-				animator.SetBool("isSpriteRenderer", false);
-			});
+            // 移動終了時
+            var onMoveEnd = OnMoveEndAsObservable()
+                .Subscribe(_ => dungeonManager.ExitState());
 
-//			// 破壊イベントの登録
-//			var onMouseLongDownComponent = gameObject.AddComponent<ObservableOnMouseLongDownTrigger>();
-//			onMouseLongDownComponent.intervalSecond = 0.5f;
-//			onMouseLongDownComponent.OnMouseLongDownAsObservable()
-//			.Where(CanBreak)
-//			.Subscribe(Break);
+            // 設置時
+            OnPutAsObservable()
+                .Subscribe(_ =>
+                {
+                    animator.SetBool("putted", true);
+                    onMoveBegin.Dispose();
+                    onMoveEnd.Dispose();
+                });
+        }
 
-			// タップイベントの追加
-			var onMouseShortUpAsButtonInCollider = gameObject.AddComponent<ObservableOnMouseShortUpAsButtonInColliderTrigger>();
-			onMouseShortUpAsButtonInCollider.limitSecond = 0.5f;
-			onMouseShortUpAsButtonInCollider.OnMouseShortUpAsButtonInColliderAsObservable()
-			.Where(_ => setter.putted)
-			.Subscribe(_ => dungeonManager.eventManager.OnTapBlock(this));
-		}
+        public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
+        {
+            if (mapManager.map.ContainsKey(location))
+            {
+                throw new UnityException("指定した場所にはすでにブロックがあります " + location);
+            }
 
-		public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
-		{
-			if (mapManager.map.ContainsKey(location))
-			{
-				throw new UnityException("指定した場所にはすでにブロックがあります " + location);
-			}
+            // ブロックの位置, 形状, 種類を設定
+            this.location = location;
+            this.shapeData = shape;
+            this.blockType = type;
 
-			setter.Put();
+            setter.Put();
+        }
 
-			// ブロックの位置, 形状, 種類を設定
-			this.location = location;
-			this.shapeData = shape;
-			this.blockType = type;
-		}
+        // ブロックイベントが発生したとき
+        public void OnBlockEventEnter()
+        {
+            if (blockType == BlockType.None)
+            {
+                return;
+            }
+        }
 
-#region Break
-
-//		private bool CanBreak(Unit _ = null)
-//		{
-//			if (!setter.putted)
-//			{
-//				return false;
-//			}
-//
-//			bool isNoneState = dungeonManager.activeState == DungeonState.None;
-//			bool onPlayer = location == dungeonManager.player.location;
-//			Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-//			bool contains = mapManager.canPutBlockArea.Contains(touchPosition);
-//			return isNoneState && !onPlayer && contains;
-//		}
-
-//		// ブロックを破壊する
-//		private void Break(Unit _ = null)
-//		{
-//			dungeonManager.eventManager.OnBreakBlcok();
-//			mapManager.map.Remove(location);
-//			Destroy(gameObject);
-//		}
-
-#endregion
-
-		// ブロックイベントが発生したとき
-		public void OnEnterBlockEvent()
-		{
-			if (blockType == BlockType.None)
-			{
-				return;
-			}
-		}
-
-		public void OnExitBlockEvent()
-		{
-			blockType = BlockType.None;
-		}
-
-		private void SetSprite(ShapeData blockShape, BlockType blockType)
-		{
-			Sprite sprite = blockManager.GetBlockSprite(blockShape, blockType);
-			image.sprite = sprite;
-			spriteRenderer.sprite = sprite;
-		}
-	}
+        public void OnBlockEventExit()
+        {
+            blockType = BlockType.None;
+        }
+    }
 }

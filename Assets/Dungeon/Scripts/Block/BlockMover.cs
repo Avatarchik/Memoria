@@ -1,101 +1,85 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using Memoria.Dungeon.Managers;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent.Utility
 {
-	public class BlockMover : MonoBehaviour
+	public class BlockMover
 	{
-		private Subject<Unit> onBeginDragAndDrop;
-		private Subject<Unit> onDragAndDrop;
-		private Subject<Unit> onEndDragAndDrop;
+		private Block block;
+		
+		private Subject<Unit> onMoveBegin;
+		private Subject<Unit> onMove;
+		private Subject<Unit> onMoveEnd;
 
-		//		public Func<Vector3, Vector3> SelectPosition { get; set; }
-
-		public Subject<Unit> OnBeginDragAndDropAsObservable()
+		public Subject<Unit> OnMoveBeginAsObservable()
 		{			
-			return onBeginDragAndDrop ?? (onBeginDragAndDrop = new Subject<Unit>());
+			return onMoveBegin ?? (onMoveBegin = new Subject<Unit>());
 		}
 
-		public Subject<Unit> OnDragAndDropAsObservable()
+		public Subject<Unit> OnMoveAsObservable()
 		{
-			return onDragAndDrop ?? (onDragAndDrop = new Subject<Unit>());
+			return onMove ?? (onMove = new Subject<Unit>());
 		}
 
-		public Subject<Unit> OnEndDragAndDropAsObservable()
+		public Subject<Unit> OnMoveEndAsObservable()
 		{
-			return onEndDragAndDrop ?? (onEndDragAndDrop = new Subject<Unit>());
+			return onMoveEnd ?? (onMoveEnd = new Subject<Unit>());
 		}
 
-		void Start()
+		public void Bind(Block block)
 		{
-			var dungeonManager = DungeonManager.instance;
-			bool isDragAndDrop = false;
-
-			var block = GetComponent<Block>();
-			var setter = GetComponent<BlockSetter>();
+			this.block = block;
 
 			// 開始
-			this.OnMouseDownAsObservable()
-				.Where(_ => dungeonManager.activeState == DungeonState.None)
-				.Where(_ => !setter.putted)
-				.Do(_ => isDragAndDrop = true)
-				.Do(OnBeginDragAndDrop)
-				.Subscribe(_ => SetPositionAtTouchPosition());
-
-			// D&D
-			this.OnMouseDragAsObservable()
-			.Where(_ => isDragAndDrop)
-				.Do(OnDragAndDrop)
-				.Subscribe(_ => SetPositionAtTouchPosition());
-
-			// 終了
-			this.OnMouseUpAsObservable()
-			.Where(_ => isDragAndDrop)
-			.Do(_ => isDragAndDrop = false)
-			.Subscribe(OnEndDragAndDrop);
-
-			// Putされるときの移動
-			setter.OnPutBlockAsObservable()
-			.Subscribe(_ =>
-			{
-				Vector3 target = dungeonManager.mapManager.ToPosition(block.location);
-				float time = 1;
-				iTween.MoveTo(block.gameObject, target, time);
-			});
+			block.OnMouseDownAsObservable()
+				.Where(_ => (DungeonManager.instance.activeState == DungeonState.None) && !block.putted)
+				.Do(OnMoveBegin)
+				.Do(SetPositionAtTapPosition)
+				.Subscribe(_ =>
+				{
+					// 移動
+					var onMove = block.OnMouseDragAsObservable()
+						.Do(OnMove)
+						.Subscribe(SetPositionAtTapPosition);
+	
+					// 終了
+					block.OnMouseUpAsObservable()
+						.First()
+						.Do(__ => onMove.Dispose())
+						.Subscribe(OnMoveEnd);
+				});
 		}
 
-		private void SetPositionAtTouchPosition()
+		private void SetPositionAtTapPosition(Unit unit)
 		{
 			var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			position.z = transform.position.z;
-			transform.position = position;
+			position.z = block.transform.position.z;
+			block.transform.position = position;
 		}
 
-		private void OnBeginDragAndDrop(Unit unit)
+		private void OnMoveBegin(Unit unit)
 		{
-			if (onBeginDragAndDrop != null)
+			if (onMoveBegin != null)
 			{
-				onBeginDragAndDrop.OnNext(unit);
+				onMoveBegin.OnNext(unit);
 			}
 		}
 
-		private void OnDragAndDrop(Unit unit)
+		private void OnMove(Unit unit)
 		{
-			if (onDragAndDrop != null)
+			if (onMove != null)
 			{
-				onDragAndDrop.OnNext(unit);
+				onMove.OnNext(unit);
 			}
 		}
 
-		private void OnEndDragAndDrop(Unit unit)
+		private void OnMoveEnd(Unit unit)
 		{
-			if (onEndDragAndDrop != null)
+			if (onMoveEnd != null)
 			{
-				onEndDragAndDrop.OnNext(unit);
+				onMoveEnd.OnNext(unit);
 			}
 		}
 	}

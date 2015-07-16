@@ -1,107 +1,106 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
 using System.Linq;
 using UniRx;
-using UniRx.Triggers;
 using Memoria.Dungeon.Managers;
 
-namespace Memoria.Dungeon.BlockUtility
+namespace Memoria.Dungeon.BlockComponent.Utility
 {
-	public class BlockSetter : MonoBehaviour
-	{		
-		public bool putted { get; set; }
+    public class BlockSetter
+    {
+        private static Vector2Int[] checkDirections = new Vector2Int[]
+        {
+            Vector2Int.left,
+            Vector2Int.right,
+            Vector2Int.down,
+            Vector2Int.up,
+        };
 
-		private MapManager mapManager;
-		private Block block;
+        private static MapManager mapManager { get { return DungeonManager.instance.mapManager; } }
 
-		private Subject<Unit> onPutBlock;
-		private Subject<Unit> onBackBlock;
+        private Block block;
 
-		public IObservable<Unit> OnPutBlockAsObservable()
-		{
-			return onPutBlock ?? (onPutBlock = new Subject<Unit>());
-		}
+        public bool putted { get; private set; }
 
-		public IObservable<Unit> OnBackBlockAsObservable()
-		{
-			return onBackBlock ?? (onBackBlock = new Subject<Unit>());
-		}
+        private Subject<Unit> onPut;
+        private Subject<Unit> onBack;
 
-		// Use this for initialization
-		void Start()
-		{
-			mapManager = DungeonManager.instance.mapManager;
-			block = GetComponent<Block>();
-			
-			var mover = GetComponent<BlockMover>();
-			mover.OnEndDragAndDropAsObservable()
-			.Subscribe(_ =>
-			{
-				if (CanPut())
-				{
-					Put();
-				}
-				else
-				{
-					Back();
-				}
-			});
-		}
+        public IObservable<Unit> OnPutAsObservable()
+        {
+            return onPut ?? (onPut = new Subject<Unit>());
+        }
 
-		public bool CanPut()
-		{
-			// 範囲外チェック
-			if (!mapManager.canPutBlockArea.Contains(transform.position))
-			{
-				return false;
-			}
+        public IObservable<Unit> OnBackAsObservable()
+        {
+            return onBack ?? (onBack = new Subject<Unit>());
+        }
 
-			// 置くところのブロックチェック
-			if (mapManager.map.ContainsKey(block.location))
-			{
-				return false;
-			}
+        public void Bind(Block block)
+        {
+            this.block = block;
+            block.OnMoveEndAsObservable()
+                .Subscribe(_ => PutOrBack());
 
-			// 隣接ブロックのチェック
-			return new []
-			{
-				Vector2Int.left,
-				Vector2Int.right,
-				Vector2Int.down,
-				Vector2Int.up,
-			}
-				.Any(dir => Connected(dir));
-		}
+            block.OnPutAsObservable()
+                .Do(_ => putted = true)
+                .Subscribe(_ => iTween.MoveTo(
+                    target: block.gameObject,
+                    position: DungeonManager.instance.mapManager.ToPosition(block.location),
+                    time: 1));
 
-		// 指定した向きの道とつながるかどうか
-		public bool Connected(Vector2Int checkBaseDirection)
-		{	
-			if (!block.shapeData.Opend(checkBaseDirection))
-			{
-				return false;
-			}
+            block.OnBackAsObservable()
+                .Subscribe(_ =>
+                {
+                    block.transform.SetParent(block.blockFactor.transform);
+                    block.transform.localPosition = Vector3.zero;
+                });
+        }
 
-			Vector2Int checkLocation = block.location + checkBaseDirection;
-			if (!mapManager.map.ContainsKey(checkLocation))
-			{
-				return false;
-			}
+        public bool CanPut()
+        {
+            if (!mapManager.canPutBlockArea.Contains(block.transform.position)
+                || mapManager.map.ContainsKey(block.location))
+            {
+                return false;
+            }
 
-			Block checkBlock = mapManager.map[checkLocation];
-			return checkBlock.shapeData.Opend(-checkBaseDirection);
-		}
+            return checkDirections.Any(Connected);
+        }
 
-		public void Put()
-		{
-			putted = true;
-//			mapManager.map[block.location] = block;
-			onPutBlock.OnNext(Unit.Default);
-		}
+        public bool Connected(Vector2Int checkBaseDirection)
+        {
+            Vector2Int checkLocation = block.location + checkBaseDirection;
 
-		private void Back()
-		{
-			onBackBlock.OnNext(Unit.Default);
-		}
-	}
+            if (!block.shapeData.Opend(checkBaseDirection)
+                || !mapManager.map.ContainsKey(checkLocation))
+            {
+                return false;
+            }
+
+            Block checkBlock = mapManager.map[checkLocation];
+            return checkBlock.shapeData.Opend(-checkBaseDirection);
+        }
+
+        private void PutOrBack()
+        {
+            if (CanPut())
+            {
+                Put();
+            }
+            else
+            {
+                Back();
+            }
+        }
+
+        public void Put()
+        {
+            onPut.OnNext(Unit.Default);
+            onPut.OnCompleted();
+        }
+
+        public void Back()
+        {
+            onBack.OnNext(Unit.Default);
+        }
+    }
 }

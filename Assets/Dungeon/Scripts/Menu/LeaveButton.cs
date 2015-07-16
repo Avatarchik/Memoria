@@ -1,56 +1,56 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+//  using System.Collections;
 using Memoria.Dungeon.Managers;
 using UniRx;
 
 namespace Memoria.Dungeon.Menu
 {
-	public class LeaveButton : MonoBehaviour
-	{
-		[SerializeField]
-		private GameObject message;
+    public class LeaveButton : MonoBehaviour
+    {
+        [SerializeField]
+        private GameObject message;
 
-		[SerializeField]
-		private GameObject yesButton;
+        [SerializeField]
+        private Button yesButton;
 
-		[SerializeField]
-		private GameObject noButton;
+        [SerializeField]
+        private Button noButton;
 
-		// Use this for initialization
-		void Start()
-		{   
-			var dungeonManager = DungeonManager.instance;
+        // Use this for initialization
+        void Start()
+        {
+            var dungeonManager = DungeonManager.instance;
 
-			// LeaveButton イベントの登録
-			GetComponent<Button>().OnClickAsObservable()
-			.Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
-			.Subscribe(_ =>
-			{
-				dungeonManager.EnterState(DungeonState.LeaveSelect);
-				this.SetUIActive(true);
-			});
+            // LeaveButton イベントの登録
+            GetComponent<Button>().OnClickAsObservable()
+                .Where(_ => dungeonManager.activeState == DungeonState.OpenMenu)
+                .Subscribe(_ =>
+                {
+                    dungeonManager.EnterState(DungeonState.LeaveSelect);
+                    this.SetUIActive(true);
+                });
 
-			// yesButton イベントの登録
-			yesButton.GetComponent<Button>().OnClickAsObservable()
-			.Subscribe(_ => dungeonManager.Leave());
+            // yesButton イベントの登録
+            yesButton.OnClickAsObservable()
+                .Subscribe(_ => dungeonManager.Leave());
 
-			// noButton イベントの登録
-			noButton.GetComponent<Button>().OnClickAsObservable()
-			.Subscribe(_ =>
-			{
-				this.SetUIActive(false);
-				dungeonManager.ExitState();
-			});
+            // noButton イベントの登録
+            noButton.OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    this.SetUIActive(false);
+                    dungeonManager.ExitState();
+                });
 
-			SetUIActive(false);
-		}
+            SetUIActive(false);
+        }
 
-		private void SetUIActive(bool value)
-		{
-			message.SetActive(value);
-			yesButton.SetActive(value);
-			noButton.SetActive(value);
-		}
-	}
+        private void SetUIActive(bool value)
+        {
+            message.SetActive(value);
+            yesButton.gameObject.SetActive(value);
+            noButton.gameObject.SetActive(value);
+        }
+    }
 }

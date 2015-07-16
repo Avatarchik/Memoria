@@ -1,106 +1,93 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockComponent;
 using UniRx;
 
 namespace Memoria.Dungeon.Managers
 {
-	public class MapManager : MonoBehaviour
-	{
-		/// <summary>
-		/// マップ
-		/// </summary>
-		public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
+    public class MapManager : MonoBehaviour
+    {
+        public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
 
-		private DungeonManager _dungeonManager;
+        /// <summary>
+        /// マップ
+        /// </summary>
+        public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
-		private DungeonManager dungeonManager
-		{
-			get
-			{
-				if (_dungeonManager == null)
-				{
-					_dungeonManager = DungeonManager.instance;
-				}
+        private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
 
-				return _dungeonManager;
-			}
-		}
+        public Rect canPutBlockArea
+        {
+            get
+            {
+                Rect ret = _canPutBlockArea;
+                ret.position += (Vector2)Camera.main.transform.position;
+                return ret;
+            }
+        }
 
-		private BlockManager blockManager;
+        void Awake()
+        {
+            BlockManager.instance.OnCreateBlockAsObservable()
+                .Subscribe(block =>
+                {
+                    var onPut = block.OnPutAsObservable()
+                        .Subscribe(_ => map.Add(block.location, block));
 
-		private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
+                    block.OnBreakAsObservable()
+                        .Do(_ => onPut.Dispose())
+                        .Subscribe(_ => map.Remove(block.location))
+                        .AddTo(block.gameObject);
+                });
+        }
 
-		public Rect canPutBlockArea
-		{
-			get
-			{
-				Rect ret = _canPutBlockArea;
-				ret.position += (Vector2)Camera.main.transform.position;
-				return ret;
-			} 
-		}
+        public void SetMap(List<BlockData> blockDatas)
+        {
+            blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
+        }
 
-		void Awake()
-		{
-			blockManager = dungeonManager.blockManager;
-			blockManager.OnCreateBlockAsObservable()
-				.Subscribe(block =>
-			{
-				block.breaker.OnBreakBlockAsObservable()
-					.Subscribe(_ => map.Remove(block.location))
-					.AddTo(block.gameObject);
-			});
-		}
+        /// <summary>
+        /// 指定の位置からマップ上に配置されるときの位置を取得する
+        /// </summary>
+        /// <returns>マップ上に配置されるときの位置</returns>
+        /// <param name="position">指定の位置</param>
+        public Vector2 ConvertPosition(Vector2 position)
+        {
+            Vector2Int location = ToLocation(position);
+            Vector2 converted = ToPosition(location);
+            return converted;
+        }
 
-		public void SetMap(List<BlockData> blockDatas)
-		{
-			blockDatas.ForEach(data => blockManager.CreateBlockAsDefault(data));
-		}
+        /// <summary>
+        /// 指定の位置からマップ座標を取得する
+        /// </summary>
+        /// <returns>マップ座標</returns>
+        /// <param name="position">指定の位置</param>
+        public Vector2Int ToLocation(Vector2 position)
+        {
+            Vector2 blockSize = DungeonManager.instance.blockSize;
+            Vector2Int location = new Vector2Int();
 
-		/// <summary>
-		/// 指定の位置からマップ上に配置されるときの位置を取得する
-		/// </summary>
-		/// <returns>マップ上に配置されるときの位置</returns>
-		/// <param name="position">指定の位置</param>
-		public Vector2 ConvertPosition(Vector2 position)
-		{
-			Vector2Int location = ToLocation(position);
-			Vector2 converted = ToPosition(location);
-			return converted;
-		}
+            location.x = (int)Mathf.Round(position.x / blockSize.x * 100);
+            location.y = (int)Mathf.Round(position.y / blockSize.y * 100);
 
-		/// <summary>
-		/// 指定の位置からマップ座標を取得する
-		/// </summary>
-		/// <returns>マップ座標</returns>
-		/// <param name="position">指定の位置</param>
-		public Vector2Int ToLocation(Vector2 position)
-		{
-			Vector2 blockSize = dungeonManager.blockSize;
-			Vector2Int location = new Vector2Int();
+            return location;
+        }
 
-			location.x = (int)Mathf.Round(position.x / blockSize.x * 100);
-			location.y = (int)Mathf.Round(position.y / blockSize.y * 100);
+        /// <summary>
+        /// 指定のマップ座標から位置を取得する
+        /// </summary>
+        /// <returns>位置</returns>
+        /// <param name="location">指定のマップ座標</param>
+        public Vector2 ToPosition(Vector2Int location)
+        {
+            Vector2 blockSize = DungeonManager.instance.blockSize;
+            Vector2 position = new Vector3();
 
-			return location;
-		}
+            position.x = location.x / 100f * blockSize.x;
+            position.y = location.y / 100f * blockSize.y;
 
-		/// <summary>
-		/// 指定のマップ座標から位置を取得する
-		/// </summary>
-		/// <returns>位置</returns>
-		/// <param name="location">指定のマップ座標</param>
-		public Vector2 ToPosition(Vector2Int location)
-		{
-			Vector2 blockSize = dungeonManager.blockSize;
-			Vector2 position = new Vector3();
-		
-			position.x = location.x / 100f * blockSize.x;
-			position.y = location.y / 100f * blockSize.y;
-
-			return position;
-		}
-	}
+            return position;
+        }
+    }
 }

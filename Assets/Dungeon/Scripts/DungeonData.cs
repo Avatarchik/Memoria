@@ -1,99 +1,98 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Memoria.Dungeon.BlockUtility;
+using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon
 {
 
-	public class DungeonData : MonoBehaviour
-	{
-		public int direction { get; set; }
-		public Vector2Int location { get; set; }
+    public class DungeonData : MonoBehaviour
+    {
+        public int direction { get; set; }
+        public Vector2Int location { get; set; }
 
-		public DungeonParameter parameter { get; set; }
+        public DungeonParameter parameter { get; set; }
 
-		public List<BlockData> mapData { get; set; }
+        public List<BlockData> mapData { get; set; }
 
-		public BlockType battleType { get; private set; }
+        public BlockType battleType { get; private set; }
 
-		public int[] stocks { get; set; }
+        public int[] stocks { get; set; }
 
-		private bool initialized = false;
+        private bool initialized = false;
 
-		// Use this for initialization
-		void Start()
-		{
-			DontDestroyOnLoad(gameObject);
-		}
+        // Use this for initialization
+        void Start()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
-		public void Load()
-		{
-			var dungeonManager = DungeonManager.instance;
-			var mapManager = dungeonManager.mapManager;
-			var parameterManager = dungeonManager.parameterManager;
+        public void Load()
+        {
+            var dungeonManager = DungeonManager.instance;
+            var mapManager = dungeonManager.mapManager;
+            var parameterManager = dungeonManager.parameterManager;
 
-			var player = dungeonManager.player;
+            var player = dungeonManager.player;
 
-			// 初期化時
-			if (!initialized)
-			{
-				direction = 2;
-				location = new Vector2Int(0, 0);
+            // 初期化時
+            if (!initialized)
+            {
+                direction = 2;
+                location = new Vector2Int(0, 0);
 
-				mapData = LoadMapData("");
-				parameter = new DungeonParameter(100, 100, 100, 100, 1, "none");
-				stocks = new [] { 0, 0, 0, 0 };
-			}
+                mapData = LoadMapData("");
+                parameter = new DungeonParameter(100, 100, 100, 100, 1, "none");
+                stocks = new[] { 0, 0, 0, 0 };
+            }
 
-			player.direction = direction;
-			player.SetPosition(location);
+            player.direction = direction;
+            player.SetPosition(location);
 
-			mapManager.SetMap(mapData);
+            mapManager.SetMap(mapData);
 
-			parameterManager.parameter = parameter;
+            parameterManager.parameter = parameter;
 
-			if (initialized)
-			{
-				dungeonManager.eventManager.ReturnFromBattle();
-			}
+            if (initialized)
+            {
+                dungeonManager.eventManager.ReturnFromBattle();
+            }
 
-			initialized = true;
-		}
+            initialized = true;
+        }
 
-		public void Save()
-		{
-			var dungeonManager = DungeonManager.instance;
-			var mapManager = dungeonManager.mapManager;
-			var parameterManager = dungeonManager.parameterManager;
+        public void Save()
+        {
+            var dungeonManager = DungeonManager.instance;
+            var mapManager = dungeonManager.mapManager;
+            var parameterManager = dungeonManager.parameterManager;
 
-			var player = dungeonManager.player;
+            var player = dungeonManager.player;
 
-			direction = player.direction;
-			location = player.location;
+            direction = player.direction;
+            location = player.location;
 
-			mapData.Clear();
-			mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
+            mapData.Clear();
+            mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
-			parameter = parameterManager.parameter;
-		}
+            parameter = parameterManager.parameter;
+        }
 
-		public void SetBattleType(BlockType battleType)
-		{
-			this.battleType = battleType;
-		}
+        public void SetBattleType(BlockType battleType)
+        {
+            this.battleType = battleType;
+        }
 
-		public List<BlockData> LoadMapData(string mapDataPath)
-		{
-			print("load map : " + mapDataPath);
+        public List<BlockData> LoadMapData(string mapDataPath)
+        {
+            print("load map : " + mapDataPath);
 
-			var result = new List<BlockData>();
+            var result = new List<BlockData>();
 
-			result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
+            result.Add(new BlockData(Vector2Int.zero, new ShapeData(10), BlockType.None));
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }
