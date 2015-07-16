@@ -12,56 +12,61 @@ namespace Memoria.Battle.States
         override public void Initialize()
         {
             hero = (Hero)nowActor;
-            if(!hero.passtToStock)
+
+            if(!hero.passToStock)
             {
                 SetSelectable(nowActor.attackType.targetType, true);
             }
+
             if(hero.target == null) {
-                uiMgr.ShowDescBar("description_frame");
+                uiMgr.SpawnDescription("description_frame");
                 foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
-                    uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, true);
+                    uiMgr.SpawnCursor(actor.GetComponent<Entity>().battleID, actor);
                 }
             }
         }
-        
+
         override public void Update()
         {
-            if(hero.passtToStock)
+
+            if(hero.passToStock)
             {
                 battleMgr.SetState(State.RUNNING);
+                return;
             }
+
             if(hero.TargetSelected())
             {
-                _timer++;
                 hero.SetTarget((IDamageable)hero.GetComponent<TargetSelector>().target);
                 uiMgr.SetCurorAnimation(hero.attackType.selectType, hero.target.ToString());
+                uiMgr.DestroyElement("frame");
                 SetSelectable(nowActor.attackType.targetType, false);
+
+                _timer++;
                 if(_timer > 20)
                 {
                     foreach(var actor in BattleMgr.actorList)
                     {
-                        uiMgr.SetCursor(actor.GetComponent<Entity>().battleID, actor, false);
+                        uiMgr.DestroyElement("cursor_" + actor.GetComponent<Entity>().battleID);
                     }
-                    uiMgr.RemoveDescBar();
                     if(_timer > 40)
                     {
                         _timer = 0;
                         battleMgr.SetState(State.ANIMATOIN);
                     }
-                }                
+                }
             }
         }
 
         private void SetSelectable(char c, bool state)
         {
-            if(hero.passtToStock)
+            if(hero.passToStock)
                 return;
             foreach(var actor in BattleMgr.actorList)
             {
                 var e = actor.GetComponent<Entity>();
-                if (e.battleID.ToLowerInvariant().IndexOf(c) != -1)
-                {
+                if (e.battleID.ToLowerInvariant().IndexOf(c) != -1) {
                     e.GetComponent<BoxCollider2D>().enabled = state;
                 }
             }

@@ -1,33 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
-using Memoria.Battle.Managers;
-
-namespace Memoria.Battle.GameActors
+﻿namespace Memoria.Battle.GameActors
 
 {
-    public class Aria : Profile {
+    public class Aria : Profile
+    {
+        void Awake ()
+        {
+            nameplate = "Namebar_Aria";
 
-        // Use this for initialization
-        void Awake () {
-            nameplate = "GOJBNA4001";
-
-            parameter.attack = 317;
-            parameter.defense = 239;
-            parameter.mattack = 224;
-            parameter.defense = 260;
-            parameter.speed = 342;
-            parameter.hp = 484;
-            parameter.elementAff = ElementType.WIND;
+            parameter.attack = 2766;
+            parameter.defense = 3027;
+//          parameter.mattack = 100;
+//          parameter.mdefense = 100;
+            parameter.speed = 1953;
+            parameter.hp = 3884;
+            parameter.elementAff = new ElementWater(Element.WATER);
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-            //attackType = gameObject.AddComponent<PlayerStrike>();
-
-        }
-
-        // Update is called once per frame
-        void Update () {
-
         }
     }
 }

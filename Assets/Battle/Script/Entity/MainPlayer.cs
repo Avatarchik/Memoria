@@ -2,34 +2,48 @@
 
 namespace Memoria.Battle.GameActors
 {
-    public class MainPlayer : Entity, IDamageable {
+    public class MainPlayer : Entity, IDamageable
+    {
         private const int HEALTH_BAR_FULL = 40;
 
         // Use this for initialization
-        void Awake () {
+        void Awake ()
+        {
             entityType = "Player";
             health = GetComponent<HealthSystem> ();
             health.maxHp = 250;
             health.hp = 250;
+            parameter.elementAff = new NoElement(Element.NONE);
         }
 
         // Update is called once per frame
 
-        public void TakeDamage(int i)
+        public void Heal(int healValue)
         {
-            health.hp -= i;
+            var effectiveHeal = (healValue * (-1));
+            if(health.hp + effectiveHeal > health.maxHp) {
+                health.hp = health.maxHp;
+            }
+            else {
+                health.hp += effectiveHeal;
+            }
         }
 
-        public void TakeDamage(Damage d)
+        public void TakeDamage(Damage damage)
         {
+            damage.TargetParameters = parameter;
 
+            if(damage.Calculate() < 0) {
+                Heal(damage.Calculate());
+            }
+            else {
+                health.hp -= damage.Calculate();
+            }
         }
 
         public bool IsAlive()
         {
-            if(health.hp >= 0)
-                return true;
-            return false;
+            return (health.hp >= 0);
         }
     }
 }

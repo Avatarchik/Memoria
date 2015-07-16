@@ -7,13 +7,6 @@ namespace Memoria.Battle.Utility
         public int hp;
         public int maxHp;
 
-        //Initialize
-        void Start()
-        {
-
-        }
-
-        //Graphic Updates
         void Update()
         {
 

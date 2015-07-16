@@ -3,29 +3,21 @@ using Memoria.Battle.GameActors;
 
 namespace Memoria.Battle.States
 {
-
-    public enum State
-    {
-        PREPARE = 0,
-        RUNNING = 1,
-        SELECT_TARGET = 2,
-        SELECT_SKILL = 3,
-        ANIMATOIN = 4,
-        PLAYER_WON = 5
-    }
-
     abstract public class BattleState
     {
         protected BattleMgr battleMgr;
         protected  UIMgr uiMgr;
         protected Entity nowActor;
+        protected AttackTracker attackTracker;
         public bool Initialized { get; set; }
+        public bool Run { get; set; }
 
-        public void PreInitialize(BattleMgr bMgr, UIMgr uMgr, Entity nActor)
+        public void PreInitialize(BattleMgr bMgr, UIMgr uMgr, Entity nActor, AttackTracker aTracker)
         {
             uiMgr = uMgr;
             battleMgr = bMgr;
             nowActor = nActor;
+            attackTracker = aTracker;
         }
 
         public void EndState()

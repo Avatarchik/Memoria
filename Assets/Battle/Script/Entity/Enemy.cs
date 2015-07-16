@@ -2,6 +2,7 @@ using UnityEngine;
 using Memoria.Battle.Utility;
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
+//using Memoria.Battle.Events;
 
 namespace Memoria.Battle.GameActors
 {
@@ -11,22 +12,29 @@ namespace Memoria.Battle.GameActors
 
         void Start()
         {
-            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
-            parameter.speed = 100;
             entityType = "enemy";
+
             health = GetComponent<HealthSystem> ();
             death = GetComponent<DeathSystem> ();
             profile = GetComponent<EnemyAI>();
+
+            parameter = profile.parameter;
             attackType = profile.attackType;
 
             death.isAlive = true;
-            health.maxHp = 150;
+            health.maxHp = parameter.hp;
             health.hp = health.maxHp;
+
+            target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
+
+            transform.SetParent(GameObject.Find("Enemies").gameObject.transform, false);
+
         }
 
         void Update()
         {
-            if (isAlive && health.hp <= 0) {
+            if (isAlive && health.hp <= 0)
+            {
                 isAlive = false;
                 BattleMgr.Instance.RemoveFromBattle(this);
                 StartCoroutine(death.DeadEffect());
@@ -37,16 +45,21 @@ namespace Memoria.Battle.GameActors
         {
             components.Add(typeof(HealthSystem));
             components.Add(typeof(DeathSystem));
+            components.Add(typeof(Namebar));
             base.Init();
         }
 
         override public bool Attack (AttackType attackType)
         {
-            if(!isAlive) { return false; }
+            if(!isAlive) {
+                return false;
+            }
+
             phaseTimer = attackType.phaseCost;
-            if (!attackReady && isAlive) {
+            if (!attackReady && isAlive)
+            {
                 FadeAttackScreen.Flash(); //TODO: temporary
-                BattleMgr.Instance.SetState(State.RUNNING);
+                BattleMgr.Instance.SetState(State.ANIMATOIN);
             }
             return base.Attack (attackType);
         }
@@ -57,14 +70,11 @@ namespace Memoria.Battle.GameActors
             base.EndTurn();
         }
 
-        public void TakeDamage(int i)
-        {
-            this.health.hp -= i;
-        }
-
         public void TakeDamage(Damage d)
         {
-
+            d.TargetParameters = parameter;
+            this.health.hp -= d.Calculate();
+            d.Appear();
         }
 
         public bool IsAlive()

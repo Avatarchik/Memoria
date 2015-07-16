@@ -1,214 +1,140 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using Memoria.Battle.GameActors;
 
 namespace Memoria.Battle.Managers
 {
-    public class UIMgr : MonoBehaviour {
-
+    public class UIMgr : MonoBehaviour
+    {
         private ActorSpawner _spawner;
         private AttackTracker _attackTracker;
-        private Dictionary<string, GameObject>[] _obj;
-        private GameObject[] _button;
-        private Dictionary<string, GameObject> _cursor;
-        private Dictionary<string, GameObject> _nameplate;
-        private GameObject _descFrame;
-
         private Dictionary<string, UIElement> _elements;
+        private Vector3[] _queueSlots;
 
-        // Use this for initialization
-        void Awake () {
-            _spawner = new GameObject().AddComponent<ActorSpawner>();
-            _obj = new Dictionary<string, GameObject>[3];
-            _cursor = new Dictionary<string, GameObject>();
-
+        void Awake ()
+        {
+            _attackTracker = GetComponent<AttackTracker>();
+            _spawner = FindObjectOfType<ActorSpawner>();
             _elements = new Dictionary<string, UIElement>();
+        }
 
-            for (int i = 0; i < _obj.Length; i++)
+        void LateUpdate()
+        {
+           // Update nameplate order
+            foreach(var obj in _attackTracker.attackOrder.OrderByDescending(x => x.Value))
             {
-                _obj[i] = new Dictionary<string, GameObject>();
+                _elements["Namebar_"+ obj.Key.battleID].transform.position = _queueSlots[(int)obj.Key.orderIndex];
             }
         }
 
-        // Update is called once per frame
+        //************************************ Cursor
 
-
-        public void ShowDescBar(string resource)
+        public void SpawnCursor(string owner, GameObject obj)
         {
-            var frame = (GameObject)Resources.Load(resource);
-            _descFrame = Instantiate(frame);
-            _descFrame.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
-            _descFrame.transform.position = new Vector3(-0.0f, 4.5f, 1);
+            Vector3 pos = obj.transform.position;
+            pos.y += 2f;
+
+            var cursorObj = (_spawner.Spawn<BattleCursor>("UI/cursor")).GetComponent<BattleCursor>();
+            cursorObj.ParentToUI();
+            cursorObj.Init();
+            cursorObj.transform.position = pos;
+            _elements.Add("cursor_"+ owner, cursorObj);
         }
 
-        public void RemoveDescBar()
-        {
-            Destroy(_descFrame);
-        }
-
-        public void SetCursor(string owner, GameObject obj, bool enable)
-        {
-            if(enable)
-            {
-                Vector3 pos = obj.transform.position;
-                pos.y += 2f;
-                _cursor.Add(owner, Instantiate ((GameObject)Resources.Load("cursor")) as GameObject);
-                _cursor[owner].transform.SetParent(GameObject.FindObjectOfType<Canvas> ().gameObject.transform, false);
-                _cursor[owner].transform.position = pos;
-            }
-            else
-            {
-                Debug.Log(_cursor.ContainsKey(owner));
-                Debug.Log(_cursor.Count);
-                if(_cursor.ContainsKey(owner))
-                {
-                    Debug.Log(_cursor[owner]);
-                    Destroy(_cursor[owner]);
-                    _cursor.Remove(owner);
-                }
-            }
-        }
-
-        //TODO: Set selection animation based on single/multiple targets
         public void SetCurorAnimation(TargetType targets, string owner)
         {
-            Animator anim;
             switch (targets)
             {
                 case TargetType.ALL:
-                    foreach(var c in _cursor)
+                    foreach(var c in _elements.Where(x => x.Key.Contains("cursor")))
                     {
-                        anim = c.Value.GetComponent<Animator>();
-                        anim.SetBool("select", true);
+                        c.Value.GetComponent<BattleCursor>().SelectAnimation();
                     }
                     break;
                 case TargetType.SINGLE:
-                    anim = _cursor[owner].GetComponent<Animator>();
-                    anim.SetBool("select", true);
+                    _elements["cursor_"+ owner].GetComponent<BattleCursor>().SelectAnimation();
                     break;
             }
         }
 
         //************************************ Skills
 
-
-        public void ShowSkill(Hero player)
-        {
-            var profile = player.GetComponent<Profile>();
-            string[] skills = player.GetSkills();
-            _obj[2] = GenerateObjDictionary(skills, skills);
-            int cnt = 0;
-            _button = _button ?? new GameObject[profile.attackList.Count];
-            foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3)) {
-                if (!_button[cnt])
-                {
-                    string skillName = skill.Key;
-                    _button[cnt] = Instantiate (_obj[2][skillName]) as GameObject;
-                    _button[cnt].transform.SetParent (GameObject.FindObjectOfType<Canvas> ().gameObject.transform, false);
-                    _button[cnt].transform.position = new Vector3(player.transform.position.x - 1.6f, player.transform.position.y + 1.9f + cnt, 1);
-                    Button b = _button[cnt].GetComponent<Button>();
-                    //UnityEngine.Events.UnityAction SetAttack = () => { player.SetAttack(skillName); };
-                    //b.onClick.AddListener(SetAttack);
-                    b.onClick.AddListener(() => player.SetAttack(skillName));
-                    if(cnt < _button.Length -1)
-                        cnt++;
-                }
-            }
-        }
-
         public void SpawnSkills(Hero player)
         {
             var profile = player.GetComponent<Profile>();
-            string[] skills = player.GetSkills();
+            var cnt = 0;
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
-                var skillObj = _spawner.SpawnUI<SkillIcon>(skill.Key);
-                skillObj.GetComponent<SkillIcon>().SetOnClick(player.SetAttack, skill.Key);
-                skillObj.GetComponent<UIElement>().SetParent();
-                //
-
-            }
-        }
-
-        public void DestroyButton()
-        {
-            for (int i = 0; i < _button.Length; i++)
-            {
-                if (_button[i])
-                {
-                    Destroy (_button[i]);
-                    _button[i] = null;
-                }
+                var skillObj = (_spawner.Spawn<SkillIcon>("Skills/"+ skill.Key)).GetComponent<SkillIcon>();
+                skillObj.ParentToUI();
+                skillObj.Init();
+                skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
+                skillObj.transform.position = new Vector3(
+                                                          (player.GetComponent<Profile>().skillPos.x),
+                                                          (player.GetComponent<Profile>().skillPos.y - 1.0f) + cnt,
+                                                          1);
+                skillObj.name = skill.Key;
+                _elements.Add("skill_" + skill.Key, skillObj);
+                cnt++;
             }
         }
 
         //************************************ Nameplates
 
-        public void DestroyNameplate(string battleID)
+        public void SpawnNamebars(Dictionary<Entity, float> actors)
         {
-            if(_nameplate[battleID])
-            {
-                Destroy(_nameplate[battleID]);
-                _nameplate[battleID] = null;
-            }
-        }
-        public void SpawnAttackOrder ()
-        {
-            AttackTracker at = GetComponent<AttackTracker>();
+            _queueSlots = _attackTracker.GetSlots();
 
-            List<string> ids = new List<string>(); //TODO: set to profile names
-            List<string> nameplates = new List<string>();
-
-            foreach(var obj in at.attackOrder.OrderByDescending(x => x.Value))
+            foreach(var obj in actors.OrderByDescending(x => x.Value))
             {
-                ids.Add(obj.Key.battleID);
-                nameplates.Add(obj.Key.GetComponent<Profile>().nameplate);
-            }
-            _nameplate = new Dictionary<string, GameObject>();
-            _obj[1] = GenerateObjDictionary(ids.ToArray(), nameplates.ToArray());
-            for(int i = 0; i <= at.attackOrder.Count - 1; i++)
-            {
-                _nameplate[ids[i]] = Instantiate(_obj[1][ids[i]]) as GameObject;
-                _nameplate[ids[i]].transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform,false);
-                _nameplate[ids[i]].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
+                var namebar = obj.Key.GetComponent<Namebar>();
+                var barObj = (_spawner.Spawn<Namebar>("UI/"+ namebar.spriteResource)).GetComponent<Namebar>();
+                barObj.ParentToUI();
+                barObj.Init();
+                barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
+                _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
             }
         }
 
-        public void SpawnNamebars(List<GameObject> actors)
+        //************************************ Description frame
+
+        public void SpawnDescription(string resource)
         {
-            foreach (GameObject actor in actors.OrderByDescending(x => x.GetComponent<Entity>().parameter.speed))
-            {
-                var namebar = actor.GetComponent<Namebar>();
-                Debug.Log(namebar.spriteResource);
-                _spawner.SpawnUI<Namebar>(namebar.spriteResource);
-            }
+            var frame = (_spawner.Spawn<DescriptionFrame>("UI/"+ resource)).GetComponent<DescriptionFrame>();
+            frame.ParentToUI();
+            frame.Init();
+            frame.name = "Frame_" + resource;
+            _elements.Add("frame_"+ resource, frame);
         }
 
-        public void SetAttackOrder()
+        //************************************ Result
+
+        public void SpawnResult(Sprite resultSprite)
         {
-            int i = 0;
-            AttackTracker at = GetComponent<AttackTracker>();
-            foreach(var obj in at.attackOrder.OrderByDescending(x => x.Value))
-            {
-                _nameplate[obj.Key.battleID].transform.position = new Vector3(7.2f, -0.3f - ((i - 4) * 1.0f), 1);
-                i++;
-            }
+            var result = (_spawner.Spawn<Result>("UI/result")).GetComponent<Result>();
+            result.ParentToUI();
+            result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
+            result.transform.position = new Vector3(0, 0, 1);
+            _elements.Add("result", result);
         }
 
-        private Dictionary<string, GameObject> GenerateObjDictionary(string[] keys, string[] resource)
-        {
-            var dictionary = new Dictionary<string, GameObject>();
-            for (int i = 0; i < keys.Length; i++)
-            {
-                if(dictionary.ContainsKey(keys[i])) {
+        //************************************ Destroy
 
+        public void DestroyElement(string elementType)
+        {
+            foreach(var element in _elements)
+            {
+                if(element.Key.Contains(elementType))
+                {
+                    element.Value.Destroy();
                 }
-                dictionary.Add(keys[i], (GameObject)Resources.Load(resource[i]));
             }
-            return dictionary;
+            foreach(var element in _elements.Where(id => id.Key.Contains(elementType)).Select(id => id.Key).ToList())
+            {
+                _elements.Remove(element);
+            }
         }
     }
 }
