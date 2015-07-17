@@ -45,7 +45,7 @@ namespace Memoria.Battle.Managers
             }
             else
             {
-                Debug.LogWarning("[E] Actor missing in attack order "+ e.ToString());
+                Debug.LogWarning("[E] Actor missing in attack order "+ e);
             }
         }
 
@@ -57,14 +57,27 @@ namespace Memoria.Battle.Managers
             }
         }
 
-        public void DestroyActor(Entity e)
+        public void GenerateQueue<T>(IList<GameObject> objectList) where T : Entity
         {
-            attackOrder.Remove(e);
-            //TODO: Implement method which moves down everyv actors after.
+            float index = 0;
+            foreach (var go in BattleMgr.actorList) {
+                T actor = go.GetComponent<T>();
+                actor.orderIndex = index;
+                if(!attackOrder.ContainsKey(actor)) {
+                    AddToQueue(actor, index);
+                }
+                index++;
+            }
         }
 
-        private void RefreshQueue(int i)
+        public void AddToQueue(Entity e, float pos)
         {
+            attackOrder.Add(e, pos);
+        }
+
+        public void RemoveFromQueue(Entity e)
+        {
+            attackOrder.Remove(e);
         }
 
         public Vector3[] GetSlots()
@@ -78,6 +91,5 @@ namespace Memoria.Battle.Managers
             System.Array.Reverse(result);
             return result;
         }
-
     }
 }

@@ -82,6 +82,7 @@
      <Compile Include="Assets\Battle\Script\Entity\UI\SkillIcon.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\UIElement.cs" />
      <Compile Include="Assets\Battle\Script\Events\MonsterDies.cs" />
+     <Compile Include="Assets\Battle\Script\Events\NewTurn.cs" />
      <Compile Include="Assets\Battle\Script\Events\TakeDamage.cs" />
      <Compile Include="Assets\Battle\Script\Events\TurnEnds.cs" />
      <Compile Include="Assets\Battle\Script\Extensions.cs" />
