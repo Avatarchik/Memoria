@@ -76,6 +76,60 @@ namespace Memoria.Dungeon.Managers
                 return;
             }
 
+            /*
+            // @TODO 
+			1 キーの確認 
+			2 ボス戦の発生
+			3 アイテム獲得処理（宝石、精霊の魂、魔石版）
+			4 戦闘
+			5 ストック
+			6 SPチェック
+			*/
+
+            /*
+			// 1 キーの確認
+			if (ExistsKey())
+			{
+				GetKey();
+				if (keyCount == fillKeyCount)
+				{
+					// 2 ボス戦の発生
+					// LoadLevelCalled
+					OnBossBattle();
+				}
+			}
+			// 3 アイテムの確認
+			else if (ExistsItem())
+			{
+				GetItem(); 
+				// => {
+					//  switch(item)
+					//  {
+					//  case Jewel:
+					//  	GetJewel();
+					//  case Soul:
+					//  	GetSoul();
+					//  case Plane:
+					//  	GetPlane();
+					//  }
+				// };
+			}
+			// 4 戦闘
+			else if (OnTriggerOnBattleEvent())
+			{
+				// LoadLevelCalled
+				OnBattleEvent();
+			}
+			ReturnFromBattle();
+			=> {
+				// 5 ストック
+				GetStock();
+				
+				// 6 SPチェック
+				CheckSp();
+			};
+            */
+
             StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
         }
 
