@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using Memoria.Dungeon.BlockComponent;
+using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -11,7 +12,7 @@ namespace Memoria.Dungeon.Managers
         public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
 
         public GameObject keyPrefab;
-        public GameObject jewelPrefab;        
+        public GameObject jewelPrefab;
 
         /// <summary>
         /// マップ
@@ -19,7 +20,7 @@ namespace Memoria.Dungeon.Managers
         public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
         public List<GameObject> keys = new List<GameObject>();
-        public List<GameObject> jewels = new List<GameObject>();
+        public List<Jewel> jewels = new List<Jewel>();
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
         private Rect stageArea;
@@ -55,18 +56,24 @@ namespace Memoria.Dungeon.Managers
                 });
         }
 
-        public void SetMap(List<BlockData> blockDatas, StageData stageData, List<Vector2Int> keyLocations, List<Vector2Int> jewelLocations)
+        public void SetMap(List<BlockData> blockDatas, StageData stageData, List<Vector2Int> keyLocations, List<JewelData> jewelDatas)
         {
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
 
             keys.AddRange(keyLocations
-                .Select(location => (Vector3)ToPosition(location))
-                .Select(position => Instantiate(keyPrefab, position, Quaternion.identity) as GameObject));
-                
-              jewels.AddRange(jewelLocations
-                  .Select(location => (Vector3)ToPosition(location))
-                  .Select(position => Instantiate(jewelPrefab, position, Quaternion.identity) as GameObject));
+                    .Select(location => (Vector3)ToPosition(location))
+                    .Select(position => Instantiate(keyPrefab, position, Quaternion.identity) as GameObject));
+
+            jewels.AddRange(jewelDatas
+                    .Select(data => new { jewelData = data, position = (Vector3)ToPosition(data.location) })
+                    .Select(data =>
+                    {
+                        var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
+                        jewel.transform.position = data.position;
+                        jewel.jewelData = data.jewelData;
+                        return jewel;
+                    }));
         }
 
         /// <summary>
