@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using Memoria.Dungeon.Managers;
@@ -6,6 +7,7 @@ using Memoria.Dungeon.BlockComponent.Utility;
 
 namespace Memoria.Dungeon.BlockComponent
 {
+	[Serializable]
     public enum BlockType
     {
         None = 0,

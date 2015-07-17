@@ -1,12 +1,29 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Memoria.Dungeon.BlockComponent;
 
 namespace Memoria.Dungeon.Items
 {
+    [Serializable]
     public struct JewelData
     {
-        public BlockType attribute { get; set; }
-        public Vector2Int location { get; set; }
+        [SerializeField]
+        private BlockType _attribute;
+
+        public BlockType attribute
+        {
+            get { return _attribute; }
+            set { _attribute = value; }
+        }
+
+        [SerializeField]
+        private Vector2Int _location;
+
+        public Vector2Int location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
     }
 
     public class Jewel : MonoBehaviour
