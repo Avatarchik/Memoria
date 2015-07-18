@@ -70,15 +70,75 @@ namespace Memoria.Dungeon.Managers
         public void OnArrivePlayer()
         {
             // プレイヤーがいるブロックを取得
-            Block block = mapManager.map[player.location];
+            Block block = mapManager.GetBlock(player.location);
             if (block.blockType == BlockType.None)
             {
                 return;
             }
 
+            /*
+            // @TODO 
+			1 キーの確認 
+			2 ボス戦の発生
+			3 アイテム獲得処理（宝石、精霊の魂、魔石版）
+			4 戦闘
+			5 ストック
+			6 SPチェック
+			*/
+
+            // 1 キーの確認
+            if (mapManager.ExistsKey(player.location))
+            {
+                //  GetKey();
+                //  if (keyCount == fillKeyCount)
+                //  {
+                //  	// 2 ボス戦の発生
+                //  	// LoadLevelCalled
+                //  	OnBossBattle();
+                //  }				
+            }
+            /*
+			// 3 アイテムの確認
+			else if (ExistsItem())
+			{
+				GetItem(); 
+				// => {
+					//  switch(item)
+					//  {
+					//  case Jewel:
+					//  	GetJewel();
+					//  case Soul:
+					//  	GetSoul();
+					//  case Plane:
+					//  	GetPlane();
+					//  }
+				// };
+			}
+			// 4 戦闘
+			else if (OnTriggerOnBattleEvent())
+			{
+				// LoadLevelCalled
+				OnBattleEvent();
+				return;
+			}
+			ReturnFromBattle();
+			=> {
+				// 5 ストック
+				GetStock();
+				
+				// 6 SPチェック
+				CheckSp();
+			};
+            */
+
             StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
         }
 
+        public bool ExistsItem(Vector2Int location)
+        {
+            return mapManager.ExistsJewel(location);
+        }
+        
         private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
         {
             dungeonManager.EnterState(DungeonState.BlockEvent);
@@ -102,7 +162,7 @@ namespace Memoria.Dungeon.Managers
 
         public void ReturnFromBattle()
         {
-            Block block = mapManager.map[player.location];
+            Block block = mapManager.GetBlock(player.location);
             var parameter = parameterManager.parameter;
 
             block.OnBlockEventExit();

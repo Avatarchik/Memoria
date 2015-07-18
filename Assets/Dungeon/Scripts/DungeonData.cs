@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
+using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon
 {
@@ -11,17 +12,14 @@ namespace Memoria.Dungeon
         public DungeonParameter parameter { get; set; }
 
         public BlockType battleType { get; private set; }
-        
-        private int direction;
-        
-        private Vector2Int location;
-        
-        private List<BlockData> mapData;
-        
-        private List<Vector2Int> keyLocations;
 
-        // TODO : CreateJewelData
-        private List<Vector2Int> jewelLocations;
+        private int direction;
+
+        private Vector2Int location;
+
+        private List<BlockData> mapData;
+
+        private List<ItemData> itemDatas;
 
         public int[] stocks { get; set; }
 
@@ -49,17 +47,17 @@ namespace Memoria.Dungeon
                 location = new Vector2Int(0, 0);
 
                 mapData = LoadMapData("");
-                keyLocations = new List<Vector2Int>(stageData.keyLocations);
-                jewelLocations = new List<Vector2Int>(stageData.jewelLocations);
-                parameter = new DungeonParameter(100, 100, 100, 100, 0, keyLocations.Count, 1000, "none");
+				itemDatas = new List<ItemData>(stageData.itemDatas);
+				var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
+                parameter = new DungeonParameter(100, 100, 100, 100, 0, keyNum, 1000, "none");
                 stocks = new[] { 0, 0, 0, 0 };
             }
 
             player.direction = direction;
             player.SetPosition(location);
 
-            mapManager.SetMap(mapData, stageData, keyLocations, jewelLocations);
-
+            mapManager.SetMap(mapData, stageData, itemDatas);
+			
             parameterManager.parameter = parameter;
 
             if (initialized)
@@ -82,11 +80,11 @@ namespace Memoria.Dungeon
             location = player.location;
 
             mapData.Clear();
-            mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
-            
-            keyLocations.Clear();
-            keyLocations.AddRange(mapManager.keys.Select(key => mapManager.ToLocation(key.transform.position)));
-            
+            mapData.AddRange(mapManager.blocks.Select(block => block.blockData));
+
+			itemDatas.Clear();
+			itemDatas.AddRange(mapManager.items.Select(item => item.itemData));
+
             parameter = parameterManager.parameter;
         }
 

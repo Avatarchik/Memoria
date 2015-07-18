@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using Memoria.Dungeon.Managers;
@@ -6,6 +7,7 @@ using Memoria.Dungeon.BlockComponent.Utility;
 
 namespace Memoria.Dungeon.BlockComponent
 {
+	[Serializable]
     public enum BlockType
     {
         None = 0,
@@ -149,7 +151,7 @@ namespace Memoria.Dungeon.BlockComponent
 
         public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
         {
-            if (mapManager.map.ContainsKey(location))
+			if (mapManager.ExistsBlock(location))
             {
                 throw new UnityException("指定した場所にはすでにブロックがあります " + location);
             }

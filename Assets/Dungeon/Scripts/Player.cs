@@ -132,7 +132,7 @@ namespace Memoria.Dungeon
 
         private bool CanMove(Vector2Int moveDirection)
         {
-            return (moveDirection != Vector2Int.zero) && mapManager.map[location].Connected(moveDirection);
+            return (moveDirection != Vector2Int.zero) && mapManager.GetBlock(location).Connected(moveDirection);
         }
 
         private void Move(Vector2Int normalizedMoveDirection)

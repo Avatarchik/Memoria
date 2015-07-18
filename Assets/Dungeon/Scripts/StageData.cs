@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon
 {
@@ -8,8 +9,6 @@ namespace Memoria.Dungeon
     {
 		public string areaSpritePath;
 		public Rect stageSize;
-		public List<Vector2Int> keyLocations;
-		
-		public List<Vector2Int> jewelLocations;
+		public List<ItemData> itemDatas;
     }
 }
