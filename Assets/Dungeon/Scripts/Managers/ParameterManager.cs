@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Linq;
 using UniRx;
+using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -98,10 +99,21 @@ namespace Memoria.Dungeon.Managers
 
             // キーを取得した時
             mapManager.OnTakeItemAsObservable()
+                .Where(item => item.itemData.type == ItemType.Key)
+                .Subscribe(_ =>
+                {
+                    var param = parameter;
+                    param.getKeyNum++;
+                    parameter = param;
+                });
+
+            // 宝石を取得した時
+            mapManager.OnTakeItemAsObservable()
+                .Where(item => item.itemData.type == ItemType.Jewel)
                 .Subscribe(_ =>
                 {
 					var param = parameter;
-					param.getKeyNum++;
+					param.silling += 1000;
 					parameter = param;
                 });
         }
@@ -123,7 +135,7 @@ namespace Memoria.Dungeon.Managers
 
         private void UpdateSillingText(DungeonParameter parameter)
         {
-            sillingText.text = string.Format("{0:0000}", 0);
+            sillingText.text = string.Format("{0:0000}", parameter.silling);
         }
     }
 }

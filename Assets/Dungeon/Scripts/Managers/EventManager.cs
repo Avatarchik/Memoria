@@ -71,6 +71,8 @@ namespace Memoria.Dungeon.Managers
         public void OnArrivePlayer()
         {
             // プレイヤーがいるブロックを取得
+			//  dungeonManager.EnterState(DungeonState.BlockEvent);
+			
             Block block = mapManager.GetBlock(player.location);
             if (block.blockType == BlockType.None)
             {
@@ -118,15 +120,12 @@ namespace Memoria.Dungeon.Managers
 			
 			// ストック取得
 			OnTakeStock(block);			
-			block.OnBlockEventExit();
 			
 			// SPチェック
 			if (!RemainsSp())
 			{
 				Debug.Log("Leave Dungeon!");	
 			}
-
-            //  StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
         }
 		
 		private void OnTakeKey(Item key)
@@ -169,12 +168,12 @@ namespace Memoria.Dungeon.Managers
 
         private void OnBattleEvent(Block block)
         {
-            StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
+            StartCoroutine(CoroutineBattleEvent(block, parameterManager.parameter));
         }
 		
 		private void OnTakeStock(Block block)
 		{
-			
+			StartCoroutine(CoroutineStockEevnt(block));			
 		}
 		
 		private bool RemainsSp()
@@ -182,38 +181,42 @@ namespace Memoria.Dungeon.Managers
 			return parameterManager.parameter.sp > 0;
 		}
 
-        private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
+        private IEnumerator CoroutineBattleEvent(Block block, DungeonParameter parameter)
         {
             dungeonManager.EnterState(DungeonState.BlockEvent);
-            block.OnBlockEventEnter();
 
             if (eventCoroutineTable.ContainsKey(block.blockType))
             {
                 yield return StartCoroutine(eventCoroutineTable[block.blockType].GetEventCoroutine(parameter));
             }
-
-            block.OnBlockEventExit();
-            dungeonManager.ExitState();
-
-            if (parameter.sp <= 0)
-            {
-                Debug.Log("leave dungeon!!");
-            }
-
-            yield break;
+			
+			// Application.LoadLevel();
         }
+		
+		private IEnumerator CoroutineStockEevnt(Block block)
+		{			
+			dungeonManager.EnterState(DungeonState.StockTaking);
+			
+			if (block.blockType == BlockType.Recovery)
+			{
+				yield return StartCoroutine(eventCoroutineTable[block.blockType].GetEventCoroutine(parameterManager.parameter));	
+			}
+			
+			block.TakeStock();
+			dungeonManager.ExitState();
+		}
 		
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
-			
+									
 			OnTakeStock(block);
-            block.OnBlockEventExit();
-
+			
+			// SPチェック
             if (!RemainsSp())
             {
                 Debug.Log("leave dungeon!!");
-            }
+            }		
         }
     }
 }
