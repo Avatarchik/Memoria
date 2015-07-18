@@ -19,8 +19,10 @@ namespace Memoria.Dungeon.Managers
         /// </summary>
         public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
-        public List<Key> keys = new List<Key>();
-        public List<Jewel> jewels = new List<Jewel>();
+        //  public List<Key> keys = new List<Key>();
+        //  public List<Jewel> jewels = new List<Jewel>();
+        public Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
+        public Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
         private Rect stageArea;
@@ -61,23 +63,55 @@ namespace Memoria.Dungeon.Managers
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
 
-            keys.AddRange(keyLocations
+            keyLocations
                 .Select(location =>
                 {
                     var key = Instantiate<GameObject>(keyPrefab).GetComponent<Key>();
                     key.transform.position = (Vector3)ToPosition(location);
-                    return key;
-                }));
+                    return new { location, key };
+                })
+                .ToList()
+                .ForEach(keyData =>
+                {
+                    keyMap.Add(keyData.location, keyData.key);
+                });
 
-            jewels.AddRange(jewelDatas
+            jewelDatas
                 .Select(data =>
                 {
                     var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
                     jewel.jewelData = data;
                     jewel.transform.position = (Vector3)ToPosition(data.location);
-                    return jewel;
-                }));
+                    return new { data.location, jewel };
+                })
+                .ToList()
+                .ForEach(jewelData =>
+                {
+                    jewelMap.Add(jewelData.location, jewelData.jewel);
+                });
+
+            //  keys.AddRange(keyLocations
+            //      .Select(location =>
+            //      {
+            //          var key = Instantiate<GameObject>(keyPrefab).GetComponent<Key>();
+            //          key.transform.position = (Vector3)ToPosition(location);
+            //          return key;
+            //      }));
+
+            //  jewels.AddRange(jewelDatas
+            //      .Select(data =>
+            //      {
+            //          var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
+            //          jewel.jewelData = data;
+            //          jewel.transform.position = (Vector3)ToPosition(data.location);
+            //          return jewel;
+            //      }));
         }
+
+        //  public bool ExistsBlock(Vector2Int location)
+        //  {
+        //      return map.ContainsKey(location);
+        //  }
 
         /// <summary>
         /// 指定の位置からマップ上に配置されるときの位置を取得する

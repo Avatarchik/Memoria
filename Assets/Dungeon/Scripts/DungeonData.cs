@@ -88,7 +88,7 @@ namespace Memoria.Dungeon
             mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
 
             keyLocations.Clear();
-            keyLocations.AddRange(mapManager.keys.Select(key => mapManager.ToLocation(key.transform.position)));
+            keyLocations.AddRange(mapManager.keyMap.Values.Select(key => mapManager.ToLocation(key.transform.position)));
 
             parameter = parameterManager.parameter;
         }
