@@ -21,6 +21,15 @@ namespace Memoria.Dungeon.Managers
         public Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
         public Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
 
+        public List<Block> blocks { get { return map.Values.ToList(); } }
+        public List<Vector2Int> blockLocations { get { return map.Keys.ToList(); } }
+
+        public List<Key> keys { get { return keyMap.Values.ToList(); } }
+        public List<Vector2Int> keyLocations { get { return keyMap.Keys.ToList(); } }
+
+        public List<Jewel> jewels { get { return jewelMap.Values.ToList(); } }
+        public List<Vector2Int> jewelLocations { get { return jewelMap.Keys.ToList(); } }
+
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
         private Rect stageArea;
 
@@ -88,10 +97,20 @@ namespace Memoria.Dungeon.Managers
                 });
         }
 
-        //  public bool ExistsBlock(Vector2Int location)
-        //  {
-        //      return map.ContainsKey(location);
-        //  }
+        public bool ExistsBlock(Vector2Int location)
+        {
+            return map.ContainsKey(location);
+        }
+
+        public bool ExistsKey(Vector2Int location)
+        {
+            return keyMap.ContainsKey(location);
+        }
+
+        public bool ExistsJewel(Vector2Int location)
+        {
+            return jewelMap.ContainsKey(location);
+        }
 
         /// <summary>
         /// 指定の位置からマップ上に配置されるときの位置を取得する
