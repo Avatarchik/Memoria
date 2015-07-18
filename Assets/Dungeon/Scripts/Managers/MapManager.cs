@@ -18,9 +18,6 @@ namespace Memoria.Dungeon.Managers
         /// マップ
         /// </summary>
         public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
-
-        //  public List<Key> keys = new List<Key>();
-        //  public List<Jewel> jewels = new List<Jewel>();
         public Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
         public Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
 
@@ -89,23 +86,6 @@ namespace Memoria.Dungeon.Managers
                 {
                     jewelMap.Add(jewelData.location, jewelData.jewel);
                 });
-
-            //  keys.AddRange(keyLocations
-            //      .Select(location =>
-            //      {
-            //          var key = Instantiate<GameObject>(keyPrefab).GetComponent<Key>();
-            //          key.transform.position = (Vector3)ToPosition(location);
-            //          return key;
-            //      }));
-
-            //  jewels.AddRange(jewelDatas
-            //      .Select(data =>
-            //      {
-            //          var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
-            //          jewel.jewelData = data;
-            //          jewel.transform.position = (Vector3)ToPosition(data.location);
-            //          return jewel;
-            //      }));
         }
 
         //  public bool ExistsBlock(Vector2Int location)
