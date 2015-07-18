@@ -7,15 +7,40 @@ namespace Memoria.Dungeon.Items
     [SerializeField]
     public struct ItemData
     {
-        public Vector2Int location;
-        public BlockType attribute;
+        [SerializeField]
+        private BlockType _attribute;
+        public BlockType attribute
+        {
+            get { return _attribute; }
+            set { _attribute = value; }
+        }
+
+        [SerializeField]
+        private Vector2Int _location;
+        public Vector2Int location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
     }
 	
     public class Item : MonoBehaviour
     {
-        public ItemData data;
+        private ItemData _itemData;
+        public ItemData itemData
+        {
+            get { return _itemData; }
+            set
+            {
+                _itemData = value;
+                if (tag != "Key")
+                {
+                    SetSprite(_itemData.attribute);
+                }
+            }
+        }
 
-		[SerializeField]
+        [SerializeField]
         public Sprite thunderSprite;
 
         [SerializeField]
@@ -28,13 +53,13 @@ namespace Memoria.Dungeon.Items
         public Sprite windSprite;
 
         // Use this for initialization
-        void Start()
-        {
-            if (tag != "Key")
-            {
-                SetSprite(data.attribute);
-            }
-        }
+        //  void Start()
+        //  {
+        //      if (tag != "Key")
+        //      {
+        //          SetSprite(data.attribute);
+        //      }
+        //  }
 
         //  // Update is called once per frame
         //  void Update()
