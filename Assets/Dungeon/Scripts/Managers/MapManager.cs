@@ -19,7 +19,7 @@ namespace Memoria.Dungeon.Managers
         /// </summary>
         public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
 
-        public List<GameObject> keys = new List<GameObject>();
+        public List<Key> keys = new List<Key>();
         public List<Jewel> jewels = new List<Jewel>();
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
@@ -62,18 +62,21 @@ namespace Memoria.Dungeon.Managers
             stageArea = stageData.stageSize;
 
             keys.AddRange(keyLocations
-                    .Select(location => (Vector3)ToPosition(location))
-                    .Select(position => Instantiate(keyPrefab, position, Quaternion.identity) as GameObject));
+                .Select(location =>
+                {
+                    var key = Instantiate<GameObject>(keyPrefab).GetComponent<Key>();
+                    key.transform.position = (Vector3)ToPosition(location);
+                    return key;
+                }));
 
             jewels.AddRange(jewelDatas
-                    .Select(data => new { jewelData = data, position = (Vector3)ToPosition(data.location) })
-                    .Select(data =>
-                    {
-                        var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
-                        jewel.transform.position = data.position;
-                        jewel.jewelData = data.jewelData;
-                        return jewel;
-                    }));
+                .Select(data =>
+                {
+                    var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
+                    jewel.jewelData = data;
+                    jewel.transform.position = (Vector3)ToPosition(data.location);
+                    return jewel;
+                }));
         }
 
         /// <summary>

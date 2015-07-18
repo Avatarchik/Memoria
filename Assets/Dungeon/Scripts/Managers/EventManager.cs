@@ -119,6 +119,7 @@ namespace Memoria.Dungeon.Managers
 			{
 				// LoadLevelCalled
 				OnBattleEvent();
+				return;
 			}
 			ReturnFromBattle();
 			=> {
