@@ -205,11 +205,11 @@ namespace Memoria.Dungeon.Managers
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
-            var parameter = parameterManager.parameter;
-
+			
+			OnTakeStock(block);
             block.OnBlockEventExit();
 
-            if (parameter.sp <= 0)
+            if (!RemainsSp())
             {
                 Debug.Log("leave dungeon!!");
             }
