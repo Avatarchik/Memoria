@@ -63,7 +63,22 @@ namespace Memoria.Dungeon.Managers
                 return ret;
             }
         }
-
+		
+		private Subject<Item> onTakeItem;
+		
+		public IObservable<Item> OnTakeItemAsObservable()
+		{
+			return onTakeItem ?? (onTakeItem = new Subject<Item>());
+		}
+		
+		private void OnTakeItem(Item item)
+		{
+			if (onTakeItem != null)
+			{
+				onTakeItem.OnNext(item);
+			}
+		}
+		
         void Awake()
         {
             BlockManager.instance.OnCreateBlockAsObservable()
@@ -155,7 +170,7 @@ namespace Memoria.Dungeon.Managers
 		
 		public void TakeItem(Item item)
 		{
-			// OnTakeItem(item);
+			OnTakeItem(item);
 			itemMap.Remove(item.itemData.location);
 			Destroy(item.gameObject);
 		}
