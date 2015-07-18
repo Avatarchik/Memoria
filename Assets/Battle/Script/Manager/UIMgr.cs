@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using System.Linq;
 using Memoria.Battle.GameActors;
+using Memoria.Battle.Events;
 
 namespace Memoria.Battle.Managers
 {
@@ -18,15 +20,7 @@ namespace Memoria.Battle.Managers
             _attackTracker = GetComponent<AttackTracker>();
             _spawner = FindObjectOfType<ActorSpawner>();
             _elements = new Dictionary<string, UIElement>();
-        }
-
-        void LateUpdate()
-        {
-           // Update nameplate order
-            foreach(var obj in _attackTracker.attackOrder.OrderByDescending(x => x.Value))
-            {
-                _elements["Namebar_"+ obj.Key.battleID].transform.position = _queueSlots[(int)obj.Key.orderIndex];
-            }
+            EventMgr.Instance.AddListener<NewTurn>(UpdateNameplates);
         }
 
         //************************************ Cursor
@@ -95,6 +89,20 @@ namespace Memoria.Battle.Managers
                 barObj.Init();
                 barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
                 _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
+            }
+        }
+
+        public void UpdateNameplates(NewTurn e)
+        {
+            Namebar barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
+            if(e.curve && barObj)
+            {
+                barObj.transform.SetAsLastSibling();
+                barObj.CurvedMove(_queueSlots[(int)e.entity.orderIndex]);
+            }
+            else if(e.moved && barObj)
+            {
+                barObj.FallDown(_queueSlots[(int)e.entity.orderIndex]);
             }
         }
 

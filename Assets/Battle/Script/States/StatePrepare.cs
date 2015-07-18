@@ -14,7 +14,7 @@ namespace Memoria.Battle.States
             _timeBeforeStart = 120;
 
             BattleMgr.actorList = BattleMgr.actorList.OrderByDescending (x => x.GetComponent<Entity> ().parameter.speed).ToList ();
-            GenerateOrderIndex ();
+            attackTracker.GenerateQueue<Entity>(BattleMgr.actorList);
             uiMgr.SpawnNamebars(attackTracker.attackOrder);
         }
 
@@ -25,18 +25,6 @@ namespace Memoria.Battle.States
             {
                 _timeBeforeStart = 120;
                 battleMgr.SetState(State.RUNNING);
-            }
-        }
-
-        public void GenerateOrderIndex()
-        {
-            foreach (GameObject go in BattleMgr.actorList) {
-                Entity actor = go.GetComponent<Entity>();
-                actor.orderIndex = _orderIndex;
-                if(!attackTracker.attackOrder.ContainsKey(actor)) {
-                    attackTracker.attackOrder.Add(actor, _orderIndex);
-                }
-                _orderIndex++;
             }
         }
     }

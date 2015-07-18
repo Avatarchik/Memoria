@@ -39,7 +39,7 @@ namespace Memoria.Battle.Managers
         public MainPlayer mainPlayer;
 
         private Type[] _profileType;
-       
+
         private Dictionary<State, BattleState> _battleStates;
         private bool _setResultRunning;
         public BattleState CurrentState { get; private set; }
@@ -179,7 +179,7 @@ namespace Memoria.Battle.Managers
                 StartCoroutine(SetResult(State.PLAYER_WON, AttackAnimation));
                 return true;
             }
-            if(mainPlayer.health.hp <= 0 && !_setResultRunning) 
+            if(mainPlayer.health.hp <= 0 && !_setResultRunning)
             {
                 StartCoroutine(SetResult(State.PLAYER_LOST, AttackAnimation));
                 return true;
@@ -212,17 +212,17 @@ namespace Memoria.Battle.Managers
         public void RemoveFromBattle(Entity e)
         {
             var entityId = e.GetComponent<Entity>().battleID;
-            _attackTracker.DestroyActor(e);
             _uiMgr.DestroyElement("Namebar_"+ entityId);
+            _attackTracker.RemoveFromQueue(e);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
+
             EventMgr.Instance.Raise(new Memoria.Battle.Events.MonsterDies(e));
-//            e.Die();
         }
 
         private Type[] GetRandomEnemies()
         {
-            Type[] result = { typeof(Golem), typeof(Golem) };
-            return result;
+            Type[] result = { typeof(Golem) }; //, typeof(Golem), typeof(Golem) };
+                return result;
         }
 
     }

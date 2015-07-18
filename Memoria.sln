@@ -5,6 +5,8 @@ Project("{46F8E2E6-BD7C-9C8B-6B80-6CFA3057FFAE}") = "Memoria", "Assembly-CSharp-
 EndProject
 Project("{46F8E2E6-BD7C-9C8B-6B80-6CFA3057FFAE}") = "Memoria", "Assembly-CSharp.csproj", "{44A4EBAE-A4D2-4248-F229-9F58E0CC78A4}"
 EndProject
+Project("{46F8E2E6-BD7C-9C8B-6B80-6CFA3057FFAE}") = "Memoria", "Assembly-UnityScript.unityproj", "{FD3CB9A0-4170-9C61-EA55-119907373E48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +21,17 @@ Global
 		{44A4EBAE-A4D2-4248-F229-9F58E0CC78A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44A4EBAE-A4D2-4248-F229-9F58E0CC78A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44A4EBAE-A4D2-4248-F229-9F58E0CC78A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3CB9A0-4170-9C61-EA55-119907373E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3CB9A0-4170-9C61-EA55-119907373E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3CB9A0-4170-9C61-EA55-119907373E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3CB9A0-4170-9C61-EA55-119907373E48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 																																																																																																							GlobalSection(MonoDevelopProperties) = preSolution
 																																																																																																					GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																															GlobalSection(MonoDevelopProperties) = preSolution
 																														GlobalSection(MonoDevelopProperties) = preSolution
 																																	GlobalSection(MonoDevelopProperties) = preSolution
 																										GlobalSection(MonoDevelopProperties) = preSolution

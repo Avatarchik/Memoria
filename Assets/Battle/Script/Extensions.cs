@@ -41,5 +41,10 @@ namespace Memoria.Battle
             }
             return (int)Math.Ceiling(Math.Log10(number));
         }
+
+        public static bool IsBetween<T>(this T obj, T start, T end) where T : IComparable
+        {
+            return obj.CompareTo(start) >= 0 && obj.CompareTo(end) <= 0;
+        }
     }
 }

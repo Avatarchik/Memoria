@@ -24,7 +24,7 @@ namespace Memoria.Battle.GameActors
         public Profile profile;
 
         public int phaseTimer;
-        public float orderIndex;
+        public float orderIndex { get; set; }
 
         public bool attackReady;
         public bool chargeReady;
@@ -35,6 +35,8 @@ namespace Memoria.Battle.GameActors
         public HealthSystem health;
         public DeathSystem death;
         public AttackTracker tracker;
+        
+        protected bool curve = false;
 
         void Awake ()
         {
@@ -58,6 +60,7 @@ namespace Memoria.Battle.GameActors
 
             if(charge)
             {
+                curve = true;
                 orderIndex = attack.phaseCost;
                 tracker.QueueAction(this, orderIndex);
                 BattleMgr.Instance.SetState(State.RUNNING);
@@ -85,8 +88,8 @@ namespace Memoria.Battle.GameActors
 
         public virtual void StartTurn()
         {
-        }
 
+        }
         public virtual void EndTurn()
         {
             attackReady = false;
@@ -94,19 +97,24 @@ namespace Memoria.Battle.GameActors
 
         protected void UpdateOrder(TurnEnds gameEvent)
         {
-           if(!charge)
+            bool moves = true;
+            if(!charge)
             {
                 orderIndex--;
                 if(orderIndex < 0) {
                     orderIndex = BattleMgr.actorList.Count - 1;
+                    curve = true;
                 }
                 tracker.MoveTo(this, orderIndex);
             }
             else
             {
+                moves = false;
                 charge = false;
                 chargeReady = true;
             }
+            EventMgr.Instance.Raise(new NewTurn(this, moves, curve));
+            curve = false;
         }
 
         protected void Die(MonsterDies gameEvent)
