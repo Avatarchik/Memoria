@@ -139,7 +139,13 @@ namespace Memoria.Dungeon.Managers
             */
 
             //  StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
+			ReturnFromBattle();
         }
+		
+		private void OnTakeKey(Vector2Int location)
+		{
+			
+		}
 
         private bool OnTriggerOnBattleEvent(Block block)
         {
