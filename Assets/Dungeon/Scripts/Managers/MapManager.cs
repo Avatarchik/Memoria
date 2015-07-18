@@ -15,16 +15,16 @@ namespace Memoria.Dungeon.Managers
         public GameObject jewelPrefab;
 		
         private Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
-        private Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
-        private Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
+        private Dictionary<Vector2Int, Item> keyMap = new Dictionary<Vector2Int, Item>();
+        private Dictionary<Vector2Int, Item> jewelMap = new Dictionary<Vector2Int, Item>();
 
         public List<Block> blocks { get { return map.Values.ToList(); } }
         public List<Vector2Int> blockLocations { get { return map.Keys.ToList(); } }
 
-        public List<Key> keys { get { return keyMap.Values.ToList(); } }
+        public List<Item> keys { get { return keyMap.Values.ToList(); } }
         public List<Vector2Int> keyLocations { get { return keyMap.Keys.ToList(); } }
 
-        public List<Jewel> jewels { get { return jewelMap.Values.ToList(); } }
+        public List<Item> jewels { get { return jewelMap.Values.ToList(); } }
         public List<Vector2Int> jewelLocations { get { return jewelMap.Keys.ToList(); } }
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
@@ -61,7 +61,7 @@ namespace Memoria.Dungeon.Managers
                 });
         }
 
-        public void SetMap(List<BlockData> blockDatas, StageData stageData, List<Vector2Int> keyLocations, List<JewelData> jewelDatas)
+        public void SetMap(List<BlockData> blockDatas, StageData stageData, List<Vector2Int> keyLocations, List<ItemData> jewelDatas)
         {
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
@@ -69,7 +69,7 @@ namespace Memoria.Dungeon.Managers
             keyLocations
                 .Select(location =>
                 {
-                    var key = Instantiate<GameObject>(keyPrefab).GetComponent<Key>();
+                    var key = Instantiate<GameObject>(keyPrefab).GetComponent<Item>();
                     key.transform.position = (Vector3)ToPosition(location);
                     return new { location, key };
                 })
@@ -82,8 +82,8 @@ namespace Memoria.Dungeon.Managers
             jewelDatas
                 .Select(data =>
                 {
-                    var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Jewel>();
-                    jewel.jewelData = data;
+                    var jewel = Instantiate<GameObject>(jewelPrefab).GetComponent<Item>();
+                    jewel.itemData = data;
                     jewel.transform.position = (Vector3)ToPosition(data.location);
                     return new { data.location, jewel };
                 })
@@ -114,12 +114,12 @@ namespace Memoria.Dungeon.Managers
             return map[location];
         }
 
-        public Key GetKey(Vector2Int location)
+        public Item GetKey(Vector2Int location)
         {
             return keyMap[location];
         }
 
-        public Jewel GetJewel(Vector2Int location)
+        public Item GetJewel(Vector2Int location)
         {
             return jewelMap[location];
         }

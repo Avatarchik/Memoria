@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using Memoria.Dungeon.BlockComponent;
 
 namespace Memoria.Dungeon.Items
 {
-    [SerializeField]
+    [Serializable]
     public struct ItemData
     {
         [SerializeField]

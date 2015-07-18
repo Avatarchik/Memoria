@@ -97,7 +97,6 @@ namespace Memoria.Dungeon.Managers
                 //  	OnBossBattle();
                 //  }				
             }
-
             /*
 			// 3 アイテムの確認
 			else if (ExistsItem())
@@ -135,6 +134,11 @@ namespace Memoria.Dungeon.Managers
             StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
         }
 
+        public bool ExistsItem(Vector2Int location)
+        {
+            return mapManager.ExistsJewel(location);
+        }
+        
         private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
         {
             dungeonManager.EnterState(DungeonState.BlockEvent);

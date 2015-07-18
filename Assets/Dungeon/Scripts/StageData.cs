@@ -11,6 +11,6 @@ namespace Memoria.Dungeon
 		public Rect stageSize;
 		public List<Vector2Int> keyLocations;
 		
-		public List<JewelData> jewelDatas;
+		public List<ItemData> jewelDatas;
     }
 }

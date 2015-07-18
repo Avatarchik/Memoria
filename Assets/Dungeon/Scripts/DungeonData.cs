@@ -20,8 +20,8 @@ namespace Memoria.Dungeon
         private List<BlockData> mapData;
 
         private List<Vector2Int> keyLocations;
-		
-        private List<JewelData> jewelDatas;
+
+        private List<ItemData> jewelDatas;
 
         public int[] stocks { get; set; }
 
@@ -50,7 +50,7 @@ namespace Memoria.Dungeon
 
                 mapData = LoadMapData("");
                 keyLocations = new List<Vector2Int>(stageData.keyLocations);
-                jewelDatas = new List<JewelData>(stageData.jewelDatas);
+                jewelDatas = new List<ItemData>(stageData.jewelDatas);
                 parameter = new DungeonParameter(100, 100, 100, 100, 0, keyLocations.Count, 1000, "none");
                 stocks = new[] { 0, 0, 0, 0 };
             }
