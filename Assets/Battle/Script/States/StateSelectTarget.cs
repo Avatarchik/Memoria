@@ -18,7 +18,8 @@ namespace Memoria.Battle.States
                 SetSelectable(nowActor.attackType.targetType, true);
             }
 
-            if(hero.target == null) {
+            if(hero.target == null)
+            {
                 uiMgr.SpawnDescription("description_frame");
                 foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
@@ -26,7 +27,7 @@ namespace Memoria.Battle.States
                 }
             }
         }
-
+        
         override public void Update()
         {
 

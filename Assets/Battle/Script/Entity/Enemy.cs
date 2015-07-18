@@ -58,7 +58,6 @@ namespace Memoria.Battle.GameActors
             phaseTimer = attackType.phaseCost;
             if (!attackReady && isAlive)
             {
-                FadeAttackScreen.Flash(); //TODO: temporary
                 BattleMgr.Instance.SetState(State.ANIMATOIN);
             }
             return base.Attack (attackType);
