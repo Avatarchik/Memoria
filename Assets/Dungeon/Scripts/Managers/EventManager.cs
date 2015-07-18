@@ -81,6 +81,7 @@ namespace Memoria.Dungeon.Managers
             if (mapManager.ExistsItem(player.location))
             {
                 Item item = mapManager.GetItem(player.location);
+				mapManager.TakeItem(item);
 				
                 switch (item.itemData.type)
                 {
