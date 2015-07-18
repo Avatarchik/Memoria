@@ -52,20 +52,8 @@ namespace Memoria.Dungeon.Items
         [SerializeField]
         public Sprite windSprite;
 
-        // Use this for initialization
-        //  void Start()
-        //  {
-        //      if (tag != "Key")
-        //      {
-        //          SetSprite(data.attribute);
-        //      }
-        //  }
-
-        //  // Update is called once per frame
-        //  void Update()
-        //  {
-
-        //  }
+        [SerializeField]
+        public Sprite recoverySprite;
 
         private void SetSprite(BlockType attribute)
         {
@@ -87,6 +75,10 @@ namespace Memoria.Dungeon.Items
 
                 case BlockType.Wind:
                     renderer.sprite = windSprite;
+                    break;
+
+                case BlockType.Recovery:
+                    renderer.sprite = recoverySprite;
                     break;
             }
         }
