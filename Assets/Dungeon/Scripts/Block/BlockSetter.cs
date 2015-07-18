@@ -58,7 +58,8 @@ namespace Memoria.Dungeon.BlockComponent.Utility
         public bool CanPut()
         {
             if (!mapManager.canPutBlockArea.Contains(block.transform.position)
-                || mapManager.map.ContainsKey(block.location))
+                //  || mapManager.map.ContainsKey(block.location))
+                || mapManager.ExistsBlock(block.location))
             {
                 return false;
             }
@@ -71,7 +72,8 @@ namespace Memoria.Dungeon.BlockComponent.Utility
             Vector2Int checkLocation = block.location + checkBaseDirection;
 
             if (!block.shapeData.Opend(checkBaseDirection)
-                || !mapManager.map.ContainsKey(checkLocation))
+                //  || !mapManager.map.ContainsKey(checkLocation))
+                || !mapManager.ExistsBlock(checkLocation))
             {
                 return false;
             }

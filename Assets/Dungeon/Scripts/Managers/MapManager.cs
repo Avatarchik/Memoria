@@ -17,9 +17,12 @@ namespace Memoria.Dungeon.Managers
         /// <summary>
         /// マップ
         /// </summary>
-        public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
-        public Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
-        public Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
+        //  public Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
+        //  public Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
+        //  public Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
+        private Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
+        private Dictionary<Vector2Int, Key> keyMap = new Dictionary<Vector2Int, Key>();
+        private Dictionary<Vector2Int, Jewel> jewelMap = new Dictionary<Vector2Int, Jewel>();
 
         public List<Block> blocks { get { return map.Values.ToList(); } }
         public List<Vector2Int> blockLocations { get { return map.Keys.ToList(); } }

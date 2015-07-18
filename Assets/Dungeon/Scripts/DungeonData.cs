@@ -82,10 +82,12 @@ namespace Memoria.Dungeon
             location = player.location;
 
             mapData.Clear();
-            mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
+            //  mapData.AddRange(mapManager.map.Values.Select(block => block.blockData));
+            mapData.AddRange(mapManager.blocks.Select(block => block.blockData));
 
             keyLocations.Clear();
-            keyLocations.AddRange(mapManager.keyMap.Values.Select(key => mapManager.ToLocation(key.transform.position)));
+            //  keyLocations.AddRange(mapManager.keyMap.Values.Select(key => mapManager.ToLocation(key.transform.position)));
+            keyLocations.AddRange(mapManager.keyLocations);
 
             parameter = parameterManager.parameter;
         }

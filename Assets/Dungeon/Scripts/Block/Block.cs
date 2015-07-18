@@ -151,7 +151,8 @@ namespace Memoria.Dungeon.BlockComponent
 
         public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
         {
-            if (mapManager.map.ContainsKey(location))
+			if (mapManager.ExistsBlock(location))			
+            //  if (mapManager.map.ContainsKey(location))
             {
                 throw new UnityException("指定した場所にはすでにブロックがあります " + location);
             }
