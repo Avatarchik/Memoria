@@ -6,8 +6,25 @@ using Memoria.Dungeon.BlockComponent;
 namespace Memoria.Dungeon.Items
 {
     [Serializable]
+    public enum ItemType
+    {
+        Key,
+        Jewel,
+        Soul,
+        MagicPlate
+    }
+
+    [Serializable]
     public struct ItemData
     {
+        [SerializeField]
+        private ItemType _type;
+        public ItemType type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+
         [SerializeField]
         private BlockType _attribute;
         public BlockType attribute
@@ -24,7 +41,7 @@ namespace Memoria.Dungeon.Items
             set { _location = value; }
         }
     }
-	
+
     public class Item : MonoBehaviour
     {
         private ItemData _itemData;
@@ -59,7 +76,7 @@ namespace Memoria.Dungeon.Items
         private void SetSprite(BlockType attribute)
         {
             var renderer = GetComponent<SpriteRenderer>();
-			
+
             switch (attribute)
             {
                 case BlockType.Thunder:

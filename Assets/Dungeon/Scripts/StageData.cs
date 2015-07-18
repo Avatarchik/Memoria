@@ -9,8 +9,6 @@ namespace Memoria.Dungeon
     {
 		public string areaSpritePath;
 		public Rect stageSize;
-		public List<Vector2Int> keyLocations;
-		
-		public List<ItemData> jewelDatas;
+		public List<ItemData> itemDatas;
     }
 }
