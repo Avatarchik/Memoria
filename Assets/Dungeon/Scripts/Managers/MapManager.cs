@@ -97,6 +97,11 @@ namespace Memoria.Dungeon.Managers
         {
             return map.ContainsKey(location);
         }
+		
+		public bool ExistsItem(Vector2Int location)
+		{
+			return itemMap.ContainsKey(location);
+		}
 
         public bool ExistsKey(Vector2Int location)
         {
@@ -107,6 +112,16 @@ namespace Memoria.Dungeon.Managers
         {
             return jewelLocations.Contains(location);
         }
+		
+		public bool ExistsSoul(Vector2Int location)
+		{
+			return soulLocations.Contains(location);
+		}
+		
+		public bool ExistsMagicPlate(Vector2Int location)
+		{
+			return magicPlateLocations.Contains(location);
+		}
 
         public Block GetBlock(Vector2Int location)
         {

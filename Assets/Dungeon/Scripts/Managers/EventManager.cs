@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.BlockEvents;
+using Memoria.Dungeon.Items;
 using UniRx;
 
 namespace Memoria.Dungeon.Managers
@@ -86,41 +87,47 @@ namespace Memoria.Dungeon.Managers
 			6 SPチェック
 			*/
 
-            // 1 キーの確認
-            if (mapManager.ExistsKey(player.location))
+            if (mapManager.ExistsItem(player.location))
             {
-                //  GetKey();
-                //  if (keyCount == fillKeyCount)
-                //  {
-                //  	// 2 ボス戦の発生
-                //  	// LoadLevelCalled
-                //  	OnBossBattle();
-                //  }				
+                Item item = mapManager.GetItem(player.location);
+				Debug.Log("Get Item : " + item.tag);
+				
+                switch (item.itemData.type)
+                {
+                    case ItemType.Key:
+                        // GEtKey();
+                        //  {
+                        //  	var keyCount = 0;
+                        //  	var keyFillCount = 1;
+                        //  	
+                        //  	if (keyCount == keyFillCount)
+                        //  	{
+                        //  		// Called Applicatoin.LoadLevel();
+                        //  		// OnBossBattle();
+                        //			// return;
+                        //  	}
+                        //  }
+                        break;
+
+                    case ItemType.Jewel:
+                        // GetJewel();
+                        break;
+
+                    case ItemType.Soul:
+                        // GetSoul();
+                        break;
+
+                    case ItemType.MagicPlate:
+                        // GetMagicPlate();
+                        break;
+                }
+            }
+            else if (OnTriggerOnBattleEvent(block))
+            {
+				OnBattleEvent(block);
+                return;
             }
             /*
-			// 3 アイテムの確認
-			else if (ExistsItem())
-			{
-				GetItem(); 
-				// => {
-					//  switch(item)
-					//  {
-					//  case Jewel:
-					//  	GetJewel();
-					//  case Soul:
-					//  	GetSoul();
-					//  case Plane:
-					//  	GetPlane();
-					//  }
-				// };
-			}
-			// 4 戦闘
-			else if (OnTriggerOnBattleEvent())
-			{
-				// LoadLevelCalled
-				OnBattleEvent();
-				return;
-			}
 			ReturnFromBattle();
 			=> {
 				// 5 ストック
@@ -131,14 +138,25 @@ namespace Memoria.Dungeon.Managers
 			};
             */
 
+            //  StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
+        }
+
+        private bool OnTriggerOnBattleEvent(Block block)
+        {
+            if (block.blockType == BlockType.None ||
+                block.blockType == BlockType.Recovery)
+            {
+				return false;
+            }
+
+            return Random.value < 0.2f;
+        }
+
+        private void OnBattleEvent(Block block)
+        {
             StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
         }
 
-        public bool ExistsItem(Vector2Int location)
-        {
-            return mapManager.ExistsJewel(location);
-        }
-        
         private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
         {
             dungeonManager.EnterState(DungeonState.BlockEvent);
