@@ -77,74 +77,82 @@ namespace Memoria.Dungeon.Managers
                 return;
             }
 
-            /*
-            // @TODO 
-			1 キーの確認 
-			2 ボス戦の発生
-			3 アイテム獲得処理（宝石、精霊の魂、魔石版）
-			4 戦闘
-			5 ストック
-			6 SPチェック
-			*/
-
+			// アイテムの取得
             if (mapManager.ExistsItem(player.location))
             {
                 Item item = mapManager.GetItem(player.location);
-				Debug.Log("Get Item : " + item.tag);
 				
                 switch (item.itemData.type)
                 {
                     case ItemType.Key:
-                        // GEtKey();
-                        //  {
-                        //  	var keyCount = 0;
-                        //  	var keyFillCount = 1;
-                        //  	
-                        //  	if (keyCount == keyFillCount)
-                        //  	{
-                        //  		// Called Applicatoin.LoadLevel();
-                        //  		// OnBossBattle();
-                        //			// return;
-                        //  	}
-                        //  }
+						OnTakeKey(item);
+						
+						// ボス戦
+						if (OnTriggerOnBossBattleEvent())
+						{
+							OnBossBattleEvent();
+							return;
+						}
                         break;
 
                     case ItemType.Jewel:
-                        // GetJewel();
+                        OnTakeJewel(item);
                         break;
 
                     case ItemType.Soul:
-                        // GetSoul();
+						OnTakeSoul(item);
                         break;
 
                     case ItemType.MagicPlate:
-                        // GetMagicPlate();
+						OnTakeMagicPlate(item);
                         break;
                 }
             }
+			// 戦闘
             else if (OnTriggerOnBattleEvent(block))
             {
 				OnBattleEvent(block);
                 return;
             }
-            /*
-			ReturnFromBattle();
-			=> {
-				// 5 ストック
-				GetStock();
-				
-				// 6 SPチェック
-				CheckSp();
-			};
-            */
+			
+			// ストック取得
+			OnTakeStock(block);			
+			block.OnBlockEventExit();
+			
+			// SPチェック
+			if (!RemainsSp())
+			{
+				Debug.Log("Leave Dungeon!");	
+			}
 
             //  StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
-			ReturnFromBattle();
         }
 		
-		private void OnTakeKey(Vector2Int location)
+		private void OnTakeKey(Item key)
 		{
 			
+		}
+		
+		private bool OnTriggerOnBossBattleEvent()
+		{
+			return parameterManager.parameter.getKeyNum == parameterManager.parameter.allKeyNum;
+		}
+		
+		private void OnBossBattleEvent()
+		{
+			
+		}
+		
+		private void OnTakeJewel(Item jewel)
+		{
+		}
+		
+		private void OnTakeSoul(Item soul)
+		{
+		}
+		
+		private void OnTakeMagicPlate(Item magicPlate)
+		{			
 		}
 
         private bool OnTriggerOnBattleEvent(Block block)
@@ -162,6 +170,16 @@ namespace Memoria.Dungeon.Managers
         {
             StartCoroutine(CoroutineBlockEvent(block, parameterManager.parameter));
         }
+		
+		private void OnTakeStock(Block block)
+		{
+			
+		}
+		
+		private bool RemainsSp()
+		{
+			return parameterManager.parameter.sp > 0;
+		}
 
         private IEnumerator CoroutineBlockEvent(Block block, DungeonParameter parameter)
         {
@@ -183,7 +201,7 @@ namespace Memoria.Dungeon.Managers
 
             yield break;
         }
-
+		
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
