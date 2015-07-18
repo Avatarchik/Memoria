@@ -5,6 +5,8 @@ namespace Memoria.Battle.GameActors
     {
         void Awake ()
         {
+            int[][] i;
+
             nameplate = "Namebar_Golem";
 
             parameter.attack = 10;

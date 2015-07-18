@@ -94,9 +94,7 @@ namespace Memoria.Battle.Managers
 
         public void UpdateNameplates(NewTurn e)
         {
-
             Namebar barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
-
             if(e.curve && barObj)
             {
                 barObj.transform.SetAsLastSibling();

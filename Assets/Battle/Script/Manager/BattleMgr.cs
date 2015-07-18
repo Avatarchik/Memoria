@@ -221,8 +221,8 @@ namespace Memoria.Battle.Managers
 
         private Type[] GetRandomEnemies()
         {
-            Type[] result = { typeof(Golem), typeof(Golem), typeof(Golem) };
-            return result;
+            Type[] result = { typeof(Golem) }; //, typeof(Golem), typeof(Golem) };
+                return result;
         }
 
     }

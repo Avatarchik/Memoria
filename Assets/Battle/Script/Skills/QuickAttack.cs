@@ -4,26 +4,29 @@ using Memoria.Battle.Managers;
 namespace Memoria.Battle.GameActors
 {
     public class QuickAttack : AttackType {
-
+        bool destroyed = false;
         void Start () {
-            animationDur = 7;
-            effectObj = (GameObject)Resources.Load("Skills/dmg");
-            elementalAff = new NoElement(Element.NONE);
+            animationDur = 20;
+            effectObj = (GameObject)Resources.Load("Skills/Enemy_Normal");
+            parameters.attackPower = -1;
         }
 
         override public void Execute(Damage damage, IDamageable target)
         {
             damage.DamageParameters = parameters;
             target.TakeDamage(damage);
+            destroyed = false;
         }
 
         override public void PlayEffect (Entity target)
         {
-            if (!normalEffect)
+            if(!particleEffect && !destroyed)
             {
-                normalEffect = Instantiate (effectObj) as GameObject;
-                normalEffect.transform.position = new Vector3 (0, 0, 0);
-                Destroy (normalEffect, 0.20f);
+                particleEffect = Instantiate (effectObj);
+                particleEffect.transform.position = new Vector3 (0,0,0);
+                particleEffect.GetComponentInChildren<EllipsoidParticleEmitter>().Emit(3);
+                DestroyObject(particleEffect, 0.5f);
+                destroyed = true;
             }
         }
     }

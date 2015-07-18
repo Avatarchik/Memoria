@@ -46,14 +46,20 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Battle\Elementals\Scripts\OrbitCamera.cs" />
-     <Compile Include="Assets\Battle\Elementals\Scripts\TestParticles.cs" />
      <Compile Include="Assets\Battle\Script\Components\ActorSpawner.cs" />
      <Compile Include="Assets\Battle\Script\Components\DeathSystem.cs" />
      <Compile Include="Assets\Battle\Script\Components\DestoryParticle.cs" />
      <Compile Include="Assets\Battle\Script\Components\ElementalPowerStock.cs" />
      <Compile Include="Assets\Battle\Script\Components\EnemyAI.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\FireBoss.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\FireSlime.cs" />
      <Compile Include="Assets\Battle\Script\Components\EnemyAI\Golem.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\ThunderBoss.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\ThunderSlime.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\WaterBoss.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\WaterSlime.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\WindBoss.cs" />
+     <Compile Include="Assets\Battle\Script\Components\EnemyAI\WindSlime.cs" />
      <Compile Include="Assets\Battle\Script\Components\HealthSystem.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Amelia.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Aria.cs" />
@@ -111,6 +117,7 @@
      <Compile Include="Assets\Battle\Script\Support\Parameter.cs" />
      <Compile Include="Assets\Battle\Script\Support\Singleton.cs" />
      <Compile Include="Assets\Battle\Script\Support\TargetType.cs" />
+     <Compile Include="Assets\CancelButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
@@ -142,6 +149,13 @@
      <Compile Include="Assets\Menu\Scripts\MenuItem.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuTransition.cs" />
      <Compile Include="Assets\Menu\Scripts\Tower.cs" />
+     <Compile Include="Assets\Paricles\48 Particle Effect Pack\Script\csParticleEffectPackLightControl.cs" />
+     <Compile Include="Assets\Paricles\48 Particle Effect Pack\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
+     <Compile Include="Assets\Paricles\48 Particle Effect Pack\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
+     <Compile Include="Assets\Paricles\52SpecialEffectPack\Legacy Effect Editor\csLegacyEffectChanger.cs" />
+     <Compile Include="Assets\Paricles\52SpecialEffectPack\Legacy Effect Editor\csLegacyEffectEditor.cs" />
+     <Compile Include="Assets\Paricles\Elementals\Scripts\OrbitCamera.cs" />
+     <Compile Include="Assets\Paricles\Elementals\Scripts\TestParticles.cs" />
      <Compile Include="Assets\Title\Scripts\Title.cs" />
      <Compile Include="Assets\UniRx\Examples\Sample01_ObservableWWW.cs" />
      <Compile Include="Assets\UniRx\Examples\Sample02_ObservableTriggers.cs" />
@@ -264,7 +278,7 @@
      <Compile Include="Assets\UniRx\Scripts\UnityEngineBridge\UnityUIComponentExtensions.cs" />
      <Compile Include="Assets\UniRx\Scripts\UnityWinRTBridge\Thread.cs" />
      <Compile Include="Assets\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
-     <None Include="Assets\Battle\Elementals\!Readme.txt" />
+     <None Include="Assets\Paricles\Elementals\!Readme.txt" />
      <None Include="Assets\UniRx\ReadMe.txt" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">
