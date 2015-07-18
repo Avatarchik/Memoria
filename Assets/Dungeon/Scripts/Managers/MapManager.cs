@@ -46,7 +46,7 @@ namespace Memoria.Dungeon.Managers
         public List<Vector2Int> magicPlateLocations { get { return GetItemLocations(ItemType.MagicPlate); } }
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
-        private Rect stageArea;
+        public Rect stageArea { get; private set; }
 
         public Rect canPutBlockArea
         {
