@@ -86,18 +86,19 @@ namespace Memoria.Dungeon.Managers
 			6 SPチェック
 			*/
 
+            // 1 キーの確認
+            if (mapManager.ExistsKey(player.location))
+            {
+                //  GetKey();
+                //  if (keyCount == fillKeyCount)
+                //  {
+                //  	// 2 ボス戦の発生
+                //  	// LoadLevelCalled
+                //  	OnBossBattle();
+                //  }				
+            }
+
             /*
-			// 1 キーの確認
-			if (ExistsKey())
-			{
-				GetKey();
-				if (keyCount == fillKeyCount)
-				{
-					// 2 ボス戦の発生
-					// LoadLevelCalled
-					OnBossBattle();
-				}
-			}
 			// 3 アイテムの確認
 			else if (ExistsItem())
 			{
