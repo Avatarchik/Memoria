@@ -70,7 +70,8 @@ namespace Memoria.Dungeon.Managers
         public void OnArrivePlayer()
         {
             // プレイヤーがいるブロックを取得
-            Block block = mapManager.map[player.location];
+            //  Block block = mapManager.map[player.location];
+            Block block = mapManager.GetBlock(player.location);
             if (block.blockType == BlockType.None)
             {
                 return;
@@ -157,7 +158,8 @@ namespace Memoria.Dungeon.Managers
 
         public void ReturnFromBattle()
         {
-            Block block = mapManager.map[player.location];
+            //  Block block = mapManager.map[player.location];
+            Block block = mapManager.GetBlock(player.location);
             var parameter = parameterManager.parameter;
 
             block.OnBlockEventExit();

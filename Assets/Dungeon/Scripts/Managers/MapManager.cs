@@ -115,6 +115,21 @@ namespace Memoria.Dungeon.Managers
             return jewelMap.ContainsKey(location);
         }
 
+        public Block GetBlock(Vector2Int location)
+        {
+            return map[location];
+        }
+
+        public Key GetKey(Vector2Int location)
+        {
+            return keyMap[location];
+        }
+
+        public Jewel GetJewel(Vector2Int location)
+        {
+            return jewelMap[location];
+        }
+
         /// <summary>
         /// 指定の位置からマップ上に配置されるときの位置を取得する
         /// </summary>

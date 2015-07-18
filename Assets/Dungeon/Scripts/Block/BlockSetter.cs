@@ -78,7 +78,8 @@ namespace Memoria.Dungeon.BlockComponent.Utility
                 return false;
             }
 
-            Block checkBlock = mapManager.map[checkLocation];
+            //  Block checkBlock = mapManager.map[checkLocation];
+            Block checkBlock = mapManager.GetBlock(checkLocation);
             return checkBlock.shapeData.Opend(-checkBaseDirection);
         }
 
