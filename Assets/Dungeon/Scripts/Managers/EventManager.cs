@@ -67,7 +67,9 @@ namespace Memoria.Dungeon.Managers
                 .SelectMany(checkRemain)
                 .Subscribe();
         }
-        
+
+        #region Item
+
         private IEnumerator CoroutineTakeItem(IObserver<bool> observer, Vector2Int location)
         {
             bool exists = mapManager.ExistsItem(location);
@@ -79,17 +81,11 @@ namespace Memoria.Dungeon.Managers
                 switch (item.itemData.type)
                 {
                     case ItemType.Key:
-                        messageBoxText.text = "鍵を入手した！！";
-                        messageBox.SetActive(true);
-                        yield return new WaitForSeconds(1);
-                        messageBox.SetActive(false);
+                        yield return StartCoroutine(CoroutineTakeKey());
                         break;
 
                     case ItemType.Jewel:
-                        messageBoxText.text = "宝石を入手した！！";
-                        messageBox.SetActive(true);
-                        yield return new WaitForSeconds(1);
-                        messageBox.SetActive(false);
+                        yield return StartCoroutine(CoroutineTakeJewel());
                         break;
                 }
 
@@ -101,6 +97,25 @@ namespace Memoria.Dungeon.Managers
             observer.OnCompleted();
         }
 
+        private IEnumerator CoroutineTakeKey()
+        {
+            messageBoxText.text = "鍵を入手した！！";
+            messageBox.SetActive(true);
+            yield return new WaitForSeconds(1);
+            messageBox.SetActive(false);
+        }
+
+        private IEnumerator CoroutineTakeJewel()
+        {
+            messageBoxText.text = "宝石を入手した！！";
+            messageBox.SetActive(true);
+            yield return new WaitForSeconds(1);
+            messageBox.SetActive(false);
+        }
+
+        #endregion
+        #region Battle
+
         private IEnumerator CoroutineBattle(IObserver<bool> observer, Block block, bool takedItem)
         {
             bool onTriggerBattle = false;
@@ -109,19 +124,13 @@ namespace Memoria.Dungeon.Managers
             if (takedItem && OnTriggerOnBossBattleEvent())
             {
                 onTriggerBattle = true;
-                dungeonManager.dungeonData.SetBattleType(block.blockType);
-                dungeonManager.dungeonData.Save();
-                yield return new WaitForSeconds(0.5f);
-                Application.LoadLevel("Battle");
+                yield return StartCoroutine(CoroutineBattleToBoss(block));
             }
             // 通常
             else if (OnTriggerOnBattleEvent(block))
             {
                 onTriggerBattle = true;
-                dungeonManager.dungeonData.SetBattleType(block.blockType);
-                dungeonManager.dungeonData.Save();
-                yield return new WaitForSeconds(0.5f);
-                Application.LoadLevel("Battle");
+                yield return StartCoroutine(CoroutineBattleToEnemy(block));
             }
 
             observer.OnNext(onTriggerBattle);
@@ -129,29 +138,86 @@ namespace Memoria.Dungeon.Managers
             yield break;
         }
 
+        private bool OnTriggerOnBossBattleEvent()
+        {
+            return parameterManager.parameter.getKeyNum == parameterManager.parameter.allKeyNum;
+        }
+
+        private bool OnTriggerOnBattleEvent(Block block)
+        {
+            switch (block.blockType)
+            {
+                case BlockType.None:
+                case BlockType.Recovery:
+                    return false;
+            }
+
+            return UnityEngine.Random.value < 0.3f;
+        }
+
+        private IEnumerator CoroutineBattleToBoss(Block block)
+        {
+            // TODO : blockType == BlockType.Recoveryの時の対処
+            dungeonManager.dungeonData.SetBattleType(block.blockType);
+            dungeonManager.dungeonData.Save();
+            yield return new WaitForSeconds(0.5f);
+            Application.LoadLevel("Battle");
+        }
+
+        private IEnumerator CoroutineBattleToEnemy(Block block)
+        {
+            dungeonManager.dungeonData.SetBattleType(block.blockType);
+            dungeonManager.dungeonData.Save();
+            yield return new WaitForSeconds(0.5f);
+            Application.LoadLevel("Battle");
+        }
+
+        #endregion
+        #region Power
         private IEnumerator CoroutineTakePower(Block block)
         {
             dungeonManager.EnterState(DungeonState.StockTaking);
 
-            if (block.blockType == BlockType.Recovery)
+            switch (block.blockType)
             {
-                eventAnimators[0].SetBool("visible", true);
-                eventAnimators[0].SetTrigger("logo2");
-                yield return new WaitForSeconds(1);
+                case BlockType.Thunder:
+                case BlockType.Water:
+                case BlockType.Fire:
+                case BlockType.Wind:
+                    break;
 
-                eventAnimators[0].SetBool("visible", false);
-                messageBoxText.text = "ＨＰ回復！！";
-                messageBox.SetActive(true);
-                yield return new WaitForSeconds(1);
-
-                //  paramater.hp += 1;
-                messageBox.SetActive(false);
+                case BlockType.Recovery:
+                    yield return StartCoroutine(CoroutineTakePowerTypeOfRecovery());
+                    break;
             }
 
             block.TakeStock();
             dungeonManager.ExitState();
         }
 
+        private IEnumerator CoroutineTakePowerTypeOfElements(Block block)
+        {
+
+            yield break;
+        }
+
+        private IEnumerator CoroutineTakePowerTypeOfRecovery()
+        {
+            eventAnimators[0].SetBool("visible", true);
+            eventAnimators[0].SetTrigger("logo2");
+            yield return new WaitForSeconds(1);
+
+            eventAnimators[0].SetBool("visible", false);
+            messageBoxText.text = "ＨＰ回復！！";
+            messageBox.SetActive(true);
+            yield return new WaitForSeconds(1);
+
+            //  paramater.hp += 1;
+            messageBox.SetActive(false);
+        }
+
+        #endregion
+        #region Remain
         private IEnumerator CoroutineCheckRemain()
         {
             if (!RemainsSp())
@@ -162,26 +228,13 @@ namespace Memoria.Dungeon.Managers
             yield return null;
         }
 
-        private bool OnTriggerOnBossBattleEvent()
-        {
-            return parameterManager.parameter.getKeyNum == parameterManager.parameter.allKeyNum;
-        }
-
-        private bool OnTriggerOnBattleEvent(Block block)
-        {
-            if (block.blockType == BlockType.None ||
-                block.blockType == BlockType.Recovery)
-            {
-                return false;
-            }
-
-            return UnityEngine.Random.value < 1f;
-        }
 
         private bool RemainsSp()
         {
             return parameterManager.parameter.sp > 0;
         }
+
+        #endregion
 
         public void ReturnFromBattle()
         {
