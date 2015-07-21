@@ -247,5 +247,10 @@ namespace Memoria.Dungeon.Managers
                 .SelectMany(checkRemain)
                 .Subscribe();
         }
+        
+        public void ShowMessageBox(bool visible)
+        {
+            messageBox.SetActive(visible);
+        }
     }
 }

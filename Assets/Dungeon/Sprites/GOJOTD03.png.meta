@@ -1,12 +1,15 @@
 fileFormatVersion: 2
 guid: 34a5b7799e1d9c243965be0ba0358042
-timeCreated: 1431175591
+timeCreated: 1437485142
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: GOJLGA2001
     21300002: GOJLGA2002
     21300004: GOJLGA2003
+    21300006: GOJOTD03_0
+    21300008: GOJOTD03_1
+    21300010: GOJOTD03_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -52,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: GOJLGA2001
+    - name: GOJOTD03_0
       rect:
         serializedVersion: 2
         x: 0
@@ -62,7 +65,7 @@ TextureImporter:
       alignment: 7
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: GOJLGA2002
+    - name: GOJOTD03_1
       rect:
         serializedVersion: 2
         x: 0
@@ -72,7 +75,7 @@ TextureImporter:
       alignment: 7
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: GOJLGA2003
+    - name: GOJOTD03_2
       rect:
         serializedVersion: 2
         x: 0

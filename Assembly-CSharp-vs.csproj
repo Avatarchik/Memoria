@@ -146,6 +146,7 @@
      <Compile Include="Assets\Dungeon\Scripts\Menu\MapViewer.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Menu\MenuButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Player.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\RizellReactionsAnimator.cs" />
      <Compile Include="Assets\Dungeon\Scripts\StageData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Vector2Int.cs" />
      <Compile Include="Assets\InspectorButtonAttribute.cs" />
