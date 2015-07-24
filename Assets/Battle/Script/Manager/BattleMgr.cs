@@ -34,16 +34,34 @@ namespace Memoria.Battle.Managers
         [SerializeField]
         private string[] _party;
 
-        public List<GameObject> enemyList = new List<GameObject> ();
+        private BattleState _currentState;
+        private Dictionary<State, BattleState> _battleStates;
+        private Type[] _profileType;
+        private bool _setResultRunning;
 
+
+        public UIMgr UiMgr
+
+        {
+            get
+            {
+                return _uiMgr;
+            }
+        }
+
+        public AttackTracker AttackTracker
+        {
+            get
+            {
+                return _attackTracker;
+            }
+        }
+
+        public float AttackAnimation { get; set; }
+        public List<GameObject> enemyList = new List<GameObject> ();
         public MainPlayer mainPlayer;
 
-        private Type[] _profileType;
 
-        private Dictionary<State, BattleState> _battleStates;
-        private bool _setResultRunning;
-        public BattleState CurrentState { get; private set; }
-        public float AttackAnimation { get; set; }
 
         void Awake ()
         {
@@ -83,20 +101,20 @@ namespace Memoria.Battle.Managers
 
             SpawnHeroes();
             SpawnEnemies();
-            CurrentState = _battleStates[State.PREPARE];
+            _currentState = _battleStates[State.PREPARE];
         }
 
         void Update ()
         {
-            if(CurrentState.Initialized)
+            if(_currentState.Initialized)
             {
-                CurrentState.Update();
+                _currentState.Update();
             }
             else
             {
-                CurrentState.PreInitialize(this, _uiMgr, _nowActor, _attackTracker);
-                CurrentState.Initialize();
-                CurrentState.Initialized = true;
+                _currentState.PreInitialize(this, _uiMgr, _nowActor, _attackTracker);
+                _currentState.Initialize();
+                _currentState.Initialized = true;
             }
         }
 
@@ -160,10 +178,10 @@ namespace Memoria.Battle.Managers
 
         public void SetState(State state)
         {
-            CurrentState.EndState();
+            _currentState.EndState();
             if(_battleStates.ContainsKey(state))
             {
-                CurrentState = _battleStates[state];
+                _currentState = _battleStates[state];
             }
         }
 

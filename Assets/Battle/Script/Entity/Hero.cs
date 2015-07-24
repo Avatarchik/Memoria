@@ -27,6 +27,8 @@ namespace Memoria.Battle.GameActors
 
         private bool _initializedTurn;
 
+        private Vector3 _activePos;
+
         public ElementalPowerStock power;
 
         void Start ()
@@ -42,6 +44,8 @@ namespace Memoria.Battle.GameActors
 
             BattleMgr.Instance.mainPlayer.health.hp += parameter.hp;
             BattleMgr.Instance.mainPlayer.health.maxHp += parameter.hp;
+
+            _activePos = new Vector3(transform.position.x,transform.position.y - 0.4f, -10);
 
         }
 
@@ -105,7 +109,7 @@ namespace Memoria.Battle.GameActors
                 power.UseStock(attackType.stockCost);
             }
 
-            transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, -10);
+            transform.position = _activePos;
             base.EndTurn();
         }
 

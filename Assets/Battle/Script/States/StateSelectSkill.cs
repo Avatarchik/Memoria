@@ -28,9 +28,6 @@ namespace Memoria.Battle.States
                     entity.Key.GetComponent<SpriteRenderer>().color = fadeOutColor;
                 }
             }
-            {
-                
-            }
         }
         override public void Update()
         {

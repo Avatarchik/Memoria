@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Memoria.Battle.Managers;
+using Memoria.Battle.States;
+using Memoria.Battle.Events;
 using System.Collections;
 
 
@@ -9,7 +11,6 @@ namespace Memoria.Battle.GameActors
     public class CancelButton : MonoBehaviour
     {
         public bool Visible { get; set; }
-
         Image img;
         void Start ()
         {
@@ -28,8 +29,10 @@ namespace Memoria.Battle.GameActors
             }
         }
 
-        void CancelSkill()
+        public void CancelSkill()
         {
+            Visible = false;
+            EventMgr.Instance.Raise(new CancelSkill((Hero)BattleMgr.Instance.AttackTracker.currentActor));
         }
     }
 }

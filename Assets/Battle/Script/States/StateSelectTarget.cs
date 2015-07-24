@@ -2,6 +2,7 @@
 using System.Linq;
 using Memoria.Battle.GameActors;
 using Memoria.Battle.Managers;
+using Memoria.Battle.Events;
 
 namespace Memoria.Battle.States
 {
@@ -9,12 +10,15 @@ namespace Memoria.Battle.States
     {
         Hero hero;
         float _timer;
+        CancelButton _cancelButton;
+
         override public void Initialize()
         {
             hero = (Hero)nowActor;
-
+            _cancelButton = GameObject.FindObjectOfType<CancelButton>();
             if(!hero.passToStock)
             {
+                _cancelButton.Visible = true;
                 SetSelectable(nowActor.attackType.targetType, true);
             }
 
@@ -26,6 +30,8 @@ namespace Memoria.Battle.States
                     uiMgr.SpawnCursor(actor.GetComponent<Entity>().battleID, actor);
                 }
             }
+
+            EventMgr.Instance.AddListener<CancelSkill>(Cancel);
         }
         
         override public void Update()
@@ -33,15 +39,18 @@ namespace Memoria.Battle.States
 
             if(hero.passToStock)
             {
+                Debug.Log("select target");
                 battleMgr.SetState(State.RUNNING);
                 return;
             }
 
             if(hero.TargetSelected())
             {
+                EventMgr.Instance.RemoveListener<CancelSkill>(Cancel);
                 hero.SetTarget((IDamageable)hero.GetComponent<TargetSelector>().target);
                 uiMgr.SetCurorAnimation(hero.attackType.selectType, hero.target.ToString());
                 uiMgr.DestroyElement("frame");
+                _cancelButton.Visible = false;
                 SetSelectable(nowActor.attackType.targetType, false);
 
                 _timer++;
@@ -71,6 +80,25 @@ namespace Memoria.Battle.States
                     e.GetComponent<BoxCollider2D>().enabled = state;
                 }
             }
+        }
+
+        private void Cancel(CancelSkill gameEvent)
+        {
+            SetSelectable(nowActor.attackType.targetType, false);
+            uiMgr.DestroyElement("frame");
+
+            foreach(var actor in BattleMgr.actorList)
+            {
+                uiMgr.DestroyElement("cursor_" + actor.GetComponent<Entity>().battleID);
+            }
+
+            gameEvent.actingHero.attackSelected = false;
+            gameEvent.actingHero.attackReady = false;
+            gameEvent.actingHero.attackType = null;
+            gameEvent.actingHero.charge = false;
+
+            EventMgr.Instance.RemoveListener<CancelSkill>(Cancel);
+            battleMgr.SetState(State.SELECT_SKILL);
         }
     }
 }
