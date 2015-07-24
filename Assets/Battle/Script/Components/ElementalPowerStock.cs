@@ -45,7 +45,7 @@ namespace Memoria.Battle.GameActors
         public ObjectType objType;
         public StockType elementType;
 
-        public bool Full { get; private set; }
+        public bool Full;
         public float scale = 1.5f;
 
         private Type _imageType;
@@ -94,8 +94,7 @@ namespace Memoria.Battle.GameActors
 
         void Update ()
         {
-            Full = (stock >= stockLength) ? true : false;
-
+            UpdateStatus();
             for(int i = 0; i < stock; i++)
             {
                 switch(objType)
@@ -138,6 +137,11 @@ namespace Memoria.Battle.GameActors
             {
                 stock = 0;
             }
+        }
+
+        public void UpdateStatus()
+        {
+            Full = (stock >= stockLength) ? true : false;
         }
 
         private Type GetImageType(ObjectType objType)
