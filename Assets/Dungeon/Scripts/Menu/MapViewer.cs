@@ -53,7 +53,15 @@ namespace Memoria.Dungeon.Menu
                         .TakeUntil(this.UpdateAsObservable()
                             .Where(__ => Input.GetMouseButtonUp(0)))
                         .Repeat()
-                        .Subscribe(input => transform.Translate(speed * input));
+                        .Subscribe(input => 
+						{
+							var pos = transform.position + speed * input;
+							var canMoveArea = MapManager.instance.stageArea;
+							
+							pos.x = Mathf.Clamp(pos.x, canMoveArea.xMin, canMoveArea.xMax);
+							pos.y = Mathf.Clamp(pos.y, canMoveArea.yMin, canMoveArea.yMax);
+							transform.position = pos;
+						});
                 })
                 .SelectMany(_ => returnButton.OnClickAsObservable().First())
                 .Do(_ => ExitMapViewer())

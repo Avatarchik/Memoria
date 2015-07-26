@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0d748076002757e45940c11d2e7e910f
-timeCreated: 1431170380
+timeCreated: 1437485071
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,8 @@ TextureImporter:
     21300002: GOJIC5401
     21300004: GOJIC5400
     21300006: GOJIC5401
+    21300008: GOJOTD02_0
+    21300010: GOJOTD02_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: GOJIC5400
+    - name: GOJOTD02_0
       rect:
         serializedVersion: 2
         x: 0
@@ -63,7 +65,7 @@ TextureImporter:
       alignment: 7
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: GOJIC5401
+    - name: GOJOTD02_1
       rect:
         serializedVersion: 2
         x: 80

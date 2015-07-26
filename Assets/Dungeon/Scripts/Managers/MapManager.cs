@@ -22,31 +22,13 @@ namespace Memoria.Dungeon.Managers
 
         private Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
         private Dictionary<Vector2Int, Item> itemMap = new Dictionary<Vector2Int, Item>();
-        private Dictionary<Vector2Int, Item> keyMap { get { return GetItemMap(ItemType.Key); } }
-        private Dictionary<Vector2Int, Item> jewelMap { get { return GetItemMap(ItemType.Jewel); } }
-        private Dictionary<Vector2Int, Item> soulMap { get { return GetItemMap(ItemType.Soul); } }
-        private Dictionary<Vector2Int, Item> magicPlateMap { get { return GetItemMap(ItemType.MagicPlate); } }
 
         public List<Block> blocks { get { return map.Values.ToList(); } }
-        public List<Vector2Int> blockLocations { get { return map.Keys.ToList(); } }
 
         public List<Item> items { get { return itemMap.Values.ToList(); } }
-        public List<Vector2Int> itemsLocations { get { return itemMap.Keys.ToList(); } }
-
-        public List<Item> keys { get { return GetItems(ItemType.Key); } }
-        public List<Vector2Int> keyLocations { get { return GetItemLocations(ItemType.Key); } }
-
-        public List<Item> jewels { get { return GetItems(ItemType.Jewel); } }
-        public List<Vector2Int> jewelLocations { get { return GetItemLocations(ItemType.Jewel); } }
-
-        public List<Item> souls { get { return GetItems(ItemType.Soul); } }
-        public List<Vector2Int> soulLocations { get { return GetItemLocations(ItemType.Soul); } }
-
-        public List<Item> magicPlates { get { return GetItems(ItemType.MagicPlate); } }
-        public List<Vector2Int> magicPlateLocations { get { return GetItemLocations(ItemType.MagicPlate); } }
 
         private Rect _canPutBlockArea = new Rect(-7, -5, 14, 10);
-        private Rect stageArea;
+        public Rect stageArea { get; private set; }
 
         public Rect canPutBlockArea
         {
@@ -63,7 +45,22 @@ namespace Memoria.Dungeon.Managers
                 return ret;
             }
         }
-
+		
+		private Subject<Item> onTakeItem;
+		
+		public IObservable<Item> OnTakeItemAsObservable()
+		{
+			return onTakeItem ?? (onTakeItem = new Subject<Item>());
+		}
+		
+		private void OnTakeItem(Item item)
+		{
+			if (onTakeItem != null)
+			{
+				onTakeItem.OnNext(item);
+			}
+		}
+		
         void Awake()
         {
             BlockManager.instance.OnCreateBlockAsObservable()
@@ -98,14 +95,9 @@ namespace Memoria.Dungeon.Managers
             return map.ContainsKey(location);
         }
 
-        public bool ExistsKey(Vector2Int location)
+        public bool ExistsItem(Vector2Int location)
         {
-            return keyLocations.Contains(location);
-        }
-
-        public bool ExistsJewel(Vector2Int location)
-        {
-            return jewelLocations.Contains(location);
+            return itemMap.ContainsKey(location);
         }
 
         public Block GetBlock(Vector2Int location)
@@ -117,26 +109,13 @@ namespace Memoria.Dungeon.Managers
         {
             return itemMap[location];
         }
-
-        public Item GetKey(Vector2Int location)
-        {
-            return keyMap[location];
-        }
-
-        public Item GetJewel(Vector2Int location)
-        {
-            return jewelMap[location];
-        }
-
-        public Item GetSoul(Vector2Int location)
-        {
-            return soulMap[location];
-        }
-
-        public Item GetMagicPlate(Vector2Int location)
-        {
-            return magicPlateMap[location];
-        }
+		
+		public void TakeItem(Item item)
+		{
+			OnTakeItem(item);
+			itemMap.Remove(item.itemData.location);
+			Destroy(item.gameObject);
+		}
 
         private Item CreateItem(ItemData itemData)
         {
@@ -165,29 +144,6 @@ namespace Memoria.Dungeon.Managers
             item.transform.position = (Vector3)ToPosition(itemData.location);
 
             return item;
-        }
-
-        private Dictionary<Vector2Int, Item> GetItemMap(ItemType type)
-        {
-            return itemMap
-                .Where(item => item.Value.itemData.type == type)
-                .ToDictionary(item => item.Key, item => item.Value);
-        }
-
-        private List<Item> GetItems(ItemType type)
-        {
-            return itemMap
-                .Where(item => item.Value.itemData.type == type)
-                .Select(item => item.Value)
-                .ToList();
-        }
-
-        private List<Vector2Int> GetItemLocations(ItemType type)
-        {
-            return itemMap
-                .Where(item => item.Value.itemData.type == type)
-                .Select(item => item.Key)
-                .ToList();
         }
 
         /// <summary>

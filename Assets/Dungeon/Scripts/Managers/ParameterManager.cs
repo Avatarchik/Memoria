@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Linq;
 using UniRx;
+using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -31,6 +32,9 @@ namespace Memoria.Dungeon.Managers
 
         public void Awake()
         {
+            var dungeonManager = DungeonManager.instance;
+            var blockManager = BlockManager.instance;
+            var mapManager = MapManager.instance;
             var parameterChanged = _parameter.AsObservable();
 
             // HPの変化イベントの追加
@@ -66,7 +70,7 @@ namespace Memoria.Dungeon.Managers
                 .Subscribe(UpdateSillingText);
 
             // プレイヤーが歩き終わったあと
-            DungeonManager.instance.player.OnWalkEndAsObservable()
+            dungeonManager.player.OnWalkEndAsObservable()
                 .Subscribe(_ =>
                 {
                     var param = parameter;
@@ -75,7 +79,7 @@ namespace Memoria.Dungeon.Managers
                 });
 
             // ブロックの破壊時
-            BlockManager.instance.OnCreateBlockAsObservable()
+            blockManager.OnCreateBlockAsObservable()
                 .SelectMany(block => block.OnBreakAsObservable())
                 .Subscribe(_ =>
                 {
@@ -85,12 +89,32 @@ namespace Memoria.Dungeon.Managers
                 });
 
             // ブロックのリセット時
-            BlockManager.instance.OnRandomizeAsObservable()
+            blockManager.OnRandomizeAsObservable()
                 .Subscribe(_ =>
                 {
                     var param = parameter;
                     param.sp -= 2;
                     parameter = param;
+                });
+
+            // キーを取得した時
+            mapManager.OnTakeItemAsObservable()
+                .Where(item => item.itemData.type == ItemType.Key)
+                .Subscribe(_ =>
+                {
+                    var param = parameter;
+                    param.getKeyNum++;
+                    parameter = param;
+                });
+
+            // 宝石を取得した時
+            mapManager.OnTakeItemAsObservable()
+                .Where(item => item.itemData.type == ItemType.Jewel)
+                .Subscribe(_ =>
+                {
+					var param = parameter;
+					param.silling += 1000;
+					parameter = param;
                 });
         }
 
@@ -111,7 +135,7 @@ namespace Memoria.Dungeon.Managers
 
         private void UpdateSillingText(DungeonParameter parameter)
         {
-            sillingText.text = string.Format("{0:0000}", 0);
+            sillingText.text = string.Format("{0:0000}", parameter.silling);
         }
     }
 }

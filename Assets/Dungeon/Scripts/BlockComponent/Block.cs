@@ -163,19 +163,10 @@ namespace Memoria.Dungeon.BlockComponent
 
             setter.Put();
         }
-
-        // ブロックイベントが発生したとき
-        public void OnBlockEventEnter()
-        {
-            if (blockType == BlockType.None)
-            {
-                return;
-            }
-        }
-
-        public void OnBlockEventExit()
-        {
-            blockType = BlockType.None;
-        }
+		
+		public void TakeStock()
+		{
+			blockType = BlockType.None;
+		}
     }
 }
