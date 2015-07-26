@@ -131,6 +131,7 @@
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockTapListener.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BlockEvent.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\BlockEvents\ItemTakeEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\RecoveryEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Cursor.cs" />
      <Compile Include="Assets\Dungeon\Scripts\DungeonData.cs" />

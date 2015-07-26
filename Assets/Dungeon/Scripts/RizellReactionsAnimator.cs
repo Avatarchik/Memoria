@@ -1,21 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon
 {
     public class RizellReactionsAnimator : MonoBehaviour
     {
+        //  
+        //          // Use this for initialization
+        //          void Start()
+        //          {
+        //  
+        //          }
+        //  
+        //          // Update is called once per frame
+        //          void Update()
+        //          {
+        //  
+        //          }
 
-        // Use this for initialization
-        void Start()
+        public void ShowMessage(int visible)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            EventManager.instance.ShowMessageBox(visible != 0);
         }
     }
 }
