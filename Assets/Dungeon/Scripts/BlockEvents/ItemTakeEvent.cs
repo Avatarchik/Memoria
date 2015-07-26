@@ -9,7 +9,7 @@ using Memoria.Dungeon.Items;
 namespace Memoria.Dungeon.BlockEvents
 {
     public class ItemTakeEvent
-    {        
+    {
         private static Dictionary<BlockType, float> toValue = new Dictionary<BlockType, float>()
         {
             { BlockType.Thunder, 0 },
@@ -21,10 +21,10 @@ namespace Memoria.Dungeon.BlockEvents
         private static MapManager mapManager { get { return MapManager.instance; } }
 
         //  private static EventManager eventManager { get { return EventManager.instance; } }
-        
+
         private MonoBehaviour coroutineAppended;
         private Animator eventAnimator;
-        
+
         public ItemTakeEvent(MonoBehaviour coroutineAppended, Animator eventAnimator)
         {
             this.coroutineAppended = coroutineAppended;
@@ -38,12 +38,13 @@ namespace Memoria.Dungeon.BlockEvents
 
         public IEnumerator CoroutineTakeItem(IObserver<bool> observer, Vector2Int location)
         {
-            //  Vector2Int playerLocation = DungeonManager.instance.player.location;
+            //  Vector2Int playerLocation = DungeonManager.instance.player.location;    
             bool exists = mapManager.ExistsItem(location);
 
             if (exists)
             {
                 Item item = mapManager.GetItem(location);
+                item.GetComponent<SpriteRenderer>().enabled = false;
 
                 switch (item.itemData.type)
                 {
@@ -55,13 +56,13 @@ namespace Memoria.Dungeon.BlockEvents
                         yield return coroutineAppended.StartCoroutine(CoroutineTakeJewel(item.itemData.attribute));
                         break;
                 }
-                
+
                 mapManager.TakeItem(item);
+                yield return new WaitForSeconds(1f);
             }
 
             observer.OnNext(exists);
             observer.OnCompleted();
-            yield break;
         }
 
         public IEnumerator CoroutineTakeKey()
@@ -70,14 +71,14 @@ namespace Memoria.Dungeon.BlockEvents
             eventAnimator.SetTrigger("getKey");
             yield return new WaitForSeconds(1);
         }
-        
+
         public IEnumerator CoroutineTakeJewel(BlockType attribute)
         {
             eventAnimator.SetFloat("itemType", 1);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "宝石を入手した！！";
             eventAnimator.SetTrigger("getJewel");
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.4f);
         }
     }
 }

@@ -132,6 +132,7 @@
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\ItemTakeEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\PowerTakeEvent.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\BlockEvents\SpRemainCheckEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Cursor.cs" />
      <Compile Include="Assets\Dungeon\Scripts\DungeonData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\DungeonParameter.cs" />

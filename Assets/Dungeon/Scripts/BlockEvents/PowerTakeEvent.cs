@@ -57,7 +57,6 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineTakePowerTypeOfRecovery()
         {
             // TODO : 体力回復
-            //  messageBoxText.text = "ＨＰ回復！！";
             EventManager.instance.message = "ＨＰ回復！！";
             eventAnimator.SetTrigger("getPower");
             yield return new WaitForSeconds(1);
