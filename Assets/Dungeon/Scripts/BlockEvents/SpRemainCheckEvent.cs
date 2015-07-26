@@ -8,7 +8,7 @@ namespace Memoria.Dungeon.BlockEvents
     public class SpRemainCheckEvent
     {
         private MonoBehaviour coroutineAppended;
-        Animator eventAnimator;
+        private Animator eventAnimator;
         
         public SpRemainCheckEvent(MonoBehaviour coroutineAppended, Animator eventAnimator)
         {
