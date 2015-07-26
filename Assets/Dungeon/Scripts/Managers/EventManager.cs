@@ -39,6 +39,7 @@ namespace Memoria.Dungeon.Managers
         
         private ItemTakeEvent itemTakeEvent;
         private BattleEvent battleEvent;
+        private PowerTakeEvent powerTakeEvent;
 
         void Awake()
         {
@@ -55,6 +56,7 @@ namespace Memoria.Dungeon.Managers
             
             itemTakeEvent = new ItemTakeEvent(this, eventAnimator);
             battleEvent = new BattleEvent(this, eventAnimator);
+            powerTakeEvent = new PowerTakeEvent(this, eventAnimator);
         }
 
         // プレイヤーが歩き終わったときに呼び出される
@@ -74,7 +76,8 @@ namespace Memoria.Dungeon.Managers
             //       (bool taked) => Observable.FromCoroutine<bool>(observer => CoroutineBattle(observer, block, taked));
             var takeItem = itemTakeEvent.CreateTakeItemAsObservable(player.location);
             var battle = battleEvent.CreateBattleEventAsObservable(block);
-            var takePower = Observable.FromCoroutine(() => CoroutineTakePower(block));
+            //  var takePower = Observable.FromCoroutine(() => CoroutineTakePower(block));
+            var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
             var checkRemain = Observable.FromCoroutine(CoroutineCheckRemain);
 
             takeItem.Last()
@@ -214,40 +217,40 @@ namespace Memoria.Dungeon.Managers
 
         #endregion
         #region Power
-        private IEnumerator CoroutineTakePower(Block block)
-        {
-            dungeonManager.EnterState(DungeonState.StockTaking);
+        //  private IEnumerator CoroutineTakePower(Block block)
+        //  {
+        //      dungeonManager.EnterState(DungeonState.StockTaking);
 
-            switch (block.blockType)
-            {
-                case BlockType.Thunder:
-                case BlockType.Water:
-                case BlockType.Fire:
-                case BlockType.Wind:
-                    yield return StartCoroutine(CoroutineTakePowerTypeOfElements(block.blockType));
-                    break;
+        //      switch (block.blockType)
+        //      {
+        //          case BlockType.Thunder:
+        //          case BlockType.Water:
+        //          case BlockType.Fire:
+        //          case BlockType.Wind:
+        //              yield return StartCoroutine(CoroutineTakePowerTypeOfElements(block.blockType));
+        //              break;
 
-                case BlockType.Recovery:
-                    yield return StartCoroutine(CoroutineTakePowerTypeOfRecovery());
-                    break;
-            }
+        //          case BlockType.Recovery:
+        //              yield return StartCoroutine(CoroutineTakePowerTypeOfRecovery());
+        //              break;
+        //      }
 
-            block.TakeStock();
-            dungeonManager.ExitState();
-        }
+        //      block.TakeStock();
+        //      dungeonManager.ExitState();
+        //  }
 
-        private IEnumerator CoroutineTakePowerTypeOfElements(BlockType attribute)
-        {
-            yield break;
-        }
+        //  private IEnumerator CoroutineTakePowerTypeOfElements(BlockType attribute)
+        //  {
+        //      yield break;
+        //  }
 
-        private IEnumerator CoroutineTakePowerTypeOfRecovery()
-        {
-            // TODO : 体力回復
-            messageBoxText.text = "ＨＰ回復！！";
-            eventAnimators[0].SetTrigger("getPower");
-            yield return new WaitForSeconds(1);
-        }
+        //  private IEnumerator CoroutineTakePowerTypeOfRecovery()
+        //  {
+        //      // TODO : 体力回復
+        //      messageBoxText.text = "ＨＰ回復！！";
+        //      eventAnimators[0].SetTrigger("getPower");
+        //      yield return new WaitForSeconds(1);
+        //  }
 
         #endregion
         #region Remain
@@ -272,8 +275,9 @@ namespace Memoria.Dungeon.Managers
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
-
-            var takePower = Observable.FromCoroutine(() => CoroutineTakePower(block));
+            
+            var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
+            //  var takePower = Observable.FromCoroutine(() => CoroutineTakePower(block));
             var checkRemain = Observable.FromCoroutine(CoroutineCheckRemain);
 
             takePower

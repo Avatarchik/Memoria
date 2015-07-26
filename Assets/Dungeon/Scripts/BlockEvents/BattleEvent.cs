@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+//  using UnityEngine.UI;
 using System;
 using System.Collections;
 using UniRx;
-using Memoria.Dungeon;
+//  using Memoria.Dungeon;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockComponent;
 
@@ -20,6 +20,7 @@ namespace Memoria.Dungeon.BlockEvents
         {
             get { return ParameterManager.instance.parameter; }
         }
+        
         private MonoBehaviour coroutineAppended;
         private Animator eventAnimator;
 
