@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,16 +11,14 @@ namespace Memoria.Battle.GameActors
     public class Hero : Entity
     {
         public delegate void OnHit();
-        private OnHit stockUp;
 
+        private OnHit stockUp;
 
         public bool attackSelected;
 
         public bool passToStock;
 
         public string nameplae;
-
-        private Button _iconButton;
 
         private bool _enemyTarget;
 
@@ -35,14 +32,12 @@ namespace Memoria.Battle.GameActors
             profile = GetComponent<Profile>();
             power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
-            _iconButton = GetComponent<Button>();
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
 
             BattleMgr.Instance.mainPlayer.health.hp += parameter.hp;
             BattleMgr.Instance.mainPlayer.health.maxHp += parameter.hp;
-
         }
 
 
@@ -79,16 +74,16 @@ namespace Memoria.Battle.GameActors
 
         override public void StartTurn()
         {
-            SetIconSkill();
             if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
                 power.AddStock();
+                power.UpdateStatus();
             }
+            SetIconSkill();
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, -10);
         }
 
         override public void EndTurn()
         {
-            _iconButton.onClick.RemoveAllListeners();
             if(!charge && !passToStock)
             {
                 attackSelected = false;
@@ -145,8 +140,6 @@ namespace Memoria.Battle.GameActors
             {
                 _enemyTarget = false;
             }
-            _iconButton.onClick.RemoveAllListeners();
-
         }
         public bool TargetSelected()
         {
@@ -180,11 +173,9 @@ namespace Memoria.Battle.GameActors
             if(!power.Full)
             {
                 stockUp = StockUp;
-                _iconButton.onClick.AddListener(() => StockUp());
                 return;
             }
             stockUp = SetUltimate;
-            _iconButton.onClick.AddListener(() => SetAttack(profile.ultimateAttack));
         }
 
         private void SetUltimate()

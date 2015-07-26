@@ -11,6 +11,7 @@ namespace Memoria.Battle.States
         {
             _isPlaying = false;
             battleMgr.AttackAnimation = (float)(nowActor.attackType.AttackTime / 60);
+            Debug.Log("animation");
         }
         override public void Update()
         {

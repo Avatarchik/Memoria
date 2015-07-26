@@ -79,6 +79,7 @@
      <Compile Include="Assets\Battle\Script\Entity\Entity.cs" />
      <Compile Include="Assets\Battle\Script\Entity\Hero.cs" />
      <Compile Include="Assets\Battle\Script\Entity\MainPlayer.cs" />
+     <Compile Include="Assets\Battle\Script\Entity\UI\CancelButton.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\Cursor.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\DamageNumber.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\DescriptionFrame.cs" />
@@ -87,6 +88,7 @@
      <Compile Include="Assets\Battle\Script\Entity\UI\Result.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\SkillIcon.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\UIElement.cs" />
+     <Compile Include="Assets\Battle\Script\Events\CancelSkill.cs" />
      <Compile Include="Assets\Battle\Script\Events\MonsterDies.cs" />
      <Compile Include="Assets\Battle\Script\Events\NewTurn.cs" />
      <Compile Include="Assets\Battle\Script\Events\TakeDamage.cs" />
@@ -129,6 +131,17 @@
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockSetter.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockSprite.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockTapListener.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockBreaker.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockMover.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSetter.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprite.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\BlockTapListener.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Block\ShapeData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\ItemTakeEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\PowerTakeEvent.cs" />

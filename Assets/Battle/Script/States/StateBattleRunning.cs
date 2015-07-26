@@ -1,10 +1,14 @@
-﻿using Memoria.Battle.Managers;
+﻿using UnityEngine;
+using System.Collections;
+using Memoria.Battle.Managers;
 using Memoria.Battle.Events;
 
 namespace Memoria.Battle.States
 {
     public class StateBattleRunning  : BattleState
     {
+        float pauseBetween;
+
         override public void Initialize()
         {
             battleMgr.SetCurrentActor();
@@ -12,12 +16,13 @@ namespace Memoria.Battle.States
         }
         override public void Update()
         {
-            if(!battleMgr.BattleOver() && !battleMgr.StateResult())
+            pauseBetween--;
+            if(!battleMgr.BattleOver() && !battleMgr.StateResult() && pauseBetween <= 0)
             {
                 if(nowActor.Attack (nowActor.attackType))
                 {
+                    pauseBetween = 60;
                     nowActor.EndTurn();
-//                    EventMgr.Instance.OnTurnEnd();
                     EventMgr.Instance.Raise(new TurnEnds());
                     Initialized = false;
                 }

@@ -4,7 +4,7 @@ using Memoria.Battle.Managers;
 namespace Memoria.Battle.GameActors
 {
     public class QuickAttack : AttackType {
-        bool destroyed = false;
+        bool destroyed;
         void Start () {
             animationDur = 20;
             effectObj = (GameObject)Resources.Load("Skills/Enemy_Normal");
@@ -21,7 +21,7 @@ namespace Memoria.Battle.GameActors
         override public void PlayEffect (Entity target)
         {
             if(!particleEffect && !destroyed)
-            {
+            {                
                 particleEffect = Instantiate (effectObj);
                 particleEffect.transform.position = new Vector3 (0,0,0);
                 particleEffect.GetComponentInChildren<EllipsoidParticleEmitter>().Emit(3);

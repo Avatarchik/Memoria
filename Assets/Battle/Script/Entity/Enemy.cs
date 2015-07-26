@@ -56,8 +56,10 @@ namespace Memoria.Battle.GameActors
             }
 
             phaseTimer = attackType.phaseCost;
+
             if (!attackReady && isAlive)
             {
+                attackReady = true;
                 BattleMgr.Instance.SetState(State.ANIMATOIN);
             }
             return base.Attack (attackType);
