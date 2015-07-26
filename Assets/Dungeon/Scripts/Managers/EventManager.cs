@@ -1,13 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-//  using System;
-//  using System.Collections;
-//  using System.Collections.Generic;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.BlockEvents;
-//  using Memoria.Dungeon.Items;
 using UniRx;
-//  using UniRx.Triggers;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -67,7 +62,6 @@ namespace Memoria.Dungeon.Managers
             var takeItem = itemTakeEvent.CreateTakeItemAsObservable(player.location);
             var battle = battleEvent.CreateBattleEventAsObservable(block);
             var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
-            //  var checkRemain = Observable.FromCoroutine(CoroutineCheckRemain);
             var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
 
             takeItem.Last()
@@ -78,31 +72,11 @@ namespace Memoria.Dungeon.Managers
                 .Subscribe();
         }
 
-        #region Remain
-
-        //  private IEnumerator CoroutineCheckRemain()
-        //  {
-        //      if (!RemainsSp())
-        //      {
-        //          Debug.Log("Leave Dungeon!!");
-        //      }
-
-        //      yield return null;
-        //  }
-
-        //  private bool RemainsSp()
-        //  {
-        //      return ParameterManager.instance.parameter.sp > 0;
-        //  }
-
-        #endregion
-
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
 
             var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
-            //  var checkRemain = Observable.FromCoroutine(CoroutineCheckRemain);
             var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
 
             takePower

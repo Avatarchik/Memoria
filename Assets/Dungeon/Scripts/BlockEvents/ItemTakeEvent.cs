@@ -20,8 +20,6 @@ namespace Memoria.Dungeon.BlockEvents
 
         private static MapManager mapManager { get { return MapManager.instance; } }
 
-        //  private static EventManager eventManager { get { return EventManager.instance; } }
-
         private MonoBehaviour coroutineAppended;
         private Animator eventAnimator;
 
@@ -37,8 +35,7 @@ namespace Memoria.Dungeon.BlockEvents
         }
 
         public IEnumerator CoroutineTakeItem(IObserver<bool> observer, Vector2Int location)
-        {
-            //  Vector2Int playerLocation = DungeonManager.instance.player.location;    
+        {    
             bool exists = mapManager.ExistsItem(location);
 
             if (exists)
