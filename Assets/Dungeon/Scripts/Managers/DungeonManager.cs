@@ -14,6 +14,7 @@ namespace Memoria.Dungeon.Managers
         OpenMenu,
         LeaveSelect,
         MapViewer,
+        TipsViewer
     }
 
     public class DungeonManager : MonoBehaviour
