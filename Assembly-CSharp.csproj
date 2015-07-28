@@ -119,7 +119,6 @@
      <Compile Include="Assets\Battle\Script\Support\Parameter.cs" />
      <Compile Include="Assets\Battle\Script\Support\Singleton.cs" />
      <Compile Include="Assets\Battle\Script\Support\TargetType.cs" />
-     <Compile Include="Assets\CancelButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Block.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\BlockData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\BlockFactor.cs" />
@@ -131,17 +130,6 @@
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockSetter.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockSprite.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockComponent\Utility\BlockTapListener.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\Block.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockBreaker.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockData.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockFactor.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockList.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockMover.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSetter.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprite.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockSprites.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\BlockTapListener.cs" />
-     <Compile Include="Assets\Dungeon\Scripts\Block\ShapeData.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\BattleEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\ItemTakeEvent.cs" />
      <Compile Include="Assets\Dungeon\Scripts\BlockEvents\PowerTakeEvent.cs" />
@@ -159,6 +147,7 @@
      <Compile Include="Assets\Dungeon\Scripts\Menu\LeaveButton.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Menu\MapViewer.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Menu\MenuButton.cs" />
+     <Compile Include="Assets\Dungeon\Scripts\Menu\TipsViewer.cs" />
      <Compile Include="Assets\Dungeon\Scripts\Player.cs" />
      <Compile Include="Assets\Dungeon\Scripts\RizellReactionsAnimator.cs" />
      <Compile Include="Assets\Dungeon\Scripts\StageData.cs" />
