@@ -21,18 +21,10 @@ namespace Memoria.Dungeon.Menu
             viewTipButton.OnClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    DungeonManager.instance.EnterState(DungeonState.OpenMenu/*TipsViewer*/);
+                    DungeonManager.instance.EnterState(DungeonState.TipsViewer);
                     tipsViewerAnimator.SetBool("show", true);
                     DungeonManager.instance.ExitState();
                 });
         }
-
-        // Update is called once per frame
-        //  void Update()
-        //  {
-
-        //  }
-
-
     }
 }
