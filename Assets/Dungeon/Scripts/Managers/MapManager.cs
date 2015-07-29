@@ -11,8 +11,6 @@ namespace Memoria.Dungeon.Managers
     {
         public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
 
-        private static ItemCreator itemCreator { get { return DungeonManager.instance.itemCreator; } }
-
         private Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
         private Dictionary<Vector2Int, Item> itemMap = new Dictionary<Vector2Int, Item>();
 
@@ -75,7 +73,7 @@ namespace Memoria.Dungeon.Managers
             stageArea = stageData.stageSize;
 
             itemDatas
-                .Select(itemData => itemCreator.CreateItem(itemData))
+                .Select(itemData => ItemManager.instance.CreateItem(itemData))
                 .ToList()
                 .ForEach(item =>
                 {
