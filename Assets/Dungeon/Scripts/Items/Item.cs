@@ -123,6 +123,37 @@ namespace Memoria.Dungeon.Items
             Destroy(gameObject);  
         }
         
+
+        void Start()
+        {
+            var parameter = ParameterManager.instance.parameter;
+
+            switch (itemData.type)
+            {
+                case ItemType.Soul:
+                case ItemType.MagicPlate:
+                    {
+                        var remainKeyNum = parameter.allKeyNum - parameter.getKeyNum;
+                        visible = remainKeyNum <= 1;
+
+                        if (remainKeyNum > 1)
+                        {
+                            var showItem = ParameterManager.instance.OnChangeParameterAsObservable()
+                                .DistinctUntilChanged(param => param.getKeyNum)
+                                .Select(param => param.allKeyNum - param.getKeyNum)
+                                .Where(remain => remain <= 1)
+                                .First()
+                                .Subscribe(_ =>
+                                {
+                                    visible = true;
+                                })
+                                .AddTo(gameObject);
+                        }
+                    }
+                    break;
+            }
+        }
+
         private void SetSprite(BlockType attribute)
         {
             var renderer = GetComponent<SpriteRenderer>();
