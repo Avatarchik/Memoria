@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UniRx;
+using UniRx.Triggers;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
 
@@ -75,7 +77,28 @@ namespace Memoria.Dungeon.Items
 
         [SerializeField]
         public Sprite recoverySprite;
-
+        
+        Subject<Unit> onTake;
+        
+        public IObservable<Unit> OnTakeAsObservable()
+        {
+            return onTake ?? (onTake = new Subject<Unit>());
+        }
+            
+        private void OnTake()
+        {
+            if (onTake != null)
+            {
+                onTake.OnNext(Unit.Default);
+            }
+        }
+        
+        public void Take()
+        {
+            OnTake();
+            Destroy(gameObject);  
+        }
+        
         private void SetSprite(BlockType attribute)
         {
             var renderer = GetComponent<SpriteRenderer>();
