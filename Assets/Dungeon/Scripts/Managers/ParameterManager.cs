@@ -35,6 +35,7 @@ namespace Memoria.Dungeon.Managers
             var dungeonManager = DungeonManager.instance;
             var blockManager = BlockManager.instance;
             var mapManager = MapManager.instance;
+            var itemManager = ItemManager.instance;
             var parameterChanged = _parameter.AsObservable();
 
             // HPの変化イベントの追加
@@ -97,9 +98,12 @@ namespace Memoria.Dungeon.Managers
                     parameter = param;
                 });
 
+            var createItem = itemManager.OnCreateItemAsObservable();
+
             // キーを取得した時
-            mapManager.OnTakeItemAsObservable()
+            createItem
                 .Where(item => item.itemData.type == ItemType.Key)
+                .SelectMany(item => item.OnTakeAsObservable())
                 .Subscribe(_ =>
                 {
                     var param = parameter;
@@ -108,13 +112,14 @@ namespace Memoria.Dungeon.Managers
                 });
 
             // 宝石を取得した時
-            mapManager.OnTakeItemAsObservable()
+            createItem
                 .Where(item => item.itemData.type == ItemType.Jewel)
-                .Subscribe(_ =>
+                .SelectMany(item => item.OnTakeAsObservable())
+                .Subscribe(_ => 
                 {
-					var param = parameter;
-					param.silling += 1000;
-					parameter = param;
+                    var param = parameter;
+                    param.silling += 1000;
+                    parameter = param; 
                 });
         }
 
