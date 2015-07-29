@@ -11,6 +11,7 @@ namespace Memoria.Dungeon.Managers
         BlockOperating,
         PlayerMoving,
         BlockEvent,
+        ItemTaking,
 		StockTaking,
         OpenMenu,
         LeaveSelect,
