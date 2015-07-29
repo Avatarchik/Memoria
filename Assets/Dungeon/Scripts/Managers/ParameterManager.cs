@@ -17,6 +17,11 @@ namespace Memoria.Dungeon.Managers
             get { return _parameter.Value; }
             set { _parameter.Value = value; }
         }
+        
+        public IObservable<DungeonParameter> OnChangeParameterAsObservable()
+        {
+            return _parameter.AsObservable();
+        }
 
         [SerializeField]
         private Text hpText;
