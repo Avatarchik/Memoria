@@ -65,6 +65,18 @@ namespace Memoria.Dungeon.Managers
                         .Subscribe(_ => map.Remove(block.location))
                         .AddTo(block.gameObject);
                 });
+
+            ItemManager.instance.OnCreateItemAsObservable()
+                .Subscribe(item =>
+                {
+                    itemMap.Add(item.itemData.location, item);
+
+                    item.OnTakeAsObservable()
+                        .Subscribe(_ =>
+                        {
+                            itemMap.Remove(item.itemData.location);
+                        });
+                });
         }
 
         public void SetMap(List<BlockData> blockDatas, StageData stageData, List<ItemData> itemDatas)
@@ -72,13 +84,15 @@ namespace Memoria.Dungeon.Managers
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
 
-            itemDatas
-                .Select(itemData => ItemManager.instance.CreateItem(itemData))
-                .ToList()
-                .ForEach(item =>
-                {
-                    itemMap.Add(item.itemData.location, item);
-                });
+            itemDatas.ForEach(itemData => ItemManager.instance.CreateItem(itemData));
+
+            //  itemDatas
+            //      .Select(itemData => ItemManager.instance.CreateItem(itemData))
+            //      .ToList()
+            //      .ForEach(item =>
+            //      {
+            //          itemMap.Add(item.itemData.location, item);
+            //      });
         }
 
         public bool ExistsBlock(Vector2Int location)
