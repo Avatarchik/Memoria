@@ -53,6 +53,14 @@ namespace Memoria.Dungeon.BlockEvents
                     case ItemType.Jewel:
                         yield return coroutineAppended.StartCoroutine(CoroutineTakeJewel(item.itemData.attribute));
                         break;
+
+                    case ItemType.Soul:
+                        yield return coroutineAppended.StartCoroutine(CoroutineTakeSoul(item.itemData.attribute));
+                        break;
+
+                    case ItemType.MagicPlate:
+                        yield return coroutineAppended.StartCoroutine(CoroutineTakeMagicPlate(item.itemData.attribute));
+                        break;
                 }
 
                 mapManager.TakeItem(item);
@@ -78,6 +86,16 @@ namespace Memoria.Dungeon.BlockEvents
             EventManager.instance.message = "宝石を入手した！！";
             eventAnimator.SetTrigger("getJewel");
             yield return new WaitForSeconds(1.4f);
+        }
+
+        private IEnumerator CoroutineTakeSoul(BlockType attribute)
+        {
+            yield break;
+        }
+
+        private IEnumerator CoroutineTakeMagicPlate(BlockType attribute)
+        {
+            yield break;
         }
     }
 }
