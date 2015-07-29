@@ -51,7 +51,6 @@ namespace Memoria.Dungeon.Items
             }
 
             item.itemData = itemData;
-            item.transform.position = (Vector3)MapManager.instance.ToPosition(itemData.location);
 
             return item;
         }

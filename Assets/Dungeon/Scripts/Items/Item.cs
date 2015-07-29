@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using Memoria.Dungeon.BlockComponent;
+using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon.Items
 {
@@ -55,6 +56,8 @@ namespace Memoria.Dungeon.Items
                 {
                     SetSprite(_itemData.attribute);
                 }
+                
+                transform.position = (Vector3)MapManager.instance.ToPosition(_itemData.location);
             }
         }
 
