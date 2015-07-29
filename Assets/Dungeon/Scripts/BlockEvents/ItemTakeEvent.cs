@@ -64,14 +64,14 @@ namespace Memoria.Dungeon.BlockEvents
             observer.OnCompleted();
         }
 
-        public IEnumerator CoroutineTakeKey()
+        private IEnumerator CoroutineTakeKey()
         {
             eventAnimator.SetFloat("itemType", 0);
             eventAnimator.SetTrigger("getKey");
             yield return new WaitForSeconds(1);
         }
 
-        public IEnumerator CoroutineTakeJewel(BlockType attribute)
+        private IEnumerator CoroutineTakeJewel(BlockType attribute)
         {
             eventAnimator.SetFloat("itemType", 1);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
