@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using Memoria.Dungeon.Items;
 
-namespace Memoria.Dungeon.Items
+namespace Memoria.Dungeon.Managers
 {
-    public class ItemCreator : MonoBehaviour
-    {        
+    public class ItemManager : MonoBehaviour
+    {
         [SerializeField]
         private GameObject keyPrefab;
         [SerializeField]
@@ -12,7 +13,7 @@ namespace Memoria.Dungeon.Items
         private GameObject soulPrefab;
         [SerializeField]
         private GameObject magicPlatePrefab;
-        
+
         public Item CreateItem(ItemData itemData)
         {
             Item item = null;
