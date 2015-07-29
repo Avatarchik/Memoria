@@ -64,19 +64,19 @@ namespace Memoria.Dungeon.Items
         }
 
         [SerializeField]
-        public Sprite thunderSprite;
+        private Sprite thunderSprite;
 
         [SerializeField]
-        public Sprite waterSprite;
+        private Sprite waterSprite;
 
         [SerializeField]
-        public Sprite fireSprite;
+        private Sprite fireSprite;
 
         [SerializeField]
-        public Sprite windSprite;
+        private Sprite windSprite;
 
         [SerializeField]
-        public Sprite recoverySprite;
+        private Sprite recoverySprite;
         
         Subject<Unit> onTake;
         
