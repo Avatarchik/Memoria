@@ -35,7 +35,8 @@ namespace Memoria.Dungeon.BlockEvents
         }
 
         public IEnumerator CoroutineTakeItem(IObserver<bool> observer, Vector2Int location)
-        {    
+        {
+            DungeonManager.instance.EnterState(DungeonState.ItemTaking);
             bool exists = mapManager.ExistsItem(location);
 
             if (exists)
@@ -58,6 +59,7 @@ namespace Memoria.Dungeon.BlockEvents
                 yield return new WaitForSeconds(1f);
             }
 
+            DungeonManager.instance.ExitState();
             observer.OnNext(exists);
             observer.OnCompleted();
         }
