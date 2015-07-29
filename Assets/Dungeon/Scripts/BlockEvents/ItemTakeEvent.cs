@@ -40,9 +40,18 @@ namespace Memoria.Dungeon.BlockEvents
             bool exists = mapManager.ExistsItem(location);
 
             if (exists)
-            {
+            {                
                 Item item = mapManager.GetItem(location);
-                item.GetComponent<SpriteRenderer>().enabled = false;
+                
+                if (!item.visible)
+                {
+                    DungeonManager.instance.ExitState();
+                    observer.OnNext(false);
+                    observer.OnCompleted();
+                    yield break;
+                }
+                
+                item.visible = false;
 
                 switch (item.itemData.type)
                 {

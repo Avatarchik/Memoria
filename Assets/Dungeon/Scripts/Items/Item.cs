@@ -77,7 +77,31 @@ namespace Memoria.Dungeon.Items
 
         [SerializeField]
         private Sprite recoverySprite;
-        
+
+        private SpriteRenderer spriteRenderer;
+
+        public bool visible
+        {
+            get
+            {
+                if (spriteRenderer == null)
+                {
+                    spriteRenderer = GetComponent<SpriteRenderer>();
+                }
+                
+                return spriteRenderer.enabled;
+            }
+            set
+            {
+                if (spriteRenderer == null)
+                {
+                    spriteRenderer = GetComponent<SpriteRenderer>();
+                }
+                
+                spriteRenderer.enabled = value;
+            }
+        }
+
         Subject<Unit> onTake;
         
         public IObservable<Unit> OnTakeAsObservable()
