@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UniRx;
+using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -83,6 +84,8 @@ namespace Memoria.Dungeon.Managers
         private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
 
         #endregion
+        
+        public ItemCreator itemCreator; 
 
         public Vector2 blockSize = new Vector2(200, 200);
 
