@@ -48,7 +48,7 @@ namespace Memoria.Dungeon.Managers
             powerTakeEvent = new PowerTakeEvent(this, eventAnimator);
             spRemainCheckEvent = new SpRemainCheckEvent(this, eventAnimator);
         }
-        
+
         // プレイヤーが歩き終わったときに呼び出される
         public void OnArrivePlayer()
         {
@@ -58,6 +58,8 @@ namespace Memoria.Dungeon.Managers
             {
                 return;
             }
+
+            DungeonManager.instance.EnterState(DungeonState.BlockEvent);
 
             var takeItem = itemTakeEvent.CreateTakeItemAsObservable(player.location);
             var battle = battleEvent.CreateBattleEventAsObservable(block);
@@ -70,6 +72,8 @@ namespace Memoria.Dungeon.Managers
                 .SelectMany(takePower)
                 .SelectMany(checkSpRemain)
                 .Subscribe();
+
+            DungeonManager.instance.ExitState();
         }
 
         public void ReturnFromBattle()
