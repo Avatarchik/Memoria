@@ -37,21 +37,6 @@ namespace Memoria.Dungeon.Managers
             }
         }
 
-        private Subject<Item> onTakeItem;
-
-        public IObservable<Item> OnTakeItemAsObservable()
-        {
-            return onTakeItem ?? (onTakeItem = new Subject<Item>());
-        }
-
-        private void OnTakeItem(Item item)
-        {
-            if (onTakeItem != null)
-            {
-                onTakeItem.OnNext(item);
-            }
-        }
-
         void Awake()
         {
             // Block の Map に関わるイベント
