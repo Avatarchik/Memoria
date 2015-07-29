@@ -44,10 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393355a95e406aa48974bc068f8e5a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyPrefab: {fileID: 101772, guid: fe1d88cd2972d4634976e3875e43a6f0, type: 2}
-  jewelPrefab: {fileID: 187550, guid: 39c023d8ca3cf461c92779da5a2da8da, type: 2}
-  soulPrefab: {fileID: 118978, guid: 90eef55fcb57d42dca7b080bb5673831, type: 2}
-  magicPlatePrefab: {fileID: 171862, guid: 6690ef2255a4247dab577968267c9721, type: 2}
 --- !u!114 &11441756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,6 +274,7 @@ MonoBehaviour:
   _blockManager: {fileID: 11441756}
   _parameterManager: {fileID: 11449698}
   _stageDataManager: {fileID: 11450150}
+  itemCreator: {fileID: 0}
   blockSize: {x: 200, y: 200}
   dungeonDataPrefab: {fileID: 157120, guid: 57dff4db00269734b9bdfdd8b55e085b, type: 2}
 --- !u!114 &11485228
