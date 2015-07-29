@@ -5,6 +5,8 @@ namespace Memoria.Dungeon.Managers
 {
     public class ItemManager : MonoBehaviour
     {
+        public static ItemManager instance { get { return DungeonManager.instance.itemManager; } }
+
         [SerializeField]
         private GameObject keyPrefab;
         [SerializeField]
