@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon.Managers
@@ -15,6 +17,21 @@ namespace Memoria.Dungeon.Managers
         private GameObject soulPrefab;
         [SerializeField]
         private GameObject magicPlatePrefab;
+        
+        private Subject<Item> onCreateItem;
+        
+        public IObservable<Item> OnCreateItemAsObservable()
+        {
+            return onCreateItem ?? (onCreateItem = new Subject<Item>());
+        }
+        
+        private void OnCreateItem(Item item)
+        {
+            if (onCreateItem != null)
+            {
+                onCreateItem.OnNext(item);
+            }
+        }
 
         public Item CreateItem(ItemData itemData)
         {
@@ -39,8 +56,9 @@ namespace Memoria.Dungeon.Managers
                     break;
             }
 
-            item.itemData = itemData;
-
+            item.itemData = itemData;            
+            OnCreateItem(item);
+            
             return item;
         }
     }
