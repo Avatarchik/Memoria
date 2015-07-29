@@ -54,6 +54,7 @@ namespace Memoria.Dungeon.Managers
 
         void Awake()
         {
+            // Block の Map に関わるイベント
             BlockManager.instance.OnCreateBlockAsObservable()
                 .Subscribe(block =>
                 {
@@ -66,6 +67,7 @@ namespace Memoria.Dungeon.Managers
                         .AddTo(block.gameObject);
                 });
 
+            // Item の Map に関わるイベント 
             ItemManager.instance.OnCreateItemAsObservable()
                 .Subscribe(item =>
                 {
@@ -85,14 +87,6 @@ namespace Memoria.Dungeon.Managers
             stageArea = stageData.stageSize;
 
             itemDatas.ForEach(itemData => ItemManager.instance.CreateItem(itemData));
-
-            //  itemDatas
-            //      .Select(itemData => ItemManager.instance.CreateItem(itemData))
-            //      .ToList()
-            //      .ForEach(item =>
-            //      {
-            //          itemMap.Add(item.itemData.location, item);
-            //      });
         }
 
         public bool ExistsBlock(Vector2Int location)
@@ -113,13 +107,6 @@ namespace Memoria.Dungeon.Managers
         public Item GetItem(Vector2Int location)
         {
             return itemMap[location];
-        }
-
-        public void TakeItem(Item item)
-        {
-            OnTakeItem(item);
-            itemMap.Remove(item.itemData.location);
-            Destroy(item.gameObject);
         }
 
         /// <summary>
