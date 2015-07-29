@@ -11,14 +11,7 @@ namespace Memoria.Dungeon.Managers
     {
         public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
 
-        [SerializeField]
-        private GameObject keyPrefab;
-        [SerializeField]
-        private GameObject jewelPrefab;
-        [SerializeField]
-        private GameObject soulPrefab;
-        [SerializeField]
-        private GameObject magicPlatePrefab;
+        private static ItemCreator itemCreator { get { return DungeonManager.instance.itemCreator; } }
 
         private Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
         private Dictionary<Vector2Int, Item> itemMap = new Dictionary<Vector2Int, Item>();
@@ -45,22 +38,22 @@ namespace Memoria.Dungeon.Managers
                 return ret;
             }
         }
-		
-		private Subject<Item> onTakeItem;
-		
-		public IObservable<Item> OnTakeItemAsObservable()
-		{
-			return onTakeItem ?? (onTakeItem = new Subject<Item>());
-		}
-		
-		private void OnTakeItem(Item item)
-		{
-			if (onTakeItem != null)
-			{
-				onTakeItem.OnNext(item);
-			}
-		}
-		
+
+        private Subject<Item> onTakeItem;
+
+        public IObservable<Item> OnTakeItemAsObservable()
+        {
+            return onTakeItem ?? (onTakeItem = new Subject<Item>());
+        }
+
+        private void OnTakeItem(Item item)
+        {
+            if (onTakeItem != null)
+            {
+                onTakeItem.OnNext(item);
+            }
+        }
+
         void Awake()
         {
             BlockManager.instance.OnCreateBlockAsObservable()
@@ -82,7 +75,7 @@ namespace Memoria.Dungeon.Managers
             stageArea = stageData.stageSize;
 
             itemDatas
-                .Select(itemData => CreateItem(itemData))
+                .Select(itemData => itemCreator.CreateItem(itemData))
                 .ToList()
                 .ForEach(item =>
                 {
@@ -109,41 +102,12 @@ namespace Memoria.Dungeon.Managers
         {
             return itemMap[location];
         }
-		
-		public void TakeItem(Item item)
-		{
-			OnTakeItem(item);
-			itemMap.Remove(item.itemData.location);
-			Destroy(item.gameObject);
-		}
 
-        private Item CreateItem(ItemData itemData)
+        public void TakeItem(Item item)
         {
-            Item item = null;
-
-            switch (itemData.type)
-            {
-                case ItemType.Key:
-                    item = Instantiate<GameObject>(keyPrefab).GetComponent<Item>();
-                    break;
-
-                case ItemType.Jewel:
-                    item = Instantiate<GameObject>(jewelPrefab).GetComponent<Item>();
-                    break;
-
-                case ItemType.Soul:
-                    item = Instantiate<GameObject>(soulPrefab).GetComponent<Item>();
-                    break;
-
-                case ItemType.MagicPlate:
-                    item = Instantiate<GameObject>(magicPlatePrefab).GetComponent<Item>();
-                    break;
-            }
-
-            item.itemData = itemData;
-            item.transform.position = (Vector3)ToPosition(itemData.location);
-
-            return item;
+            OnTakeItem(item);
+            itemMap.Remove(item.itemData.location);
+            Destroy(item.gameObject);
         }
 
         /// <summary>
