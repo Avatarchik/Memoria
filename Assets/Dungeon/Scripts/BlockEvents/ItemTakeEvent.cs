@@ -63,7 +63,8 @@ namespace Memoria.Dungeon.BlockEvents
                         break;
                 }
 
-                mapManager.TakeItem(item);
+                item.Take();
+                //  mapManager.TakeItem(item);
                 yield return new WaitForSeconds(1f);
             }
 
