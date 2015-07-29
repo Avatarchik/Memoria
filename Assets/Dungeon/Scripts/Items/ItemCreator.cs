@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon.Items
 {
@@ -14,18 +12,6 @@ namespace Memoria.Dungeon.Items
         private GameObject soulPrefab;
         [SerializeField]
         private GameObject magicPlatePrefab;
-        
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
         
         public Item CreateItem(ItemData itemData)
         {
