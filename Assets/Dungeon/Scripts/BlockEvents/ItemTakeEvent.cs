@@ -84,6 +84,7 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineTakeKey()
         {
             eventAnimator.SetFloat("itemType", 0);
+            eventAnimator.SetFloat("eventType", 0);
             EventManager.instance.message = "鍵を入手した！！";
             eventAnimator.SetTrigger("getKey");
             yield return new WaitForSeconds(1.4f);
@@ -92,6 +93,7 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineTakeJewel(BlockType attribute)
         {
             eventAnimator.SetFloat("itemType", 1);
+            eventAnimator.SetFloat("eventType", 0);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "宝石を入手した！！";
             eventAnimator.SetTrigger("getJewel");
@@ -101,6 +103,7 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineTakeSoul(BlockType attribute)
         {
             eventAnimator.SetFloat("itemType", 2);
+            eventAnimator.SetFloat("eventType", 0);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "魂を入手した！！";
             eventAnimator.SetTrigger("getSoul");
@@ -110,6 +113,7 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineTakeMagicPlate(BlockType attribute)
         {
             eventAnimator.SetFloat("itemType", 3);
+            eventAnimator.SetFloat("eventType", 0);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "魔石版を入手した！！";
             eventAnimator.SetTrigger("getMagicPlate");
