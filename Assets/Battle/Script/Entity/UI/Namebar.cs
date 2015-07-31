@@ -24,7 +24,7 @@ namespace Memoria.Battle.GameActors
         }
         override public void Init()
         {
-
+            spriteFolder = "UI/";
         }
 
         void Update()
@@ -74,7 +74,7 @@ namespace Memoria.Battle.GameActors
             float toY = slot.y;
 
             float yDiff = fromY - toY;
-            
+
             while(this.transform.position.y != slot.y)
             {
                 thisPos.y += 0.1f;
@@ -90,11 +90,6 @@ namespace Memoria.Battle.GameActors
                 transform.position = thisPos;
                 yield return null;
             }
-        }
-
-        public Vector3 Lerp(Vector3 start, Vector3 end, float p)
-        {
-            return (start + p * (end - start));
         }
 
         public void Attach(Vector3 endPos)

@@ -25,7 +25,7 @@ namespace Memoria.Battle.States
             if(hero.target == null)
             {
                 uiMgr.SpawnDescription("description_frame");
-                foreach(var actor in BattleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
+                foreach(var actor in battleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
                     uiMgr.SpawnCursor(actor.GetComponent<Entity>().battleID, actor);
                 }
@@ -39,7 +39,6 @@ namespace Memoria.Battle.States
 
             if(hero.passToStock)
             {
-                Debug.Log("select target");
                 battleMgr.SetState(State.RUNNING);
                 return;
             }
@@ -56,7 +55,7 @@ namespace Memoria.Battle.States
                 _timer++;
                 if(_timer > 20)
                 {
-                    foreach(var actor in BattleMgr.actorList)
+                    foreach(var actor in battleMgr.actorList)
                     {
                         uiMgr.DestroyElement("cursor_" + actor.GetComponent<Entity>().battleID);
                     }
@@ -73,7 +72,7 @@ namespace Memoria.Battle.States
         {
             if(hero.passToStock)
                 return;
-            foreach(var actor in BattleMgr.actorList)
+            foreach(var actor in battleMgr.actorList)
             {
                 var e = actor.GetComponent<Entity>();
                 if (e.battleID.ToLowerInvariant().IndexOf(c) != -1) {
@@ -87,7 +86,7 @@ namespace Memoria.Battle.States
             SetSelectable(nowActor.attackType.targetType, false);
             uiMgr.DestroyElement("frame");
 
-            foreach(var actor in BattleMgr.actorList)
+            foreach(var actor in battleMgr.actorList)
             {
                 uiMgr.DestroyElement("cursor_" + actor.GetComponent<Entity>().battleID);
             }

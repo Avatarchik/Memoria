@@ -5,26 +5,24 @@ using System.Linq;
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
 using Memoria.Battle;
+using Memoria.Battle.Events;
 
 namespace Memoria.Battle.GameActors
 {
     public class Hero : Entity
     {
-        public delegate void OnHit();
-
-        private OnHit stockUp;
-
-        public bool attackSelected;
-
-        public bool passToStock;
-
-        public string nameplae;
-
         private bool _enemyTarget;
-
         private bool _initializedTurn;
 
+        // Used when tapping for stock to store ultimate
+        // attack when stock is full.
+        public delegate void OnHit();
+        private OnHit stockUp;
+
         public ElementalPowerStock power;
+        public bool attackSelected;
+        public bool passToStock;
+        public string nameplae;
 
         void Start ()
         {
@@ -36,10 +34,7 @@ namespace Memoria.Battle.GameActors
             power.objType = ObjectType.NORMAL;
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
 
-            BattleMgr.Instance.mainPlayer.health.hp += parameter.hp;
-            BattleMgr.Instance.mainPlayer.health.maxHp += parameter.hp;
         }
-
 
         public void CheckIfhit()
         {
@@ -102,6 +97,15 @@ namespace Memoria.Battle.GameActors
 
             transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, -10);
             base.EndTurn();
+        }
+
+        override protected void UpdateOrder(TurnEnds gameEvent)
+        {
+            if(profile.GetType() == typeof(Dhiel))
+            {
+                Debug.Log(this + ": updates");
+            }
+            base.UpdateOrder(gameEvent);
         }
 
         public void StockUp()

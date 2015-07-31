@@ -7,8 +7,9 @@ namespace Memoria.Battle.Utility
 {
     public class DeathSystem : MonoBehaviour
     {
-        public bool isAlive;
         public static List<GameObject> deadEnemy = new List<GameObject>();
+
+        public bool isAlive;
 
         void Start()
         {
@@ -21,7 +22,7 @@ namespace Memoria.Battle.Utility
             {
                 if(!enemy.GetComponent<DeathSystem>().isAlive)
                 {
-                    BattleMgr.actorList.Remove(enemy);
+                    BattleMgr.Instance.actorList.Remove(enemy);
                     deadEnemy.Add(enemy);
                 }
             }

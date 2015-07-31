@@ -9,6 +9,7 @@ namespace Memoria.Battle.States
         protected  UIMgr uiMgr;
         protected Entity nowActor;
         protected AttackTracker attackTracker;
+
         public bool Initialized { get; set; }
         public bool Run { get; set; }
 

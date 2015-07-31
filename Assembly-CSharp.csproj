@@ -63,8 +63,8 @@
      <Compile Include="Assets\Battle\Script\Components\HealthSystem.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Amelia.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Aria.cs" />
-     <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Claude.cs" />
-     <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Tracy.cs" />
+     <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Dhiel.cs" />
+     <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Iska.cs" />
      <Compile Include="Assets\Battle\Script\Components\Profile.cs" />
      <Compile Include="Assets\Battle\Script\Elements\Element.cs" />
      <Compile Include="Assets\Battle\Script\Elements\ElementFire.cs" />
@@ -88,13 +88,13 @@
      <Compile Include="Assets\Battle\Script\Entity\UI\Result.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\SkillIcon.cs" />
      <Compile Include="Assets\Battle\Script\Entity\UI\UIElement.cs" />
+     <Compile Include="Assets\Battle\Script\Events\BattleEnded.cs" />
      <Compile Include="Assets\Battle\Script\Events\CancelSkill.cs" />
      <Compile Include="Assets\Battle\Script\Events\MonsterDies.cs" />
      <Compile Include="Assets\Battle\Script\Events\NewTurn.cs" />
      <Compile Include="Assets\Battle\Script\Events\TakeDamage.cs" />
      <Compile Include="Assets\Battle\Script\Events\TurnEnds.cs" />
      <Compile Include="Assets\Battle\Script\Extensions.cs" />
-     <Compile Include="Assets\Battle\Script\FadeAttackScreen.cs" />
      <Compile Include="Assets\Battle\Script\Manager\AttackTracker.cs" />
      <Compile Include="Assets\Battle\Script\Manager\BattleMgr.cs" />
      <Compile Include="Assets\Battle\Script\Manager\EventListner.cs" />
@@ -102,6 +102,8 @@
      <Compile Include="Assets\Battle\Script\Manager\TargetSelector.cs" />
      <Compile Include="Assets\Battle\Script\Manager\UIMgr.cs" />
      <Compile Include="Assets\Battle\Script\Skills\AttackType.cs" />
+     <Compile Include="Assets\Battle\Script\Skills\DhielElementalSkill.cs" />
+     <Compile Include="Assets\Battle\Script\Skills\DhielUltimate.cs" />
      <Compile Include="Assets\Battle\Script\Skills\FireAttack.cs" />
      <Compile Include="Assets\Battle\Script\Skills\PlayerStrike.cs" />
      <Compile Include="Assets\Battle\Script\Skills\QuickAttack.cs" />

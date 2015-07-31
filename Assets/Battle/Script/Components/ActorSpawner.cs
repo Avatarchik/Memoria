@@ -6,13 +6,13 @@ namespace Memoria.Battle.GameActors
 {
     public class ActorSpawner : MonoBehaviour {
 
-        public bool Init { get; set;}
-
         public Transform parentObject;
 
         public List<Type> _defaultComponents;
 
         public List<Component> defaultComponent;
+
+        public bool Init { get; set;}
 
         void Awake ()
         {

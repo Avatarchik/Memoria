@@ -1,20 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public class PlayerStrike : AttackType
-    {
+    public class DhielUltimate : AttackType  {
+
         void Start ()
         {
-            phaseCost = 0;
-            stockCost = 0;
-            animationDur = 210;
+            phaseCost = 3;
+            stockCost = 3;
+            animationDur = 310;
             targetType = 'e';
             selectType = TargetType.ALL;
-            elementalAff = new ElementThunder(Element.THUNDER);
-            effectObj = (GameObject)Resources.Load("Skills/explode2");
-            parameters.attackPower = -1;
+            elementalAff = new ElementFire(Element.WIND);
+            effectObj = (GameObject)Resources.Load("Skills/DhielUltimate");
+            parameters.attackPower = 100;
         }
 
         override public void Execute(Damage damage, IDamageable target)
@@ -25,10 +25,11 @@ namespace Memoria.Battle.GameActors
 
         override public void PlayEffect (Entity target)
         {
+            //TODO: Add cut in
+
             particleEffect = Instantiate (effectObj);
-            particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y -0.3f, -3);
+            particleEffect.transform.position = new Vector3 (0, 0, -3);
             particleEffect.GetComponent<ParticleSystem>().Play();
         }
     }
 }
-

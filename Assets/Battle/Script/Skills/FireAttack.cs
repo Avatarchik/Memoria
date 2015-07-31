@@ -5,11 +5,6 @@ namespace Memoria.Battle.GameActors
 {
     public class FireAttack : AttackType  {
 
-        void Awake()
-        {
-            parameters.attackPower = 100;
-        }
-
         void Start ()
         {
             phaseCost = 2;
@@ -19,6 +14,7 @@ namespace Memoria.Battle.GameActors
             selectType = TargetType.ALL;
             elementalAff = new ElementFire(Element.FIRE);
             effectObj = (GameObject)Resources.Load("Skills/explode");
+            parameters.attackPower = 100;
         }
 
         override public void Execute(Damage damage, IDamageable target)
