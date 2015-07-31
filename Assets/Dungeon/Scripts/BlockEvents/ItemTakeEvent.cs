@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//  using UniRx;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Items;
@@ -84,59 +83,6 @@ namespace Memoria.Dungeon.BlockEvents
             dungeonManager.ExitState();
             yield break;
         }
-
-        //  public IObservable<bool> CreateTakeItemAsObservable(Vector2Int location)
-        //  {
-        //      return Observable.FromCoroutine<bool>(observer => CoroutineTakeItem(observer, location));
-        //  }
-
-        //  public IEnumerator CoroutineTakeItem(IObserver<bool> observer, Vector2Int location)
-        //  {
-        //      DungeonManager.instance.EnterState(DungeonState.ItemTaking);
-        //      bool exists = mapManager.ExistsItem(location);
-
-        //      if (exists)
-        //      {                
-        //          Item item = mapManager.GetItem(location);
-
-        //          if (!item.visible)
-        //          {
-        //              DungeonManager.instance.ExitState();
-        //              observer.OnNext(false);
-        //              observer.OnCompleted();
-        //              yield break;
-        //          }
-
-        //          item.visible = false;
-
-        //          switch (item.itemData.type)
-        //          {
-        //              case ItemType.Key:
-        //                  yield return coroutineAppended.StartCoroutine(CoroutineTakeKey());
-        //                  break;
-
-        //              case ItemType.Jewel:
-        //                  yield return coroutineAppended.StartCoroutine(CoroutineTakeJewel(item.itemData.attribute));
-        //                  break;
-
-        //              case ItemType.Soul:
-        //                  yield return coroutineAppended.StartCoroutine(CoroutineTakeSoul(item.itemData.attribute));
-        //                  break;
-
-        //              case ItemType.MagicPlate:
-        //                  yield return coroutineAppended.StartCoroutine(CoroutineTakeMagicPlate(item.itemData.attribute));
-        //                  break;
-        //          }
-
-        //          item.Take();
-        //          //  mapManager.TakeItem(item);
-        //          yield return new WaitForSeconds(1f);
-        //      }
-
-        //      DungeonManager.instance.ExitState();
-        //      observer.OnNext(exists);
-        //      observer.OnCompleted();
-        //  }
 
         private IEnumerator CoroutineTakeKey()
         {

@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
+using System;
 using System.Linq;
 using UniRx;
-using UniRx.Triggers;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
 
@@ -156,28 +154,6 @@ namespace Memoria.Dungeon.Items
                                     visible = true;
                                 })
                                 .AddTo(gameObject);
-
-                            //  ParameterManager.instance.OnChangeParameterAsObservable()
-                            //      .DistinctUntilChanged(param => param.getKeyNum)
-                            //      .Select(param => param.allKeyNum - param.getKeyNum)
-                            //      .Where(remain => remain <= 1)
-                            //      .First()
-                            //      .SelectMany(DungeonManager.instance.OnChangeActiveStateAsObservable())
-                            //      .Subscribe(_ =>
-                            //      {
-                            //          DungeonManager.instance.OnChangeActiveStateAsObservable()
-                            //              .Buffer(2, 1)
-                            //              .Select(states => new { current = states.First(), next = states.Last() })
-                            //              .Where(states => states.current == DungeonState.BlockEvent && states.next == DungeonState.None)
-                            //              .First()
-                            //              .Subscribe(states =>
-                            //              {
-
-                            //              });
-
-                            //          visible = true;
-                            //      })
-                            //      .AddTo(gameObject);
                         }
                     }
                     break;

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UniRx;
 using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon.BlockEvents
@@ -20,11 +19,6 @@ namespace Memoria.Dungeon.BlockEvents
         {
             return coroutineAppended.StartCoroutine(CoroutineCheckSpRemain());
         }
-        
-        //  public IObservable<Unit> CreateCheckSpRemainAsObservable()
-        //  {
-        //      return Observable.FromCoroutine(CoroutineCheckSpRemain);
-        //  }
         
         private IEnumerator CoroutineCheckSpRemain()
         {

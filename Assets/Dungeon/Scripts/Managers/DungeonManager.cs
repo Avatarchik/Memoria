@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 
 namespace Memoria.Dungeon.Managers
@@ -134,11 +133,6 @@ namespace Memoria.Dungeon.Managers
             EnterState(DungeonState.None);
 
             dungeonData.Load();
-            
-            //  DungeonManager.instance.OnChangeActiveStateAsObservable()
-            //      .Buffer(2, 1)
-            //      .Select(states => new { current = states.First(), next = states.Last() })
-            //      .Subscribe(states => Debug.Log(states.current + " to " + states.next));
         }
 
         public void EnterState(DungeonState nextState)

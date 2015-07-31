@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
-using UniRx;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockComponent;
 
@@ -52,34 +50,6 @@ namespace Memoria.Dungeon.BlockEvents
             
             yield break;
         }
-
-        //  public Func<bool, IObservable<bool>> CreateBattleEventAsObservable(Block block)
-        //  {
-        //      return (bool taked) =>
-        //          Observable.FromCoroutine<bool>(observer => CoroutineBattle(observer, block, taked));
-        //  }
-
-        //  private IEnumerator CoroutineBattle(IObserver<bool> observer, Block block, bool takedItem)
-        //  {
-        //      bool onTriggerBattle = false;
-
-        //      // ボス戦
-        //      if (takedItem && OnTriggerOnBossBattleEvent())
-        //      {
-        //          onTriggerBattle = true;
-        //          yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
-        //      }
-        //      // 通常
-        //      else if (OnTriggerOnBattleEvent(block))
-        //      {
-        //          onTriggerBattle = true;
-        //          yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
-        //      }
-
-        //      observer.OnNext(onTriggerBattle);
-        //      observer.OnCompleted();
-        //      yield break;
-        //  }
 
         private bool OnTriggerOnBossBattleEvent()
         {
