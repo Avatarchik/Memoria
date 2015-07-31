@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UniRx;
 using UniRx.Triggers;
 using Memoria.Dungeon.BlockComponent;
@@ -58,7 +59,7 @@ namespace Memoria.Dungeon.Items
                 {
                     SetSprite(_itemData.attribute);
                 }
-                
+
                 transform.position = (Vector3)MapManager.instance.ToPosition(_itemData.location);
             }
         }
@@ -88,7 +89,7 @@ namespace Memoria.Dungeon.Items
                 {
                     spriteRenderer = GetComponent<SpriteRenderer>();
                 }
-                
+
                 return spriteRenderer.enabled;
             }
             set
@@ -97,18 +98,18 @@ namespace Memoria.Dungeon.Items
                 {
                     spriteRenderer = GetComponent<SpriteRenderer>();
                 }
-                
+
                 spriteRenderer.enabled = value;
             }
         }
 
         Subject<Unit> onTake;
-        
+
         public IObservable<Unit> OnTakeAsObservable()
         {
             return onTake ?? (onTake = new Subject<Unit>());
         }
-            
+
         private void OnTake()
         {
             if (onTake != null)
@@ -116,13 +117,13 @@ namespace Memoria.Dungeon.Items
                 onTake.OnNext(Unit.Default);
             }
         }
-        
+
         public void Take()
         {
             OnTake();
-            Destroy(gameObject);  
+            Destroy(gameObject);
         }
-        
+
 
         void Start()
         {
@@ -138,16 +139,45 @@ namespace Memoria.Dungeon.Items
 
                         if (remainKeyNum > 1)
                         {
-                            var showItem = ParameterManager.instance.OnChangeParameterAsObservable()
+                            // キーが残り一個になったときのイベント
+                            var keyNumIsOne = ParameterManager.instance.OnChangeParameterAsObservable()
                                 .DistinctUntilChanged(param => param.getKeyNum)
                                 .Select(param => param.allKeyNum - param.getKeyNum)
                                 .Where(remain => remain <= 1)
-                                .First()
+                                .First();
+
+                            // BlockEventStateから出るときのイベント
+                            var exitFromBlockEventState = EventManager.instance.OnEndBlockEventAsObservable();
+
+                            keyNumIsOne
+                                .SelectMany(exitFromBlockEventState)
                                 .Subscribe(_ =>
                                 {
                                     visible = true;
                                 })
                                 .AddTo(gameObject);
+
+                            //  ParameterManager.instance.OnChangeParameterAsObservable()
+                            //      .DistinctUntilChanged(param => param.getKeyNum)
+                            //      .Select(param => param.allKeyNum - param.getKeyNum)
+                            //      .Where(remain => remain <= 1)
+                            //      .First()
+                            //      .SelectMany(DungeonManager.instance.OnChangeActiveStateAsObservable())
+                            //      .Subscribe(_ =>
+                            //      {
+                            //          DungeonManager.instance.OnChangeActiveStateAsObservable()
+                            //              .Buffer(2, 1)
+                            //              .Select(states => new { current = states.First(), next = states.Last() })
+                            //              .Where(states => states.current == DungeonState.BlockEvent && states.next == DungeonState.None)
+                            //              .First()
+                            //              .Subscribe(states =>
+                            //              {
+
+                            //              });
+
+                            //          visible = true;
+                            //      })
+                            //      .AddTo(gameObject);
                         }
                     }
                     break;
