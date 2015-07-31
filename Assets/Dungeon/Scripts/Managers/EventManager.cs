@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.BlockEvents;
 using UniRx;
@@ -53,8 +54,8 @@ namespace Memoria.Dungeon.Managers
             player = DungeonManager.instance.player;
 
             player.OnWalkEndAsObservable()
-                .SelectMany(DungeonManager.instance.OnChangeActiveStateAsObservable().First())
-                .Where(state => state == DungeonState.None)
+                //  .SelectMany(DungeonManager.instance.OnChangeActiveStateAsObservable().First())
+                //  .Where(state => state == DungeonState.None)
                 .Subscribe(_ => OnArrivePlayer());
 
             messageBoxText = messageBox.GetComponentInChildren<Text>();
@@ -75,42 +76,71 @@ namespace Memoria.Dungeon.Managers
             {
                 return;
             }
+            
+            StartCoroutine(CoroutineBlockEvent(block));
 
-            DungeonManager.instance.EnterState(DungeonState.BlockEvent);
+            //  DungeonManager.instance.EnterState(DungeonState.BlockEvent);
 
-            var takeItem = itemTakeEvent.CreateTakeItemAsObservable(player.location);
-            var battle = battleEvent.CreateBattleEventAsObservable(block);
-            var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
-            var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
+            //  var takeItem = itemTakeEvent.CreateTakeItemAsObservable(player.location);
+            //  var battle = battleEvent.CreateBattleEventAsObservable(block);
+            //  var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
+            //  var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
 
 
-            takeItem.Last()
-                .SelectMany(battle).Last()
-                .Where(onTriggerBattle => !onTriggerBattle)
-                .SelectMany(takePower)
-                .SelectMany(checkSpRemain)
-                .Subscribe();
+            //  takeItem.Last()
+            //      .SelectMany(battle).Last()
+            //      .Where(onTriggerBattle => !onTriggerBattle)
+            //      .SelectMany(takePower)
+            //      .SelectMany(checkSpRemain)
+            //      .Subscribe();
 
-            DungeonManager.instance.ExitState();
-            OnEndBlockEvent();
+            //  DungeonManager.instance.ExitState();
+            //  OnEndBlockEvent();
 
             // TODO:OnEndBlockEventを追加
             // TODO:OnComplete内にBlockEvent終了処理を入れる
             //  DungeonManager.instance.ExitState();
             //  OnEndBlockEvent();
         }
+        
+        private IEnumerator CoroutineBlockEvent(Block block)
+        {
+            DungeonManager.instance.EnterState(DungeonState.BlockEvent);
+            
+            yield return itemTakeEvent.StartTakeItemCoroutine(player.location);
+            yield return battleEvent.StartBattleEventCoroutine(block, itemTakeEvent.taked);
+            
+            if (battleEvent.onBattleEvent)
+            {
+                yield break;
+            }
+            
+            yield return StartCoroutine(CoroutineReturnFromBattle(block));
+            
+            OnEndBlockEvent();
+            DungeonManager.instance.ExitState();
+            yield break;   
         }
+        
 
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
+            
+            StartCoroutine(CoroutineReturnFromBattle(block));
+            
+            //  var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
+            //  var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
 
-            var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
-            var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
-
-            takePower
-                .SelectMany(checkSpRemain)
-                .Subscribe();
+            //  takePower
+            //      .SelectMany(checkSpRemain)
+            //      .Subscribe();
+        }
+        
+        private IEnumerator CoroutineReturnFromBattle(Block block)
+        {
+            yield return powerTakeEvent.StartTakePowerCoroutine(block);
+            yield return spRemainCheckEvent.StartCheckSpRemainCoroutine();
         }
 
         public void ShowMessageBox(bool visible)

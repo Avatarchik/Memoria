@@ -16,10 +16,15 @@ namespace Memoria.Dungeon.BlockEvents
             this.eventAnimator = eventAnimator;
         }
         
-        public IObservable<Unit> CreateCheckSpRemainAsObservable()
+        public Coroutine StartCheckSpRemainCoroutine()
         {
-            return Observable.FromCoroutine(CoroutineCheckSpRemain);
+            return coroutineAppended.StartCoroutine(CoroutineCheckSpRemain());
         }
+        
+        //  public IObservable<Unit> CreateCheckSpRemainAsObservable()
+        //  {
+        //      return Observable.FromCoroutine(CoroutineCheckSpRemain);
+        //  }
         
         private IEnumerator CoroutineCheckSpRemain()
         {

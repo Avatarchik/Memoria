@@ -18,9 +18,11 @@ namespace Memoria.Dungeon.BlockEvents
         {
             get { return ParameterManager.instance.parameter; }
         }
-        
+
         private MonoBehaviour coroutineAppended;
         private Animator eventAnimator;
+
+        public bool onBattleEvent { get; private set; }
 
         public BattleEvent(MonoBehaviour coroutineAppended, Animator eventAnimator)
         {
@@ -28,33 +30,56 @@ namespace Memoria.Dungeon.BlockEvents
             this.eventAnimator = eventAnimator;
         }
 
-        public Func<bool, IObservable<bool>> CreateBattleEventAsObservable(Block block)
+        public Coroutine StartBattleEventCoroutine(Block block, bool itemTaked)
         {
-            return (bool taked) =>
-                Observable.FromCoroutine<bool>(observer => CoroutineBattle(observer, block, taked));
+            return coroutineAppended.StartCoroutine(CoroutineBattle(block, itemTaked));
         }
 
-        private IEnumerator CoroutineBattle(IObserver<bool> observer, Block block, bool takedItem)
+        private IEnumerator CoroutineBattle(Block block, bool itemTakes)
         {
-            bool onTriggerBattle = false;
+            onBattleEvent = false;
 
-            // ボス戦
-            if (takedItem && OnTriggerOnBossBattleEvent())
+            if (itemTakes && OnTriggerOnBossBattleEvent())
             {
-                onTriggerBattle = true;
+                onBattleEvent = true;
                 yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
             }
-            // 通常
             else if (OnTriggerOnBattleEvent(block))
             {
-                onTriggerBattle = true;
+                onBattleEvent = true;
                 yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
             }
             
-            observer.OnNext(onTriggerBattle);
-            observer.OnCompleted();
             yield break;
         }
+
+        //  public Func<bool, IObservable<bool>> CreateBattleEventAsObservable(Block block)
+        //  {
+        //      return (bool taked) =>
+        //          Observable.FromCoroutine<bool>(observer => CoroutineBattle(observer, block, taked));
+        //  }
+
+        //  private IEnumerator CoroutineBattle(IObserver<bool> observer, Block block, bool takedItem)
+        //  {
+        //      bool onTriggerBattle = false;
+
+        //      // ボス戦
+        //      if (takedItem && OnTriggerOnBossBattleEvent())
+        //      {
+        //          onTriggerBattle = true;
+        //          yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
+        //      }
+        //      // 通常
+        //      else if (OnTriggerOnBattleEvent(block))
+        //      {
+        //          onTriggerBattle = true;
+        //          yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
+        //      }
+
+        //      observer.OnNext(onTriggerBattle);
+        //      observer.OnCompleted();
+        //      yield break;
+        //  }
 
         private bool OnTriggerOnBossBattleEvent()
         {
@@ -69,7 +94,7 @@ namespace Memoria.Dungeon.BlockEvents
                 case BlockType.Recovery:
                     return false;
             }
-            
+
             return UnityEngine.Random.value < 0.3f;
         }
 

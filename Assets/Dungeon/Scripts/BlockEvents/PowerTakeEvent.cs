@@ -22,9 +22,9 @@ namespace Memoria.Dungeon.BlockEvents
             this.eventAnimator = eventAnimator;
         }
 
-        public IObservable<Unit> CreateTakePowerAsObservable(Block block)
+        public Coroutine StartTakePowerCoroutine(Block block)
         {
-            return Observable.FromCoroutine(() => CoroutineTakePower(block));
+            return coroutineAppended.StartCoroutine(CoroutineTakePower(block));
         }
 
         private IEnumerator CoroutineTakePower(Block block)
@@ -47,7 +47,35 @@ namespace Memoria.Dungeon.BlockEvents
 
             block.TakeStock();
             dungeonManager.ExitState();
+            yield break;
         }
+
+        //  public IObservable<Unit> CreateTakePowerAsObservable(Block block)
+        //  {
+        //      return Observable.FromCoroutine(() => CoroutineTakePower(block));
+        //  }
+
+        //  private IEnumerator CoroutineTakePower(Block block)
+        //  {
+        //      dungeonManager.EnterState(DungeonState.StockTaking);
+
+        //      switch (block.blockType)
+        //      {
+        //          case BlockType.Thunder:
+        //          case BlockType.Water:
+        //          case BlockType.Fire:
+        //          case BlockType.Wind:
+        //              yield return coroutineAppended.StartCoroutine(CoroutineTakePowerTypeOfElements(block.blockType));
+        //              break;
+
+        //          case BlockType.Recovery:
+        //              yield return coroutineAppended.StartCoroutine(CoroutineTakePowerTypeOfRecovery());
+        //              break;
+        //      }
+
+        //      block.TakeStock();
+        //      dungeonManager.ExitState();
+        //  }
 
         private IEnumerator CoroutineTakePowerTypeOfElements(BlockType attribute)
         {
