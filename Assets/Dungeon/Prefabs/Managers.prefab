@@ -273,7 +273,7 @@ MonoBehaviour:
   _eventManager: {fileID: 11485228}
   _mapManager: {fileID: 11402208}
   _blockManager: {fileID: 11441756}
-  _itemManager: {fileID: 0}
+  _itemManager: {fileID: 11497872}
   _parameterManager: {fileID: 11449698}
   _stageDataManager: {fileID: 11450150}
   blockSize: {x: 200, y: 200}
