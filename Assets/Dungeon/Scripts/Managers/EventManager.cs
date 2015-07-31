@@ -73,6 +73,8 @@ namespace Memoria.Dungeon.Managers
                 .SelectMany(checkSpRemain)
                 .Subscribe();
 
+// TODO:OnEndBlockEventを追加
+// TODO:OnComplete内にBlockEvent終了処理を入れる
             DungeonManager.instance.ExitState();
         }
 
