@@ -10,7 +10,8 @@ namespace Memoria.Dungeon.Managers
         BlockOperating,
         PlayerMoving,
         BlockEvent,
-		StockTaking,
+        ItemTaking,
+        StockTaking,
         OpenMenu,
         LeaveSelect,
         MapViewer,
@@ -62,6 +63,10 @@ namespace Memoria.Dungeon.Managers
         public BlockManager blockManager { get { return _blockManager; } }
 
         [SerializeField]
+        private ItemManager _itemManager;
+        public ItemManager itemManager { get { return _itemManager; } }
+
+        [SerializeField]
         private ParameterManager _parameterManager;
 
         public ParameterManager parameterManager { get { return _parameterManager; } }
@@ -81,8 +86,13 @@ namespace Memoria.Dungeon.Managers
         public DungeonState activeState { get { return activeStateProperty.Value; } }
 
         private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
+        
+        public IObservable<DungeonState> OnChangeActiveStateAsObservable()
+        {
+            return activeStateProperty.DistinctUntilChanged();
+        }
 
-        #endregion
+        #endregion 
 
         public Vector2 blockSize = new Vector2(200, 200);
 

@@ -1,7 +1,9 @@
-﻿using System;
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
+using System;
+using System.Linq;
+using UniRx;
 using Memoria.Dungeon.BlockComponent;
+using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon.Items
 {
@@ -55,23 +57,108 @@ namespace Memoria.Dungeon.Items
                 {
                     SetSprite(_itemData.attribute);
                 }
+
+                transform.position = (Vector3)MapManager.instance.ToPosition(_itemData.location);
             }
         }
 
         [SerializeField]
-        public Sprite thunderSprite;
+        private Sprite thunderSprite;
 
         [SerializeField]
-        public Sprite waterSprite;
+        private Sprite waterSprite;
 
         [SerializeField]
-        public Sprite fireSprite;
+        private Sprite fireSprite;
 
         [SerializeField]
-        public Sprite windSprite;
+        private Sprite windSprite;
 
         [SerializeField]
-        public Sprite recoverySprite;
+        private Sprite recoverySprite;
+
+        private SpriteRenderer spriteRenderer;
+
+        public bool visible
+        {
+            get
+            {
+                if (spriteRenderer == null)
+                {
+                    spriteRenderer = GetComponent<SpriteRenderer>();
+                }
+
+                return spriteRenderer.enabled;
+            }
+            set
+            {
+                if (spriteRenderer == null)
+                {
+                    spriteRenderer = GetComponent<SpriteRenderer>();
+                }
+
+                spriteRenderer.enabled = value;
+            }
+        }
+
+        Subject<Unit> onTake;
+
+        public IObservable<Unit> OnTakeAsObservable()
+        {
+            return onTake ?? (onTake = new Subject<Unit>());
+        }
+
+        private void OnTake()
+        {
+            if (onTake != null)
+            {
+                onTake.OnNext(Unit.Default);
+            }
+        }
+
+        public void Take()
+        {
+            OnTake();
+            Destroy(gameObject);
+        }
+
+
+        void Start()
+        {
+            var parameter = ParameterManager.instance.parameter;
+
+            switch (itemData.type)
+            {
+                case ItemType.Soul:
+                case ItemType.MagicPlate:
+                    {
+                        var remainKeyNum = parameter.allKeyNum - parameter.getKeyNum;
+                        visible = remainKeyNum <= 1;
+
+                        if (remainKeyNum > 1)
+                        {
+                            // キーが残り一個になったときのイベント
+                            var keyNumIsOne = ParameterManager.instance.OnChangeParameterAsObservable()
+                                .DistinctUntilChanged(param => param.getKeyNum)
+                                .Select(param => param.allKeyNum - param.getKeyNum)
+                                .Where(remain => remain <= 1)
+                                .First();
+
+                            // BlockEventStateから出るときのイベント
+                            var exitFromBlockEventState = EventManager.instance.OnEndBlockEventAsObservable();
+
+                            keyNumIsOne
+                                .SelectMany(exitFromBlockEventState)
+                                .Subscribe(_ =>
+                                {
+                                    visible = true;
+                                })
+                                .AddTo(gameObject);
+                        }
+                    }
+                    break;
+            }
+        }
 
         private void SetSprite(BlockType attribute)
         {

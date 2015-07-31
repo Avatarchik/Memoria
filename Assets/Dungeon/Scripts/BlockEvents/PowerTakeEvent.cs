@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UniRx;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockComponent;
 
@@ -22,9 +21,9 @@ namespace Memoria.Dungeon.BlockEvents
             this.eventAnimator = eventAnimator;
         }
 
-        public IObservable<Unit> CreateTakePowerAsObservable(Block block)
+        public Coroutine StartTakePowerCoroutine(Block block)
         {
-            return Observable.FromCoroutine(() => CoroutineTakePower(block));
+            return coroutineAppended.StartCoroutine(CoroutineTakePower(block));
         }
 
         private IEnumerator CoroutineTakePower(Block block)
@@ -47,6 +46,7 @@ namespace Memoria.Dungeon.BlockEvents
 
             block.TakeStock();
             dungeonManager.ExitState();
+            yield break;
         }
 
         private IEnumerator CoroutineTakePowerTypeOfElements(BlockType attribute)
@@ -57,6 +57,7 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineTakePowerTypeOfRecovery()
         {
             // TODO : 体力回復
+            eventAnimator.SetFloat("eventType", 1);
             EventManager.instance.message = "ＨＰ回復！！";
             eventAnimator.SetTrigger("getPower");
             yield return new WaitForSeconds(1);

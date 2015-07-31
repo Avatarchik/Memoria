@@ -11,15 +11,6 @@ namespace Memoria.Dungeon.Managers
     {
         public static MapManager instance { get { return DungeonManager.instance.mapManager; } }
 
-        [SerializeField]
-        private GameObject keyPrefab;
-        [SerializeField]
-        private GameObject jewelPrefab;
-        [SerializeField]
-        private GameObject soulPrefab;
-        [SerializeField]
-        private GameObject magicPlatePrefab;
-
         private Dictionary<Vector2Int, Block> map = new Dictionary<Vector2Int, Block>();
         private Dictionary<Vector2Int, Item> itemMap = new Dictionary<Vector2Int, Item>();
 
@@ -45,24 +36,10 @@ namespace Memoria.Dungeon.Managers
                 return ret;
             }
         }
-		
-		private Subject<Item> onTakeItem;
-		
-		public IObservable<Item> OnTakeItemAsObservable()
-		{
-			return onTakeItem ?? (onTakeItem = new Subject<Item>());
-		}
-		
-		private void OnTakeItem(Item item)
-		{
-			if (onTakeItem != null)
-			{
-				onTakeItem.OnNext(item);
-			}
-		}
-		
+
         void Awake()
         {
+            // Block の Map に関わるイベント
             BlockManager.instance.OnCreateBlockAsObservable()
                 .Subscribe(block =>
                 {
@@ -74,6 +51,19 @@ namespace Memoria.Dungeon.Managers
                         .Subscribe(_ => map.Remove(block.location))
                         .AddTo(block.gameObject);
                 });
+
+            // Item の Map に関わるイベント 
+            ItemManager.instance.OnCreateItemAsObservable()
+                .Subscribe(item =>
+                {
+                    itemMap.Add(item.itemData.location, item);
+
+                    item.OnTakeAsObservable()
+                        .Subscribe(_ =>
+                        {
+                            itemMap.Remove(item.itemData.location);
+                        });
+                });
         }
 
         public void SetMap(List<BlockData> blockDatas, StageData stageData, List<ItemData> itemDatas)
@@ -81,13 +71,7 @@ namespace Memoria.Dungeon.Managers
             blockDatas.ForEach(data => BlockManager.instance.CreateBlockAsDefault(data));
             stageArea = stageData.stageSize;
 
-            itemDatas
-                .Select(itemData => CreateItem(itemData))
-                .ToList()
-                .ForEach(item =>
-                {
-                    itemMap.Add(item.itemData.location, item);
-                });
+            itemDatas.ForEach(itemData => ItemManager.instance.CreateItem(itemData));
         }
 
         public bool ExistsBlock(Vector2Int location)
@@ -108,42 +92,6 @@ namespace Memoria.Dungeon.Managers
         public Item GetItem(Vector2Int location)
         {
             return itemMap[location];
-        }
-		
-		public void TakeItem(Item item)
-		{
-			OnTakeItem(item);
-			itemMap.Remove(item.itemData.location);
-			Destroy(item.gameObject);
-		}
-
-        private Item CreateItem(ItemData itemData)
-        {
-            Item item = null;
-
-            switch (itemData.type)
-            {
-                case ItemType.Key:
-                    item = Instantiate<GameObject>(keyPrefab).GetComponent<Item>();
-                    break;
-
-                case ItemType.Jewel:
-                    item = Instantiate<GameObject>(jewelPrefab).GetComponent<Item>();
-                    break;
-
-                case ItemType.Soul:
-                    item = Instantiate<GameObject>(soulPrefab).GetComponent<Item>();
-                    break;
-
-                case ItemType.MagicPlate:
-                    item = Instantiate<GameObject>(magicPlatePrefab).GetComponent<Item>();
-                    break;
-            }
-
-            item.itemData = itemData;
-            item.transform.position = (Vector3)ToPosition(itemData.location);
-
-            return item;
         }
 
         /// <summary>

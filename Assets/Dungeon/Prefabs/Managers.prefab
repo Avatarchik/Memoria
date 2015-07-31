@@ -9,9 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 477552}
   - 114: {fileID: 11451198}
-  - 114: {fileID: 11441756}
-  - 114: {fileID: 11402208}
   - 114: {fileID: 11485228}
+  - 114: {fileID: 11402208}
+  - 114: {fileID: 11441756}
+  - 114: {fileID: 11497872}
   - 114: {fileID: 11449698}
   - 114: {fileID: 11450150}
   m_Layer: 0
@@ -44,10 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393355a95e406aa48974bc068f8e5a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyPrefab: {fileID: 101772, guid: fe1d88cd2972d4634976e3875e43a6f0, type: 2}
-  jewelPrefab: {fileID: 187550, guid: 39c023d8ca3cf461c92779da5a2da8da, type: 2}
-  soulPrefab: {fileID: 118978, guid: 90eef55fcb57d42dca7b080bb5673831, type: 2}
-  magicPlatePrefab: {fileID: 171862, guid: 6690ef2255a4247dab577968267c9721, type: 2}
 --- !u!114 &11441756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,6 +273,7 @@ MonoBehaviour:
   _eventManager: {fileID: 11485228}
   _mapManager: {fileID: 11402208}
   _blockManager: {fileID: 11441756}
+  _itemManager: {fileID: 11497872}
   _parameterManager: {fileID: 11449698}
   _stageDataManager: {fileID: 11450150}
   blockSize: {x: 200, y: 200}
@@ -293,6 +291,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventAnimator: {fileID: 0}
   messageBox: {fileID: 0}
+--- !u!114 &11497872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb520d23ed6de415f84ab4dd951bc286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 101772, guid: fe1d88cd2972d4634976e3875e43a6f0, type: 2}
+  jewelPrefab: {fileID: 187550, guid: 39c023d8ca3cf461c92779da5a2da8da, type: 2}
+  soulPrefab: {fileID: 118978, guid: 90eef55fcb57d42dca7b080bb5673831, type: 2}
+  magicPlatePrefab: {fileID: 171862, guid: 6690ef2255a4247dab577968267c9721, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

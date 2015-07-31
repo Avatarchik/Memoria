@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.BlockEvents;
 using UniRx;
@@ -32,6 +33,21 @@ namespace Memoria.Dungeon.Managers
         private PowerTakeEvent powerTakeEvent;
         private SpRemainCheckEvent spRemainCheckEvent;
 
+        private Subject<Unit> onEndBlockEvent;
+
+        public IObservable<Unit> OnEndBlockEventAsObservable()
+        {
+            return onEndBlockEvent ?? (onEndBlockEvent = new Subject<Unit>());
+        }
+
+        private void OnEndBlockEvent()
+        {
+            if (onEndBlockEvent != null)
+            {
+                onEndBlockEvent.OnNext(Unit.Default);
+            }
+        }
+
         void Awake()
         {
             mapManager = MapManager.instance;
@@ -48,7 +64,7 @@ namespace Memoria.Dungeon.Managers
             powerTakeEvent = new PowerTakeEvent(this, eventAnimator);
             spRemainCheckEvent = new SpRemainCheckEvent(this, eventAnimator);
         }
-        
+
         // プレイヤーが歩き終わったときに呼び出される
         public void OnArrivePlayer()
         {
@@ -58,30 +74,40 @@ namespace Memoria.Dungeon.Managers
             {
                 return;
             }
-
-            var takeItem = itemTakeEvent.CreateTakeItemAsObservable(player.location);
-            var battle = battleEvent.CreateBattleEventAsObservable(block);
-            var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
-            var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
-
-            takeItem.Last()
-                .SelectMany(battle).Last()
-                .Where(onTriggerBattle => !onTriggerBattle)
-                .SelectMany(takePower)
-                .SelectMany(checkSpRemain)
-                .Subscribe();
+            
+            StartCoroutine(CoroutineBlockEvent(block));
         }
+        
+        private IEnumerator CoroutineBlockEvent(Block block)
+        {
+            DungeonManager.instance.EnterState(DungeonState.BlockEvent);
+            
+            yield return itemTakeEvent.StartTakeItemCoroutine(player.location);
+            yield return battleEvent.StartBattleEventCoroutine(block, itemTakeEvent.taked);
+            
+            if (battleEvent.onBattleEvent)
+            {
+                yield break;
+            }
+            
+            yield return StartCoroutine(CoroutineReturnFromBattle(block));
+            
+            OnEndBlockEvent();
+            DungeonManager.instance.ExitState();
+            yield break;   
+        }        
 
         public void ReturnFromBattle()
         {
             Block block = mapManager.GetBlock(player.location);
-
-            var takePower = powerTakeEvent.CreateTakePowerAsObservable(block);
-            var checkSpRemain = spRemainCheckEvent.CreateCheckSpRemainAsObservable();
-
-            takePower
-                .SelectMany(checkSpRemain)
-                .Subscribe();
+            
+            StartCoroutine(CoroutineReturnFromBattle(block));
+        }
+        
+        private IEnumerator CoroutineReturnFromBattle(Block block)
+        {
+            yield return powerTakeEvent.StartTakePowerCoroutine(block);
+            yield return spRemainCheckEvent.StartCheckSpRemainCoroutine();
         }
 
         public void ShowMessageBox(bool visible)
