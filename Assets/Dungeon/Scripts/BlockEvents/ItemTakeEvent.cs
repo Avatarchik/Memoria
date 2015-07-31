@@ -103,16 +103,18 @@ namespace Memoria.Dungeon.BlockEvents
         {
             eventAnimator.SetFloat("itemType", 2);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
-            EventManager.instance.message = "魂を入手した！！";   
-            yield break;
+            EventManager.instance.message = "魂を入手した！！";
+            eventAnimator.SetTrigger("getSoul");   
+            yield return new WaitForSeconds(1.4f);
         }
 
         private IEnumerator CoroutineTakeMagicPlate(BlockType attribute)
         {
             eventAnimator.SetFloat("itemType", 3);
             eventAnimator.SetFloat("attribute", toValue[attribute]);
-            EventManager.instance.message = "魔石版を入手した！！";                        
-            yield break;
+            EventManager.instance.message = "魔石版を入手した！！";
+            eventAnimator.SetTrigger("getMagicPlate");
+            yield return new WaitForSeconds(1.4f);
         }
     }
 }
