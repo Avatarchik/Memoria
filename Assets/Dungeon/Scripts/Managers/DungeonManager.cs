@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
-using Memoria.Dungeon.Items;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -87,6 +87,11 @@ namespace Memoria.Dungeon.Managers
         public DungeonState activeState { get { return activeStateProperty.Value; } }
 
         private ReactiveProperty<DungeonState> activeStateProperty = new ReactiveProperty<DungeonState>();
+        
+        public IObservable<DungeonState> OnChangeActiveStateAsObservable()
+        {
+            return activeStateProperty.DistinctUntilChanged();
+        }
 
         #endregion 
 
@@ -129,6 +134,11 @@ namespace Memoria.Dungeon.Managers
             EnterState(DungeonState.None);
 
             dungeonData.Load();
+            
+            //  DungeonManager.instance.OnChangeActiveStateAsObservable()
+            //      .Buffer(2, 1)
+            //      .Select(states => new { current = states.First(), next = states.Last() })
+            //      .Subscribe(states => Debug.Log(states.current + " to " + states.next));
         }
 
         public void EnterState(DungeonState nextState)
