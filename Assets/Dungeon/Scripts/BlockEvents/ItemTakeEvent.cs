@@ -24,7 +24,6 @@ namespace Memoria.Dungeon.BlockEvents
         private Animator eventAnimator;
 
         public bool taked { get; private set; }
-        public ItemData itemDataOfTakedItem { get; private set; }
 
         public ItemTakeEvent(MonoBehaviour coroutineAppended, Animator eventAnimator)
         {
@@ -41,7 +40,6 @@ namespace Memoria.Dungeon.BlockEvents
         {
             dungeonManager.EnterState(DungeonState.ItemTaking);
             taked = false;
-            itemDataOfTakedItem = default(ItemData);
 
             bool exists = mapManager.ExistsItem(location);
 
@@ -75,7 +73,6 @@ namespace Memoria.Dungeon.BlockEvents
                 }
                 
                 taked = true;
-                itemDataOfTakedItem = item.itemData;
                 item.Take();
                 yield return new WaitForSeconds(1);
             }
