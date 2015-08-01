@@ -7,6 +7,8 @@
         {
             nameplate = "Namebar_Aria";
 
+            ultimateAttack = "WindAll";
+
             parameter.attack = 2766;
             parameter.defense = 3027;
 //          parameter.mattack = 100;
@@ -17,6 +19,7 @@
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
+            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
         }
     }
 }

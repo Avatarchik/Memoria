@@ -14,7 +14,7 @@ namespace Memoria.Battle.GameActors
             parameter.mattack = 10;
             parameter.mdefense = 10;
             parameter.speed = 10;
-            parameter.hp = 300;
+            parameter.hp = 10300;
 
             parameter.elementAff = new ElementFire(Element.FIRE);
 

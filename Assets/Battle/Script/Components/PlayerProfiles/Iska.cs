@@ -6,6 +6,8 @@
         void Awake () {
             nameplate = "Namebar_Iska";
 
+            ultimateAttack = "WindAll";
+
             parameter.attack = 5425;
             parameter.defense = 1691;
 //          parameter.mattack = 100;
@@ -17,6 +19,7 @@
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-        }
+            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
+       }
     }
 }

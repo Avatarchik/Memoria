@@ -7,6 +7,8 @@ namespace Memoria.Battle.GameActors
         void Awake () {
             nameplate = "Namebar_Amelia";
 
+            ultimateAttack = "WindAll";
+
             parameter.attack = 3197;
             parameter.defense = 2268;
       //    parameter.mattack = 100;
@@ -17,6 +19,7 @@ namespace Memoria.Battle.GameActors
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
+            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
             //attackType = gameObject.AddComponent<PlayerStrike>();
 
         }
