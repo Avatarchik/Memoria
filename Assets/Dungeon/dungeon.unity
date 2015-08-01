@@ -3108,7 +3108,7 @@ Prefab:
       value: 
       objectReference: {fileID: 1699313150}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: keyText
+      propertyPath: getKeyText
       value: 
       objectReference: {fileID: 1584728677}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
