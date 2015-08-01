@@ -144,9 +144,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpText: {fileID: 0}
+  maxHpText: {fileID: 0}
   spText: {fileID: 0}
+  maxSpText: {fileID: 0}
   keyText: {fileID: 0}
   sillingText: {fileID: 0}
+  charactersPowerStocks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11450150
 MonoBehaviour:
   m_ObjectHideFlags: 1
