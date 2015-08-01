@@ -39,7 +39,7 @@ namespace Memoria.Battle.GameActors
         private float spaceOffset = 0.8f;
 
         [SerializeField]
-        private int layerOffset = 0;
+        private int layerOffset = 10;
 
         public int stock;
         public ObjectType objType;

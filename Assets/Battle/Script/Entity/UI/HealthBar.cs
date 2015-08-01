@@ -36,10 +36,6 @@ namespace Memoria.Battle.GameActors
             if(_precentDivided < 0) {
                 _precentDivided = 0;
             }
-          //  else if(_precentDivided > 10)
-           // {
-            //    _precentDivided = 10;
-           // }
 
             UpdateHealthBar(_precentDivided);
         }

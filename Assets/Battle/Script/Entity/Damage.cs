@@ -37,7 +37,7 @@ namespace Memoria.Battle.GameActors
                 number.ParentToUI();
                 number.Init();
                 number.transform.position = new Vector3(0 + (i * 0.3f), 0, 1);
-                DestroyObject(number.gameObject, 0.6f);
+                DestroyObject(number.gameObject, 1.0f);
             }
         }
     }
