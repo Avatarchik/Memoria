@@ -21,9 +21,9 @@ namespace Memoria.Dungeon
             get { return _sp; }
             set { _sp = Mathf.Clamp(value, 0, maxSp); }
         }
-        
+
         public int floor { get; set; }
-        
+
         public int maxSp { get; set; }
 
         private int _getKeyNum;
@@ -35,13 +35,15 @@ namespace Memoria.Dungeon
         }
 
         public int allKeyNum { get; set; }
-        
+
         public int silling { get; set; }
-        
-        private string skill { get; set; }
-        
-        private int enemyPattern { get; set; }
-        private bool isBossBattle { get; set; }
+
+        public string skill { get; set; }
+
+        public int enemyPattern { get; set; }
+        public bool isBossBattle { get; set; }
+
+        public int[] stocks { get; set; }
 
         public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill, int enemyPattern = 0, bool isBossBattle = false)
         {
@@ -56,6 +58,7 @@ namespace Memoria.Dungeon
             this.skill = skill;
             this.enemyPattern = enemyPattern;
             this.isBossBattle = isBossBattle;
+            stocks = new int[4];
         }
     }
 }
