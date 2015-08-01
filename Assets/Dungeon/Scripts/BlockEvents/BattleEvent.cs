@@ -76,7 +76,6 @@ namespace Memoria.Dungeon.BlockEvents
 
         private IEnumerator CoroutineBattleToBoss(Block block)
         {
-            // TODO : blockType == BlockType.Recoveryの時の対処
             dungeonManager.dungeonData.SetIsBossBattle(true);            
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();

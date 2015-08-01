@@ -21,8 +21,6 @@ namespace Memoria.Dungeon
 
         private List<ItemData> itemDatas;
 
-        //  public int[] stocks { get; set; }
-
         private bool initialized = false;
 
         // Use this for initialization
@@ -50,7 +48,6 @@ namespace Memoria.Dungeon
 				itemDatas = new List<ItemData>(stageData.itemDatas);
 				var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
                 parameter = new DungeonParameter(100, 100, 100, 10, 0, keyNum, 0, "none");
-                //  stocks = new[] { 0, 0, 0, 0 };
             }
 
             player.direction = direction;
