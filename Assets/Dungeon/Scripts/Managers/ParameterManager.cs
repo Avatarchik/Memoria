@@ -175,19 +175,22 @@ namespace Memoria.Dungeon.Managers
         public void TakePowerStock(BlockType attribute)
         {
             int index = toIndex[attribute];
-            int nowCount = parameter.stocks[index];
+            SetPowerStock(attribute, parameter.stocks[index] + 1);
+        }
+        
+        public void FillPowerStock(BlockType attribute)
+        {
             int fillCount = 3;
-            int nextCount = Mathf.Min(nowCount + 1, fillCount);
-            parameter.stocks[index] = nextCount;
-            charactersPowerStocks[index].stock = nextCount;
+            SetPowerStock(attribute, fillCount);
         }
 
-        public void FillPowerStock(BlockType attribute)
+        private void SetPowerStock(BlockType attribute, int value)
         {
             int index = toIndex[attribute];
             int fillCount = 3;
-            parameter.stocks[index] = fillCount;
-            charactersPowerStocks[index].stock = fillCount;
+            int nextCount = Mathf.Clamp(value, 0, fillCount);
+            parameter.stocks[index] = nextCount;
+            charactersPowerStocks[index].stock = nextCount;
         }
 
         private void UpdateHpText(DungeonParameter parameter)
