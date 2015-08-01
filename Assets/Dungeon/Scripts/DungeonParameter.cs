@@ -39,8 +39,11 @@ namespace Memoria.Dungeon
         public int silling { get; set; }
         
         private string skill { get; set; }
+        
+        private int enemyPattern { get; set; }
+        private bool isBossBattle { get; set; }
 
-        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill)
+        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill, int enemyPattern, bool isBossBattle = false)
         {
             this.maxHp = maxHp;
             this.hp = hp;
@@ -51,6 +54,8 @@ namespace Memoria.Dungeon
             this.getKeyNum = 0;
             this.silling = silling;
             this.skill = skill;
+            this.enemyPattern = enemyPattern;
+            this.isBossBattle = isBossBattle;
         }
     }
 }
