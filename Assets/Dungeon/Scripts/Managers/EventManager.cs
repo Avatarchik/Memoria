@@ -90,7 +90,8 @@ namespace Memoria.Dungeon.Managers
                 yield break;
             }
             
-            yield return StartCoroutine(CoroutineReturnFromBattle(block));
+            yield return powerTakeEvent.StartTakePowerCoroutine(block);
+            yield return spRemainCheckEvent.StartCheckSpRemainCoroutine();
             
             OnEndBlockEvent();
             DungeonManager.instance.ExitState();
@@ -106,6 +107,7 @@ namespace Memoria.Dungeon.Managers
         
         private IEnumerator CoroutineReturnFromBattle(Block block)
         {
+            yield return new WaitForSeconds(1);
             yield return powerTakeEvent.StartTakePowerCoroutine(block);
             yield return spRemainCheckEvent.StartCheckSpRemainCoroutine();
         }
