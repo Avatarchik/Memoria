@@ -97,10 +97,10 @@ namespace Memoria.Battle.GameActors
             else
             {
                 moves = false;
-                charge = false;
                 chargeReady = true;
             }
-            EventMgr.Instance.Raise(new NewTurn(this, moves, curve));
+            EventMgr.Instance.Raise(new NewTurn(this, moves, curve, charge));
+            charge = false;
             curve = false;
         }
 

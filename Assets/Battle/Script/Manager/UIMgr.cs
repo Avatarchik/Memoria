@@ -97,6 +97,17 @@ namespace Memoria.Battle.Managers
             Namebar barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
             if(e.curve && barObj)
             {
+                if(e.castingTime)
+                {
+                    GameObject particleEffect = Instantiate((GameObject)Resources.Load("effects/Effect_UI_210"));
+                    particleEffect.GetComponent<TrailObject>().objectToFollow = barObj.gameObject;
+
+                    particleEffect.gameObject.name = e.entity.battleID +"_casting";
+                }
+                else if(!e.castingTime && GameObject.Find(e.entity.battleID +"_casting") != null)
+                {
+                    Destroy(GameObject.Find(e.entity.battleID +"_casting"));
+                }
                 barObj.transform.SetAsLastSibling();
                 barObj.CurvedMove(_queueSlots[(int)e.entity.orderIndex]);
             }

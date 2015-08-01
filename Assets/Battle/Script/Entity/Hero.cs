@@ -33,15 +33,12 @@ namespace Memoria.Battle.GameActors
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
+            EnableCastingParticle();
 
         }
 
-        public void CheckIfhit()
+        void Update()
         {
-            if(GetComponent<TargetSelector>().hitBoxCollider)
-            {
-                stockUp.Invoke();
-            }
         }
 
         override public void Init()
@@ -122,6 +119,14 @@ namespace Memoria.Battle.GameActors
             BattleMgr.Instance.SetState(State.SELECT_SKILL);
         }
 
+        public void CheckIfhit()
+        {
+            if(GetComponent<TargetSelector>().hitBoxCollider)
+            {
+                stockUp.Invoke();
+            }
+        }
+
         public void SetAttack(string attack)
         {
             if(!charge) {
@@ -172,6 +177,9 @@ namespace Memoria.Battle.GameActors
             return list.ToArray();
         }
 
+        public void EnableCastingParticle()
+        {
+        }
         private void SetIconSkill()
         {
             if(!power.Full)

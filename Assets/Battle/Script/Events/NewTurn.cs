@@ -8,12 +8,14 @@ namespace Memoria.Battle.Events
         public Entity entity;
         public bool curve;
         public bool moved;
+        public bool castingTime;
 
-        public NewTurn(Entity e, bool moves, bool curve)
+        public NewTurn(Entity e, bool moves, bool curve, bool charge)
         {
             this.entity = e;
             this.curve = curve;
             this.moved = moves;
+            this.castingTime = charge;
         }
     }
 }
