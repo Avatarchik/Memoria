@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using Memoria.Battle.GameActors;
 
 namespace Memoria.Battle.States
@@ -9,13 +8,11 @@ namespace Memoria.Battle.States
         Hero hero;
         override public void Initialize()
         {
-            FadeAttackScreen.DeFlash();
             hero = (Hero)nowActor;
             hero.GetComponent<BoxCollider2D>().enabled = true;
             if(!hero.attackSelected || hero.passToStock)
             {
                 uiMgr.SpawnSkills(hero);
-                //Show cancel button
             }
 
             Color fadeOutColor;

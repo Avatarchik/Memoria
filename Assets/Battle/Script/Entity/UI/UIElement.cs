@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Memoria.Battle.GameActors
 {
@@ -18,9 +19,9 @@ namespace Memoria.Battle.GameActors
                 return (-Screen.height /2);
             }
         }
-        
 
         public string spriteResource;
+        public string spriteFolder;
 
         public bool moveable { get; private set; }
 
@@ -34,6 +35,11 @@ namespace Memoria.Battle.GameActors
         public void Destroy()
         {
             Destroy(this.gameObject);
+        }
+
+        void LateUpdate()
+        {
+//            GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/"+ spriteFolder + spriteResource);
         }
     }
 }

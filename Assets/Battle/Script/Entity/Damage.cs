@@ -11,6 +11,7 @@ namespace Memoria.Battle.GameActors
         public DmgParameters DamageParameters { get; set; }
         public int totalDamage;
 
+        // TODO: Finalize calcunations
         public int Calculate()
         {
             var totalDmg = (float)AttackerParameters.attack;
@@ -31,8 +32,6 @@ namespace Memoria.Battle.GameActors
             var dmg = totalDamage.ToArray();
             for(int i = 0; i < dmg.Length; i++)
             {
-                //var spriteNr = Resources.Load<Sprite>("bt_"+ dmg[i]);
-
                 var number = (spawner.Spawn<DamageNumber>("Numbers/damageNumber")).GetComponent<DamageNumber>();
                 number.spriteResource = "Numbers/bt_" + dmg[i];
                 number.ParentToUI();
@@ -41,6 +40,5 @@ namespace Memoria.Battle.GameActors
                 DestroyObject(number.gameObject, 0.6f);
             }
         }
- 
     }
 }

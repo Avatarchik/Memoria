@@ -14,7 +14,7 @@ namespace Memoria.Battle.Managers
         private Dictionary<string, UIElement> _elements;
         private Vector3[] _queueSlots;
 
-        void Awake ()
+        void Start ()
         {
             _attackTracker = GetComponent<AttackTracker>();
             _spawner = FindObjectOfType<ActorSpawner>();
@@ -86,6 +86,7 @@ namespace Memoria.Battle.Managers
                 var barObj = (_spawner.Spawn<Namebar>("UI/"+ namebar.spriteResource)).GetComponent<Namebar>();
                 barObj.ParentToUI();
                 barObj.Init();
+                barObj.spriteResource = namebar.spriteResource;
                 barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
                 _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
             }
@@ -112,6 +113,7 @@ namespace Memoria.Battle.Managers
             var frame = (_spawner.Spawn<DescriptionFrame>("UI/"+ resource)).GetComponent<DescriptionFrame>();
             frame.ParentToUI();
             frame.Init();
+            frame.spriteResource = resource;
             frame.name = "Frame_" + resource;
             _elements.Add("frame_"+ resource, frame);
         }
