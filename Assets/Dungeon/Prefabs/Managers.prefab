@@ -147,7 +147,8 @@ MonoBehaviour:
   maxHpText: {fileID: 0}
   spText: {fileID: 0}
   maxSpText: {fileID: 0}
-  keyText: {fileID: 0}
+  getKeyText: {fileID: 0}
+  allKeyText: {fileID: 0}
   sillingText: {fileID: 0}
   charactersPowerStocks:
   - {fileID: 0}
