@@ -2687,7 +2687,7 @@ CanvasRenderer:
 Animator:
   m_PrefabParentObject: {fileID: 9573472, guid: 135da23514f24f149adea5a19ddaaa5f,
     type: 2}
-  m_PrefabInternal: {fileID: 1812041278}
+  m_PrefabInternal: {fileID: 1718878010}
 --- !u!1 &957595282
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,14 +3067,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: charactersPowerStocks.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 477552, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3107,18 +3099,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 11441756, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: blockList
-      value: 
-      objectReference: {fileID: 97209016}
-    - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: eventAnimator
-      value: 
-      objectReference: {fileID: 911612066}
-    - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: messageBox
-      value: 
-      objectReference: {fileID: 1136206676}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: hpText
       value: 
@@ -3135,42 +3115,6 @@ Prefab:
       propertyPath: sillingText
       value: 
       objectReference: {fileID: 54672028}
-    - target: {fileID: 11451198, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 1678314323}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[2]._type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[2]._attribute
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[2]._location._x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[2]._location._y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[3]._type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[3]._attribute
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[3]._location._x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: stageDatas.Array.data[0].itemDatas.Array.data[3]._location._y
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: charactersPowerStocks.Array.data[0]
       value: 
@@ -3187,6 +3131,22 @@ Prefab:
       propertyPath: charactersPowerStocks.Array.data[3]
       value: 
       objectReference: {fileID: 1341132198}
+    - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: eventAnimator
+      value: 
+      objectReference: {fileID: 911612066}
+    - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: messageBox
+      value: 
+      objectReference: {fileID: 1136206676}
+    - target: {fileID: 11441756, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: blockList
+      value: 
+      objectReference: {fileID: 97209016}
+    - target: {fileID: 11451198, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1678314323}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
   m_IsPrefabParent: 0
@@ -4645,13 +4605,13 @@ CanvasRenderer:
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11478066, guid: 135da23514f24f149adea5a19ddaaa5f,
     type: 2}
-  m_PrefabInternal: {fileID: 1812041278}
+  m_PrefabInternal: {fileID: 1718878010}
   m_Script: {fileID: 11500000, guid: f7999f8007c407f48ab08cf69b3f0b42, type: 3}
 --- !u!20 &1678314326 stripped
 Camera:
   m_PrefabParentObject: {fileID: 2010128, guid: 135da23514f24f149adea5a19ddaaa5f,
     type: 2}
-  m_PrefabInternal: {fileID: 1812041278}
+  m_PrefabInternal: {fileID: 1718878010}
 --- !u!1 &1699313148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4718,7 +4678,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1699313148}
---- !u!1001 &1812041278
+--- !u!1001 &1718878010
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4755,7 +4715,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 404210, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11454778, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
       propertyPath: menuButton
