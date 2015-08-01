@@ -13,7 +13,6 @@ namespace Memoria.Battle.GameActors
 
         void Awake()
         {
-            _mainPlayer = GameObject.FindObjectOfType<MainPlayer>() as MainPlayer;
             _hpBarSprite = GetComponent<Image>();
             _healthBarSprites = new Dictionary<int, Sprite>();
 
@@ -25,6 +24,11 @@ namespace Memoria.Battle.GameActors
             }
         }
 
+        void Start()
+        {
+            _mainPlayer = GameObject.FindObjectOfType<MainPlayer>() as MainPlayer;
+        }
+
         void LateUpdate()
         {
             _precentDivided = GetHealthPercent10();
@@ -32,6 +36,10 @@ namespace Memoria.Battle.GameActors
             if(_precentDivided < 0) {
                 _precentDivided = 0;
             }
+          //  else if(_precentDivided > 10)
+           // {
+            //    _precentDivided = 10;
+           // }
 
             UpdateHealthBar(_precentDivided);
         }

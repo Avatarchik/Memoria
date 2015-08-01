@@ -6,6 +6,7 @@ namespace Memoria.Battle.GameActors
     public class TargetSelector : MonoBehaviour {
         GameObject handlignObj;
         public Entity target;
+
         public bool MouseButtonHit { get; set; }
         public bool hitBoxCollider { get; set; }
 

@@ -11,32 +11,27 @@ namespace Memoria.Battle.GameActors
 
         protected const char ENEMY = 'e';
         protected const char PARTY = 'h';
+        protected bool curve = false;
 
         public List<System.Type> components = new List<System.Type>();
 
-        public string battleID { get ; set; }
         public IDamageable target;
         public AttackType attackType;
-
-        public int attackTimer = 0;
-
-        public string entityType;
         public Profile profile;
+        public Parameter parameter;
+        public HealthSystem health;
+        public DeathSystem death;
+        public AttackTracker tracker;
 
         public int phaseTimer;
-        public float orderIndex { get; set; }
-
+        public int attackTimer = 0;
+        public string entityType;
         public bool attackReady;
         public bool chargeReady;
         public bool charge;
 
-        public Parameter parameter;
-
-        public HealthSystem health;
-        public DeathSystem death;
-        public AttackTracker tracker;
-        
-        protected bool curve = false;
+        public float orderIndex { get; set; }
+        public string battleID { get ; set; }
 
         void Awake ()
         {
@@ -54,7 +49,7 @@ namespace Memoria.Battle.GameActors
 
         public virtual bool Attack (AttackType attack)
         {
-            if(!target.IsAlive()) {
+            if(target != null && !target.IsAlive()) {
                 return true;
             }
 
@@ -78,14 +73,6 @@ namespace Memoria.Battle.GameActors
             return false;
         }
 
-        public void DealDamage(AttackType attack)
-        {
-                Damage damage = ScriptableObject.CreateInstance<Damage>();
-                damage.AttackerParameters = parameter;
-                attack.Execute(damage, target);
-                attack.attacked = true;
-        }
-
         public virtual void StartTurn()
         {
 
@@ -95,14 +82,14 @@ namespace Memoria.Battle.GameActors
             attackReady = false;
         }
 
-        protected void UpdateOrder(TurnEnds gameEvent)
+        protected virtual void UpdateOrder(TurnEnds gameEvent)
         {
             bool moves = true;
             if(!charge)
             {
                 orderIndex--;
                 if(orderIndex < 0) {
-                    orderIndex = BattleMgr.actorList.Count - 1;
+                    orderIndex =  BattleMgr.Instance.actorList.Count - 1;
                     curve = true;
                 }
                 tracker.MoveTo(this, orderIndex);
@@ -115,6 +102,14 @@ namespace Memoria.Battle.GameActors
             }
             EventMgr.Instance.Raise(new NewTurn(this, moves, curve));
             curve = false;
+        }
+
+        public void DealDamage(AttackType attack)
+        {
+                Damage damage = ScriptableObject.CreateInstance<Damage>();
+                damage.AttackerParameters = parameter;
+                attack.Execute(damage, target);
+                attack.attacked = true;
         }
 
         protected void Die(MonsterDies gameEvent)

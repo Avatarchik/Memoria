@@ -2,7 +2,6 @@ using UnityEngine;
 using Memoria.Battle.Utility;
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
-//using Memoria.Battle.Events;
 
 namespace Memoria.Battle.GameActors
 {
@@ -52,7 +51,7 @@ namespace Memoria.Battle.GameActors
         override public bool Attack (AttackType attackType)
         {
             if(!isAlive) {
-                return false;
+                return true;
             }
 
             phaseTimer = attackType.phaseCost;

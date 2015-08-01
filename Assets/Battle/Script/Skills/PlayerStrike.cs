@@ -10,7 +10,7 @@ namespace Memoria.Battle.GameActors
             phaseCost = 0;
             stockCost = 0;
             animationDur = 210;
-            targetType = 'h';
+            targetType = 'e';
             selectType = TargetType.ALL;
             elementalAff = new ElementThunder(Element.THUNDER);
             effectObj = (GameObject)Resources.Load("Skills/explode2");

@@ -87,12 +87,15 @@ namespace Memoria.Battle.GameActors
                 }
 
                 var pos = obj.transform.position;
-                obj.transform.position = new Vector3(pos.x + offsetX + (i * spaceOffset), pos.y + offsetY, transform.parent.position.z + layerOffset);
+                obj.transform.position = new Vector3(pos.x + offsetX + (i * spaceOffset),
+                                                     pos.y + offsetY,
+                                                     transform.parent.position.z + layerOffset
+                                                     );
                 i++;
             }
         }
 
-        void Update ()
+        void LateUpdate ()
         {
             UpdateStatus();
             for(int i = 0; i < stock; i++)

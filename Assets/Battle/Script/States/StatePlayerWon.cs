@@ -7,12 +7,14 @@ namespace Memoria.Battle.States
         override public void Initialize()
         {
             Sprite result = Resources.Load<Sprite>("UI/win");
-            FadeAttackScreen.DeFlash();
             uiMgr.SpawnResult(result);
         }
         override public void Update()
         {
-            Debug.Log("Won");
+            if (Input.GetMouseButtonDown (0))
+            {
+                battleMgr.LoadLevel("dungeon");
+            }
         }
     }
 }

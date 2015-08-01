@@ -12,8 +12,10 @@ namespace Memoria.Battle.States
 
         override public void Update()
         {
-            Debug.Log("Lost");
+            if (Input.GetMouseButtonDown (0))
+            {
+                battleMgr.LoadLevel("title");
+            }
         }
-
     }
 }

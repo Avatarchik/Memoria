@@ -1,11 +1,13 @@
 ﻿namespace Memoria.Battle.GameActors
 {
-    public class Diel : Profile
+    public class Dhiel : Profile
     {
         //現ディエル
         void Awake ()
         {
-            nameplate = "Namebar_Diel";
+            nameplate = "Namebar_Dhiel";
+
+            ultimateAttack = "WindAll";
 
             parameter.attack = 3612;
             parameter.defense = 1714;
@@ -17,6 +19,7 @@
 
             attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
             attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
+            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
         }
     }
 }

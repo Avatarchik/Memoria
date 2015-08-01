@@ -11,6 +11,12 @@ namespace Memoria.Battle.Managers
 
         public Entity nowActor;
 
+        public Entity currentActor {
+            get {
+                return attackOrder.OrderBy(x => x.Value).FirstOrDefault().Key;
+            }
+        }
+
         // Use this for initialization
         void Start ()
         {
@@ -49,18 +55,10 @@ namespace Memoria.Battle.Managers
             }
         }
 
-        public Entity currentActor
-        {
-            get
-            {
-                return attackOrder.OrderBy(x => x.Value).FirstOrDefault().Key;
-            }
-        }
-
         public void GenerateQueue<T>(IList<GameObject> objectList) where T : Entity
         {
             float index = 0;
-            foreach (var go in BattleMgr.actorList) {
+            foreach (var go in objectList) {
                 T actor = go.GetComponent<T>();
                 actor.orderIndex = index;
                 if(!attackOrder.ContainsKey(actor)) {

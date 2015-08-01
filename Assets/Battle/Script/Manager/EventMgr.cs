@@ -18,8 +18,6 @@ namespace Memoria.Battle.Managers
 
     }
 
-
-
     public class EventMgr : Singleton<EventMgr>
     {
         public delegate void EventDel<T> (T e) where T : GameEvent;
@@ -27,8 +25,9 @@ namespace Memoria.Battle.Managers
         private delegate void EventDel (GameEvent e);
 
         private Dictionary<Type, EventDel> _events = new Dictionary<Type, EventDel>();
+
         private Dictionary<Delegate, EventDel> _eventHash = new Dictionary<Delegate, EventDel>();
-        
+
         public void AddListener<T>(EventDel<T> e) where T : GameEvent
         {
             if(_eventHash.ContainsKey(e))
@@ -37,14 +36,14 @@ namespace Memoria.Battle.Managers
             }
             EventDel newEvent = (x) => e((T)x);
             _eventHash[e] = newEvent;
-            
+
             EventDel tmpVar;
             _events[typeof(T)] = (_events.TryGetValue(typeof(T), out tmpVar)) ?
                 (tmpVar += newEvent) :
                 newEvent;
         }
 
-        public void RemoveListener<T> (EventDel<T> e) where T : GameEvent 
+        public void RemoveListener<T> (EventDel<T> e) where T : GameEvent
         {
             EventDel lookupEvent;
             if(_eventHash.TryGetValue(e, out lookupEvent))
@@ -79,6 +78,11 @@ namespace Memoria.Battle.Managers
             }
         }
 
+        public void Clear()
+        {
+            _eventHash.Clear();
+            _events.Clear();
+        }
         // ************************ Deprecated functionality
 
         public delegate void TurnEnds();
@@ -104,7 +108,7 @@ namespace Memoria.Battle.Managers
             if(BattleEnd != null)
             {
                 BattleEnd();
-            } 
+            }
             Debug.LogWarning("[I] This method is deprecated, use AddListener function instead");
         }
 

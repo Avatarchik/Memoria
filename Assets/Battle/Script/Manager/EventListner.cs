@@ -6,7 +6,7 @@ namespace Memoria.Battle.Managers
 {
     public class EventListner : EventMgr {
 
-        public static new EventListner Instance = new EventListner();
+//        public static new EventListner Instance = new EventListner();
 
         public void SubscribeTurnEnd(TurnEnds turnEnds)
         {

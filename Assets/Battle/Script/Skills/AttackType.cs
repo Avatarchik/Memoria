@@ -4,27 +4,24 @@ namespace Memoria.Battle.GameActors
 {
     abstract public class AttackType : MonoBehaviour {
 
-        public ElementType elementalAff;
-        public TargetType selectType;
-        public int phaseCost;
-        public int stockCost;
-
         protected int animationDur;
 
-        public char targetType; // e = enemy, h = se;f
-        public bool attacked { get; set; }
-        public bool useStock { get; private set; }
-
+        public ElementType elementalAff;
+        public TargetType selectType;
         public DmgParameters parameters;
 
         public GameObject particleEffect;
         public GameObject effectObj;
         public GameObject normalEffect;
 
-        public int AttackTime
-        {
-            get
-            {
+        public int phaseCost;
+        public int stockCost;
+        public char targetType; // used to decide who gets selectable. e = enemy, h = self
+
+        public bool attacked { get; set; }
+        public bool useStock { get; private set; } //removed
+        public int AttackTime {
+            get {
                 return animationDur;
             }
         }
