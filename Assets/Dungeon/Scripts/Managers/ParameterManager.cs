@@ -37,12 +37,18 @@ namespace Memoria.Dungeon.Managers
 
         [SerializeField]
         private Text hpText;
+        [SerializeField]
+        private Text maxHpText;
 
         [SerializeField]
         private Text spText;
+        [SerializeField]
+        private Text maxSpText;
 
         [SerializeField]
-        private Text keyText;
+        private Text getKeyText;
+        [SerializeField]
+        private Text allKeyText;
 
         [SerializeField]
         private Text sillingText;
@@ -196,16 +202,20 @@ namespace Memoria.Dungeon.Managers
         private void UpdateHpText(DungeonParameter parameter)
         {
             hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
+            //  hpText.text = string.Format("{0:000}", parameter.hp);
+            //  maxHpText.text = string.Format("{0:000}", parameter.maxHp);
         }
 
         private void UpdateSpText(DungeonParameter parameter)
         {
             spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
+            //  spText.text = string.Format("{0:000}", parameter.sp);
+            //  maxSpText.text = string.Format("{0:000}", parameter.maxSp);
         }
 
         private void UpdateKeyText(DungeonParameter parameter)
         {
-            keyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
+            getKeyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
         }
 
         private void UpdateSillingText(DungeonParameter parameter)
