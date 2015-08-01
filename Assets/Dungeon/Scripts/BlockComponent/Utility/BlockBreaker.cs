@@ -18,15 +18,19 @@ namespace Memoria.Dungeon.BlockComponent.Utility
         {
             float raiseTime = 0;
             block.UpdateAsObservable()
+                // 開始条件
                 .Where(_ => block.putted)
                 .Where(_ => DungeonManager.instance.activeState == DungeonState.None)
                 .Where(_ => block.location != DungeonManager.instance.player.location)
                 .SkipUntil(block.OnMouseDownAsObservable()
                     .Do(_ => raiseTime = Time.realtimeSinceStartup + 0.5f))
+                // 終了条件
                 .TakeUntil(block.OnMouseUpAsObservable()
                     .Merge(block.OnMouseExitAsObservable()))
                 .Repeat()
+                // 処理条件
                 .Where(_ => Time.realtimeSinceStartup >= raiseTime)
+                // 処理
                 .Do(OnBreak)
                 .Subscribe(_ => GameObject.Destroy(block.gameObject));
         }
