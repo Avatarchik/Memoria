@@ -87,6 +87,13 @@ namespace Memoria.Dungeon
 
             parameter = parameterManager.parameter;
         }
+        
+        public void SetIsBossBattle(bool isBossBattle)
+        {
+            var param = parameter;
+            param.isBossBattle = isBossBattle;
+            parameter = param;
+        }
 
         public void SetBattleType(BlockType battleType)
         {
