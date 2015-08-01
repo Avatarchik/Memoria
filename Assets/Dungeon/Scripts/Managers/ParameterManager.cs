@@ -93,6 +93,12 @@ namespace Memoria.Dungeon.Managers
             parameterChanged
                 .DistinctUntilChanged(param => param.silling)
                 .Subscribe(UpdateSillingText);
+
+            // ストックの変化イベントの追加
+            parameterChanged
+                .Where(param => param.stocks != null)
+                .DistinctUntilChanged(param => param.stocks)
+                .Subscribe(UpdatePowerStock);
         }
 
         private void SubscribePlayerWalkEvent()
@@ -202,6 +208,16 @@ namespace Memoria.Dungeon.Managers
         private void UpdateSillingText(DungeonParameter parameter)
         {
             sillingText.text = string.Format("{0:0000}", parameter.silling);
+        }
+
+        private void UpdatePowerStock(DungeonParameter parameter)
+        {
+            Enumerable.Range(0, 4)
+                .ToList()
+                .ForEach(index =>
+                {
+                    charactersPowerStocks[index].stock = parameter.stocks[index];
+                });
         }
     }
 }
