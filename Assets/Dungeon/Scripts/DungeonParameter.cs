@@ -43,7 +43,7 @@ namespace Memoria.Dungeon
         private int enemyPattern { get; set; }
         private bool isBossBattle { get; set; }
 
-        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill, int enemyPattern, bool isBossBattle = false)
+        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill, int enemyPattern = 0, bool isBossBattle = false)
         {
             this.maxHp = maxHp;
             this.hp = hp;
