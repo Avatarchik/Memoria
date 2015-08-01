@@ -33,21 +33,27 @@ namespace Memoria.Dungeon.BlockEvents
             return coroutineAppended.StartCoroutine(CoroutineBattle(block, itemTaked));
         }
 
-        private IEnumerator CoroutineBattle(Block block, bool itemTakes)
+        private IEnumerator CoroutineBattle(Block block, bool itemTaked)
         {
             onBattleEvent = false;
 
-            if (itemTakes && OnTriggerOnBossBattleEvent())
+            if (itemTaked)
             {
-                onBattleEvent = true;
-                yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
+                if (OnTriggerOnBossBattleEvent())
+                {
+                    onBattleEvent = true;
+                    yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
+                }
             }
-            else if (OnTriggerOnBattleEvent(block))
+            else
             {
-                onBattleEvent = true;
-                yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
+                if (OnTriggerOnBattleEvent(block))
+                {
+                    onBattleEvent = true;
+                    yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
+                }
             }
-            
+
             yield break;
         }
 
@@ -70,7 +76,7 @@ namespace Memoria.Dungeon.BlockEvents
 
         private IEnumerator CoroutineBattleToBoss(Block block)
         {
-            // TODO : blockType == BlockType.Recoveryの時の対処
+            dungeonManager.dungeonData.SetIsBossBattle(true);            
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
             yield return new WaitForSeconds(0.5f);
@@ -79,6 +85,7 @@ namespace Memoria.Dungeon.BlockEvents
 
         private IEnumerator CoroutineBattleToEnemy(Block block)
         {
+            dungeonManager.dungeonData.SetIsBossBattle(false);
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
             yield return new WaitForSeconds(0.5f);

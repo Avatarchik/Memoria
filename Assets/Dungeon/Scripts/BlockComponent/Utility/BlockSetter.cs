@@ -37,9 +37,12 @@ namespace Memoria.Dungeon.BlockComponent.Utility
         public void Bind(Block block)
         {
             this.block = block;
+            // 設置もしくはリストに戻す
             block.OnMoveEndAsObservable()
                 .Subscribe(_ => PutOrBack());
 
+            // 設置したとき
+            // 設置位置に移動させる
             block.OnPutAsObservable()
                 .Do(_ => putted = true)
                 .Subscribe(_ => iTween.MoveTo(
@@ -47,6 +50,8 @@ namespace Memoria.Dungeon.BlockComponent.Utility
                     position: DungeonManager.instance.mapManager.ToPosition(block.location),
                     time: 1));
 
+            // リストに戻されたとき
+            // 初期位置に移動させる
             block.OnBackAsObservable()
                 .Subscribe(_ =>
                 {

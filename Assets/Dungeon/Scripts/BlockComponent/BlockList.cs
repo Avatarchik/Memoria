@@ -11,7 +11,6 @@ namespace Memoria.Dungeon.BlockComponent
     {
         private static DungeonManager dungeonManager { get { return DungeonManager.instance; } }
         private static BlockManager blockManager { get { return BlockManager.instance; } }
-        //  private static ParameterManager parameterManager { get { return ParameterManager.instance; } }
 
         public List<BlockFactor> blockFactors = new List<BlockFactor>();
 

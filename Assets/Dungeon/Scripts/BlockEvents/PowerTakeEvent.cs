@@ -37,6 +37,7 @@ namespace Memoria.Dungeon.BlockEvents
                 case BlockType.Fire:
                 case BlockType.Wind:
                     yield return coroutineAppended.StartCoroutine(CoroutineTakePowerTypeOfElements(block.blockType));
+                    ParameterManager.instance.TakePowerStock(block.blockType);
                     break;
 
                 case BlockType.Recovery:
@@ -51,7 +52,10 @@ namespace Memoria.Dungeon.BlockEvents
 
         private IEnumerator CoroutineTakePowerTypeOfElements(BlockType attribute)
         {
-            yield break;
+            eventAnimator.SetFloat("eventType", 1);
+            EventManager.instance.message = "ストック";
+            eventAnimator.SetTrigger("getPower");
+            yield return new WaitForSeconds(1);
         }
 
         private IEnumerator CoroutineTakePowerTypeOfRecovery()
