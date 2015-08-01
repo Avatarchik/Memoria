@@ -33,21 +33,27 @@ namespace Memoria.Dungeon.BlockEvents
             return coroutineAppended.StartCoroutine(CoroutineBattle(block, itemTaked));
         }
 
-        private IEnumerator CoroutineBattle(Block block, bool itemTakes)
+        private IEnumerator CoroutineBattle(Block block, bool itemTaked)
         {
             onBattleEvent = false;
 
-            if (itemTakes && OnTriggerOnBossBattleEvent())
+            if (itemTaked)
             {
-                onBattleEvent = true;
-                yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
+                if (OnTriggerOnBossBattleEvent())
+                {
+                    onBattleEvent = true;
+                    yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
+                }
             }
-            else if (OnTriggerOnBattleEvent(block))
+            else
             {
-                onBattleEvent = true;
-                yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
+                if (OnTriggerOnBattleEvent(block))
+                {
+                    onBattleEvent = true;
+                    yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
+                }
             }
-            
+
             yield break;
         }
 
