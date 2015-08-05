@@ -39,6 +39,7 @@ namespace Memoria.Battle.Managers
         public List<GameObject> actorList;
         public Element elementalAffinity = Element.THUNDER;
         public List<GameObject> enemyList;
+        public List<GameObject> heroList;
         public MainPlayer mainPlayer;
 
         public UIMgr UiMgr { get { return _uiMgr; } }
@@ -158,6 +159,7 @@ namespace Memoria.Battle.Managers
         public void LoadLevel(string scene)
         {
             EventMgr.Instance.Clear();
+            UpdateParameters();
             Application.LoadLevel(scene);
         }
  
@@ -193,8 +195,11 @@ namespace Memoria.Battle.Managers
                 hero.GetComponent<BoxCollider2D>().enabled = false;
                 hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.GetComponent<Hero>().battleID = "h0" + i;
-//                hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.stocks[i];
+//                hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.parameter.stocks[i];
                 mainPlayer.health.maxHp += hero.GetComponent<Profile>().parameter.hp;
+//                mainPlayer.health.maxHp = _dungeonData.parameter.maxHp;
+//                mainPlayer.health.hp = _dungeonData.parameter.hp;
+                heroList.Add(hero);
                 actorList.Add(hero);
             }
         }
@@ -215,6 +220,18 @@ namespace Memoria.Battle.Managers
                 enemyList.Add(randomEnemy);
                 actorList.Add(randomEnemy);
             }
+        }
+
+        private void UpdateParameters()
+        {
+            var param = _dungeonData.parameter;
+            param.hp = mainPlayer.health.hp;
+            param.maxHp = mainPlayer.health.maxHp;
+            for(int i = 0; i < _party.Length; i++)
+            {
+                param.stocks[i] = heroList[i].GetComponent<Hero>().power.stock;
+            }
+            _dungeonData.parameter = param;
         }
 
         private IEnumerator SetResult(State state, float waitTime)

@@ -51,6 +51,28 @@ namespace Memoria.Battle.GameActors
         private Type _imageType;
         private GameObject[] _stockObj;
 
+        public float OffsetX { get
+            {
+                return offsetX;
+            }
+        }
+        public float OffsetY { get
+            {
+                return offsetY;
+            }
+        }
+        public float SpaceOffset { get
+            {
+                return spaceOffset;
+            }
+        }
+        public float LayerOffset { get
+            {
+                return layerOffset;
+            }
+        }
+        
+
         public void Awake()
         {
             _stockObj = new GameObject[stockLength];
@@ -131,6 +153,7 @@ namespace Memoria.Battle.GameActors
             {
                 stock += value;
             }
+            UpdateStatus();
         }
 
         public void UseStock(int value)

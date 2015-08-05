@@ -1534,6 +1534,7 @@ MonoBehaviour:
   actorList: []
   elementalAffinity: 3
   enemyList: []
+  heroList: []
   mainPlayer: {fileID: 0}
 --- !u!4 &838095240
 Transform:
@@ -1914,11 +1915,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -.707106829
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .707106709
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_RootOrder
@@ -1934,11 +1935,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 50
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 800
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_AnchorMin.x
