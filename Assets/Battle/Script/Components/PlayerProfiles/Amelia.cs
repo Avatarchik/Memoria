@@ -6,9 +6,7 @@ namespace Memoria.Battle.GameActors
         // Use this for initialization
         void Awake () {
             nameplate = "Namebar_Amelia";
-
-            ultimateAttack = "WindAll";
-
+			ultimateAttack = "Amelia_SP";
             parameter.attack = 3197;
             parameter.defense = 2268;
       //    parameter.mattack = 100;
@@ -17,9 +15,9 @@ namespace Memoria.Battle.GameActors
             parameter.hp = 2014;
             parameter.elementAff = new ElementThunder(Element.THUNDER);
 
-            attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
-            attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
+            attackList.Add("Player_Strike", gameObject.AddComponent<Amelia_S1>());
+            attackList.Add("Fire_Attack", gameObject.AddComponent<Amelia_S2>());
+			attackList.Add("Amelia_SP", gameObject.AddComponent<Amelia_SP>());
             //attackType = gameObject.AddComponent<PlayerStrike>();
 
         }

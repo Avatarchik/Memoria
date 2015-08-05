@@ -28,7 +28,7 @@ namespace Memoria.Battle.GameActors
             //TODO: Add cut in
 
             particleEffect = Instantiate (effectObj);
-            particleEffect.transform.position = new Vector3 (0, 0, -3);
+            particleEffect.transform.position = new Vector3 (0, 0, -9);
             particleEffect.GetComponent<ParticleSystem>().Play();
         }
     }

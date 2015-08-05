@@ -6,9 +6,7 @@
         void Awake ()
         {
             nameplate = "Namebar_Dhiel";
-
-            ultimateAttack = "WindAll";
-
+            ultimateAttack = "Diel_SP";
             parameter.attack = 3612;
             parameter.defense = 1714;
 //          parameter.mattack = 100;
@@ -17,9 +15,9 @@
             parameter.hp = 2499;
             parameter.elementAff = new ElementWind(Element.WIND); 
 
-            attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
-            attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
+            attackList.Add("Player_Strike", gameObject.AddComponent<Diel_S1>());
+            attackList.Add("Fire_Attack", gameObject.AddComponent<Diel_S2>());
+            attackList.Add("Diel_SP", gameObject.AddComponent<Diel_SP>());
         }
     }
 }

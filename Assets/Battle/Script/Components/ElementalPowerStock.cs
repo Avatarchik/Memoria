@@ -153,7 +153,6 @@ namespace Memoria.Battle.GameActors
             {
                 stock += value;
             }
-            UpdateStatus();
         }
 
         public void UseStock(int value)

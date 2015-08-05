@@ -5,9 +5,7 @@
         // Use this for initialization
         void Awake () {
             nameplate = "Namebar_Iska";
-
-            ultimateAttack = "WindAll";
-
+            ultimateAttack = "Iska_SP";
             parameter.attack = 5425;
             parameter.defense = 1691;
 //          parameter.mattack = 100;
@@ -17,9 +15,9 @@
 
             parameter.elementAff = new ElementFire(Element.FIRE); 
 
-            attackList.Add("Player_Strike", gameObject.AddComponent<PlayerStrike>());
-            attackList.Add("Fire_Attack", gameObject.AddComponent<FireAttack>());
-            attackList.Add("WindAll", gameObject.AddComponent<DhielUltimate>());
-       }
+            attackList.Add("Player_Strike", gameObject.AddComponent<Iska_S1>());
+            attackList.Add("Fire_Attack", gameObject.AddComponent<Iska_S2>());
+            attackList.Add("Iska_SP", gameObject.AddComponent<Iska_SP>());
+        }
     }
 }
