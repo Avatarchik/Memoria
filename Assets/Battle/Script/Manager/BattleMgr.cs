@@ -193,7 +193,7 @@ namespace Memoria.Battle.Managers
                 hero.GetComponent<BoxCollider2D>().enabled = false;
                 hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.GetComponent<Hero>().battleID = "h0" + i;
-
+//                hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.stocks[i];
                 mainPlayer.health.maxHp += hero.GetComponent<Profile>().parameter.hp;
                 actorList.Add(hero);
             }
@@ -230,6 +230,10 @@ namespace Memoria.Battle.Managers
         {
             Type[] result = { typeof(Golem) };
             return result;
+        }
+
+        private void SetStock()
+        {
         }
     }
 }

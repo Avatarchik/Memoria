@@ -60,6 +60,7 @@
      <Compile Include="Assets\Battle\Script\Components\EnemyAI\WaterSlime.cs" />
      <Compile Include="Assets\Battle\Script\Components\EnemyAI\WindBoss.cs" />
      <Compile Include="Assets\Battle\Script\Components\EnemyAI\WindSlime.cs" />
+     <Compile Include="Assets\Battle\Script\Components\FollowNamebar.cs" />
      <Compile Include="Assets\Battle\Script\Components\HealthSystem.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Amelia.cs" />
      <Compile Include="Assets\Battle\Script\Components\PlayerProfiles\Aria.cs" />

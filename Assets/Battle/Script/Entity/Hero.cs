@@ -20,6 +20,7 @@ namespace Memoria.Battle.GameActors
         private OnHit stockUp;
 
         public ElementalPowerStock power;
+        public int stockValue;
         public bool attackSelected;
         public bool passToStock;
         public string nameplae;
@@ -39,6 +40,7 @@ namespace Memoria.Battle.GameActors
 
         void Update()
         {
+            stockValue = power.stock;
         }
 
         override public void Init()
