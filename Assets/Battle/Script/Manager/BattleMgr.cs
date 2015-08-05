@@ -162,7 +162,7 @@ namespace Memoria.Battle.Managers
             UpdateParameters();
             Application.LoadLevel(scene);
         }
- 
+
         public void RemoveFromBattle(Entity e)
         {
             EventMgr.Instance.Raise(new Memoria.Battle.Events.MonsterDies(e));

@@ -201,21 +201,20 @@ namespace Memoria.Battle.GameActors
         }
         private IEnumerator StockRoutine(float extraStock = 0.4f)
         {
-            if(power.stock == 2)
+            if(!power.Full)
             {
-                SetFinalStock();
+                var pos = this.transform.position;
+                _stockEffect.transform.position = new Vector3(pos.x + power.OffsetX + (power.stock * power.SpaceOffset),
+                                                              pos.y + power.OffsetY - extraStock, pos.z + power.LayerOffset);
+
+                Destroy(Instantiate(_stockEffect), 2.0f);
             }
-
-            var pos = this.transform.position;
-            _stockEffect.transform.position = new Vector3(pos.x + power.OffsetX + (power.stock * power.SpaceOffset),
-                                                          pos.y + power.OffsetY - extraStock, pos.z + power.LayerOffset);
-
-            Destroy(Instantiate(_stockEffect), 2.0f);
 
             yield return new WaitForSeconds(0.5f);
             power.AddStock();
             if(extraStock == 0.0f)
             {
+                power.UpdateStatus();
                 SetIconSkill();
             }
             yield return null;

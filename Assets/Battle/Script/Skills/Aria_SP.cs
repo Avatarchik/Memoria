@@ -5,6 +5,7 @@ namespace Memoria.Battle.GameActors
 {
 	public class Aria_SP : AttackType
 	{
+        bool destroyed;
 		//唯一の水属性で威力も高い
 		void Start ()
 		{
@@ -15,20 +16,25 @@ namespace Memoria.Battle.GameActors
 			selectType = TargetType.ALL;
 			elementalAff = new ElementWater(Element.WATER);
 			effectObj = (GameObject)Resources.Load("Skills/Aria_SP");
-			parameters.attackPower = -1;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{
 			damage.DamageParameters = parameters;
 			target.TakeDamage(damage);
+            destroyed = false;
 		}
 		
 		override public void PlayEffect (Entity target)
 		{
-			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y -0.3f, -9);
-			particleEffect.GetComponent<ParticleSystem>().Play();
+            if(!particleEffect && !destroyed)
+            {                
+                particleEffect = Instantiate (effectObj);
+                particleEffect.transform.position = new Vector3 (0, 4, 2);
+                particleEffect.GetComponentInChildren<ParticleRenderer>().sortingLayerName = "Foreground";
+                DestroyObject(particleEffect, 2.1f);
+                destroyed = true;
+            }
 		}
 	}
 }

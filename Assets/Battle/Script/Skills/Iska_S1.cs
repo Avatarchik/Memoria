@@ -10,7 +10,7 @@ namespace Memoria.Battle.GameActors
 		{
 			phaseCost = 0;
 			stockCost = 0;
-			animationDur = 210;
+			animationDur = 130;
 			targetType = 'e';
 			selectType = TargetType.ALL;
 			elementalAff = new ElementFire(Element.FIRE);
@@ -27,7 +27,7 @@ namespace Memoria.Battle.GameActors
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y -0.3f, -9);
+			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y, -9);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}
