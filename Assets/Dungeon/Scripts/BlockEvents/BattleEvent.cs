@@ -1,30 +1,95 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
+using Memoria.Dungeon.BlockComponent;
 
 namespace Memoria.Dungeon.BlockEvents
 {
-    public class BattleEvent : BlockEvent
+    public class BattleEvent
     {
-        public BlockType battleType { get; private set; }
-
-        public BattleEvent(BlockType battleType, Animator[] eventAniamtors, GameObject messageBox, Text messageBoxText)
-            : base(eventAniamtors, messageBox, messageBoxText)
+        private static DungeonManager dungeonManager
         {
-
-            this.battleType = battleType;
+            get { return DungeonManager.instance; }
         }
 
-        public override IEnumerator GetEventCoroutine(DungeonParameter paramater)
+        private static DungeonParameter parameter
         {
-            var dungeonManager = DungeonManager.instance;
-            dungeonManager.dungeonData.SetBattleType(battleType);
+            get { return ParameterManager.instance.parameter; }
+        }
+
+        private MonoBehaviour coroutineAppended;
+        private Animator eventAnimator;
+
+        public bool onBattleEvent { get; private set; }
+
+        public BattleEvent(MonoBehaviour coroutineAppended, Animator eventAnimator)
+        {
+            this.coroutineAppended = coroutineAppended;
+            this.eventAnimator = eventAnimator;
+        }
+
+        public Coroutine StartBattleEventCoroutine(Block block, bool itemTaked)
+        {
+            return coroutineAppended.StartCoroutine(CoroutineBattle(block, itemTaked));
+        }
+
+        private IEnumerator CoroutineBattle(Block block, bool itemTaked)
+        {
+            onBattleEvent = false;
+
+            if (itemTaked)
+            {
+                if (OnTriggerOnBossBattleEvent())
+                {
+                    onBattleEvent = true;
+                    yield return coroutineAppended.StartCoroutine(CoroutineBattleToBoss(block));
+                }
+            }
+            else
+            {
+                if (OnTriggerOnBattleEvent(block))
+                {
+                    onBattleEvent = true;
+                    yield return coroutineAppended.StartCoroutine(CoroutineBattleToEnemy(block));
+                }
+            }
+
+            yield break;
+        }
+
+        private bool OnTriggerOnBossBattleEvent()
+        {
+            return parameter.getKeyNum == parameter.allKeyNum;
+        }
+
+        private bool OnTriggerOnBattleEvent(Block block)
+        {
+            switch (block.blockType)
+            {
+                case BlockType.None:
+                case BlockType.Recovery:
+                    return false;
+            }
+
+            return UnityEngine.Random.value < 0.3f;
+        }
+
+        private IEnumerator CoroutineBattleToBoss(Block block)
+        {
+            dungeonManager.dungeonData.SetIsBossBattle(true);            
+            dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
             yield return new WaitForSeconds(0.5f);
             Application.LoadLevel("Battle");
-            yield return null;
+        }
+
+        private IEnumerator CoroutineBattleToEnemy(Block block)
+        {
+            dungeonManager.dungeonData.SetIsBossBattle(false);
+            dungeonManager.dungeonData.SetBattleType(block.blockType);
+            dungeonManager.dungeonData.Save();
+            yield return new WaitForSeconds(0.5f);
+            Application.LoadLevel("Battle");
         }
     }
 }

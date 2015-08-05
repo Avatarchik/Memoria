@@ -1,29 +1,19 @@
-# =============== #
-# Unity generated #
-# =============== #
-Temp/
-Obj/
-UnityGenerated/
-Library/
-
-# ===================================== #
-# Visual Studio / MonoDevelop generated #
-# ===================================== #
-ExportedObj/
-*.svd
-*.userprefs
+obj
+Temp
+*.tmproj
 *.csproj
-*.pidb
-*.suo
-*.sln
-*.user
 *.unityproj
-*.booproj
-
-# ============ #
-# OS generated #
-# ============ #
+*.sln
+*.suo
+*.user
+*.pidb
+*.userprefs
+Library/cache/*
+Library/metadata/*
+Library/previews/*
+Library/ScriptAssemblies/*
 .DS_Store
+<<<<<<< HEAD
 .DS_Store?
 ._*
 .Spotlight-V100
@@ -41,3 +31,33 @@ Thumbs.db
 #*
 .*~
 sysinfo.txt #Unity3D Generated File On Crash Reports
+=======
+Library/*
+Library/AssetImportState
+Library/AssetServerCacheV3
+Library/FailedAssetImports.txt
+Library/ScriptMapper
+Library/asetDatabase3
+Library/cache
+Library/expandedItems
+Library/guidmapper
+AnnotationManager
+assetDatabase3
+AssetImportState
+assetservercachev3
+AssetServerCacheV3
+AssetVersioning.db
+AudioManager.asset
+BuildPlayer.prefs
+BuildSettings.asset
+DynamicsManager.asset
+EditorSettings.asset
+EditorUserBuildSettings.asset
+expandedItems
+FailedAssetImports.txt
+guidmapper
+InspectorExpandedItems.asset
+MonoManager.asset
+NetworkManager.asset
+ScriptMapper
+>>>>>>> develop

@@ -21,8 +21,6 @@ namespace Memoria.Dungeon
 
         private List<ItemData> itemDatas;
 
-        public int[] stocks { get; set; }
-
         private bool initialized = false;
 
         // Use this for initialization
@@ -39,7 +37,7 @@ namespace Memoria.Dungeon
 
             var player = dungeonManager.player;
             var stageData = StageDataManager.instance.Prepare(parameter.floor);
-
+            
             // 初期化時
             if (!initialized)
             {
@@ -49,8 +47,7 @@ namespace Memoria.Dungeon
                 mapData = LoadMapData("");
 				itemDatas = new List<ItemData>(stageData.itemDatas);
 				var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
-                parameter = new DungeonParameter(100, 100, 100, 100, 0, keyNum, 1000, "none");
-                stocks = new[] { 0, 0, 0, 0 };
+                parameter = new DungeonParameter(100, 100, 100, 10, 0, keyNum, 0, "none");
             }
 
             player.direction = direction;
@@ -86,6 +83,13 @@ namespace Memoria.Dungeon
 			itemDatas.AddRange(mapManager.items.Select(item => item.itemData));
 
             parameter = parameterManager.parameter;
+        }
+        
+        public void SetIsBossBattle(bool isBossBattle)
+        {
+            var param = parameter;
+            param.isBossBattle = isBossBattle;
+            parameter = param;
         }
 
         public void SetBattleType(BlockType battleType)
