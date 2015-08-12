@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 3e62dc02c621b6442afeb6cb05e8d6a0
-timeCreated: 1431771698
+guid: e596770298e614dd8a529ed07d8de824
+timeCreated: 1439365909
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: GOJBTA3001
-    21300002: GOJBTA3002
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,14 +30,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -50,27 +48,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: GOJBTA3001
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 100
-        width: 400
-        height: 100
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: GOJBTA3002
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 400
-        height: 100
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
