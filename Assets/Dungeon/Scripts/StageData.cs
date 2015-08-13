@@ -9,6 +9,12 @@ namespace Memoria.Dungeon
     {
 		public string areaSpritePath;
 		public Rect stageSize;
-		public List<ItemData> itemDatas;
+
+        [HideInInspector]
+        public int floor;
+        public int maxHp;
+        public int maxSp;
+
+        public List<ItemData> itemDatas;
     }
 }
