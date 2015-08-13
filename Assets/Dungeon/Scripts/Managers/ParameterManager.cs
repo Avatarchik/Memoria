@@ -13,15 +13,6 @@ namespace Memoria.Dungeon.Managers
     {
         public static ParameterManager instance { get { return DungeonManager.instance.parameterManager; } }
 
-        //  private static Dictionary<BlockType, int> toIndex =
-        //      new Dictionary<BlockType, int>()
-        //      {
-        //          { BlockType.Thunder, 0 },
-        //          { BlockType.Wind, 1 },
-        //          { BlockType.Water, 2 },
-        //          { BlockType.Fire, 3 },
-        //      };
-
         private ReactiveProperty<DungeonParameter> _parameter = new ReactiveProperty<DungeonParameter>();
 
         public DungeonParameter parameter
@@ -181,35 +172,12 @@ namespace Memoria.Dungeon.Managers
         public void TakePowerStock(BlockType attribute)
         {
             SetPowerStock(attribute, index => parameter.stocks[index] + 1);
-            //  StockType stockType = ConvertBlockTypeToStockType(attribute);
-
-            //  var indexies = charactersPowerStocks
-            //      .Where(e => e.elementType == stockType)
-            //      .Select((_, index) => index);
-
-            //  foreach (var index in indexies)
-            //  {
-            //      SetPowerStock(index, parameter.stocks[index] + 1);
-            //  }
         }
 
         public void FillPowerStock(BlockType attribute)
         {
             int fillCount = 3;
             SetPowerStock(attribute, _ => fillCount);
-
-            //  SetPowerStock(attribute, fillCount);
-
-            //  StockType stockType = ConvertBlockTypeToStockType(attribute);
-
-            //  var indexies = charactersPowerStocks
-            //      .Where(e => e.elementType == stockType)
-            //      .Select((_, index) => index);
-
-            //  foreach (var index in indexies)
-            //  {
-            //      SetPowerStock(index, fillCount);
-            //  }
         }
 
         private void SetPowerStock(BlockType attribute, System.Func<int, int> getValue)
@@ -232,22 +200,6 @@ namespace Memoria.Dungeon.Managers
                     charactersPowerStocks[param.index].stock = param.nextCount;
                 });
         }
-
-        //  private void SetPowerStock(BlockType attribute, int value)
-        //  {
-        //      int index = toIndex[attribute];
-        //      int fillCount = 3;
-        //      int nextCount = Mathf.Clamp(value, 0, fillCount);
-        //      parameter.stocks[index] = nextCount;
-        //      charactersPowerStocks[index].stock = nextCount;
-        //  }
-
-        //  private void SetPowerStock(int index, int value)
-        //  {
-        //      int fillCount = 3;
-        //      int nextCount = Mathf.Clamp(value, 0, fillCount);
-        //      parameter.stocks[index] = nextCount;
-        //  }
 
         private StockType ConvertBlockTypeToStockType(BlockType blockType)
         {
