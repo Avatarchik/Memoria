@@ -90,7 +90,7 @@ namespace Memoria.Dungeon.BlockEvents
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBattleEvent");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             Application.LoadLevel("Battle");
         }
     }
