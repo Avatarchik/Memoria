@@ -34,6 +34,7 @@ namespace Memoria.Dungeon.BlockComponent
             // ランダマイズの登録
             randomizeButton.OnClickAsObservable()
             .Where(_ => dungeonManager.activeState == DungeonState.None)
+            .Where(_ => CanRandomize(ParameterManager.instance.parameter.sp))
             .Subscribe(RandomizeBlockList);
         }
 
@@ -72,6 +73,12 @@ namespace Memoria.Dungeon.BlockComponent
             }
 
             flags = nextFlags;
+        }
+        
+        private bool CanRandomize(int sp)
+        {
+            int consumption = 2;
+            return sp > consumption;
         }
     }
 }
