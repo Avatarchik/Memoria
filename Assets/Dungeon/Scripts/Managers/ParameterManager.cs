@@ -13,14 +13,14 @@ namespace Memoria.Dungeon.Managers
     {
         public static ParameterManager instance { get { return DungeonManager.instance.parameterManager; } }
 
-        private static Dictionary<BlockType, int> toIndex =
-            new Dictionary<BlockType, int>()
-            {
-                { BlockType.Thunder, 0 },
-                { BlockType.Wind, 1 },
-                { BlockType.Water, 2 },
-                { BlockType.Fire, 3 },
-            };
+        //  private static Dictionary<BlockType, int> toIndex =
+        //      new Dictionary<BlockType, int>()
+        //      {
+        //          { BlockType.Thunder, 0 },
+        //          { BlockType.Wind, 1 },
+        //          { BlockType.Water, 2 },
+        //          { BlockType.Fire, 3 },
+        //      };
 
         private ReactiveProperty<DungeonParameter> _parameter = new ReactiveProperty<DungeonParameter>();
 
@@ -180,23 +180,94 @@ namespace Memoria.Dungeon.Managers
 
         public void TakePowerStock(BlockType attribute)
         {
-            int index = toIndex[attribute];
-            SetPowerStock(attribute, parameter.stocks[index] + 1);
+            SetPowerStock(attribute, index => parameter.stocks[index] + 1);
+            //  StockType stockType = ConvertBlockTypeToStockType(attribute);
+
+            //  var indexies = charactersPowerStocks
+            //      .Where(e => e.elementType == stockType)
+            //      .Select((_, index) => index);
+
+            //  foreach (var index in indexies)
+            //  {
+            //      SetPowerStock(index, parameter.stocks[index] + 1);
+            //  }
         }
-        
+
         public void FillPowerStock(BlockType attribute)
         {
             int fillCount = 3;
-            SetPowerStock(attribute, fillCount);
+            SetPowerStock(attribute, _ => fillCount);
+
+            //  SetPowerStock(attribute, fillCount);
+
+            //  StockType stockType = ConvertBlockTypeToStockType(attribute);
+
+            //  var indexies = charactersPowerStocks
+            //      .Where(e => e.elementType == stockType)
+            //      .Select((_, index) => index);
+
+            //  foreach (var index in indexies)
+            //  {
+            //      SetPowerStock(index, fillCount);
+            //  }
         }
 
-        private void SetPowerStock(BlockType attribute, int value)
+        private void SetPowerStock(BlockType attribute, System.Func<int, int> getValue)
         {
-            int index = toIndex[attribute];
+            StockType stockType = ConvertBlockTypeToStockType(attribute);
             int fillCount = 3;
-            int nextCount = Mathf.Clamp(value, 0, fillCount);
-            parameter.stocks[index] = nextCount;
-            charactersPowerStocks[index].stock = nextCount;
+
+            charactersPowerStocks
+                .Select((e, index) => new { e.elementType, index })
+                .Where(param => param.elementType == stockType)
+                .Select(param => new
+                {
+                    index = param.index,
+                    nextCount = Mathf.Clamp(getValue(param.index), 0, fillCount)
+                })
+                .ToList()
+                .ForEach(param =>
+                {
+                    parameter.stocks[param.index] = param.nextCount;
+                    charactersPowerStocks[param.index].stock = param.nextCount;
+                });
+        }
+
+        //  private void SetPowerStock(BlockType attribute, int value)
+        //  {
+        //      int index = toIndex[attribute];
+        //      int fillCount = 3;
+        //      int nextCount = Mathf.Clamp(value, 0, fillCount);
+        //      parameter.stocks[index] = nextCount;
+        //      charactersPowerStocks[index].stock = nextCount;
+        //  }
+
+        //  private void SetPowerStock(int index, int value)
+        //  {
+        //      int fillCount = 3;
+        //      int nextCount = Mathf.Clamp(value, 0, fillCount);
+        //      parameter.stocks[index] = nextCount;
+        //  }
+
+        private StockType ConvertBlockTypeToStockType(BlockType blockType)
+        {
+            switch (blockType)
+            {
+                case BlockType.Fire:
+                    return StockType.FIRE;
+
+                case BlockType.Wind:
+                    return StockType.WIND;
+
+                case BlockType.Water:
+                    return StockType.WATER;
+
+                case BlockType.Thunder:
+                    return StockType.THUNDER;
+
+                default:
+                    throw new UnityException("The BlockType `" + blockType + "` could not convert to StockType.");
+            }
         }
 
         private void UpdateHpText(DungeonParameter parameter)
