@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using Memoria.Dungeon.Items;
@@ -43,25 +41,7 @@ namespace Memoria.Dungeon.Managers
 
         [SerializeField]
         private NumberSprite sillingValue;
-
-        //  [SerializeField]
-        //  private Text hpText;
-        //  [SerializeField]
-        //  private Text maxHpText;
-
-        //  [SerializeField]
-        //  private Text spText;
-        //  [SerializeField]
-        //  private Text maxSpText;
-
-        //  [SerializeField]
-        //  private Text getKeyText;
-        //  [SerializeField]
-        //  private Text allKeyText;
-
-        //  [SerializeField]
-        //  private Text sillingText;
-
+        
         [SerializeField]
         private ElementalPowerStock[] charactersPowerStocks = new ElementalPowerStock[4];
 
@@ -242,32 +222,24 @@ namespace Memoria.Dungeon.Managers
 
         private void UpdateHpValue(DungeonParameter parameter)
         {
-            //  hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
-            //  hpText.text = string.Format("{0:000}", parameter.hp);
-            //  maxHpText.text = string.Format("{0:000}", parameter.maxHp);
             hpValue.value = parameter.hp;
             maxHpValue.value = parameter.maxHp;
         }
 
         private void UpdateSpValue(DungeonParameter parameter)
         {
-            //  spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
-            //  spText.text = string.Format("{0:000}", parameter.sp);
-            //  maxSpText.text = string.Format("{0:000}", parameter.maxSp);
             spValue.value = parameter.sp;
             maxSpValue.value = parameter.maxSp;
         }
 
         private void UpdateKeyValue(DungeonParameter parameter)
         {
-            //  getKeyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
             getKeyValue.value = parameter.getKeyNum;
             allKeyValue.value = parameter.allKeyNum;
         }
 
         private void UpdateSillingValue(DungeonParameter parameter)
         {
-            //  sillingText.text = string.Format("{0:0000}", parameter.silling);
             sillingValue.value = parameter.silling;
         }
 

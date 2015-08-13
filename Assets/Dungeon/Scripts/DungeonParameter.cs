@@ -56,8 +56,6 @@ namespace Memoria.Dungeon
             this.getKeyNum = 0;
             this.silling = silling;
             this.skill = skill;
-            //  this.enemyPattern = enemyPattern;
-            //  this.isBossBattle = isBossBattle;
             stocks = new int[4];
         }
     }
