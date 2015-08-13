@@ -44,23 +44,23 @@ namespace Memoria.Dungeon.Managers
         [SerializeField]
         private NumberSprite sillingValue;
 
-        [SerializeField]
-        private Text hpText;
-        [SerializeField]
-        private Text maxHpText;
+        //  [SerializeField]
+        //  private Text hpText;
+        //  [SerializeField]
+        //  private Text maxHpText;
 
-        [SerializeField]
-        private Text spText;
-        [SerializeField]
-        private Text maxSpText;
+        //  [SerializeField]
+        //  private Text spText;
+        //  [SerializeField]
+        //  private Text maxSpText;
 
-        [SerializeField]
-        private Text getKeyText;
-        [SerializeField]
-        private Text allKeyText;
+        //  [SerializeField]
+        //  private Text getKeyText;
+        //  [SerializeField]
+        //  private Text allKeyText;
 
-        [SerializeField]
-        private Text sillingText;
+        //  [SerializeField]
+        //  private Text sillingText;
 
         [SerializeField]
         private ElementalPowerStock[] charactersPowerStocks = new ElementalPowerStock[4];
