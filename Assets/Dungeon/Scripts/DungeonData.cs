@@ -45,9 +45,19 @@ namespace Memoria.Dungeon
                 location = new Vector2Int(0, 0);
 
                 mapData = LoadMapData("");
-				itemDatas = new List<ItemData>(stageData.itemDatas);
-				var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
-                parameter = new DungeonParameter(100, 100, 100, 10, 0, keyNum, 0, "none");
+
+                itemDatas = new List<ItemData>(stageData.itemDatas);
+                var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
+
+                parameter = new DungeonParameter(
+                    maxHp: stageData.maxHp,
+                    hp: stageData.maxHp,
+                    maxSp: stageData.maxSp,
+                    sp: stageData.maxSp,
+                    floor: stageData.floor,
+                    allKeyNum: keyNum,
+                    silling: 0,
+                    skill: "none");
             }
 
             player.direction = direction;
