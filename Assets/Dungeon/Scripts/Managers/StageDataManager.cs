@@ -15,6 +15,8 @@ namespace Memoria.Dungeon.Managers
             (new GameObject()).AddComponent<SpriteRenderer>().sprite =
                 Resources.Load<Sprite>(stageData.areaSpritePath);
 
+            stageData.floor = floor;
+
             return stageData;
         }
     }
