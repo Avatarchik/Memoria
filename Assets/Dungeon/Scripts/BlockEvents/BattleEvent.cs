@@ -79,7 +79,8 @@ namespace Memoria.Dungeon.BlockEvents
             dungeonManager.dungeonData.SetIsBossBattle(true);            
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
-            yield return new WaitForSeconds(0.5f);
+            eventAnimator.SetTrigger("onBossBattleEvent");
+            yield return new WaitForSeconds(3f);
             Application.LoadLevel("Battle");
         }
 
@@ -88,6 +89,7 @@ namespace Memoria.Dungeon.BlockEvents
             dungeonManager.dungeonData.SetIsBossBattle(false);
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
+            eventAnimator.SetTrigger("onBattleEvent");
             yield return new WaitForSeconds(0.5f);
             Application.LoadLevel("Battle");
         }
