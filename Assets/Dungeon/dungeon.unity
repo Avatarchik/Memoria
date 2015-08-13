@@ -4014,40 +4014,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477552, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: hpText
+    - target: {fileID: 11441756, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: blockList
       value: 
-      objectReference: {fileID: 1953792064}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: spText
-      value: 
-      objectReference: {fileID: 1699313150}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: getKeyText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: sillingText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: charactersPowerStocks.Array.data[0]
-      value: 
-      objectReference: {fileID: 1358087041}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: charactersPowerStocks.Array.data[1]
-      value: 
-      objectReference: {fileID: 2064532439}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: charactersPowerStocks.Array.data[2]
-      value: 
-      objectReference: {fileID: 971945023}
-    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: charactersPowerStocks.Array.data[3]
-      value: 
-      objectReference: {fileID: 1341132198}
+      objectReference: {fileID: 97209016}
     - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: eventAnimator
       value: 
@@ -4056,14 +4028,6 @@ Prefab:
       propertyPath: messageBox
       value: 
       objectReference: {fileID: 1136206676}
-    - target: {fileID: 11441756, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: blockList
-      value: 
-      objectReference: {fileID: 97209016}
-    - target: {fileID: 11451198, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 1678314323}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: hpValue
       value: 
@@ -4092,6 +4056,26 @@ Prefab:
       propertyPath: sillingValue
       value: 
       objectReference: {fileID: 911695352}
+    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: charactersPowerStocks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1358087041}
+    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: charactersPowerStocks.Array.data[1]
+      value: 
+      objectReference: {fileID: 2064532439}
+    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: charactersPowerStocks.Array.data[2]
+      value: 
+      objectReference: {fileID: 971945023}
+    - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: charactersPowerStocks.Array.data[3]
+      value: 
+      objectReference: {fileID: 1341132198}
+    - target: {fileID: 11451198, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1678314323}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
   m_IsPrefabParent: 0
