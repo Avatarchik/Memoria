@@ -25,6 +25,24 @@ namespace Memoria.Dungeon.Managers
         {
             return _parameter.AsObservable();
         }
+        
+        [SerializeField]
+        private NumberSprite hpValue;
+        [SerializeField]
+        private NumberSprite maxHpValue;
+        
+        [SerializeField]
+        private NumberSprite spValue;
+        [SerializeField]
+        private NumberSprite maxSpValue;
+        
+        [SerializeField]
+        private NumberSprite getKeyValue;
+        [SerializeField]
+        private NumberSprite allKeyValue;
+
+        [SerializeField]
+        private NumberSprite sillingValue;
 
         [SerializeField]
         private Text hpText;
@@ -62,34 +80,34 @@ namespace Memoria.Dungeon.Managers
             // HPの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.hp)
-                .Subscribe(UpdateHpText);
+                .Subscribe(UpdateHpValue);
 
             parameterChanged
                 .DistinctUntilChanged(param => param.maxHp)
-                .Subscribe(UpdateHpText);
+                .Subscribe(UpdateHpValue);
 
             // SPの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.sp)
-                .Subscribe(UpdateSpText);
+                .Subscribe(UpdateSpValue);
 
             parameterChanged
                 .DistinctUntilChanged(param => param.maxSp)
-                .Subscribe(UpdateSpText);
+                .Subscribe(UpdateSpValue);
 
             // Keyの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.getKeyNum)
-                .Subscribe(UpdateKeyText);
+                .Subscribe(UpdateKeyValue);
 
             parameterChanged
                 .DistinctUntilChanged(param => param.allKeyNum)
-                .Subscribe(UpdateKeyText);
+                .Subscribe(UpdateKeyValue);
 
             // Sillingの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.silling)
-                .Subscribe(UpdateSillingText);
+                .Subscribe(UpdateSillingValue);
 
             // ストックの変化イベントの追加
             parameterChanged
@@ -222,28 +240,35 @@ namespace Memoria.Dungeon.Managers
             }
         }
 
-        private void UpdateHpText(DungeonParameter parameter)
+        private void UpdateHpValue(DungeonParameter parameter)
         {
-            hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
+            //  hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
             //  hpText.text = string.Format("{0:000}", parameter.hp);
             //  maxHpText.text = string.Format("{0:000}", parameter.maxHp);
+            hpValue.value = parameter.hp;
+            maxHpValue.value = parameter.maxHp;
         }
 
-        private void UpdateSpText(DungeonParameter parameter)
+        private void UpdateSpValue(DungeonParameter parameter)
         {
-            spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
+            //  spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
             //  spText.text = string.Format("{0:000}", parameter.sp);
             //  maxSpText.text = string.Format("{0:000}", parameter.maxSp);
+            spValue.value = parameter.sp;
+            maxSpValue.value = parameter.maxSp;
         }
 
-        private void UpdateKeyText(DungeonParameter parameter)
+        private void UpdateKeyValue(DungeonParameter parameter)
         {
-            getKeyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
+            //  getKeyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
+            getKeyValue.value = parameter.getKeyNum;
+            allKeyValue.value = parameter.allKeyNum;
         }
 
-        private void UpdateSillingText(DungeonParameter parameter)
+        private void UpdateSillingValue(DungeonParameter parameter)
         {
-            sillingText.text = string.Format("{0:0000}", parameter.silling);
+            //  sillingText.text = string.Format("{0:0000}", parameter.silling);
+            sillingValue.value = parameter.silling;
         }
 
         private void UpdatePowerStock(DungeonParameter parameter)
