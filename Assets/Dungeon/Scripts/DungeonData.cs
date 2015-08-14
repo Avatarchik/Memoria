@@ -42,7 +42,7 @@ namespace Memoria.Dungeon
             // 初期化時
             if (!initialized)
             {
-                int floor = 1;
+                int floor = 0;
                 stageData = StageDataManager.instance.Prepare(floor);
                 direction = 2;
                 location = new Vector2Int(0, 0);
