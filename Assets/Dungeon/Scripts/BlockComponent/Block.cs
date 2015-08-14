@@ -147,6 +147,14 @@ namespace Memoria.Dungeon.BlockComponent
                     onMoveBegin.Dispose();
                     onMoveEnd.Dispose();
                 });
+
+            // 破壊時
+            OnBreakAsObservable()
+                .Subscribe(_ =>
+                {
+                    var effectPosition = (Vector3)mapManager.ToPosition(location);
+                    EffectManager.instance.InstantiateEffect(13, effectPosition, 2f);
+                });
         }
 
         public void SetAsDefault(Vector2Int location, ShapeData shape, BlockType type)
