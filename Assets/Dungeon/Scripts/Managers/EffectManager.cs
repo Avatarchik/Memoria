@@ -5,6 +5,8 @@ namespace Memoria.Dungeon.Managers
 {
     public class EffectManager : MonoBehaviour
     {
+        public static EffectManager instance { get { return DungeonManager.instance.effectManager; } }
+        
         [SerializeField]
         private GameObject[] effectPrefabs;
         
