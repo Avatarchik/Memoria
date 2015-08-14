@@ -45,7 +45,7 @@ namespace Memoria.Dungeon
 
         public int[] stocks { get; set; }
 
-        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill/*, int enemyPattern = 0/*, bool isBossBattle = false*/)
+        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill)
         {
             this.maxHp = maxHp;
             this.hp = hp;

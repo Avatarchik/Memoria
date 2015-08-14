@@ -15,9 +15,6 @@ namespace Memoria.Dungeon.Managers
             int selectedStageIndex = Random.Range(0, equalsFloorStageDatas.Count());
             
             var stageData = equalsFloorStageDatas.ElementAt(selectedStageIndex);
-            (new GameObject()).AddComponent<SpriteRenderer>().sprite =
-                //  Resources.Load<Sprite>(stageData.areaSpritePath);
-                stageData.areaSprite;
 
             return stageData;
         }

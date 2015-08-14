@@ -38,11 +38,12 @@ namespace Memoria.Dungeon
             var parameterManager = ParameterManager.instance;
 
             var player = dungeonManager.player;
-            
+
             // 初期化時
             if (!initialized)
             {
-                stageData = StageDataManager.instance.Prepare(parameter.floor);
+                int floor = 1;
+                stageData = StageDataManager.instance.Prepare(floor);
                 direction = 2;
                 location = new Vector2Int(0, 0);
 
@@ -62,11 +63,12 @@ namespace Memoria.Dungeon
                     skill: "none");
             }
 
+            (new GameObject()).AddComponent<SpriteRenderer>().sprite = stageData.areaSprite;
             player.direction = direction;
             player.SetPosition(location);
 
             mapManager.SetMap(mapData, stageData, itemDatas);
-			
+
             parameterManager.parameter = parameter;
 
             if (initialized)
@@ -91,12 +93,12 @@ namespace Memoria.Dungeon
             mapData.Clear();
             mapData.AddRange(mapManager.blocks.Select(block => block.blockData));
 
-			itemDatas.Clear();
-			itemDatas.AddRange(mapManager.items.Select(item => item.itemData));
+            itemDatas.Clear();
+            itemDatas.AddRange(mapManager.items.Select(item => item.itemData));
 
             parameter = parameterManager.parameter;
         }
-        
+
         public void SetIsBossBattle(bool isBossBattle)
         {
             var param = parameter;
