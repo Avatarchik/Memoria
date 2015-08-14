@@ -71,6 +71,11 @@ namespace Memoria.Dungeon.BlockEvents
             eventAnimator.SetFloat("eventType", 1);
             EventManager.instance.message = "ＨＰ回復！！";
             eventAnimator.SetTrigger("getPower");
+            
+            var effectPosition = Camera.main.transform.position;
+            effectPosition.z = 0;
+            EffectManager.instance.InstantiateEffect(12, effectPosition, 2f);
+
             yield return new WaitForSeconds(1);
         }
     }
