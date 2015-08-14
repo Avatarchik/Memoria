@@ -88,6 +88,11 @@ namespace Memoria.Dungeon.BlockEvents
             eventAnimator.SetFloat("eventType", 0);
             EventManager.instance.message = "鍵を入手した！！";
             eventAnimator.SetTrigger("getKey");
+            
+            var effectPosition = Camera.main.transform.position;
+            effectPosition.z = 0;
+            EffectManager.instance.InstantiateEffect(4, effectPosition, 2f);
+
             yield return new WaitForSeconds(1.4f);
         }
 
@@ -98,6 +103,11 @@ namespace Memoria.Dungeon.BlockEvents
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "宝石を入手した！！";
             eventAnimator.SetTrigger("getJewel");
+
+            var effectPosition = Camera.main.transform.position;
+            effectPosition.z = 0;
+            EffectManager.instance.InstantiateEffect(3, effectPosition, 2f);
+
             yield return new WaitForSeconds(1.4f);
         }
 
@@ -118,6 +128,11 @@ namespace Memoria.Dungeon.BlockEvents
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "魔石版を入手した！！";
             eventAnimator.SetTrigger("getMagicPlate");
+            
+            var effectPosition = Camera.main.transform.position;
+            effectPosition.z = 0;
+            EffectManager.instance.InstantiateEffect(3, effectPosition, 2f);
+            
             yield return new WaitForSeconds(1.4f);
         }
     }
