@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using UnityEngine;
+using System.Linq;
 using Memoria.Battle.GameActors;
 
 namespace Memoria.Battle.States
@@ -9,6 +10,7 @@ namespace Memoria.Battle.States
         override public void Initialize()
         {
             _timeBeforeStart = 120;
+
             battleMgr.actorList = battleMgr.actorList.OrderByDescending (x => x.GetComponent<Entity> ().parameter.speed).ToList ();
             attackTracker.GenerateQueue<Entity>(battleMgr.actorList);
             uiMgr.SpawnNamebars(attackTracker.attackOrder);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 
 using Memoria.Battle.Managers;
@@ -11,8 +12,9 @@ namespace Memoria.Battle.GameActors
 {
     public class Hero : Entity
     {
+        private GameObject _stockEffect;
+
         private bool _enemyTarget;
-        private bool _initializedTurn;
 
         // Used when tapping for stock to store ultimate
         // attack when stock is full.
@@ -22,7 +24,9 @@ namespace Memoria.Battle.GameActors
         public ElementalPowerStock power;
         public bool attackSelected;
         public bool passToStock;
+        public bool tappable;
         public string nameplae;
+
 
         void Start ()
         {
@@ -33,8 +37,7 @@ namespace Memoria.Battle.GameActors
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
-            EnableCastingParticle();
-
+            _stockEffect = (GameObject)Resources.Load("effects/Effect_UI_201");
         }
 
         void Update()
@@ -66,12 +69,12 @@ namespace Memoria.Battle.GameActors
 
         override public void StartTurn()
         {
-            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
-                power.AddStock();
-                power.UpdateStatus();
-            }
-            SetIconSkill();
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, -10);
+            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
+                StartCoroutine(StockRoutine(0.0f));
+            } else {
+                SetIconSkill();
+            }
         }
 
         override public void EndTurn()
@@ -107,7 +110,7 @@ namespace Memoria.Battle.GameActors
 
         public void StockUp()
         {
-            power.AddStock();
+            StartCoroutine(StockRoutine());
             passToStock = true;
             target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
         }
@@ -121,9 +124,10 @@ namespace Memoria.Battle.GameActors
 
         public void CheckIfhit()
         {
-            if(GetComponent<TargetSelector>().hitBoxCollider)
+            if(GetComponent<TargetSelector>().hitBoxCollider && tappable)
             {
                 stockUp.Invoke();
+                tappable = false;
             }
         }
 
@@ -177,11 +181,9 @@ namespace Memoria.Battle.GameActors
             return list.ToArray();
         }
 
-        public void EnableCastingParticle()
-        {
-        }
         private void SetIconSkill()
         {
+            tappable = true;
             if(!power.Full)
             {
                 stockUp = StockUp;
@@ -193,6 +195,29 @@ namespace Memoria.Battle.GameActors
         private void SetUltimate()
         {
             SetAttack(profile.ultimateAttack);
+        }
+        private void SetFinalStock()
+        {
+        }
+        private IEnumerator StockRoutine(float extraStock = 0.4f)
+        {
+            if(!power.Full)
+            {
+                var pos = this.transform.position;
+                _stockEffect.transform.position = new Vector3(pos.x + power.OffsetX + (power.stock * power.SpaceOffset),
+                                                              pos.y + power.OffsetY - extraStock, pos.z + power.LayerOffset);
+
+                Destroy(Instantiate(_stockEffect), 2.0f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+            power.AddStock();
+            if(extraStock == 0.0f)
+            {
+                power.UpdateStatus();
+                SetIconSkill();
+            }
+            yield return null;
         }
     }
 }

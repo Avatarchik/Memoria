@@ -4,10 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - BattleMgr
   - Key
   - Jewel
   - Soul
   - MagicPlate
+  - Effect
+  - MainPlayer
+  - Bg
+  - Plane
   layers:
   - Default
   - TransparentFX
@@ -44,4 +49,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 11205803
+    locked: 0
+  - name: Middle
+    uniqueID: 998708151
+    locked: 0
+  - name: Foreground
+    uniqueID: 3359095303
     locked: 0
