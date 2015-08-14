@@ -79,6 +79,7 @@ GameObject:
   - 198: {fileID: 19805800}
   - 199: {fileID: 19961616}
   - 82: {fileID: 8249676}
+  - 114: {fileID: 11417470}
   m_Layer: 0
   m_Name: 'Effect_ui_231 '
   m_TagString: Untagged
@@ -219,11 +220,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e507d722cef0adc4eb4235e006ff8104, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 227870058f0f44f03a9fb9ea3993a103, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: .800000012
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -279,6 +280,18 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &11417470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43de9932dca594a34998156087096d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orderInLayer: 1
 --- !u!198 &19805800
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -7668,7 +7681,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 227870058f0f44f03a9fb9ea3993a103, type: 3}
+    - target: {fileID: 0}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _orderInLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 129500}

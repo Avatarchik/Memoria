@@ -57,12 +57,24 @@ namespace Memoria.Dungeon.BlockComponent
         {
             bool[] nextFlags = new bool[blockManager.NumberOfBlockShapeType];
 
+            int counter = 0;
             blockFactors.ForEach(blockFactor =>
                 {
                     ShapeData randomShapeData = blockManager.GetRandomShapeData(shapeType => !flags[shapeType] && !nextFlags[shapeType]);
                     BlockType randomBlockType = blockManager.GetRandomBlockType(blockType => blockType != BlockType.None);
 
                     blockFactor.SetBlock(randomShapeData, randomBlockType);
+                    
+                    var effectPosition = blockFactor.transform.position;
+                    effectPosition.z = 0;
+                    var effect = EffectManager.instance.InstantiateEffect(5, effectPosition, 2f);
+                    
+                    if (counter > 0)
+                    {
+                        Destroy(effect.GetComponent<AudioSource>());
+                    }
+
+                    counter++;
 
                     nextFlags[randomShapeData.typeID] = true;
                 });
@@ -77,12 +89,49 @@ namespace Memoria.Dungeon.BlockComponent
         
         public void SetAttributeBlockList(BlockType attribute)
         {
+            int counter = 0;
             blockFactors.ForEach(blockFactor =>
                 {
                     ShapeData shapeData = blockFactor.block.shapeData;
                     BlockType blockType = attribute;
                     
                     blockFactor.SetBlock(shapeData, blockType);
+                    
+                    var effectPosition = blockFactor.transform.position;
+                    effectPosition.z = 0;
+                    
+                    var index = 5;
+                    switch (attribute)
+                    {
+                        case BlockType.Thunder:
+                            index = 6;
+                            break;
+                            
+                        case BlockType.Water:
+                            index = 7;
+                            break;
+                            
+                        case BlockType.Fire:
+                            index = 8;
+                            break;
+                            
+                        case BlockType.Wind:
+                            index = 9;
+                            break;
+                            
+                        case BlockType.Recovery:
+                            index = 10;
+                            break;
+                    }
+                    
+                    var effect = EffectManager.instance.InstantiateEffect(index, effectPosition, 2f);
+                    
+                    if (counter > 0)
+                    {
+                        Destroy(effect.GetComponent<AudioSource>());
+                    }
+                    
+                    counter++;
                 });
         }
         
