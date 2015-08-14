@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 105744, guid: 56d1eb3a4a06fbe439ec8f9e910ee349, type: 2}
-  blockList: {fileID: 0}
+  _blockList: {fileID: 0}
   _blockSprites:
     _blockSprites:
     - sprites:
