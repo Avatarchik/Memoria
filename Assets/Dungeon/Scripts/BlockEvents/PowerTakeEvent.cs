@@ -37,7 +37,6 @@ namespace Memoria.Dungeon.BlockEvents
                 case BlockType.Fire:
                 case BlockType.Wind:
                     yield return coroutineAppended.StartCoroutine(CoroutineTakePowerTypeOfElements(block.blockType));
-                    ParameterManager.instance.TakePowerStock(block.blockType);
                     break;
 
                 case BlockType.Recovery:
@@ -62,6 +61,7 @@ namespace Memoria.Dungeon.BlockEvents
 
             yield return new WaitForSeconds(1);
 
+            ParameterManager.instance.TakePowerStock(attribute);
             yield return new WaitForSeconds(1);
         }
 
