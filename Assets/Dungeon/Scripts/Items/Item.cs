@@ -42,6 +42,14 @@ namespace Memoria.Dungeon.Items
             get { return _location; }
             set { _location = value; }
         }
+
+        [SerializeField]
+        private bool _visible;
+        public bool visible
+        {
+            get { return _visible; }
+            set { _visible = value; }
+        }
     }
 
     public class Item : MonoBehaviour
@@ -53,12 +61,14 @@ namespace Memoria.Dungeon.Items
             set
             {
                 _itemData = value;
+                
                 if (tag != "Key")
                 {
                     SetSprite(_itemData.attribute);
                 }
 
                 transform.position = (Vector3)MapManager.instance.ToPosition(_itemData.location);
+                visible = _itemData.visible;
             }
         }
 
@@ -97,6 +107,7 @@ namespace Memoria.Dungeon.Items
                     spriteRenderer = GetComponent<SpriteRenderer>();
                 }
 
+                _itemData.visible = value;
                 spriteRenderer.enabled = value;
             }
         }
@@ -122,7 +133,6 @@ namespace Memoria.Dungeon.Items
             Destroy(gameObject);
         }
 
-
         void Start()
         {
             var parameter = ParameterManager.instance.parameter;
@@ -133,7 +143,7 @@ namespace Memoria.Dungeon.Items
                 case ItemType.MagicPlate:
                     {
                         var remainKeyNum = parameter.allKeyNum - parameter.getKeyNum;
-                        visible = remainKeyNum <= 1;
+                        //  visible = remainKeyNum <= 1;
 
                         if (remainKeyNum > 1)
                         {

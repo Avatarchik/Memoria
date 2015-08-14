@@ -7,8 +7,21 @@ namespace Memoria.Dungeon
 	[System.Serializable]
     public struct StageData
     {
-		public string areaSpritePath;
 		public Rect stageSize;
-		public List<ItemData> itemDatas;
-    }
+
+        public Sprite areaSprite;
+        public string areaSpritePath;
+        public int floor;
+        public int maxHp;
+        public int maxSp;
+
+        public List<ItemData> itemDatas;
+
+        public float probabilityOfEncounter;
+        
+        public ItemIncidence itemIncidence;
+        public AttributeIncidence attributeIncidenceOfJewel;
+        public AttributeIncidence attributeIncidenceOfSoul;
+        public AttributeIncidence attributeIncidenceOfMagicPlate;
+    } 
 }

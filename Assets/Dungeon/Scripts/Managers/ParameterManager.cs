@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using Memoria.Dungeon.Items;
@@ -12,15 +10,6 @@ namespace Memoria.Dungeon.Managers
     public class ParameterManager : MonoBehaviour
     {
         public static ParameterManager instance { get { return DungeonManager.instance.parameterManager; } }
-
-        private static Dictionary<BlockType, int> toIndex =
-            new Dictionary<BlockType, int>()
-            {
-                { BlockType.Thunder, 0 },
-                { BlockType.Wind, 1 },
-                { BlockType.Water, 2 },
-                { BlockType.Fire, 3 },
-            };
 
         private ReactiveProperty<DungeonParameter> _parameter = new ReactiveProperty<DungeonParameter>();
 
@@ -34,25 +23,25 @@ namespace Memoria.Dungeon.Managers
         {
             return _parameter.AsObservable();
         }
+        
+        [SerializeField]
+        private NumberSprite hpValue;
+        [SerializeField]
+        private NumberSprite maxHpValue;
+        
+        [SerializeField]
+        private NumberSprite spValue;
+        [SerializeField]
+        private NumberSprite maxSpValue;
+        
+        [SerializeField]
+        private NumberSprite getKeyValue;
+        [SerializeField]
+        private NumberSprite allKeyValue;
 
         [SerializeField]
-        private Text hpText;
-        [SerializeField]
-        private Text maxHpText;
-
-        [SerializeField]
-        private Text spText;
-        [SerializeField]
-        private Text maxSpText;
-
-        [SerializeField]
-        private Text getKeyText;
-        [SerializeField]
-        private Text allKeyText;
-
-        [SerializeField]
-        private Text sillingText;
-
+        private NumberSprite sillingValue;
+        
         [SerializeField]
         private ElementalPowerStock[] charactersPowerStocks = new ElementalPowerStock[4];
 
@@ -71,34 +60,34 @@ namespace Memoria.Dungeon.Managers
             // HPの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.hp)
-                .Subscribe(UpdateHpText);
+                .Subscribe(UpdateHpValue);
 
             parameterChanged
                 .DistinctUntilChanged(param => param.maxHp)
-                .Subscribe(UpdateHpText);
+                .Subscribe(UpdateHpValue);
 
             // SPの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.sp)
-                .Subscribe(UpdateSpText);
+                .Subscribe(UpdateSpValue);
 
             parameterChanged
                 .DistinctUntilChanged(param => param.maxSp)
-                .Subscribe(UpdateSpText);
+                .Subscribe(UpdateSpValue);
 
             // Keyの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.getKeyNum)
-                .Subscribe(UpdateKeyText);
+                .Subscribe(UpdateKeyValue);
 
             parameterChanged
                 .DistinctUntilChanged(param => param.allKeyNum)
-                .Subscribe(UpdateKeyText);
+                .Subscribe(UpdateKeyValue);
 
             // Sillingの変化イベントの追加
             parameterChanged
                 .DistinctUntilChanged(param => param.silling)
-                .Subscribe(UpdateSillingText);
+                .Subscribe(UpdateSillingValue);
 
             // ストックの変化イベントの追加
             parameterChanged
@@ -180,47 +169,78 @@ namespace Memoria.Dungeon.Managers
 
         public void TakePowerStock(BlockType attribute)
         {
-            int index = toIndex[attribute];
-            SetPowerStock(attribute, parameter.stocks[index] + 1);
+            SetPowerStock(attribute, index => parameter.stocks[index] + 1);
         }
-        
+
         public void FillPowerStock(BlockType attribute)
         {
             int fillCount = 3;
-            SetPowerStock(attribute, fillCount);
+            SetPowerStock(attribute, _ => fillCount);
         }
 
-        private void SetPowerStock(BlockType attribute, int value)
+        private void SetPowerStock(BlockType attribute, System.Func<int, int> getValue)
         {
-            int index = toIndex[attribute];
+            StockType stockType = ConvertBlockTypeToStockType(attribute);
             int fillCount = 3;
-            int nextCount = Mathf.Clamp(value, 0, fillCount);
-            parameter.stocks[index] = nextCount;
-            charactersPowerStocks[index].stock = nextCount;
+
+            charactersPowerStocks
+                .Select((e, index) => new { e.elementType, index })
+                .Where(param => param.elementType == stockType)
+                .Select(param => new
+                {
+                    index = param.index,
+                    nextCount = Mathf.Clamp(getValue(param.index), 0, fillCount)
+                })
+                .ToList()
+                .ForEach(param =>
+                {
+                    parameter.stocks[param.index] = param.nextCount;
+                    charactersPowerStocks[param.index].stock = param.nextCount;
+                });
         }
 
-        private void UpdateHpText(DungeonParameter parameter)
+        private StockType ConvertBlockTypeToStockType(BlockType blockType)
         {
-            hpText.text = string.Format("{0:000}/{1:000}", parameter.hp, parameter.maxHp);
-            //  hpText.text = string.Format("{0:000}", parameter.hp);
-            //  maxHpText.text = string.Format("{0:000}", parameter.maxHp);
+            switch (blockType)
+            {
+                case BlockType.Fire:
+                    return StockType.FIRE;
+
+                case BlockType.Wind:
+                    return StockType.WIND;
+
+                case BlockType.Water:
+                    return StockType.WATER;
+
+                case BlockType.Thunder:
+                    return StockType.THUNDER;
+
+                default:
+                    throw new UnityException("The BlockType `" + blockType + "` could not convert to StockType.");
+            }
         }
 
-        private void UpdateSpText(DungeonParameter parameter)
+        private void UpdateHpValue(DungeonParameter parameter)
         {
-            spText.text = string.Format("{0:000}/{1:000}", parameter.sp, parameter.maxSp);
-            //  spText.text = string.Format("{0:000}", parameter.sp);
-            //  maxSpText.text = string.Format("{0:000}", parameter.maxSp);
+            hpValue.value = parameter.hp;
+            maxHpValue.value = parameter.maxHp;
         }
 
-        private void UpdateKeyText(DungeonParameter parameter)
+        private void UpdateSpValue(DungeonParameter parameter)
         {
-            getKeyText.text = string.Format("{0}/{1}", parameter.getKeyNum, parameter.allKeyNum);
+            spValue.value = parameter.sp;
+            maxSpValue.value = parameter.maxSp;
         }
 
-        private void UpdateSillingText(DungeonParameter parameter)
+        private void UpdateKeyValue(DungeonParameter parameter)
         {
-            sillingText.text = string.Format("{0:0000}", parameter.silling);
+            getKeyValue.value = parameter.getKeyNum;
+            allKeyValue.value = parameter.allKeyNum;
+        }
+
+        private void UpdateSillingValue(DungeonParameter parameter)
+        {
+            sillingValue.value = parameter.silling;
         }
 
         private void UpdatePowerStock(DungeonParameter parameter)

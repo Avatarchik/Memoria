@@ -15,6 +15,7 @@ namespace Memoria.Dungeon.BlockEvents
             { BlockType.Water, 1 },
             { BlockType.Fire, 2 },
             { BlockType.Wind, 3 },
+            { BlockType.Recovery, 4 }
         };
 
         private static DungeonManager dungeonManager { get { return DungeonManager.instance; } }

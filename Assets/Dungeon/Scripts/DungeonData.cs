@@ -11,6 +11,8 @@ namespace Memoria.Dungeon
     {
         public DungeonParameter parameter { get; set; }
 
+        public StageData stageData { get; set; }
+
         public BlockType battleType { get; private set; }
 
         private int direction;
@@ -36,25 +38,37 @@ namespace Memoria.Dungeon
             var parameterManager = ParameterManager.instance;
 
             var player = dungeonManager.player;
-            var stageData = StageDataManager.instance.Prepare(parameter.floor);
-            
+
             // 初期化時
             if (!initialized)
             {
+                int floor = 1;
+                stageData = StageDataManager.instance.Prepare(floor);
                 direction = 2;
                 location = new Vector2Int(0, 0);
 
                 mapData = LoadMapData("");
-				itemDatas = new List<ItemData>(stageData.itemDatas);
-				var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
-                parameter = new DungeonParameter(100, 100, 100, 10, 0, keyNum, 0, "none");
+
+                itemDatas = new List<ItemData>(stageData.itemDatas);
+                var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
+
+                parameter = new DungeonParameter(
+                    maxHp: stageData.maxHp,
+                    hp: stageData.maxHp,
+                    maxSp: stageData.maxSp,
+                    sp: stageData.maxSp,
+                    floor: stageData.floor,
+                    allKeyNum: keyNum,
+                    silling: 0,
+                    skill: "none");
             }
 
+            (new GameObject()).AddComponent<SpriteRenderer>().sprite = stageData.areaSprite;
             player.direction = direction;
             player.SetPosition(location);
 
             mapManager.SetMap(mapData, stageData, itemDatas);
-			
+
             parameterManager.parameter = parameter;
 
             if (initialized)
@@ -79,12 +93,12 @@ namespace Memoria.Dungeon
             mapData.Clear();
             mapData.AddRange(mapManager.blocks.Select(block => block.blockData));
 
-			itemDatas.Clear();
-			itemDatas.AddRange(mapManager.items.Select(item => item.itemData));
+            itemDatas.Clear();
+            itemDatas.AddRange(mapManager.items.Select(item => item.itemData));
 
             parameter = parameterManager.parameter;
         }
-        
+
         public void SetIsBossBattle(bool isBossBattle)
         {
             var param = parameter;

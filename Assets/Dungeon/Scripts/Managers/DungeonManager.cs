@@ -76,6 +76,11 @@ namespace Memoria.Dungeon.Managers
 
         public StageDataManager stageDataManager { get { return _stageDataManager; } }
 
+        [SerializeField]
+        private EffectManager _effectManager;
+        
+        public EffectManager effectManager { get { return _effectManager; } }
+
         #endregion
 
 

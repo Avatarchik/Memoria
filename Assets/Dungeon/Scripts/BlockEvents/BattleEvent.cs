@@ -71,7 +71,7 @@ namespace Memoria.Dungeon.BlockEvents
                     return false;
             }
 
-            return UnityEngine.Random.value < 0.3f;
+            return UnityEngine.Random.value < dungeonManager.dungeonData.stageData.probabilityOfEncounter;
         }
 
         private IEnumerator CoroutineBattleToBoss(Block block)
@@ -79,7 +79,8 @@ namespace Memoria.Dungeon.BlockEvents
             dungeonManager.dungeonData.SetIsBossBattle(true);            
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
-            yield return new WaitForSeconds(0.5f);
+            eventAnimator.SetTrigger("onBossBattleEvent");
+            yield return new WaitForSeconds(3f);
             Application.LoadLevel("Battle");
         }
 
@@ -88,7 +89,8 @@ namespace Memoria.Dungeon.BlockEvents
             dungeonManager.dungeonData.SetIsBossBattle(false);
             dungeonManager.dungeonData.SetBattleType(block.blockType);
             dungeonManager.dungeonData.Save();
-            yield return new WaitForSeconds(0.5f);
+            eventAnimator.SetTrigger("onBattleEvent");
+            yield return new WaitForSeconds(1f);
             Application.LoadLevel("Battle");
         }
     }

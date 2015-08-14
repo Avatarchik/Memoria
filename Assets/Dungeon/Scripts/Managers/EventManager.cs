@@ -70,10 +70,6 @@ namespace Memoria.Dungeon.Managers
         {
             // プレイヤーがいるブロックを取得			
             Block block = mapManager.GetBlock(player.location);
-            if (block.blockType == BlockType.None)
-            {
-                return;
-            }
             
             StartCoroutine(CoroutineBlockEvent(block));
         }
@@ -83,11 +79,19 @@ namespace Memoria.Dungeon.Managers
             DungeonManager.instance.EnterState(DungeonState.BlockEvent);
             
             yield return itemTakeEvent.StartTakeItemCoroutine(player.location);
-            yield return battleEvent.StartBattleEventCoroutine(block, itemTakeEvent.taked);
-            
-            if (battleEvent.onBattleEvent)
+
+            if (block.blockType != BlockType.None)
             {
-                yield break;
+
+                yield return battleEvent.StartBattleEventCoroutine(block, itemTakeEvent.taked);
+
+                if (battleEvent.onBattleEvent)
+                {
+                    yield break;
+                }
+
+                yield return powerTakeEvent.StartTakePowerCoroutine(block);
+                yield return spRemainCheckEvent.StartCheckSpRemainCoroutine();
             }
             
             yield return powerTakeEvent.StartTakePowerCoroutine(block);
