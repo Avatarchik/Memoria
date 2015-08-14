@@ -45,6 +45,7 @@ GameObject:
   - 114: {fileID: 11469806}
   - 114: {fileID: 11408490}
   - 82: {fileID: 8250110}
+  - 114: {fileID: 11478720}
   m_Layer: 0
   m_Name: Effect_UI_125
   m_TagString: Untagged
@@ -291,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c31f8bd4ab363d418e4fd95a9f51ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: .5
+  speed: 0
 --- !u!114 &11469806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,6 +304,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81687037de6a4544a954c7a6a1205031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11478720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43de9932dca594a34998156087096d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orderInLayer: 6
 --- !u!198 &19846432
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -4590,6 +4603,14 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: fa9e9c46ccb884570aeb9b2f99eca69e, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _orderInLayer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 149378}
