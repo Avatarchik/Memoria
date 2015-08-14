@@ -38,11 +38,11 @@ namespace Memoria.Dungeon
             var parameterManager = ParameterManager.instance;
 
             var player = dungeonManager.player;
-            var stageData = StageDataManager.instance.Prepare(parameter.floor);
             
             // 初期化時
             if (!initialized)
             {
+                stageData = StageDataManager.instance.Prepare(parameter.floor);
                 direction = 2;
                 location = new Vector2Int(0, 0);
 
