@@ -71,7 +71,7 @@ namespace Memoria.Dungeon.BlockEvents
                     return false;
             }
 
-            return UnityEngine.Random.value < 0.3f;
+            return UnityEngine.Random.value < dungeonManager.dungeonData.stageData.probabilityOfEncounter;
         }
 
         private IEnumerator CoroutineBattleToBoss(Block block)
