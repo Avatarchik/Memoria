@@ -183,6 +183,12 @@ namespace Memoria.Dungeon.Managers
             StockType stockType = ConvertBlockTypeToStockType(attribute);
             int fillCount = 3;
 
+            var screenCenterPosition = Camera.main.transform.position;
+            screenCenterPosition.z = 0;
+            var offsetY = 2f;
+            var spaceY = -1f;
+
+            int counter = 0;
             charactersPowerStocks
                 .Select((e, index) => new { e.elementType, index })
                 .Where(param => param.elementType == stockType)
@@ -196,6 +202,17 @@ namespace Memoria.Dungeon.Managers
                 {
                     parameter.stocks[param.index] = param.nextCount;
                     charactersPowerStocks[param.index].stock = param.nextCount;
+
+                    var effectPosition = new Vector3(x: -8f, y: spaceY * param.index + offsetY, z: 0);
+                    effectPosition += screenCenterPosition;
+                    var effect = EffectManager.instance.InstantiateEffect(1, effectPosition, 2f);
+                    
+                    if (counter > 0)
+                    {
+                        Destroy(effect.GetComponent<AudioSource>());
+                    }
+                    
+                    counter++;
                 });
         }
 
