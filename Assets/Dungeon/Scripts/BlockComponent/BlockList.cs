@@ -75,6 +75,17 @@ namespace Memoria.Dungeon.BlockComponent
             flags = nextFlags;
         }
         
+        public void SetAttributeBlockList(BlockType attribute)
+        {
+            blockFactors.ForEach(blockFactor =>
+                {
+                    ShapeData shapeData = blockFactor.block.shapeData;
+                    BlockType blockType = attribute;
+                    
+                    blockFactor.SetBlock(shapeData, blockType);
+                });
+        }
+        
         private bool CanRandomize(int sp)
         {
             int consumption = 2;

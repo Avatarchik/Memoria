@@ -7,7 +7,7 @@ namespace Memoria.Dungeon.BlockComponent
     public class BlockFactor : MonoBehaviour
     {
         private static BlockManager blockManager { get { return BlockManager.instance; } }
-        private Block block;
+        public Block block { get; private set; }
 
         public void CreateBlock(ShapeData shapeData, BlockType blockType)
         {
