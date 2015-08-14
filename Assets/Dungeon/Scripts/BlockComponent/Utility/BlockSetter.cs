@@ -90,6 +90,8 @@ namespace Memoria.Dungeon.BlockComponent.Utility
             if (CanPut())
             {
                 Put();
+                var effectPoisition = (Vector3)mapManager.ToPosition(block.location);
+                EffectManager.instance.InstantiateEffect(11, effectPoisition, 2f);
             }
             else
             {
