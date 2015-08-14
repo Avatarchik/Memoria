@@ -119,6 +119,8 @@ namespace Memoria.Dungeon.BlockEvents
             EventManager.instance.message = "魔石版を入手した！！";
             eventAnimator.SetTrigger("getMagicPlate");
             yield return new WaitForSeconds(1.4f);
+
+            BlockManager.instance.blockList.SetAttributeBlockList(attribute);
         }
     }
 }
