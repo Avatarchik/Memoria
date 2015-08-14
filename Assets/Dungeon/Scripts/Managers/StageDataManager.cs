@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -10,11 +11,13 @@ namespace Memoria.Dungeon.Managers
 
         public StageData Prepare(int floor)
         {
-            var stageData = stageDatas[floor];
+            var equalsFloorStageDatas = stageDatas.Where(s => s.floor == floor);
+            int selectedStageIndex = Random.Range(0, equalsFloorStageDatas.Count());
+            
+            var stageData = equalsFloorStageDatas.ElementAt(selectedStageIndex);
             (new GameObject()).AddComponent<SpriteRenderer>().sprite =
-                Resources.Load<Sprite>(stageData.areaSpritePath);
-
-            stageData.floor = floor;
+                //  Resources.Load<Sprite>(stageData.areaSpritePath);
+                stageData.areaSprite;
 
             return stageData;
         }
