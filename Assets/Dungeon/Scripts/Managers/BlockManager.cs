@@ -15,7 +15,9 @@ namespace Memoria.Dungeon.Managers
         public readonly int NumberOfBlockType = 6;
 
         [SerializeField]
-        private BlockList blockList;
+        private BlockList _blockList;
+        
+        public BlockList blockList { get { return _blockList; } }
 
         [SerializeField]
         private BlockSprites _blockSprites = new BlockSprites();

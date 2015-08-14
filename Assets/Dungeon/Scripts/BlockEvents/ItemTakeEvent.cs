@@ -134,6 +134,8 @@ namespace Memoria.Dungeon.BlockEvents
             EffectManager.instance.InstantiateEffect(3, effectPosition, 2f);
             
             yield return new WaitForSeconds(1.4f);
+
+            BlockManager.instance.blockList.SetAttributeBlockList(attribute);
         }
     }
 }
