@@ -78,6 +78,12 @@ namespace Memoria.Dungeon.BlockEvents
         {
             dungeonManager.dungeonData.SetIsBossBattle(true);            
             dungeonManager.dungeonData.SetBattleType(block.blockType);
+
+            int idMin = dungeonManager.dungeonData.stageData.bossPatternIdMin;
+            int idMax = dungeonManager.dungeonData.stageData.bossPatternIdMax;
+            int id = Random.Range(idMin, idMax + 1);
+            dungeonManager.dungeonData.SetEnemyPattern(id);
+
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBossBattleEvent");
             yield return new WaitForSeconds(3f);
@@ -88,6 +94,12 @@ namespace Memoria.Dungeon.BlockEvents
         {
             dungeonManager.dungeonData.SetIsBossBattle(false);
             dungeonManager.dungeonData.SetBattleType(block.blockType);
+            
+            int idMin = dungeonManager.dungeonData.stageData.enemyPatternIdMin;
+            int idMax = dungeonManager.dungeonData.stageData.enemyPatternIdMax;
+            int id = Random.Range(idMin, idMax + 1);
+            dungeonManager.dungeonData.SetEnemyPattern(id);
+            
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBattleEvent");
             yield return new WaitForSeconds(1f);
