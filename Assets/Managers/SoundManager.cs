@@ -5,6 +5,25 @@ namespace Memoria.Managers
 {
     public class SoundManager : MonoBehaviour
     {
+        private static SoundManager _instance;
+        public static SoundManager instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<SoundManager>();
+                    
+                    if (_instance == null)
+                    {
+                        throw new UnityException("SoundManager is not found.");
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         [SerializeField]
         private AudioClip[] sounds;
 
@@ -39,15 +58,16 @@ namespace Memoria.Managers
             }
         }
 
-        // Use this for initialization
-        void Start()
+        void Awake()
         {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            if (this.Equals(instance))
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
         
         public void PlaySound(int index)
