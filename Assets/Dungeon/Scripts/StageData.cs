@@ -15,13 +15,13 @@ namespace Memoria.Dungeon
         public int maxHp;
         public int maxSp;
 
-        public List<ItemData> itemDatas;
-
         public float probabilityOfEncounter;
         
         public ItemIncidence itemIncidence;
         public AttributeIncidence attributeIncidenceOfJewel;
         public AttributeIncidence attributeIncidenceOfSoul;
         public AttributeIncidence attributeIncidenceOfMagicPlate;
+        
+        public List<ItemData> itemDatas;
     } 
 }
