@@ -110,6 +110,13 @@ namespace Memoria.Dungeon
         {
             this.battleType = battleType;
         }
+        
+        public void SetEnemyPattern(int id)
+        {
+            var param = parameter;
+            param.enemyPattern = id;
+            parameter = param;
+        }
 
         public List<BlockData> LoadMapData(string mapDataPath)
         {
