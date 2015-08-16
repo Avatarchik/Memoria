@@ -175,7 +175,7 @@ namespace Memoria.Dungeon.Managers
         public void FillPowerStock(BlockType attribute)
         {
             int fillCount = 3;
-            SetPowerStock(attribute, _ => fillCount, 1);
+            SetPowerStock(attribute, _ => fillCount, 15);
         }
 
         private void SetPowerStock(BlockType attribute, System.Func<int, int> getValue, int effectIndex)
