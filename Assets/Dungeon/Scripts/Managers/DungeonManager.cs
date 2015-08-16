@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UniRx;
+using Memoria.Managers;
 
 namespace Memoria.Dungeon.Managers
 {
@@ -138,6 +139,8 @@ namespace Memoria.Dungeon.Managers
             EnterState(DungeonState.None);
 
             dungeonData.Load();
+
+            SoundManager.instance.PlayBGM(1);
         }
 
         public void EnterState(DungeonState nextState)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Memoria.Managers;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockComponent;
 
@@ -86,6 +87,7 @@ namespace Memoria.Dungeon.BlockEvents
 
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBossBattleEvent");
+            SoundManager.instance.PlayBGM(3);
             yield return new WaitForSeconds(3f);
             Application.LoadLevel("Battle");
         }
@@ -102,6 +104,7 @@ namespace Memoria.Dungeon.BlockEvents
             
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBattleEvent");
+            SoundManager.instance.PlayBGM(2);
             yield return new WaitForSeconds(1f);
             Application.LoadLevel("Battle");
         }
