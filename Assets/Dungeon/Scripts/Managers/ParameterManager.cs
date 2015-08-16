@@ -169,16 +169,16 @@ namespace Memoria.Dungeon.Managers
 
         public void TakePowerStock(BlockType attribute)
         {
-            SetPowerStock(attribute, index => parameter.stocks[index] + 1);
+            SetPowerStock(attribute, index => parameter.stocks[index] + 1, 1);
         }
 
         public void FillPowerStock(BlockType attribute)
         {
             int fillCount = 3;
-            SetPowerStock(attribute, _ => fillCount);
+            SetPowerStock(attribute, _ => fillCount, 1);
         }
 
-        private void SetPowerStock(BlockType attribute, System.Func<int, int> getValue)
+        private void SetPowerStock(BlockType attribute, System.Func<int, int> getValue, int effectIndex)
         {
             StockType stockType = ConvertBlockTypeToStockType(attribute);
             int fillCount = 3;
@@ -205,7 +205,7 @@ namespace Memoria.Dungeon.Managers
 
                     var effectPosition = new Vector3(x: -8f, y: spaceY * param.index + offsetY, z: 0);
                     effectPosition += screenCenterPosition;
-                    var effect = EffectManager.instance.InstantiateEffect(1, effectPosition, 2f);
+                    var effect = EffectManager.instance.InstantiateEffect(effectIndex, effectPosition, 2f);
                     
                     if (counter > 0)
                     {
