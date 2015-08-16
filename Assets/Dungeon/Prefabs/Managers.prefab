@@ -213,7 +213,7 @@ MonoBehaviour:
     bossPatternIdMin: 0
     bossPatternIdMax: 0
     itemIncidence:
-      spawn: .150000006
+      spawn: .5
       jewel: .600000024
       soul: .100000001
       magicPlate: .300000012
@@ -242,12 +242,6 @@ MonoBehaviour:
         _x: 2
         _y: 0
       _visible: 1
-    - _type: 1
-      _attribute: 4
-      _location:
-        _x: -1
-        _y: -2
-      _visible: 1
   - stageSize:
       serializedVersion: 2
       x: -7
@@ -265,7 +259,7 @@ MonoBehaviour:
     bossPatternIdMin: 0
     bossPatternIdMax: 0
     itemIncidence:
-      spawn: .150000006
+      spawn: .5
       jewel: .600000024
       soul: .100000001
       magicPlate: .300000012
@@ -300,20 +294,8 @@ MonoBehaviour:
         _x: 0
         _y: -2
       _visible: 1
-    - _type: 1
-      _attribute: 2
-      _location:
-        _x: 2
-        _y: -3
-      _visible: 1
-    - _type: 3
-      _attribute: 3
-      _location:
-        _x: 2
-        _y: 0
-      _visible: 1
     - _type: 2
-      _attribute: 1
+      _attribute: 0
       _location:
         _x: -2
         _y: -2
@@ -335,7 +317,7 @@ MonoBehaviour:
     bossPatternIdMin: 0
     bossPatternIdMax: 0
     itemIncidence:
-      spawn: .150000006
+      spawn: .5
       jewel: .600000024
       soul: .100000001
       magicPlate: .300000012
@@ -376,41 +358,11 @@ MonoBehaviour:
         _x: -2
         _y: -1
       _visible: 0
-    - _type: 1
-      _attribute: 1
-      _location:
-        _x: 0
-        _y: 2
-      _visible: 0
-    - _type: 1
-      _attribute: 2
-      _location:
-        _x: 2
-        _y: -1
-      _visible: 0
-    - _type: 1
-      _attribute: 3
-      _location:
-        _x: -2
-        _y: -2
-      _visible: 0
     - _type: 2
-      _attribute: 4
+      _attribute: 1
       _location:
         _x: 2
         _y: -2
-      _visible: 0
-    - _type: 3
-      _attribute: 1
-      _location:
-        _x: -2
-        _y: 1
-      _visible: 0
-    - _type: 3
-      _attribute: 4
-      _location:
-        _x: 0
-        _y: -1
       _visible: 0
 --- !u!114 &11451198
 MonoBehaviour:
