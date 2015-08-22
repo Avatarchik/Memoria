@@ -5,6 +5,12 @@ namespace Memoria.Dungeon
 {
     public class Cloud : MonoBehaviour
     {        
+        private enum CloudPosition
+        {
+            Top,
+            Bottom,
+        }
+        
         // Use this for initialization
         void Start()
         {
