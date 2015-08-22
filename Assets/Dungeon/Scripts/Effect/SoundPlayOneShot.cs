@@ -14,10 +14,5 @@ namespace Memoria.Dungeon.Effect
         {
             SoundManager.instance.PlaySound(soundIndex);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
     }
 }
