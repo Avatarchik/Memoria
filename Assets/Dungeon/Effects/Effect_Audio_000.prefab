@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 461498}
-  - 114: {fileID: 11473124}
   m_Layer: 0
   m_Name: Effect_Audio_000
   m_TagString: Untagged
@@ -28,18 +27,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11473124
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0adfdf72752e345cfb3c4f45d4ea89f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundIndex: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
