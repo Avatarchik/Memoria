@@ -15,6 +15,7 @@ namespace Memoria.Dungeon
 
         public BlockType battleType { get; private set; }
         public int enemyPattern { get; private set; }
+        public bool isBossBattle { get; private set; }
 
         private int direction;
 
