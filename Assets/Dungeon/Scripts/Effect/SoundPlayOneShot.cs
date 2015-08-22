@@ -5,6 +5,9 @@ namespace Memoria.Dungeon.Effect
 {
     public class SoundPlayOneShot : MonoBehaviour
     {
+        [SerializeField]
+        private int soundIndex;
+
         // Use this for initialization
         void Start()
         {
