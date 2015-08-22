@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Memoria.Managers;
 
 namespace Memoria.Dungeon.Effect
 {
@@ -11,6 +12,7 @@ namespace Memoria.Dungeon.Effect
         // Use this for initialization
         void Start()
         {
+            SoundManager.instance.PlaySound(soundIndex);
         }
 
         // Update is called once per frame
