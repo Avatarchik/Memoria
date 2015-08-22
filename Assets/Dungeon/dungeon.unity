@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 41278971}
+  effectIndex: 0
 --- !u!1001 &47632232
 Prefab:
   m_ObjectHideFlags: 0
@@ -523,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 57500470}
+  effectIndex: 0
 --- !u!114 &57500470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 147643981}
+  effectIndex: 17
 --- !u!1 &179272638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 179272641}
+  effectIndex: 0
 --- !u!1 &201122183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,6 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 528940277}
+  effectIndex: 0
 --- !u!1 &573799921
 GameObject:
   m_ObjectHideFlags: 0
@@ -4289,6 +4294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1030237605}
+  effectIndex: 17
 --- !u!1001 &1035226488
 Prefab:
   m_ObjectHideFlags: 0
@@ -5026,6 +5032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1217417351}
+  effectIndex: 0
 --- !u!1001 &1220480746
 Prefab:
   m_ObjectHideFlags: 0
@@ -5384,6 +5391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1303915145}
+  effectIndex: 0
 --- !u!1 &1324775976
 GameObject:
   m_ObjectHideFlags: 0
@@ -7219,6 +7227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2043949532}
+  effectIndex: 17
 --- !u!1 &2064532437
 GameObject:
   m_ObjectHideFlags: 0
