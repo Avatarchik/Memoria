@@ -295,7 +295,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463018, guid: 4713c7f431f904af3ba45b6705bcc16a, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4713c7f431f904af3ba45b6705bcc16a, type: 2}
@@ -1211,7 +1211,7 @@ RectTransform:
   - {fileID: 1030237604}
   - {fileID: 41278970}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1741,7 +1741,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
 --- !u!1001 &369971773
 Prefab:
   m_ObjectHideFlags: 0
@@ -3386,7 +3386,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
 --- !u!1 &807650047
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,7 +4492,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477552, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: eventAnimator
@@ -5974,7 +5974,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 480360, guid: ea19dd084d385467081323b2cd139f1e, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea19dd084d385467081323b2cd139f1e, type: 2}
@@ -6530,7 +6530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 404210, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11454778, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
       propertyPath: menuButton
@@ -6661,7 +6661,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!212 &1814434675
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6776,6 +6776,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1876770796}
   - 114: {fileID: 1876770797}
+  - 114: {fileID: 1876770798}
   m_Layer: 0
   m_Name: BottomParticles
   m_TagString: Untagged
@@ -6796,7 +6797,7 @@ Transform:
   - {fileID: 959834111}
   - {fileID: 348288453}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 9
 --- !u!114 &1876770797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6809,6 +6810,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _orderInLayer: 5
+--- !u!114 &1876770798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1876770795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dc348614b404c42ac88530dc5888b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudPosition: 1
+  space: 1.5
+  offset: 0
 --- !u!1 &1888422917
 GameObject:
   m_ObjectHideFlags: 0
@@ -6976,6 +6991,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1930113831}
   - 114: {fileID: 1930113832}
+  - 114: {fileID: 1930113833}
   m_Layer: 0
   m_Name: TopParticles
   m_TagString: Untagged
@@ -6996,7 +7012,7 @@ Transform:
   - {fileID: 1683219129}
   - {fileID: 303045994}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
 --- !u!114 &1930113832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7009,6 +7025,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _orderInLayer: 5
+--- !u!114 &1930113833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1930113830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dc348614b404c42ac88530dc5888b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudPosition: 0
+  space: 1.5
+  offset: 0
 --- !u!1 &1953792062
 GameObject:
   m_ObjectHideFlags: 0
