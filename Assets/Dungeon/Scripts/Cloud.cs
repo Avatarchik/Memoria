@@ -14,6 +14,9 @@ namespace Memoria.Dungeon
         [SerializeField]
         private CloudPosition cloudPosition;
         
+        [SerializeField]
+        private float space;
+        
         // Use this for initialization
         void Start()
         {
