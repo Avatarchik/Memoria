@@ -20,7 +20,7 @@ namespace Memoria.Dungeon.Effect
                 {
                     var effectPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     effectPosition.z = 0;
-                    EffectManager.instance.InstantiateEffect(0, effectPosition, 2f);
+                    EffectManager.instance.InstantiateEffect(effectIndex, effectPosition, 2f);
                 });
         }
     }
