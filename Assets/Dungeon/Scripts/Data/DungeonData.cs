@@ -14,6 +14,8 @@ namespace Memoria.Dungeon
         public StageData stageData { get; set; }
 
         public BlockType battleType { get; private set; }
+        public int enemyPattern { get; private set; }
+        public bool isBossBattle { get; private set; }
 
         private int direction;
 
@@ -101,9 +103,7 @@ namespace Memoria.Dungeon
 
         public void SetIsBossBattle(bool isBossBattle)
         {
-            var param = parameter;
-            param.isBossBattle = isBossBattle;
-            parameter = param;
+            this.isBossBattle = isBossBattle;
         }
 
         public void SetBattleType(BlockType battleType)
@@ -113,9 +113,7 @@ namespace Memoria.Dungeon
         
         public void SetEnemyPattern(int id)
         {
-            var param = parameter;
-            param.enemyPattern = id;
-            parameter = param;
+            this.enemyPattern = id;
         }
 
         public List<BlockData> LoadMapData(string mapDataPath)
