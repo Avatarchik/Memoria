@@ -10,6 +10,7 @@ namespace Memoria.Dungeon.Effect
         [SerializeField]
         private Button button;
                  
+        [SerializeField]
         private int effectIndex;
 
         // Use this for initialization
