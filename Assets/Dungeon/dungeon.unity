@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 41278971}
+  effectIndex: 0
 --- !u!1001 &47632232
 Prefab:
   m_ObjectHideFlags: 0
@@ -434,11 +435,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.19999981
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10.6999998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -458,7 +459,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_Name
@@ -523,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 57500470}
+  effectIndex: 0
 --- !u!114 &57500470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 147643981}
+  effectIndex: 16
 --- !u!1 &179272638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 179272641}
+  effectIndex: 0
 --- !u!1 &201122183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,6 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 528940277}
+  effectIndex: 0
 --- !u!1 &573799921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,7 +2312,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 18.2099991
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3850,7 +3855,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10.6999998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4289,6 +4294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1030237605}
+  effectIndex: 16
 --- !u!1001 &1035226488
 Prefab:
   m_ObjectHideFlags: 0
@@ -5026,6 +5032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1217417351}
+  effectIndex: 0
 --- !u!1001 &1220480746
 Prefab:
   m_ObjectHideFlags: 0
@@ -5384,6 +5391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1303915145}
+  effectIndex: 0
 --- !u!1 &1324775976
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,11 +6437,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -5.28999996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 18.2099991
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6453,7 +6461,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: aace3903179a74aecb0c4d0fb7607ef5, type: 2}
       propertyPath: m_Name
@@ -6622,7 +6630,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1876770795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.98000002, y: -.49000001, z: -25.7299995}
+  m_LocalPosition: {x: 0, y: -7, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 959834111}
@@ -6809,7 +6817,7 @@ GameObject:
   - 4: {fileID: 1930113831}
   - 114: {fileID: 1930113832}
   m_Layer: 0
-  m_Name: BottomParticles (1)
+  m_Name: TopParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6822,7 +6830,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1930113830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.5999999, z: 0}
+  m_LocalPosition: {x: 0, y: 7, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1683219129}
@@ -7219,6 +7227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2043949532}
+  effectIndex: 16
 --- !u!1 &2064532437
 GameObject:
   m_ObjectHideFlags: 0
