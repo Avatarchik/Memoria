@@ -30,7 +30,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 0495ad09109534f1aba7fbd9a38e66a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b82f847a2168b472caea7937dfe0d61c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -84,6 +84,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b82f847a2168b472caea7937dfe0d61c,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}

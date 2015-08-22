@@ -19,7 +19,7 @@ namespace Memoria.Battle.GameActors
         public char targetType; // used to decide who gets selectable. e = enemy, h = self
 
         public bool attacked { get; set; }
-        public bool useStock { get; private set; } //removed
+        public string descriptionSprite;
         public int AttackTime {
             get {
                 return animationDur;

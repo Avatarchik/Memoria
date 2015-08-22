@@ -24,7 +24,7 @@ namespace Memoria.Battle.States
 
             if(hero.target == null)
             {
-                uiMgr.SpawnDescription("description_frame");
+                uiMgr.SpawnDescription(hero.attackType.descriptionSprite);
                 foreach(var actor in battleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
                     uiMgr.SpawnCursor(actor.GetComponent<Entity>().battleID, actor);

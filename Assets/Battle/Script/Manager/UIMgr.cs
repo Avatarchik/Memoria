@@ -121,12 +121,12 @@ namespace Memoria.Battle.Managers
 
         public void SpawnDescription(string resource)
         {
-            var frame = (_spawner.Spawn<DescriptionFrame>("UI/"+ resource)).GetComponent<DescriptionFrame>();
+            var frame = (_spawner.Spawn<DescriptionFrame>("UI/description_frame")).GetComponent<DescriptionFrame>();
+            frame.spriteResource = resource;
             frame.ParentToUI();
             frame.Init();
-            frame.spriteResource = resource;
-            frame.name = "Frame_" + resource;
-            _elements.Add("frame_"+ resource, frame);
+            frame.name = "frame_desc";
+            _elements.Add("frame_desc", frame);
         }
 
         //************************************ Result

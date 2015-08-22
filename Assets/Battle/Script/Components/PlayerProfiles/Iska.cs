@@ -15,8 +15,8 @@
 
             parameter.elementAff = new ElementFire(Element.FIRE); 
 
-            attackList.Add("Player_Strike", gameObject.AddComponent<Iska_S1>());
-            attackList.Add("Fire_Attack", gameObject.AddComponent<Iska_S2>());
+            attackList.Add("Attack_Normal", gameObject.AddComponent<Iska_S1>());
+            attackList.Add("Attack_Special", gameObject.AddComponent<Iska_S2>());
             attackList.Add("Iska_SP", gameObject.AddComponent<Iska_SP>());
         }
     }

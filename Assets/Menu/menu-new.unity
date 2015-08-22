@@ -137,7 +137,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 50710438100b54b0ebcc7a8e792bb2e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d44d55a233ed64fe8b68a92c64e46699, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2036,7 +2036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 6ec56aa5c722043c98dc1880bafc2645, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7a95e48c765b3491e8d084e149b74734, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2352,7 +2352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 7b7a6c53baf8944248a0467f09ad4846, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3cadbf0e16579403ab24b7fd8645950e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2600,7 +2600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 9de3cc94a4efb4778a3f3b5a09cf40f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35c7146730fce4b6aa9b5cbe871e303c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
