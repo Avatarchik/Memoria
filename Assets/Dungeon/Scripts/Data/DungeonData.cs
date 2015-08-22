@@ -14,6 +14,7 @@ namespace Memoria.Dungeon
         public StageData stageData { get; set; }
 
         public BlockType battleType { get; private set; }
+        public int enemyPattern { get; private set; }
 
         private int direction;
 
