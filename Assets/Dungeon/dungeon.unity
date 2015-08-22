@@ -959,7 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 147643981}
-  effectIndex: 17
+  effectIndex: 16
 --- !u!1 &179272638
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,7 +4294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1030237605}
-  effectIndex: 17
+  effectIndex: 16
 --- !u!1001 &1035226488
 Prefab:
   m_ObjectHideFlags: 0
@@ -7227,7 +7227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2043949532}
-  effectIndex: 17
+  effectIndex: 16
 --- !u!1 &2064532437
 GameObject:
   m_ObjectHideFlags: 0
