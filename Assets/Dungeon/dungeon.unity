@@ -4104,7 +4104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2126ec19631a438d80d47eff26d4505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300004, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
+  _sprite: {fileID: 21300002, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
   stockLength: 3
   offsetX: 0
   offsetY: 0
@@ -4112,7 +4112,7 @@ MonoBehaviour:
   layerOffset: 1
   stock: 0
   objType: 0
-  elementType: 0
+  elementType: 2
   Full: 0
   scale: .5
 --- !u!1 &973551321
@@ -5661,7 +5661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2126ec19631a438d80d47eff26d4505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300002, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
+  _sprite: {fileID: 21300004, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
   stockLength: 3
   offsetX: 0
   offsetY: 0
@@ -5669,7 +5669,7 @@ MonoBehaviour:
   layerOffset: 1
   stock: 0
   objType: 0
-  elementType: 2
+  elementType: 0
   Full: 0
   scale: .5
 --- !u!1 &1352584547
