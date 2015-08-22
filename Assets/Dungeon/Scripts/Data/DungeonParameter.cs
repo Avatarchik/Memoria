@@ -40,9 +40,6 @@ namespace Memoria.Dungeon
 
         public string skill { get; set; }
 
-        public int enemyPattern { get; set; }
-        public bool isBossBattle { get; set; }
-
         public int[] stocks { get; set; }
 
         public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill)
