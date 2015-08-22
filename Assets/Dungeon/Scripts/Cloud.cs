@@ -17,6 +17,9 @@ namespace Memoria.Dungeon
         [SerializeField]
         private float space;
         
+        [SerializeField]
+        private float offset;
+
         // Use this for initialization
         void Start()
         {
