@@ -206,8 +206,8 @@ MonoBehaviour:
     areaSprite: {fileID: 21300000, guid: f4c80b4d88ab244acad95345a8be59e3, type: 3}
     areaSpritePath: map_5
     floor: 0
-    maxHp: 100
-    maxSp: 100
+    maxHp: 3851
+    maxSp: 30
     probabilityOfEncounter: .439999998
     enemyPatternIdMin: 0
     enemyPatternIdMax: 0
@@ -252,8 +252,8 @@ MonoBehaviour:
     areaSprite: {fileID: 21300000, guid: e8790d4ba23c5411db40f43c4947b60b, type: 3}
     areaSpritePath: map_7
     floor: 1
-    maxHp: 100
-    maxSp: 100
+    maxHp: 3851
+    maxSp: 30
     probabilityOfEncounter: .439999998
     enemyPatternIdMin: 0
     enemyPatternIdMax: 0
@@ -310,8 +310,8 @@ MonoBehaviour:
     areaSprite: {fileID: 21300000, guid: e8790d4ba23c5411db40f43c4947b60b, type: 3}
     areaSpritePath: map_7
     floor: 2
-    maxHp: 100
-    maxSp: 100
+    maxHp: 3851
+    maxSp: 30
     probabilityOfEncounter: .439999998
     enemyPatternIdMin: 0
     enemyPatternIdMax: 0
