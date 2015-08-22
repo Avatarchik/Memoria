@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Memoria.Dungeon.Managers;
 
 namespace Memoria.Dungeon
 {
@@ -23,6 +24,20 @@ namespace Memoria.Dungeon
         // Use this for initialization
         void Start()
         {
+            Vector3 position = transform.position;
+            
+            switch (cloudPosition)
+            {
+                case CloudPosition.Top:
+                    position.y = MapManager.instance.stageArea.yMax * space + offset;
+                    break;
+                    
+                case CloudPosition.Bottom:
+                    position.y = MapManager.instance.stageArea.yMin * space - offset;
+                    break;
+            }
+            
+            transform.position = position;
         }
 
         // Update is called once per frame
