@@ -236,6 +236,13 @@ namespace Memoria.Dungeon.Managers
                     throw new UnityException("The BlockType `" + blockType + "` could not convert to StockType.");
             }
         }
+        
+        public void RecoveryHp(int value)
+        {
+            var param = parameter;
+            param.hp += value;
+            parameter = param;
+        }
 
         private void UpdateHpValue(DungeonParameter parameter)
         {
