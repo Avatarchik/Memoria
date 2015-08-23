@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Memoria.Battle.GameActors
 {
     public class Namebar : UIElement
     {
         Vector3 pos;
+        public List<Sprite> spriteList = new List<Sprite>();
 
-        public float X
+        public static float X
         {
             get
             {
                 return  -8.0f;
             }
         }
-        public float Y
+        public static float Y
         {
             get
             {
@@ -27,22 +29,25 @@ namespace Memoria.Battle.GameActors
             spriteFolder = "UI/";
         }
 
+
         void Update()
         {
         }
 
+        public void  SetSprite(int id)
+        {
+            GetComponent<Image>().sprite = spriteList[id];
+        }
 
         public void FallDown(Vector3 slot)
         {
-
             StartCoroutine(MoveDown(slot));
         }
 
         public void CurvedMove(Vector3 slot)
         {
+            SetScale(Vector2.one);
             StartCoroutine(CurveUp(slot));
-//            StartCoroutine(DetatchedMove(slot));
-
         }
 
         private IEnumerator MoveDown(Vector3 slot)
@@ -130,6 +135,11 @@ namespace Memoria.Battle.GameActors
                 }
                 yield return null;
             }
+        }
+
+        public void SetScale(Vector2 scale)
+        {
+            this.transform.localScale = scale;
         }
 
     }

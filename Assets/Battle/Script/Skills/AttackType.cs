@@ -16,9 +16,11 @@ namespace Memoria.Battle.GameActors
 
         public int phaseCost;
         public int stockCost;
+        public int cutIn;
         public char targetType; // used to decide who gets selectable. e = enemy, h = self
 
         public bool attacked { get; set; }
+        public bool ultimate;
         public string descriptionSprite;
         public int AttackTime {
             get {

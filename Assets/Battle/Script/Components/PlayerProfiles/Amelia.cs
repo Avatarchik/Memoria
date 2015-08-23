@@ -6,6 +6,7 @@ namespace Memoria.Battle.GameActors
         // Use this for initialization
         void Awake () {
             nameplate = "Namebar_Amelia";
+            nameplateId = 0;
 			ultimateAttack = "Amelia_SP";
             parameter.attack = 3197;
             parameter.defense = 2268;

@@ -6,6 +6,7 @@
         void Awake ()
         {
             nameplate = "Namebar_Aria";
+            nameplateId = 3;
             ultimateAttack = "Aria_SP";
             parameter.attack = 2766;
             parameter.defense = 3027;

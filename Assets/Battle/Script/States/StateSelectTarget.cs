@@ -18,6 +18,11 @@ namespace Memoria.Battle.States
             _cancelButton = GameObject.FindObjectOfType<CancelButton>();
             if(!hero.passToStock)
             {
+                if(hero.attackType.ultimate)
+                {
+                    hero.target = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
+//                    battleMgr.SetState(State.RUNNING);
+                }
                 _cancelButton.Visible = true;
                 SetSelectable(nowActor.attackType.targetType, true);
             }

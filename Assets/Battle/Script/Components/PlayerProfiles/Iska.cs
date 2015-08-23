@@ -5,6 +5,7 @@
         // Use this for initialization
         void Awake () {
             nameplate = "Namebar_Iska";
+            nameplateId = 2;
             ultimateAttack = "Iska_SP";
             parameter.attack = 5425;
             parameter.defense = 1691;

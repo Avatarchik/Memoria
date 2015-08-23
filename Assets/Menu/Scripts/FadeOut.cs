@@ -5,12 +5,11 @@ public class FadeOut : MonoBehaviour {
 
     public void LoadLevel(string name)
     {
-        StartCoroutine(Fade(name));
+        Application.LoadLevel(name);
     }
 
     public IEnumerator Fade(string level)
     {
-        Application.LoadLevel(name);
-        return null;
+        yield return null;
     }
 }

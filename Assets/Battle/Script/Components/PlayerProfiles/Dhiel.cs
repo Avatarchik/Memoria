@@ -6,6 +6,7 @@
         void Awake ()
         {
             nameplate = "Namebar_Dhiel";
+            nameplateId = 1;
             ultimateAttack = "Diel_SP";
             parameter.attack = 3612;
             parameter.defense = 1714;

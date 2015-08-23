@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace Memoria.Menu
 {
@@ -19,6 +20,7 @@ namespace Memoria.Menu
 
         private Animator _animator;
         private GameObject _contents;
+        public List<Sprite> spriteList = new List<Sprite>();
 
         void Start () {
             _animator = GetComponent<Animator>();
@@ -32,6 +34,11 @@ namespace Memoria.Menu
         public void OpenWindow(bool open)
         {
             _animator.SetBool("popupWindow", open);
+        }
+
+        public void SetSprite(int id)
+        {
+            GetComponent<Image>().sprite = spriteList[id];
         }
 
         private void SetContent(Contents contents)
