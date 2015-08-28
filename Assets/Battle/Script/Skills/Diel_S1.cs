@@ -16,6 +16,7 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementWind(Element.WIND);
 			effectObj = (GameObject)Resources.Load("Skills/Dhiel_S1");
 			parameters.attackPower = -1;
+            descriptionSprite = "skill_info_30";
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Memoria.Battle.GameActors
 {
@@ -6,7 +7,10 @@ namespace Memoria.Battle.GameActors
     {
         override public void Init()
         {
-            transform.position = new Vector3(-0.0f, 4.5f, 1);
+            spriteFolder = "Skills/";
+            transform.position = new Vector3(-0.0f, 4.25f, 1);
+            GetComponent<Image>().sprite = Resources.Load<Sprite>(spriteFolder + spriteResource);
+
         }
     }
 }

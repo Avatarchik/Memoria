@@ -11,17 +11,22 @@ namespace Memoria.Battle.GameActors
 		{
 			phaseCost = 1;
 			stockCost = 3;
+            cutIn = 1;
 			animationDur = 210;
 			targetType = 'e';
 			selectType = TargetType.ALL;
 			elementalAff = new ElementWater(Element.WATER);
 			effectObj = (GameObject)Resources.Load("Skills/Aria_SP");
+            ultimate = true;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{
 			damage.DamageParameters = parameters;
-			target.TakeDamage(damage);
+            foreach(var t in BattleMgr.Instance.enemyList)
+            {
+                t.GetComponent<IDamageable>().TakeDamage(damage);
+            }
             destroyed = false;
 		}
 		
