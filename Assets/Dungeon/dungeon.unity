@@ -4555,6 +4555,21 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1678314323}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[0].areaSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[1].areaSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[2].areaSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
   m_IsPrefabParent: 0
