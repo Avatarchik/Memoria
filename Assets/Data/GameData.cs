@@ -5,6 +5,11 @@ namespace Memoria
 {
     public static class GameData
     {
+        private static readonly string keySilling = "siling";
+        private static readonly string keyFloorMax = "floorMax";
+        private static readonly string keyHasPassiveItem1 = "hasPassiveItem1";
+        private static readonly string keyHasPassiveItem2 = "hasPassiveItem2";
+
         public static int silling
         {
             get
