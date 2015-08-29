@@ -172,7 +172,7 @@ namespace Memoria.Battle.Managers
             _uiMgr.DestroyElement("Namebar_"+ entityId);
             _attackTracker.RemoveFromQueue(e);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
-
+            EventMgr.Instance.Raise(new Memoria.Battle.Events.TurnEnds());
         }
 
         private void SpawnHeroes()
@@ -247,7 +247,7 @@ namespace Memoria.Battle.Managers
 
         private Type[] GetRandomEnemies(int id)
         {
-            Type[] pattern = new Type[] { typeof(WaterSlime) };
+            Type[] pattern = new Type[] { typeof(WaterSlime), typeof(WindSlime) };
 //            pattern = _enemyGroup[id];
             return pattern;
         }

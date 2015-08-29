@@ -104,14 +104,6 @@ namespace Memoria.Battle.GameActors
             curve = false;
         }
 
-        public void DealDamage(AttackType attack)
-        {
-                Damage damage = ScriptableObject.CreateInstance<Damage>();
-                damage.AttackerParameters = parameter;
-                attack.Execute(damage, target);
-                attack.attacked = true;
-        }
-
         protected void Die(MonsterDies gameEvent)
         {
             if(this.Equals(gameEvent.killedEntity))
@@ -123,5 +115,14 @@ namespace Memoria.Battle.GameActors
                 tracker.MoveTo(this, orderIndex--);
             }
         }
+
+        public void DealDamage(AttackType attack)
+        {
+                Damage damage = ScriptableObject.CreateInstance<Damage>();
+                damage.AttackerParameters = parameter;
+                attack.Execute(damage, target);
+                attack.attacked = true;
+        }
+
     }
 }
