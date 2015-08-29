@@ -11,6 +11,7 @@ namespace Memoria.Dungeon
 
         public Sprite areaSprite;
         public string areaSpritePath;
+        public int dungeonId;
         public int floor;
         public int maxHp;
         public int maxSp;
