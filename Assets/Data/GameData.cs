@@ -54,5 +54,20 @@ namespace Memoria
             
             set { PlayerPrefs.SetInt(keyHasPassiveItem1, value ? 1 : 0); }
         }
+        
+        public static bool hasPassiveItem2
+        {
+            get
+            {
+                if (!PlayerPrefs.HasKey(keyHasPassiveItem2))
+                {
+                    PlayerPrefs.SetInt(keyHasPassiveItem2, 0);
+                }
+                
+                return PlayerPrefs.GetInt(keyHasPassiveItem2) != 0;
+            }
+            
+            set { PlayerPrefs.SetInt(keyHasPassiveItem2, value ? 1 : 0); }
+        }
     }
 }
