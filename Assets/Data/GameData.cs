@@ -19,5 +19,20 @@ namespace Memoria
             
             set { PlayerPrefs.SetInt("silling", value); }
         }
+        
+        public static int floorMax
+        {
+            get 
+            {
+                if (!PlayerPrefs.HasKey("floorMax"))
+                {
+                    PlayerPrefs.SetInt("floorMax", 0);
+                }
+                
+                return PlayerPrefs.GetInt("floorMax");
+            }
+            
+            set { PlayerPrefs.SetInt("floorMax", value); }
+        }
     }
 }
