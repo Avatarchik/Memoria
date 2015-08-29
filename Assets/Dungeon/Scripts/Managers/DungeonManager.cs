@@ -8,6 +8,7 @@ namespace Memoria.Dungeon.Managers
     public enum DungeonState
     {
         None,
+        Initialize,
         BlockOperating,
         PlayerMoving,
         BlockEvent,
