@@ -61,6 +61,7 @@ namespace Memoria.Dungeon
                     hp: stageData.maxHp,
                     maxSp: stageData.maxSp,
                     sp: stageData.maxSp,
+                    dungeonId: stageData.dungeonId,
                     floor: stageData.floor,
                     allKeyNum: keyNum,
                     silling: 0,
