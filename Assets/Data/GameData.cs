@@ -69,5 +69,13 @@ namespace Memoria
             
             set { PlayerPrefs.SetInt(keyHasPassiveItem2, value ? 1 : 0); }
         }
+        
+        public static void Reset()
+        {
+            silling = 0;
+            floorMax = 0;
+            hasPassiveItem1 = false;
+            hasPassiveItem2 = false;
+        }
     }
 }
