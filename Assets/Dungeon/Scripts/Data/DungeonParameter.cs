@@ -44,12 +44,13 @@ namespace Memoria.Dungeon
 
         public int[] stocks { get; set; }
 
-        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int floor, int allKeyNum, int silling, string skill)
+        public DungeonParameter(int maxHp, int hp, int maxSp, int sp, int dungeonId, int floor, int allKeyNum, int silling, string skill)
         {
             this.maxHp = maxHp;
             this.hp = hp;
             this.maxSp = maxSp;
             this.sp = sp;
+            this.dungeonId = dungeonId;
             this.floor = floor;
             this.allKeyNum = allKeyNum;
             this.getKeyNum = 0;
