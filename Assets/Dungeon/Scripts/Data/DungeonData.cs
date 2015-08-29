@@ -46,7 +46,7 @@ namespace Memoria.Dungeon
             if (!initialized)
             {
                 dungeonManager.EnterState(DungeonState.Initialize);
-                int floor = 0;
+                int floor = PlayerPrefs.GetInt("floor");
                 stageData = StageDataManager.instance.Prepare(floor);
                 direction = 2;
                 location = new Vector2Int(0, 0);
