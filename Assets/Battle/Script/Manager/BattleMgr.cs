@@ -53,6 +53,17 @@ namespace Memoria.Battle.Managers
         {
             _dungeonData = FindObjectOfType<DungeonData>();
 
+            // Debug
+
+            if(_dungeonData == null)
+            {
+                _dungeonData = new DungeonData();
+                _dungeonData.parameter = new DungeonParameter(10000, 10000, 0, 0, 0, 0, 0, "j");
+                for(int i = 0; i < _dungeonData.parameter.stocks.Length; i++){
+                    _dungeonData.parameter.stocks[i] = 1;
+                }
+            }
+        
             if(_dungeonData != null)
             {
                 elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
@@ -197,9 +208,8 @@ namespace Memoria.Battle.Managers
                 hero.GetComponent<BoxCollider2D>().enabled = false;
                 hero.GetComponent<Hero>().battleID = "h0" + i;
                 hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.parameter.stocks[i];
-                mainPlayer.health.maxHp += hero.GetComponent<Profile>().parameter.hp;
-//                mainPlayer.health.maxHp = _dungeonData.parameter.maxHp;
-//                mainPlayer.health.hp = _dungeonData.parameter.hp;
+                mainPlayer.health.maxHp = _dungeonData.parameter.maxHp;
+                mainPlayer.health.hp = _dungeonData.parameter.hp;
                 heroList.Add(hero);
                 actorList.Add(hero);
             }
