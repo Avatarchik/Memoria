@@ -23,5 +23,11 @@ namespace Memoria.Menu
             _menuActive = (_menuActive) ? false : true;
                 
         }
+
+        public void ClickButton(int floor)
+
+        {
+            PlayerPrefs.SetInt("floor", floor);
+        }
     }
 }

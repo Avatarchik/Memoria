@@ -163,8 +163,7 @@ namespace Memoria.Dungeon.Managers
 
         public void Leave()
         {
-            Destroy(dungeonData.gameObject);
-            Application.LoadLevel("menu");
+            Application.LoadLevel("menu-new");
         }
     }
 }
