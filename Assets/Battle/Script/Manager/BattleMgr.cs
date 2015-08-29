@@ -172,6 +172,7 @@ namespace Memoria.Battle.Managers
             _uiMgr.DestroyElement("Namebar_"+ entityId);
             _attackTracker.RemoveFromQueue(e);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
+
             EventMgr.Instance.Raise(new Memoria.Battle.Events.TurnEnds());
         }
 

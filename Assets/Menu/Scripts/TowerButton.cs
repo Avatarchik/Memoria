@@ -7,7 +7,7 @@ namespace Memoria.Menu
 
         private Button _towerButton;
         private TowerMenu _towerMenu;
-        private bool _menuActive;
+        private bool _menuActive = true;
 
         void Start () {
 
