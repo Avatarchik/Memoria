@@ -24,7 +24,8 @@ namespace Memoria.Dungeon.BlockEvents
         {
             if (!RemainSp())
             {
-                Debug.Log("Leave Dungeon!!");
+                yield return new WaitForSeconds(1);
+                Application.LoadLevel("menu-new");
             }
             
             yield return null;

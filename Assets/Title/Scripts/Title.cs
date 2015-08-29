@@ -25,7 +25,7 @@ public class Title : MonoBehaviour
 		StartCoroutine(CoroutineLoadLevel(level));
 	}
 
-	private IEnumerator CoroutineLoadLevel(string level)
+	private IEnumerator CoroutineLoadLevel(string name)
 	{
 		Color from = board.color;
 		Color to = Color.white;
@@ -39,7 +39,7 @@ public class Title : MonoBehaviour
 			yield return null;
 		}
 
-		Application.LoadLevel("Menu-new");
+		Application.LoadLevel(name);
 		yield break;
 	}
 }
