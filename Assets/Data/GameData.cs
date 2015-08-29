@@ -14,30 +14,30 @@ namespace Memoria
         {
             get
             {
-                if (!PlayerPrefs.HasKey("silling"))
+                if (!PlayerPrefs.HasKey(keySilling))
                 {
-                    PlayerPrefs.SetInt("silling", 0);
+                    PlayerPrefs.SetInt(keySilling, 0);
                 }
 
-                return PlayerPrefs.GetInt("silling");
+                return PlayerPrefs.GetInt(keySilling);
             }
             
-            set { PlayerPrefs.SetInt("silling", value); }
+            set { PlayerPrefs.SetInt(keySilling, value); }
         }
         
         public static int floorMax
         {
             get 
             {
-                if (!PlayerPrefs.HasKey("floorMax"))
+                if (!PlayerPrefs.HasKey(keyFloorMax))
                 {
-                    PlayerPrefs.SetInt("floorMax", 0);
+                    PlayerPrefs.SetInt(keyFloorMax, 0);
                 }
                 
-                return PlayerPrefs.GetInt("floorMax");
+                return PlayerPrefs.GetInt(keyFloorMax);
             }
             
-            set { PlayerPrefs.SetInt("floorMax", value); }
+            set { PlayerPrefs.SetInt(keyFloorMax, value); }
         }
     }
 }
