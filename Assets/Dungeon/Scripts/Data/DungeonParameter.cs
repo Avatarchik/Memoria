@@ -21,6 +21,8 @@ namespace Memoria.Dungeon
             get { return _sp; }
             set { _sp = Mathf.Clamp(value, 0, maxSp); }
         }
+        
+        public int dungeonId { get; set; }
 
         public int floor { get; set; }
 
