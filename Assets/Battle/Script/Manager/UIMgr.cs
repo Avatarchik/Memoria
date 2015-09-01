@@ -35,19 +35,21 @@ namespace Memoria.Battle.Managers
             cursorObj.transform.position = pos;
             _elements.Add("cursor_"+ owner, cursorObj);
         }
-
-        public void SetCurorAnimation(TargetType targets, string owner)
+        public void SetCurorAnimation(TargetType targets, Entity target)
         {
             switch (targets)
             {
-                case TargetType.ALL:
+                case TargetType.SINGLE:
+                    if(_elements.ContainsKey("cursor_"+ target.battleID))
+                        _elements["cursor_"+ target.battleID].GetComponent<BattleCursor>().SelectAnimation();
+                    break;
+                    
+                default:
                     foreach(var c in _elements.Where(x => x.Key.Contains("cursor")))
                     {
+                        Debug.Log("ALL: " +c.Value);
                         c.Value.GetComponent<BattleCursor>().SelectAnimation();
                     }
-                    break;
-                case TargetType.SINGLE:
-                    _elements["cursor_"+ owner].GetComponent<BattleCursor>().SelectAnimation();
                     break;
             }
         }
@@ -60,7 +62,9 @@ namespace Memoria.Battle.Managers
             var cnt = 0;
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
+                print(skill.Key);
                 var skillObj = (_spawner.Spawn<SkillIcon>("Skills/"+ skill.Key)).GetComponent<SkillIcon>();
+                skillObj.spriteResource = skill.Value.spriteData.barSprite;
                 skillObj.ParentToUI();
                 skillObj.Init();
                 skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
