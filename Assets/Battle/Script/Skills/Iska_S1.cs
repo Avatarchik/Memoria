@@ -12,11 +12,11 @@ namespace Memoria.Battle.GameActors
 			stockCost = 0;
 			animationDur = 130;
 			targetType = 'e';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SINGLE;
 			elementalAff = new ElementFire(Element.FIRE);
 			effectObj = (GameObject)Resources.Load("Skills/Iska_S1");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_20";
+            spriteData = new SpriteData("20");
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

@@ -16,7 +16,7 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementFire(Element.FIRE);
 			effectObj = (GameObject)Resources.Load("Skills/Iska_S2");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_21";
+            spriteData = new SpriteData("21");
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

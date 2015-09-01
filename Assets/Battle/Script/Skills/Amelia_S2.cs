@@ -15,8 +15,8 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementThunder(Element.THUNDER);
 			effectObj = (GameObject)Resources.Load("Skills/Amelia_S2");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_01";
-		}
+            spriteData = new SpriteData("01");
+        }
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{

@@ -12,11 +12,11 @@ namespace Memoria.Battle.GameActors
 			stockCost = 0;
 			animationDur = 70;
 			targetType = 'e';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SINGLE;
 			elementalAff = new ElementThunder(Element.THUNDER);
 			effectObj = (GameObject)Resources.Load("Skills/Amelia_S1");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_00";
+            spriteData = new SpriteData("00");
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

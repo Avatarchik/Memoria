@@ -12,11 +12,11 @@ namespace Memoria.Battle.GameActors
 			stockCost = 0;
 			animationDur = 210;
 			targetType = 'e';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SINGLE;
 			elementalAff = new ElementWater(Element.WATER);
 			effectObj = (GameObject)Resources.Load("Skills/Aria_S1");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_10";
+            spriteData = new SpriteData("10");
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
