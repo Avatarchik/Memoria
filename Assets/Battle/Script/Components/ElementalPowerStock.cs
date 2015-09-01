@@ -97,14 +97,15 @@ namespace Memoria.Battle.GameActors
                 obj.name = "PowerStock_" + i;
                 obj.AddComponent(_imageType);
                 obj.transform.SetParent(this.transform, false);
-
                 switch(objType)
                 {
                     case ObjectType.UI_OBJECT:
                         obj.GetComponent<Image>().sprite = _sprite;
                         break;
                     case ObjectType.NORMAL:
-                        obj.GetComponent<SpriteRenderer>().sprite = _sprite;
+                        var sr = obj.GetComponent<SpriteRenderer>();
+                        sr.sprite = _sprite;
+                        sr.sortingOrder = 1;
                         break;
                 }
 
