@@ -82,11 +82,12 @@ namespace Memoria.Battle.Managers
 
             foreach(var obj in actors.OrderByDescending(x => x.Value))
             {
-                var namebar = obj.Key.GetComponent<Namebar>();
-                var barObj = (_spawner.Spawn<Namebar>("UI/"+ namebar.spriteResource)).GetComponent<Namebar>();
+                var namebarId = obj.Key.GetComponent<Profile>().nameplateId;
+                var barObj = (_spawner.Spawn<Namebar>("UI/Namebar")).GetComponent<Namebar>();
+                barObj.SetSprite(namebarId);
                 barObj.ParentToUI();
                 barObj.Init();
-                barObj.spriteResource = namebar.spriteResource;
+                barObj.name = "Namebar_" + obj.Key.battleID.ToString();
                 barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
                 _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
             }
@@ -114,6 +115,10 @@ namespace Memoria.Battle.Managers
             else if(e.moved && barObj)
             {
                 barObj.FallDown(_queueSlots[(int)e.entity.orderIndex]);
+                if(e.entity.orderIndex == 0)
+                {
+                    barObj.SetScale(new Vector2(1.1f, 1.1f));
+                }
             }
         }
 
@@ -121,12 +126,12 @@ namespace Memoria.Battle.Managers
 
         public void SpawnDescription(string resource)
         {
-            var frame = (_spawner.Spawn<DescriptionFrame>("UI/"+ resource)).GetComponent<DescriptionFrame>();
+            var frame = (_spawner.Spawn<DescriptionFrame>("UI/description_frame")).GetComponent<DescriptionFrame>();
+            frame.spriteResource = resource;
             frame.ParentToUI();
             frame.Init();
-            frame.spriteResource = resource;
-            frame.name = "Frame_" + resource;
-            _elements.Add("frame_"+ resource, frame);
+            frame.name = "frame_desc";
+            _elements.Add("frame_desc", frame);
         }
 
         //************************************ Result

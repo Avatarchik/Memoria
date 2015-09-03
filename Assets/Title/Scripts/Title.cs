@@ -25,10 +25,10 @@ public class Title : MonoBehaviour
 		StartCoroutine(CoroutineLoadLevel(level));
 	}
 
-	private IEnumerator CoroutineLoadLevel(string level)
+	private IEnumerator CoroutineLoadLevel(string name)
 	{
 		Color from = board.color;
-		Color to = Color.black;
+		Color to = Color.white;
 		float time = 1f;
 		float elapsed = 0;
 		
@@ -39,7 +39,7 @@ public class Title : MonoBehaviour
 			yield return null;
 		}
 
-		Application.LoadLevel(level);
+		Application.LoadLevel(name);
 		yield break;
 	}
 }

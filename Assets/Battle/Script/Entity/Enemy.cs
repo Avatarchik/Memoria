@@ -44,7 +44,7 @@ namespace Memoria.Battle.GameActors
         {
             components.Add(typeof(HealthSystem));
             components.Add(typeof(DeathSystem));
-            components.Add(typeof(Namebar));
+//            components.Add(typeof(Namebar));
             base.Init();
         }
 

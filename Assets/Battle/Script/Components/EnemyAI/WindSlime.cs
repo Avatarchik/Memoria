@@ -6,8 +6,8 @@ namespace Memoria.Battle.GameActors
         //スライム緑
         void Awake ()
         {
-            nameplate = "Namebar_Golem";
-
+            nameplate = "Namebar_WindSlime";
+            nameplateId = 10;
             parameter.attack = 8900;
             parameter.defense = 1418;
 //          parameter.mattack = 10;
