@@ -8,12 +8,10 @@ namespace Memoria.Battle.GameActors
         {
             nameplate = "Namebar_ThunderSlime";
             nameplateId = 7;
-            parameter.attack = 8850;
-            parameter.defense = 1614;
-//          parameter.mattack = 10;
-//          parameter.mdefense = 10;
-            parameter.speed = 1977;
-            parameter.hp = 10000;
+            parameter.attack = 945;
+            parameter.defense = 141;
+            parameter.speed = 230;
+            parameter.hp = 620;
 
             parameter.elementAff = new ElementThunder(Element.THUNDER);
 

@@ -16,8 +16,8 @@ namespace Memoria.Battle.GameActors
 			selectType = TargetType.ALL;
 			elementalAff = new ElementThunder(Element.THUNDER);
 			effectObj = (GameObject)Resources.Load("Skills/Amelia_SP");
+			parameters.attackPower = 1.7f;
             ultimate = true;
-			parameters.attackPower = -1;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

@@ -11,10 +11,10 @@ namespace Memoria.Battle.GameActors
 			stockCost = 1;
 			animationDur = 210;
 			targetType = 'e';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SINGLE;
 			elementalAff = new ElementThunder(Element.THUNDER);
 			effectObj = (GameObject)Resources.Load("Skills/Amelia_S2");
-			parameters.attackPower = -1;
+			parameters.attackPower = 1.4f;
             spriteData = new SpriteData("01");
         }
 		

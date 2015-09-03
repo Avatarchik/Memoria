@@ -34,10 +34,14 @@ namespace Memoria.Battle.GameActors
             profile = GetComponent<Profile>();
             power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
+
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
             _stockEffect = (GameObject)Resources.Load("effects/Effect_UI_201");
+
+            parameter.blockBonus = (BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type);
+
         }
 
         void Update()
@@ -70,7 +74,7 @@ namespace Memoria.Battle.GameActors
         override public void StartTurn()
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.4f, -10);
-            if(BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type && attackType == null) {
+            if((parameter.blockBonus) && attackType == null) {
                 StartCoroutine(StockRoutine(0.0f));
             } else {
                 SetIconSkill();
@@ -194,11 +198,13 @@ namespace Memoria.Battle.GameActors
 
         private void SetUltimate()
         {
+            print("!!!!!!!!!!!!");
             SetAttack(profile.ultimateAttack);
         }
         private void SetFinalStock()
         {
         }
+
         private IEnumerator StockRoutine(float extraStock = 0.4f)
         {
             if(!power.Full)

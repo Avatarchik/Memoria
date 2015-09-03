@@ -15,7 +15,7 @@ namespace Memoria.Battle.GameActors
 			selectType = TargetType.ALL;
 			elementalAff = new ElementFire(Element.FIRE);
 			effectObj = (GameObject)Resources.Load("Skills/Iska_S2");
-			parameters.attackPower = -1;
+			parameters.attackPower = 1.2f;
             spriteData = new SpriteData("21");
 		}
 		

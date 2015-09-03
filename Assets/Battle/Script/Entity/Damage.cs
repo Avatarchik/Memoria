@@ -15,10 +15,21 @@ namespace Memoria.Battle.GameActors
         public int Calculate()
         {
             var totalDmg = (float)AttackerParameters.attack;
-//            totalDmg *= (float)DamageParameters.attackPower;
+            Debug.Log("1: "+ totalDmg);
+            totalDmg *= (float)DamageParameters.attackPower;
+            Debug.Log("2: "+ totalDmg);
+            if(AttackerParameters.blockBonus) totalDmg *= 2;
+            Debug.Log("3: "+ totalDmg);
             totalDmg *= GetElementalBonus(TargetParameters.elementAff);
-            totalDamage = Mathf.CeilToInt(totalDmg);
-            return Mathf.CeilToInt(totalDmg);
+            Debug.Log("4: "+ totalDmg);
+            totalDmg *= TryCritical(AttackerParameters.criticalHit);
+            Debug.Log("5: "+ totalDmg);
+            totalDmg -= TargetParameters.defense;
+            Debug.Log("6: "+ totalDmg);
+            totalDamage = Mathf.CeilToInt(totalDmg / 3);
+            Debug.Log("7: "+ totalDmg);
+            if(totalDamage < 0) { totalDamage = 0; }
+            return Mathf.CeilToInt(totalDamage);
         }
 
         public float GetElementalBonus(ElementType testElement)
@@ -26,7 +37,18 @@ namespace Memoria.Battle.GameActors
             return((float)(int)AttackerParameters.elementAff.CheckAgainstElement(testElement) / 2);
         }
 
-        public void Appear()
+        public float TryCritical(float critChance)
+        {
+            var r = new System.Random();
+            for(float i = 0; i < critChance; i += 0.01f)
+            {
+                if((r.Next(0, 100).Equals(100)))
+                    return 2.0f;
+            }
+            return 1.0f;
+        }
+
+        public void Appear(Vector3 pos)
         {
             ActorSpawner spawner = GameObject.FindObjectOfType<ActorSpawner>();
             var dmg = totalDamage.ToArray();
@@ -36,7 +58,7 @@ namespace Memoria.Battle.GameActors
                 number.spriteResource = "Numbers/bt_" + dmg[i];
                 number.ParentToUI();
                 number.Init();
-                number.transform.position = new Vector3(0 + (i * 0.3f), 0, 1);
+                number.transform.position = new Vector3(pos.x + (i * 0.4f), pos.y, 1);
                 DestroyObject(number.gameObject, 1.0f);
             }
         }

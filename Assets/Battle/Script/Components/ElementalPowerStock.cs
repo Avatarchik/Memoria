@@ -33,7 +33,7 @@ namespace Memoria.Battle.GameActors
         private float offsetX = -0.8f;
 
         [SerializeField]
-        private float offsetY = -0.8f;
+        private float offsetY = -1.2f;
 
         [SerializeField]
         private float spaceOffset = 0.8f;

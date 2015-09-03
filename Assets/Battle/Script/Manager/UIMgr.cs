@@ -43,7 +43,7 @@ namespace Memoria.Battle.Managers
                     if(_elements.ContainsKey("cursor_"+ target.battleID))
                         _elements["cursor_"+ target.battleID].GetComponent<BattleCursor>().SelectAnimation();
                     break;
-                    
+
                 default:
                     foreach(var c in _elements.Where(x => x.Key.Contains("cursor")))
                     {
@@ -60,6 +60,7 @@ namespace Memoria.Battle.Managers
         {
             var profile = player.GetComponent<Profile>();
             var cnt = 0;
+            
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
                 print(skill.Key);
@@ -70,7 +71,7 @@ namespace Memoria.Battle.Managers
                 skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
                 skillObj.transform.position = new Vector3(
                                                           (player.GetComponent<Profile>().skillPos.x),
-                                                          (player.GetComponent<Profile>().skillPos.y - 1.0f) + cnt,
+                                                          (player.GetComponent<Profile>().skillPos.y) - cnt,
                                                           1);
                 skillObj.name = skill.Key;
                 _elements.Add("skill_" + skill.Key, skillObj);
@@ -121,7 +122,8 @@ namespace Memoria.Battle.Managers
                 barObj.FallDown(_queueSlots[(int)e.entity.orderIndex]);
                 if(e.entity.orderIndex == 0)
                 {
-                    barObj.SetScale(new Vector2(1.1f, 1.1f));
+                    barObj.transform.SetAsLastSibling();
+                    barObj.SetScale(new Vector2(1.5f, 1.5f));
                 }
             }
         }

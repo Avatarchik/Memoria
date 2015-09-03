@@ -45,6 +45,7 @@ namespace Memoria.Battle.GameActors
             EventMgr.Instance.AddListener<MonsterDies>(Die);
             attackReady = false;
             chargeReady = true;
+
         }
 
         public virtual bool Attack (AttackType attack)

@@ -15,7 +15,7 @@ namespace Memoria.Battle.GameActors
 			selectType = TargetType.SINGLE;
 			elementalAff = new ElementWater(Element.WATER);
 			effectObj = (GameObject)Resources.Load("Skills/Aria_S1");
-			parameters.attackPower = -1;
+			parameters.attackPower = 1;
             spriteData = new SpriteData("10");
 		}
 		

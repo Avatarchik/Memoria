@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using Memoria.Battle.Utility;
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
@@ -27,6 +28,7 @@ namespace Memoria.Battle.GameActors
             target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
 
             transform.SetParent(GameObject.Find("Enemies").gameObject.transform, false);
+            parameter.blockBonus = (BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type);
 
         }
 
@@ -74,12 +76,18 @@ namespace Memoria.Battle.GameActors
         {
             d.TargetParameters = parameter;
             this.health.hp -= d.Calculate();
-            d.Appear();
+            d.Appear(this.transform.position);
         }
 
         public bool IsAlive()
         {
             return isAlive;
+        }
+
+        private void DamageFlick(float flickTime)
+        {
+            var animator = GetComponent<Animator>();
+            animator.SetBool("takeDamage", true);
         }
     }
 }

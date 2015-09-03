@@ -15,7 +15,7 @@ namespace Memoria.Battle.GameActors
 			selectType = TargetType.SINGLE;
 			elementalAff = new ElementThunder(Element.THUNDER);
 			effectObj = (GameObject)Resources.Load("Skills/Amelia_S1");
-			parameters.attackPower = -1;
+			parameters.attackPower = 1;
             spriteData = new SpriteData("00");
 		}
 		

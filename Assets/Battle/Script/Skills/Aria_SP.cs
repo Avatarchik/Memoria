@@ -18,6 +18,7 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementWater(Element.WATER);
 			effectObj = (GameObject)Resources.Load("Skills/Aria_SP");
             ultimate = true;
+            parameters.attackPower = 2.0f;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
