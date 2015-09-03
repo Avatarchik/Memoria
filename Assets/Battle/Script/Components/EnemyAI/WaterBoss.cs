@@ -6,8 +6,8 @@ namespace Memoria.Battle.GameActors
         //水ボス
         void Awake ()
         {
-            nameplate = "Namebar_Golem";
-
+            nameplate = "Namebar_WaterBoss";
+            nameplateId = 4;
             parameter.attack = 8955;
             parameter.defense = 2169;
 //          parameter.mattack = 10;

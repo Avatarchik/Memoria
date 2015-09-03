@@ -6,8 +6,8 @@ namespace Memoria.Battle.GameActors
         //風ボス
         void Awake ()
         {
-            nameplate = "Namebar_Golem";
-
+            nameplate = "Namebar_WindBoss";
+            nameplateId = 6;
             parameter.attack = 9137;
             parameter.defense = 1793;
 //          parameter.mattack = 10;

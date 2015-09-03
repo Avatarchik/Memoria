@@ -76,6 +76,7 @@ namespace Memoria.Dungeon.BlockEvents
             effectPosition.z = 0;
             EffectManager.instance.InstantiateEffect(12, effectPosition, 2f);
 
+            ParameterManager.instance.RecoveryHp(100);
             yield return new WaitForSeconds(1);
         }
     }

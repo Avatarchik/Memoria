@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UniRx;
+using Memoria.Managers;
 
 namespace Memoria.Dungeon.Managers
 {
     public enum DungeonState
     {
         None,
+        Initialize,
         BlockOperating,
         PlayerMoving,
         BlockEvent,
@@ -138,6 +140,8 @@ namespace Memoria.Dungeon.Managers
             EnterState(DungeonState.None);
 
             dungeonData.Load();
+
+            SoundManager.instance.PlayBGM(1);
         }
 
         public void EnterState(DungeonState nextState)
@@ -160,8 +164,7 @@ namespace Memoria.Dungeon.Managers
 
         public void Leave()
         {
-            Destroy(dungeonData.gameObject);
-            Application.LoadLevel("menu");
+            Application.LoadLevel("menu-new");
         }
     }
 }
