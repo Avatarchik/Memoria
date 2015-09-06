@@ -58,7 +58,7 @@ namespace Memoria.Battle.Managers
             if(_dungeonData == null)
             {
                 _dungeonData = new DungeonData();
-                _dungeonData.parameter = new DungeonParameter(10000, 10000, 0, 0, 0, 0, 0, "j");
+                _dungeonData.parameter = new DungeonParameter(10000, 10000, 0, 0, 1, 0, 0, 0, "j");
                 for(int i = 0; i < _dungeonData.parameter.stocks.Length; i++){
                     _dungeonData.parameter.stocks[i] = 1;
                 }
