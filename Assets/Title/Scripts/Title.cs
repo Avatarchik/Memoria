@@ -6,11 +6,13 @@ public class Title : MonoBehaviour
 {
 	[SerializeField]
 	private Image board;
+	private AudioSource se;
 
 	// Use this for initialization
 	void Start()
 	{
 		board.gameObject.SetActive(false);
+		se = GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -23,23 +25,26 @@ public class Title : MonoBehaviour
 	{
 		board.gameObject.SetActive(true);
 		StartCoroutine(CoroutineLoadLevel(level));
+//		se.PlayOneShot (se.clip);
 	}
 
-	private IEnumerator CoroutineLoadLevel(string name)
+	private IEnumerator CoroutineLoadLevel(string level)
 	{
 		Color from = board.color;
 		Color to = Color.white;
 		float time = 1f;
 		float elapsed = 0;
-		
+		se.PlayOneShot (se.clip);
+
 		while (elapsed <= time)
 		{
 			elapsed += Time.deltaTime;
 			board.color = Color.Lerp(from, to, elapsed / time);
+
 			yield return null;
 		}
 
-		Application.LoadLevel(name);
+		Application.LoadLevel(level);
 		yield break;
 	}
 }
