@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -12,7 +11,7 @@ namespace Memoria.Battle.GameActors
 			stockCost = 1;
 			animationDur = 210;
 			targetType = 'h';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SELF;
 			elementalAff = new ElementWind(Element.WIND);
 			effectObj = (GameObject)Resources.Load("Skills/Dhiel_S2");
 			parameters.attackPower = -1;
