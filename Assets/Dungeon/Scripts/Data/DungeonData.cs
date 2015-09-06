@@ -81,8 +81,12 @@ namespace Memoria.Dungeon
                         dungeonManager.ExitState();
                     });
             }
-
-            (new GameObject()).AddComponent<SpriteRenderer>().sprite = stageData.areaSprite;
+            
+            foreach (var sprite in stageData.areaSprites)
+            {
+                (new GameObject()).AddComponent<SpriteRenderer>().sprite = sprite;
+            }
+            
             player.direction = direction;
             player.SetPosition(location);
 
