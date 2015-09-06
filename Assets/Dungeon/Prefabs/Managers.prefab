@@ -73,6 +73,8 @@ MonoBehaviour:
   - {fileID: 129500, guid: 522480f438e3044e09c4a4357681079c, type: 2}
   - {fileID: 153086, guid: 446137e393dac57428a171d732fe9dfd, type: 2}
   - {fileID: 172842, guid: 44be44b57d09b6a4fa0e61c5350e59e3, type: 2}
+  - {fileID: 159742, guid: 7d4836717084d48309aa86e7312213b2, type: 2}
+  - {fileID: 163104, guid: 93bc1d8c321854992a84e6721130dbca, type: 2}
 --- !u!114 &11441756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,27 +203,19 @@ MonoBehaviour:
       y: -5
       width: 10
       height: 10
-    areaSprite: {fileID: 21300000, guid: f4c80b4d88ab244acad95345a8be59e3, type: 3}
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
     areaSpritePath: map_5
+    dungeonId: 0
     floor: 0
-    maxHp: 100
-    maxSp: 100
-    itemDatas:
-    - _type: 0
-      _attribute: 0
-      _location:
-        _x: 2
-        _y: 0
-      _visible: 1
-    - _type: 1
-      _attribute: 4
-      _location:
-        _x: -1
-        _y: -2
-      _visible: 1
+    maxHp: 3851
+    maxSp: 30
     probabilityOfEncounter: .439999998
+    enemyPatternIdMin: 0
+    enemyPatternIdMax: 0
+    bossPatternIdMin: 0
+    bossPatternIdMax: 0
     itemIncidence:
-      spawn: .150000006
+      spawn: .5
       jewel: .600000024
       soul: .100000001
       magicPlate: .300000012
@@ -243,17 +237,53 @@ MonoBehaviour:
       thunder: .200000003
       water: .200000003
       recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 2
+        _y: 0
+      _visible: 1
   - stageSize:
       serializedVersion: 2
       x: -7
       y: -7
       width: 14
       height: 14
-    areaSprite: {fileID: 21300000, guid: e8790d4ba23c5411db40f43c4947b60b, type: 3}
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
     areaSpritePath: map_7
+    dungeonId: 0
     floor: 1
-    maxHp: 100
-    maxSp: 100
+    maxHp: 3851
+    maxSp: 30
+    probabilityOfEncounter: .439999998
+    enemyPatternIdMin: 0
+    enemyPatternIdMax: 0
+    bossPatternIdMin: 0
+    bossPatternIdMax: 0
+    itemIncidence:
+      spawn: .5
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .300000012
+      wind: .230000004
+      thunder: .270000011
+      water: .200000003
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .289999992
+      wind: .219999999
+      thunder: .25
+      water: .239999995
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
     itemDatas:
     - _type: 0
       _attribute: 0
@@ -267,27 +297,31 @@ MonoBehaviour:
         _x: 0
         _y: -2
       _visible: 1
-    - _type: 1
-      _attribute: 2
-      _location:
-        _x: 2
-        _y: -3
-      _visible: 1
-    - _type: 3
-      _attribute: 3
-      _location:
-        _x: 2
-        _y: 0
-      _visible: 1
     - _type: 2
-      _attribute: 1
+      _attribute: 3
       _location:
         _x: -2
         _y: -2
       _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSpritePath: map_7
+    dungeonId: 0
+    floor: 2
+    maxHp: 3851
+    maxSp: 30
     probabilityOfEncounter: .439999998
+    enemyPatternIdMin: 0
+    enemyPatternIdMax: 0
+    bossPatternIdMin: 0
+    bossPatternIdMax: 0
     itemIncidence:
-      spawn: .150000006
+      spawn: .5
       jewel: .600000024
       soul: .100000001
       magicPlate: .300000012
@@ -309,17 +343,6 @@ MonoBehaviour:
       thunder: .200000003
       water: .200000003
       recovery: .200000003
-  - stageSize:
-      serializedVersion: 2
-      x: -7
-      y: -7
-      width: 14
-      height: 14
-    areaSprite: {fileID: 21300000, guid: e8790d4ba23c5411db40f43c4947b60b, type: 3}
-    areaSpritePath: map_7
-    floor: 2
-    maxHp: 100
-    maxSp: 100
     itemDatas:
     - _type: 0
       _attribute: 0
@@ -339,66 +362,12 @@ MonoBehaviour:
         _x: -2
         _y: -1
       _visible: 0
-    - _type: 1
-      _attribute: 1
-      _location:
-        _x: 0
-        _y: 2
-      _visible: 0
-    - _type: 1
-      _attribute: 2
-      _location:
-        _x: 2
-        _y: -1
-      _visible: 0
-    - _type: 1
-      _attribute: 3
-      _location:
-        _x: -2
-        _y: -2
-      _visible: 0
     - _type: 2
-      _attribute: 4
+      _attribute: 1
       _location:
         _x: 2
         _y: -2
       _visible: 0
-    - _type: 3
-      _attribute: 1
-      _location:
-        _x: -2
-        _y: 1
-      _visible: 0
-    - _type: 3
-      _attribute: 4
-      _location:
-        _x: 0
-        _y: -1
-      _visible: 0
-    probabilityOfEncounter: .439999998
-    itemIncidence:
-      spawn: .150000006
-      jewel: .600000024
-      soul: .100000001
-      magicPlate: .300000012
-    attributeIncidenceOfJewel:
-      fire: .300000012
-      wind: .230000004
-      thunder: .270000011
-      water: .200000003
-      recovery: 0
-    attributeIncidenceOfSoul:
-      fire: .289999992
-      wind: .219999999
-      thunder: .25
-      water: .239999995
-      recovery: 0
-    attributeIncidenceOfMagicPlate:
-      fire: .200000003
-      wind: .200000003
-      thunder: .200000003
-      water: .200000003
-      recovery: .200000003
 --- !u!114 &11451198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,7 +423,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: effectPrefabs.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: effectPrefabs.Array.data[15]
+      value: 
+      objectReference: {fileID: 159742, guid: 7d4836717084d48309aa86e7312213b2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 136198}

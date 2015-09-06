@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Memoria.Managers;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.BlockComponent;
 
@@ -77,9 +78,24 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineBattleToBoss(Block block)
         {
             dungeonManager.dungeonData.SetIsBossBattle(true);            
-            dungeonManager.dungeonData.SetBattleType(block.blockType);
+            
+            if (block.blockType == BlockType.Recovery)
+            {
+                dungeonManager.dungeonData.SetBattleType(block.blockType);
+            }
+            else
+            {
+                dungeonManager.dungeonData.SetBattleType(BlockType.None);
+            }
+
+            int idMin = dungeonManager.dungeonData.stageData.bossPatternIdMin;
+            int idMax = dungeonManager.dungeonData.stageData.bossPatternIdMax;
+            int id = Random.Range(idMin, idMax + 1);
+            dungeonManager.dungeonData.SetEnemyPattern(id);
+
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBossBattleEvent");
+            SoundManager.instance.PlayBGM(3);
             yield return new WaitForSeconds(3f);
             Application.LoadLevel("Battle");
         }
@@ -88,8 +104,15 @@ namespace Memoria.Dungeon.BlockEvents
         {
             dungeonManager.dungeonData.SetIsBossBattle(false);
             dungeonManager.dungeonData.SetBattleType(block.blockType);
+            
+            int idMin = dungeonManager.dungeonData.stageData.enemyPatternIdMin;
+            int idMax = dungeonManager.dungeonData.stageData.enemyPatternIdMax;
+            int id = Random.Range(idMin, idMax + 1);
+            dungeonManager.dungeonData.SetEnemyPattern(id);
+            
             dungeonManager.dungeonData.Save();
             eventAnimator.SetTrigger("onBattleEvent");
+            SoundManager.instance.PlayBGM(2);
             yield return new WaitForSeconds(1f);
             Application.LoadLevel("Battle");
         }

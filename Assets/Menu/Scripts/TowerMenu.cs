@@ -7,12 +7,6 @@ public class TowerMenu : MonoBehaviour {
 
     private List<GameObject> _menuItems;
 
-    public List<GameObject> MenuItems {
-        get {
-            return _menuItems;
-        }
-    }
-
     void Start () {
         _menuItems = new List<GameObject>();
 
@@ -27,6 +21,19 @@ public class TowerMenu : MonoBehaviour {
     }
     
     void Update () {
-        
+        SetVisible();
+    }
+    
+    public void SetVisible()
+    {
+        for(int i = 0; i < openFloor; i++)
+        {
+            _menuItems[i].SetActive(true);
+        }                
+    }
+
+    public void ClickButton(int floor)
+    {
+        PlayerPrefs.SetInt("floor", floor);
     }
 }

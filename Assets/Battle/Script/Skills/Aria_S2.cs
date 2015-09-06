@@ -17,6 +17,7 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementWater(Element.WATER);
 			effectObj = (GameObject)Resources.Load("Skills/Aria_S2");
 			parameters.attackPower = -1;
+            descriptionSprite = "skill_info_11";
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

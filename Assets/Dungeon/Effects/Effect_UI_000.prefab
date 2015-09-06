@@ -44,6 +44,7 @@ GameObject:
   - 4: {fileID: 435406}
   - 114: {fileID: 11451638}
   - 82: {fileID: 8281728}
+  - 114: {fileID: 11459414}
   m_Layer: 0
   m_Name: Effect_UI_000
   m_TagString: Untagged
@@ -340,6 +341,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81687037de6a4544a954c7a6a1205031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11459414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43de9932dca594a34998156087096d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orderInLayer: 6
 --- !u!198 &19810348
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -5711,6 +5724,10 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: fe630dfb1558243f48cfdde88441fb7e, type: 3}
+    - target: {fileID: 0}
+      propertyPath: _orderInLayer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 138016}

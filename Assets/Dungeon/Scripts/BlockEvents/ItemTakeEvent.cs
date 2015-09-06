@@ -93,7 +93,7 @@ namespace Memoria.Dungeon.BlockEvents
             effectPosition.z = 0;
             EffectManager.instance.InstantiateEffect(4, effectPosition, 2f);
 
-            yield return new WaitForSeconds(1.4f);
+            yield return new WaitForSeconds(1);
         }
 
         private IEnumerator CoroutineTakeJewel(BlockType attribute)
@@ -108,7 +108,7 @@ namespace Memoria.Dungeon.BlockEvents
             effectPosition.z = 0;
             EffectManager.instance.InstantiateEffect(3, effectPosition, 2f);
 
-            yield return new WaitForSeconds(1.4f);
+            yield return new WaitForSeconds(1);
         }
 
         private IEnumerator CoroutineTakeSoul(BlockType attribute)
@@ -118,7 +118,7 @@ namespace Memoria.Dungeon.BlockEvents
             eventAnimator.SetFloat("attribute", toValue[attribute]);
             EventManager.instance.message = "魂を入手した！！";
             eventAnimator.SetTrigger("getSoul");
-            yield return new WaitForSeconds(1.4f);
+            yield return new WaitForSeconds(1);
         }
 
         private IEnumerator CoroutineTakeMagicPlate(BlockType attribute)
@@ -133,7 +133,7 @@ namespace Memoria.Dungeon.BlockEvents
             effectPosition.z = 0;
             EffectManager.instance.InstantiateEffect(3, effectPosition, 2f);
             
-            yield return new WaitForSeconds(1.4f);
+            yield return new WaitForSeconds(1);
 
             BlockManager.instance.blockList.SetAttributeBlockList(attribute);
         }

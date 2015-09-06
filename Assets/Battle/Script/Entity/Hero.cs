@@ -47,7 +47,7 @@ namespace Memoria.Battle.GameActors
         override public void Init()
         {
             components.Add(typeof(TargetSelector));
-            components.Add(typeof(Namebar));
+//            components.Add(typeof(Namebar));
             components.Add(typeof(ElementalPowerStock));
             base.Init();
         }
