@@ -298,7 +298,7 @@ MonoBehaviour:
         _y: -2
       _visible: 1
     - _type: 2
-      _attribute: 0
+      _attribute: 3
       _location:
         _x: -2
         _y: -2

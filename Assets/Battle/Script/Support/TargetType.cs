@@ -3,6 +3,7 @@
     public enum TargetType
     {
         SINGLE,
+        SELF,
         ALL
     }
 }
