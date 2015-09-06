@@ -4463,6 +4463,18 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[0].areaSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[1].areaSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[2].areaSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 477552, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4555,6 +4567,40 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1678314323}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[0].dungeonId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[0].areaSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[0].areaSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[1].areaSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[1].areaSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[2].areaSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442,
+        type: 3}
+    - target: {fileID: 11450150, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
+      propertyPath: stageDatas.Array.data[2].areaSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
   m_IsPrefabParent: 0
