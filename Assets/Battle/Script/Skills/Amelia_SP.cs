@@ -19,7 +19,6 @@ namespace Memoria.Battle.GameActors
 			parameters.attackPower = 1.7f;
             ultimate = true;
 		}
-		
 		override public void Execute(Damage damage, IDamageable target)
 		{
 			damage.DamageParameters = parameters;
@@ -28,11 +27,10 @@ namespace Memoria.Battle.GameActors
                 t.GetComponent<IDamageable>().TakeDamage(damage);
             }
         }
-		
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, 0, -9);
+			particleEffect.transform.position = new Vector3 (0, 0, 0);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

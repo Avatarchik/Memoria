@@ -1,13 +1,13 @@
 ﻿namespace Memoria.Battle.GameActors
 
 {
-    public class Aria : Profile
+    public class Rizel : Profile
     {
         void Awake ()
         {
-            nameplate = "Namebar_Aria";
+            nameplate = "Namebar_Rizel";
             nameplateId = 3;
-            ultimateAttack = "Aria_SP";
+            ultimateAttack = "Rizel_SP";
             parameter.attack = 472;
             parameter.defense = 123;
             parameter.speed = 195;
@@ -15,9 +15,9 @@
             parameter.criticalHit = 0.05f;
             parameter.elementAff = new ElementWater(Element.WATER);
 
-            attackList.Add("Attack_Normal", gameObject.AddComponent<Aria_S1>());
-            attackList.Add("Attack_Special", gameObject.AddComponent<Aria_S2>());
-            attackList.Add("Aria_SP", gameObject.AddComponent<Aria_SP>());
+            attackList.Add("Attack_Normal", gameObject.AddComponent<Rizel_S1>());
+            attackList.Add("Attack_Special", gameObject.AddComponent<Rizel_S2>());
+            attackList.Add("Rizel_SP", gameObject.AddComponent<Rizel_SP>());
         }
     }
 }

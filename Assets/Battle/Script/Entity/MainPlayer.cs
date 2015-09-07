@@ -30,14 +30,16 @@ namespace Memoria.Battle.GameActors
 
         public void TakeDamage(Damage damage)
         {
+            var healthBar = GameObject.FindObjectOfType<HealthBar>();
             damage.TargetParameters = parameter;
+
             if(damage.totalDamage < 0) {
                 Heal(damage.totalDamage);
-                damage.Appear(new Vector3(0,0,0));
+                damage.Appear(healthBar.gameObject.transform.position, true);
             }
             else {
                 health.hp -= damage.Calculate();
-                damage.Appear(new Vector3(0,0,0));
+                damage.Appear(healthBar.gameObject.transform.position);
             }
         }
 

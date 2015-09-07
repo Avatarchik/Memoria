@@ -1669,6 +1669,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1067530486}
+  - 114: {fileID: 1067530487}
   m_Layer: 0
   m_Name: BottomParticles
   m_TagString: Untagged
@@ -1691,6 +1692,17 @@ Transform:
   - {fileID: 1766269340}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1067530487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067530485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9283ea2db2074ca79641f0980cb38bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1108031862
 Prefab:
   m_ObjectHideFlags: 0
@@ -2028,7 +2040,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 22485582, guid: 294333db71d1347d0baaff0b4da268b3, type: 2}
       propertyPath: m_AnchoredPosition.x

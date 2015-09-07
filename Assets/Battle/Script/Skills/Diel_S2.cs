@@ -27,7 +27,7 @@ namespace Memoria.Battle.GameActors
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, 0, -9);
+			particleEffect.transform.position = new Vector3 (0, 0, 0);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

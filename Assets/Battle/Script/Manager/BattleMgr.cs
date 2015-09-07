@@ -72,7 +72,7 @@ namespace Memoria.Battle.Managers
                 {
                     "Amelia",
                     "Dhiel",
-                    "Aria",
+                    "Rizel",
                     "Iska"
                 };
 
@@ -80,7 +80,7 @@ namespace Memoria.Battle.Managers
                 {
                     typeof(Amelia),
                     typeof(Dhiel),
-                    typeof(Aria),
+                    typeof(Rizel),
                     typeof(Iska)
                 };
 
@@ -182,8 +182,8 @@ namespace Memoria.Battle.Managers
             _attackTracker.RemoveFromQueue(e);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
 
-            EventMgr.Instance.Raise(new Memoria.Battle.Events.TurnEnds());
         }
+        
 
         private void SpawnHeroes()
         {

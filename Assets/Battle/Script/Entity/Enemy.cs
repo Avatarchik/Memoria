@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using Memoria.Battle.Utility;
 using Memoria.Battle.Managers;
@@ -74,6 +75,7 @@ namespace Memoria.Battle.GameActors
 
         public void TakeDamage(Damage d)
         {
+            StartCoroutine(DamageFlick(1, 0.03f, 0.03f));
             d.TargetParameters = parameter;
             this.health.hp -= d.Calculate();
             d.Appear(this.transform.position);
@@ -84,10 +86,21 @@ namespace Memoria.Battle.GameActors
             return isAlive;
         }
 
-        private void DamageFlick(float flickTime)
+        private IEnumerator DamageFlick(int nTimes, float timeOn, float timeOff)
         {
-            var animator = GetComponent<Animator>();
-            animator.SetBool("takeDamage", true);
+             var position = transform.position;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            transform.position = new Vector3(position.x, position.y + 0.2f, position.z);
+
+            while (nTimes > 0) {
+                sr.enabled = true;
+                yield return new WaitForSeconds(timeOn);
+                sr.enabled = false;
+                yield return new WaitForSeconds(timeOff);
+                nTimes--;
+            }
+            sr.enabled = true;   
+            transform.position = position;
         }
     }
 }

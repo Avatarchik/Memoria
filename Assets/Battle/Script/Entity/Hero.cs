@@ -83,6 +83,10 @@ namespace Memoria.Battle.GameActors
 
         override public void EndTurn()
         {
+            if(attackType != null) {
+                power.UseStock(attackType.stockCost);
+            }
+            
             if(!charge && !passToStock)
             {
                 attackSelected = false;
@@ -95,9 +99,6 @@ namespace Memoria.Battle.GameActors
                 passToStock = false;
                 target = null;
             }
-            if(charge) {
-                power.UseStock(attackType.stockCost);
-            }
 
             transform.position = new Vector3(transform.position.x,transform.position.y - 0.4f, -10);
             base.EndTurn();
@@ -107,7 +108,7 @@ namespace Memoria.Battle.GameActors
         {
             if(profile.GetType() == typeof(Dhiel))
             {
-                Debug.Log(this + ": updates");
+//                Debug.Log(this + ": updates");
             }
             base.UpdateOrder(gameEvent);
         }
@@ -149,6 +150,7 @@ namespace Memoria.Battle.GameActors
                     chargeReady = false;
                 }
             }
+
             if (attackType.targetType == ENEMY)
             {
                 _enemyTarget = true;
@@ -198,7 +200,6 @@ namespace Memoria.Battle.GameActors
 
         private void SetUltimate()
         {
-            print("!!!!!!!!!!!!");
             SetAttack(profile.ultimateAttack);
         }
         private void SetFinalStock()

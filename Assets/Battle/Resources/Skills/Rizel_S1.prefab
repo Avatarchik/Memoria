@@ -46,7 +46,7 @@ GameObject:
   - 198: {fileID: 19887086}
   - 199: {fileID: 19949786}
   m_Layer: 0
-  m_Name: Aria_S1
+  m_Name: Rizel_S1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6336,7 +6336,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -935871993
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MaxParticleSize: 3
@@ -6408,7 +6408,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -935871993
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MaxParticleSize: .5

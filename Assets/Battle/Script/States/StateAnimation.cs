@@ -23,7 +23,6 @@ namespace Memoria.Battle.States
         }
         override public void Update()
         {
-            Debug.Log("animation");
             if(cutIn.played)
             {
                 if(nowActor.chargeReady && !_isPlaying) {
