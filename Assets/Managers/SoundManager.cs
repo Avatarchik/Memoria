@@ -52,6 +52,7 @@ namespace Memoria.Managers
                 if (_bgmAudioSource == null)
                 {
                     _bgmAudioSource = gameObject.AddComponent<AudioSource>();
+                    _bgmAudioSource.loop = true;
                 }
 
                 return _bgmAudioSource;
