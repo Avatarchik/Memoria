@@ -17,7 +17,7 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementFire(Element.FIRE);
 			effectObj = (GameObject)Resources.Load("Skills/Iska_SP");
             ultimate = true;
-			parameters.attackPower = -1;
+			parameters.attackPower = 2.3f;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
@@ -32,7 +32,7 @@ namespace Memoria.Battle.GameActors
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, -2, -9);
+			particleEffect.transform.position = new Vector3 (0, -2, 0);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

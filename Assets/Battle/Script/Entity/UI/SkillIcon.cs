@@ -9,8 +9,9 @@ namespace Memoria.Battle.GameActors
 
         override public void Init()
         {
-//            transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform , false);
             _button = GetComponent<Button>();
+            spriteFolder = "Skills/";
+            GetComponent<Image>().sprite = Resources.Load<Sprite>(spriteFolder + spriteResource);
         }
 
         public void SetOnClick(Action<string> setAttack, string skill)

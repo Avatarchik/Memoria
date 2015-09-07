@@ -8,8 +8,11 @@ namespace Memoria.Battle.GameActors
     public class Namebar : UIElement
     {
         Vector3 pos;
-        public List<Sprite> spriteList = new List<Sprite>();
+        Vector3[] slotTable;
+        int currentPos;
 
+        public List<Sprite> spriteList = new List<Sprite>();
+        
         public static float X
         {
             get
@@ -17,6 +20,7 @@ namespace Memoria.Battle.GameActors
                 return  -8.0f;
             }
         }
+        
         public static float Y
         {
             get
@@ -24,14 +28,41 @@ namespace Memoria.Battle.GameActors
                 return 0.5f;
             }
         }
+
+        public int SlotPos
+        {
+            get
+            {
+                return currentPos;
+            }
+            set
+            {
+                if(value > currentPos)
+                {
+                    CurvedMove(slotTable[value]);
+                }
+                else
+                {
+                    FallDown(slotTable[value]);
+                }
+                currentPos = value;
+            }
+        }
+
         override public void Init()
         {
             spriteFolder = "UI/";
+            transform.position = slotTable[SlotPos];
         }
 
 
         void Update()
         {
+        }
+
+        public void FixPos()
+        {
+            transform.position = slotTable[SlotPos];
         }
 
         public void  SetSprite(int id)
@@ -96,6 +127,15 @@ namespace Memoria.Battle.GameActors
                 yield return null;
             }
         }
+
+        public void SetSlotTable(Vector3[] table)
+        {
+            slotTable = table;
+        }
+
+
+
+
 
         public void Attach(Vector3 endPos)
         {

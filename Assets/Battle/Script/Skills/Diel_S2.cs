@@ -15,7 +15,7 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementWind(Element.WIND);
 			effectObj = (GameObject)Resources.Load("Skills/Dhiel_S2");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_31";
+            spriteData = new SpriteData("31");
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
@@ -27,7 +27,7 @@ namespace Memoria.Battle.GameActors
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, 0, -9);
+			particleEffect.transform.position = new Vector3 (0, 0, 0);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

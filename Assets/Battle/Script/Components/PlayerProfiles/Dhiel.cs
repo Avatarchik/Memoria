@@ -8,13 +8,12 @@
             nameplate = "Namebar_Dhiel";
             nameplateId = 1;
             ultimateAttack = "Diel_SP";
-            parameter.attack = 3612;
-            parameter.defense = 1714;
-//          parameter.mattack = 100;
-//          parameter.mdefense = 100;
-            parameter.speed = 3038;
-            parameter.hp = 2499;
-            parameter.elementAff = new ElementWind(Element.WIND); 
+            parameter.attack = 688;
+            parameter.defense = 139;
+            parameter.speed = 303;
+            parameter.hp = 1058;
+            parameter.criticalHit = 0.12f;
+            parameter.elementAff = new ElementWind(Element.WIND);
 
             attackList.Add("Attack_Normal", gameObject.AddComponent<Diel_S1>());
             attackList.Add("Attack_Special", gameObject.AddComponent<Diel_S2>());
