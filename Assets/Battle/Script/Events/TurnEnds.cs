@@ -5,9 +5,11 @@ namespace Memoria.Battle.Events
     public class TurnEnds : GameEvent
     {
         public bool monsterDied;
-        public TurnEnds(bool monsterDie)
+        public int monstersDead;
+        public TurnEnds(bool monsterDie, int deadMonster = 0)
         {
             this.monsterDied = monsterDie;
+            this.monstersDead = deadMonster;
         }
     }
 }

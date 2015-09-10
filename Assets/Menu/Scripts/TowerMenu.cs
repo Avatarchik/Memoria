@@ -1,39 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class TowerMenu : MonoBehaviour {
+namespace Memoria.Menu
+{
+    public class TowerMenu : MonoBehaviour
+    {
 
-    public int openFloor = 1;
+        public int openFloor = 1;
 
-    private List<GameObject> _menuItems;
+        private List<GameObject> _menuItems;
 
-    void Start () {
-        _menuItems = new List<GameObject>();
+        void Start () {
+            _menuItems = new List<GameObject>();
 
-        foreach(Transform t in transform)
-        {
-            if(t.gameObject.name.Contains("level"))
+            foreach(Transform t in transform)
             {
-                t.gameObject.SetActive(false);
-                _menuItems.Add(t.gameObject);
+                if(t.gameObject.name.Contains("level"))
+                {
+                    t.gameObject.SetActive(false);
+                    _menuItems.Add(t.gameObject);
+                }
             }
         }
-    }
     
-    void Update () {
-        SetVisible();
-    }
+        void Update () {
+            SetVisible();
+        }
     
-    public void SetVisible()
-    {
-        for(int i = 0; i < openFloor; i++)
+        public void SetVisible()
         {
-            _menuItems[i].SetActive(true);
-        }                
-    }
+            for(int i = 0; i < openFloor; i++)
+            {
+                _menuItems[i].SetActive(true);
+            }                
+        }
 
-    public void ClickButton(int floor)
-    {
-        PlayerPrefs.SetInt("floor", floor);
+        public void ClickButton(int floor)
+        {
+            PlayerPrefs.SetInt("floor", floor);
+        }
     }
 }

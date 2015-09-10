@@ -23,7 +23,6 @@ namespace Memoria.Battle.States
                 {
                     pauseBetween = 60;
                     nowActor.EndTurn();
-                    EventMgr.Instance.Raise(new TurnEnds(false));
                     Initialized = false;
                 }
             }

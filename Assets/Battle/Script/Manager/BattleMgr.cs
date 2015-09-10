@@ -59,7 +59,7 @@ namespace Memoria.Battle.Managers
                 _dungeonData = new DungeonData();
                 _dungeonData.parameter = new DungeonParameter(4500, 4500, 0, 0, 1, 0, 0, 0, "j");
                 for(int i = 0; i < _dungeonData.parameter.stocks.Length; i++){
-                    _dungeonData.parameter.stocks[i] = 1;
+                    _dungeonData.parameter.stocks[i] = 3;
                 }
             }
         
@@ -168,8 +168,11 @@ namespace Memoria.Battle.Managers
 
         public void LoadLevel(string scene)
         {
-            EventMgr.Instance.Clear();
             UpdateParameters();
+            EventMgr.Instance.Clear();
+            UiMgr.Clear();
+            actorList.Clear();
+            enemyList.Clear();
             Application.LoadLevel(scene);
         }
 
@@ -180,8 +183,7 @@ namespace Memoria.Battle.Managers
             var entityId = e.GetComponent<Entity>().battleID;
             _uiMgr.DestroyElement("Namebar_"+ entityId);
             _attackTracker.RemoveFromQueue(e);
-            actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
-
+            actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));  
         }
         
 
@@ -257,7 +259,7 @@ namespace Memoria.Battle.Managers
 
         private Type[] GetRandomEnemies(int id)
         {
-            Type[] pattern = new Type[] { typeof(WaterSlime), typeof(WindSlime) };
+            Type[] pattern = new Type[] { typeof(WaterSlime), typeof(WindSlime), typeof(FireSlime) };
 //            pattern = _enemyGroup[id];
             return pattern;
         }

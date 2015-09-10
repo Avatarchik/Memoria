@@ -3,12 +3,10 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Memoria.Battle.GameActors;
 
-
-
-
 namespace Memoria.Menu
 {
-    public class PopupWindow : MonoBehaviour {
+    public class PopupWindow : MonoBehaviour
+    {
 
         public enum Contents
         {
@@ -18,8 +16,7 @@ namespace Memoria.Menu
             DHIEL = 3,
             RIZEL = 4,
             ISKA = 5,
-            DIANA = 6,
-            NONE = 7
+            NONE = 6
         }
 
         private Animator _animator;
@@ -38,7 +35,17 @@ namespace Memoria.Menu
 
         public void OpenWindow(bool open)
         {
+            UnloadWindow();
             _animator.SetBool("popupWindow", open);
+        }
+
+        public void UnloadWindow()
+        {
+            var labels = GetComponentsInChildren<ParamLabel>();
+            for(int i = 0; i < labels.Length; i++)
+            {
+                labels[i].Unload();
+            }
         }
 
         public void SetSprite(int id)
@@ -48,7 +55,6 @@ namespace Memoria.Menu
 
         public void SetContent(int contentInt)
         {
-
             Contents contents = (Contents)contentInt;
 
             switch(contents)
@@ -69,16 +75,12 @@ namespace Memoria.Menu
                     _paramContent.SetProfile(typeof(Dhiel));
                     break;
                 case Contents.ISKA:
+                    print("test");
                     _paramContent.SetProfile(typeof(Iska));
                     break;
                 case Contents.NONE:
                     break;
             }
-        }
-        public void ShowContent(int value)
-        {
-            bool visible = (value > 0) ? true : false;
-            _paramContent.gameObject.SetActive(visible);
         }
     }
 }

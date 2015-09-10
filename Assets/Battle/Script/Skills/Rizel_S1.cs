@@ -29,7 +29,7 @@ namespace Memoria.Battle.GameActors
 		{
 			particleEffect = Instantiate (effectObj);
 			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y -0.3f, 2);
-			//particleEffect.GetComponent<ParticleSystem>().Play();
+			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}
 }

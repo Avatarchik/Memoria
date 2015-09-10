@@ -9,9 +9,9 @@ namespace Memoria.Battle.GameActors
             nameplate = "Namebar_WaterSlime";
             nameplateId = 8;
             parameter.attack = 870;
-            parameter.defense = 225;
+            parameter.defense = 235;
             parameter.speed = 163;
-            parameter.hp = 700;
+            parameter.hp = 1000;
 
             parameter.elementAff = new ElementWater(Element.WATER);
 
