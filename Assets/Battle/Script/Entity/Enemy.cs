@@ -35,12 +35,6 @@ namespace Memoria.Battle.GameActors
 
         void Update()
         {
-            if (isAlive && health.hp <= 0)
-            {
-                isAlive = false;
-                BattleMgr.Instance.RemoveFromBattle(this);
-                StartCoroutine(death.DeadEffect());
-            }
         }
 
         override public void Init()
@@ -79,6 +73,7 @@ namespace Memoria.Battle.GameActors
             d.TargetParameters = parameter;
             this.health.hp -= d.Calculate();
             d.Appear(this.transform.position);
+            CheckDeath();
         }
 
         public bool IsAlive()
@@ -101,6 +96,16 @@ namespace Memoria.Battle.GameActors
             }
             sr.enabled = true;   
             transform.position = position;
+        }
+
+        private void CheckDeath()
+        {
+            if (isAlive && health.hp <= 0)
+            {
+                isAlive = false;
+                BattleMgr.Instance.RemoveFromBattle(this);
+                StartCoroutine(death.DeadEffect());
+            }
         }
     }
 }

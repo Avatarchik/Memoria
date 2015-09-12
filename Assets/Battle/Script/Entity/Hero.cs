@@ -35,11 +35,11 @@ namespace Memoria.Battle.GameActors
             power = GetComponent<ElementalPowerStock>();
             parameter = profile.parameter;
 
+            power.SortingLayer = "Middle";
             power.elementType = parameter.elementAff.Type.ToEnum<StockType, Element>();
             power.objType = ObjectType.NORMAL;
             transform.SetParent(GameObject.Find("Player").gameObject.transform, false);
-            _stockEffect = (GameObject)Resources.Load("effects/Effect_UI_201");
-
+            _stockEffect = (GameObject)Resources.Load("effects/Effect_UI_201");            
             parameter.blockBonus = (BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type);
 
         }
@@ -51,7 +51,6 @@ namespace Memoria.Battle.GameActors
         override public void Init()
         {
             components.Add(typeof(TargetSelector));
-//            components.Add(typeof(Namebar));
             components.Add(typeof(ElementalPowerStock));
             base.Init();
         }

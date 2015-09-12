@@ -4,52 +4,60 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Memoria.Battle.GameActors;
 
-public class ParamContent : MonoBehaviour
+namespace Memoria.Menu
 {
-    readonly Dictionary<string, GameObject> _params = new Dictionary<string, GameObject>();
-    Profile profile;
-
-    void Start()
+    public class ParamContent : MonoBehaviour
     {
-        _params.Add("hp", new GameObject());
-        _params.Add("attack", new GameObject());
-        _params.Add("defense", new GameObject());
-        _params.Add("speed", new GameObject());
+        readonly Dictionary<string, GameObject> _params = new Dictionary<string, GameObject>();
 
-        foreach(var obj in _params)
+        [SerializeField]
+        private GameObject _statusPrefab;
+
+        Profile profile;
+
+        void Start()
         {
-            obj.Value.AddComponent<Text>();
-            obj.Value.transform.SetParent(this.transform);
-            obj.Value.name = obj.Key;
-        }
-    }
+            _params.Add("hp", Instantiate(_statusPrefab));
+            _params.Add("attack", Instantiate(_statusPrefab));
+            _params.Add("defense", Instantiate(_statusPrefab));
+            _params.Add("speed", Instantiate(_statusPrefab));
 
-    void Update()
-    {
-        if(GetComponent<Profile>())
+            foreach(var obj in _params)
+            {
+                obj.Value.transform.SetParent(this.transform, false);
+                obj.Value.name = obj.Key;
+            }
+        }
+
+        void Update()
         {
-            _params["hp"].GetComponent<Text>().text = profile.parameter.hp.ToString();
-            _params["attack"].GetComponent<Text>().text = profile.parameter.attack.ToString();
-            _params["defense"].GetComponent<Text>().text = profile.parameter.defense.ToString();
-            _params["speed"].GetComponent<Text>().text = profile.parameter.speed.ToString();
-            UnloadProfile();
+            if(GetComponent<Profile>())
+            {
+                _params["hp"].GetComponent<ParamLabel>().GenerateLabel(profile.parameter.hp, new Vector3(180, -137, 0));
+                _params["attack"].GetComponent<ParamLabel>().GenerateLabel(profile.parameter.attack, new Vector3(180, -199, 0));
+                _params["defense"].GetComponent<ParamLabel>().GenerateLabel(profile.parameter.defense, new Vector3(180, -258, 0));
+                _params["speed"].GetComponent<ParamLabel>().GenerateLabel(profile.parameter.speed, new Vector3(180, -318, 0));
+
+                UnloadProfile();
+            }
         }
-    }
 
-    public void SetProfile(Type profilType)
-    {
-        this.gameObject.AddComponent(profilType);
-        profile = GetComponent<Profile>();
-    }
-
-    private void UnloadProfile()
-    {
-        var skillComponents = GetComponents(typeof(AttackType));
-        foreach(var component in skillComponents)
+        public void SetProfile(Type profilType)
         {
-            Destroy(component);
+            this.gameObject.AddComponent(profilType);
+            profile = GetComponent<Profile>();
         }
-        Destroy(profile);
-        profile = null;
+
+        private void UnloadProfile()
+        {        
+        
+            var skillComponents = GetComponents(typeof(AttackType));
+            foreach(var component in skillComponents)
+            {
+                Destroy(component);
+            }
+            Destroy(profile);
+            profile = null;
+        }
     }
 }
