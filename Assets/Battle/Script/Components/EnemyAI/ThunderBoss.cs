@@ -6,7 +6,7 @@ namespace Memoria.Battle.GameActors
         //雷ボス
         void Awake ()
         {
-            nameplate = "Namebar_Golem";
+            nameplate = "Namebar_ThunderBoss";
 
             parameter.attack = 9081;
             parameter.defense = 1861;

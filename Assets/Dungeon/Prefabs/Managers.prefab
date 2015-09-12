@@ -203,8 +203,9 @@ MonoBehaviour:
       y: -5
       width: 10
       height: 10
-    areaSprite: {fileID: 21300000, guid: f4c80b4d88ab244acad95345a8be59e3, type: 3}
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
     areaSpritePath: map_5
+    dungeonId: 0
     floor: 0
     maxHp: 3851
     maxSp: 30
@@ -249,8 +250,9 @@ MonoBehaviour:
       y: -7
       width: 14
       height: 14
-    areaSprite: {fileID: 21300000, guid: e8790d4ba23c5411db40f43c4947b60b, type: 3}
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
     areaSpritePath: map_7
+    dungeonId: 0
     floor: 1
     maxHp: 3851
     maxSp: 30
@@ -296,7 +298,7 @@ MonoBehaviour:
         _y: -2
       _visible: 1
     - _type: 2
-      _attribute: 0
+      _attribute: 3
       _location:
         _x: -2
         _y: -2
@@ -307,8 +309,9 @@ MonoBehaviour:
       y: -7
       width: 14
       height: 14
-    areaSprite: {fileID: 21300000, guid: e8790d4ba23c5411db40f43c4947b60b, type: 3}
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
     areaSpritePath: map_7
+    dungeonId: 0
     floor: 2
     maxHp: 3851
     maxSp: 30

@@ -12,10 +12,13 @@ namespace Memoria.Battle.GameActors
 			stockCost = 0;
 			animationDur = 70;
 			targetType = 'e';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SINGLE;
 			elementalAff = new ElementWind(Element.WIND);
 			effectObj = (GameObject)Resources.Load("Skills/Dhiel_S1");
-			parameters.attackPower = -1;
+			parameters.attackPower = 1;
+            descriptionSprite = "skill_info_30";
+            spriteData = new SpriteData("30");
+
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
@@ -27,7 +30,7 @@ namespace Memoria.Battle.GameActors
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y, -9);
+			particleEffect.transform.position = new Vector3 (target.transform.position.x - 2.0f, target.transform.position.y - 1.2f, 0);
 		}
 	}
 }

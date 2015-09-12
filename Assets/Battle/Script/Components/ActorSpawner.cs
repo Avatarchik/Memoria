@@ -31,7 +31,7 @@ namespace Memoria.Battle.GameActors
 
             foreach(var param in extraParams)
             {
-            obj.AddComponent(param);
+                obj.AddComponent(param);
             }
 
             foreach(Type t in _defaultComponents)

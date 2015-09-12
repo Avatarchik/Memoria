@@ -1,48 +1,84 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Memoria.Battle.GameActors
 {
     public class Namebar : UIElement
     {
         Vector3 pos;
+        Vector3[] slotTable;
+        int currentPos;
 
-        public float X
+        public List<Sprite> spriteList = new List<Sprite>();
+        
+        public static float X
         {
             get
             {
                 return  -8.0f;
             }
         }
-        public float Y
+        
+        public static float Y
         {
             get
             {
                 return 0.5f;
             }
         }
+
+        public int SlotPos
+        {
+            get
+            {
+                return currentPos;
+            }
+            set
+            {
+                if(value > currentPos)
+                {
+                    CurvedMove(slotTable[value]);
+                }
+                else
+                {
+                    FallDown(slotTable[value]);
+                }
+                currentPos = value;
+            }
+        }
+
         override public void Init()
         {
             spriteFolder = "UI/";
+            transform.position = slotTable[SlotPos];
         }
+
 
         void Update()
         {
         }
 
+        public void FixPos()
+        {
+            transform.position = slotTable[SlotPos];
+        }
+
+        public void  SetSprite(int id)
+        {
+            GetComponent<Image>().sprite = spriteList[id];
+        }
 
         public void FallDown(Vector3 slot)
         {
-
             StartCoroutine(MoveDown(slot));
         }
 
         public void CurvedMove(Vector3 slot)
         {
+            SetScale(Vector2.one);
             StartCoroutine(CurveUp(slot));
-//            StartCoroutine(DetatchedMove(slot));
-
         }
 
         private IEnumerator MoveDown(Vector3 slot)
@@ -92,6 +128,15 @@ namespace Memoria.Battle.GameActors
             }
         }
 
+        public void SetSlotTable(Vector3[] table)
+        {
+            slotTable = table;
+        }
+
+
+
+
+
         public void Attach(Vector3 endPos)
         {
             var pos = transform.position;
@@ -130,6 +175,11 @@ namespace Memoria.Battle.GameActors
                 }
                 yield return null;
             }
+        }
+
+        public void SetScale(Vector2 scale)
+        {
+            this.transform.localScale = scale;
         }
 
     }

@@ -140,9 +140,8 @@ namespace Memoria.Dungeon
             OnWalkBegin();
 
             Vector3 position = mapManager.ToPosition(location + normalizedMoveDirection);
-            float yOffset = -0.2f;
             float time = 1 / speed;
-            position.y += yOffset;
+            position += (Vector3)offset;
             iTween.MoveTo(gameObject, iTween.Hash(
                 "position", position,
                 "time", time,

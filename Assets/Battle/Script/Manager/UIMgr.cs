@@ -13,6 +13,7 @@ namespace Memoria.Battle.Managers
         private AttackTracker _attackTracker;
         private Dictionary<string, UIElement> _elements;
         private Vector3[] _queueSlots;
+        private BottomParticles _bottomParticles;
 
         void Start ()
         {
@@ -35,19 +36,21 @@ namespace Memoria.Battle.Managers
             cursorObj.transform.position = pos;
             _elements.Add("cursor_"+ owner, cursorObj);
         }
-
-        public void SetCurorAnimation(TargetType targets, string owner)
+        public void SetCurorAnimation(TargetType targets, Entity target)
         {
             switch (targets)
             {
-                case TargetType.ALL:
+                case TargetType.SINGLE:
+                    if(_elements.ContainsKey("cursor_"+ target.battleID))
+                        _elements["cursor_"+ target.battleID].GetComponent<BattleCursor>().SelectAnimation();
+                    break;
+
+                default:
                     foreach(var c in _elements.Where(x => x.Key.Contains("cursor")))
                     {
+                        Debug.Log("ALL: " +c.Value);
                         c.Value.GetComponent<BattleCursor>().SelectAnimation();
                     }
-                    break;
-                case TargetType.SINGLE:
-                    _elements["cursor_"+ owner].GetComponent<BattleCursor>().SelectAnimation();
                     break;
             }
         }
@@ -58,15 +61,17 @@ namespace Memoria.Battle.Managers
         {
             var profile = player.GetComponent<Profile>();
             var cnt = 0;
+
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
                 var skillObj = (_spawner.Spawn<SkillIcon>("Skills/"+ skill.Key)).GetComponent<SkillIcon>();
+                skillObj.spriteResource = skill.Value.spriteData.barSprite;
                 skillObj.ParentToUI();
                 skillObj.Init();
                 skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
                 skillObj.transform.position = new Vector3(
                                                           (player.GetComponent<Profile>().skillPos.x),
-                                                          (player.GetComponent<Profile>().skillPos.y - 1.0f) + cnt,
+                                                          (player.GetComponent<Profile>().skillPos.y) - cnt,
                                                           1);
                 skillObj.name = skill.Key;
                 _elements.Add("skill_" + skill.Key, skillObj);
@@ -82,12 +87,16 @@ namespace Memoria.Battle.Managers
 
             foreach(var obj in actors.OrderByDescending(x => x.Value))
             {
-                var namebar = obj.Key.GetComponent<Namebar>();
-                var barObj = (_spawner.Spawn<Namebar>("UI/"+ namebar.spriteResource)).GetComponent<Namebar>();
+                var namebarId = obj.Key.GetComponent<Profile>().nameplateId;
+                var barObj = (_spawner.Spawn<Namebar>("UI/Namebar")).GetComponent<Namebar>();
+                barObj.SetSprite(namebarId);
                 barObj.ParentToUI();
+                barObj.SetSlotTable(_queueSlots);
+                barObj.SlotPos = (int)obj.Key.orderIndex;
+//                barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
+
                 barObj.Init();
-                barObj.spriteResource = namebar.spriteResource;
-                barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
+                barObj.name = "Namebar_" + obj.Key.battleID.ToString();
                 _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
             }
         }
@@ -108,12 +117,17 @@ namespace Memoria.Battle.Managers
                 {
                     Destroy(GameObject.Find(e.entity.battleID +"_casting"));
                 }
-                barObj.transform.SetAsLastSibling();
                 barObj.CurvedMove(_queueSlots[(int)e.entity.orderIndex]);
+                barObj.transform.SetAsLastSibling();
             }
             else if(e.moved && barObj)
             {
                 barObj.FallDown(_queueSlots[(int)e.entity.orderIndex]);
+                if(e.entity.orderIndex == 0)
+                {
+                    barObj.transform.SetAsLastSibling();
+                    barObj.SetScale(new Vector2(1.5f, 1.5f));
+                }
             }
         }
 
@@ -121,12 +135,12 @@ namespace Memoria.Battle.Managers
 
         public void SpawnDescription(string resource)
         {
-            var frame = (_spawner.Spawn<DescriptionFrame>("UI/"+ resource)).GetComponent<DescriptionFrame>();
+            var frame = (_spawner.Spawn<DescriptionFrame>("UI/description_frame")).GetComponent<DescriptionFrame>();
+            frame.spriteResource = resource;
             frame.ParentToUI();
             frame.Init();
-            frame.spriteResource = resource;
-            frame.name = "Frame_" + resource;
-            _elements.Add("frame_"+ resource, frame);
+            frame.name = "frame_desc";
+            _elements.Add("frame_desc", frame);
         }
 
         //************************************ Result

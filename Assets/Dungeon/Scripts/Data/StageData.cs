@@ -10,7 +10,8 @@ namespace Memoria.Dungeon
 		public Rect stageSize;
 
         public Sprite areaSprite;
-        public string areaSpritePath;
+        public Sprite[] areaSprites;
+        public int dungeonId;
         public int floor;
         public int maxHp;
         public int maxSp;

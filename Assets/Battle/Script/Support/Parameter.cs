@@ -8,6 +8,8 @@ namespace Memoria.Battle.GameActors
         public int mattack;
         public int mdefense;
         public int speed;
+        public float criticalHit;
         public ElementType elementAff;
+        public bool blockBonus;
     }
 }

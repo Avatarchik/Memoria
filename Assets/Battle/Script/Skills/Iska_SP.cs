@@ -9,25 +9,30 @@ namespace Memoria.Battle.GameActors
 		void Start ()
 		{
 			phaseCost = 3;
+            cutIn = 2;
 			stockCost = 3;
 			animationDur = 210;
 			targetType = 'e';
 			selectType = TargetType.ALL;
 			elementalAff = new ElementFire(Element.FIRE);
 			effectObj = (GameObject)Resources.Load("Skills/Iska_SP");
-			parameters.attackPower = -1;
+            ultimate = true;
+			parameters.attackPower = 2.3f;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{
 			damage.DamageParameters = parameters;
-			target.TakeDamage(damage);
+            foreach(var t in BattleMgr.Instance.enemyList)
+            {
+                t.GetComponent<IDamageable>().TakeDamage(damage);
+            }
 		}
 		
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, -2, -9);
+			particleEffect.transform.position = new Vector3 (0, -2, 0);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

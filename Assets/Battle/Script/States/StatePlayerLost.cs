@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Memoria.Dungeon;
 
 namespace Memoria.Battle.States
 {
@@ -14,6 +15,7 @@ namespace Memoria.Battle.States
         {
             if (Input.GetMouseButtonDown (0))
             {
+                MonoBehaviour.Destroy(GameObject.FindObjectOfType<DungeonData>().gameObject);
                 battleMgr.LoadLevel("title");
             }
         }
