@@ -31,6 +31,7 @@ namespace Memoria.Battle.GameActors
 		{
 			particleEffect = Instantiate (effectObj);
 			particleEffect.transform.position = new Vector3 (target.transform.position.x - 2.0f, target.transform.position.y - 1.2f, 0);
+//            particleEffect.GetComponentInChildren<ParticleRenderer>().sortingLayerName = "Foreground";
 		}
 	}
 }

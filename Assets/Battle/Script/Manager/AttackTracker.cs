@@ -37,7 +37,7 @@ namespace Memoria.Battle.Managers
                 foreach(var orderId in attackOrder)
                 {
                     if(orderId.Value > pos) {
-                        orderId.Key.charge = true;
+                        orderId.Key.wait= true;
                     }
                 }
             }

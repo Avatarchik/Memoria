@@ -9,9 +9,9 @@ namespace Memoria.Battle.GameActors
             nameplate = "Namebar_FireSlime";
             nameplateId = 9;
             parameter.attack = 1010;
-            parameter.defense = 90;
+            parameter.defense = 100;
             parameter.speed = 209;
-            parameter.hp = 470;
+            parameter.hp = 770;
 
             parameter.elementAff = new ElementFire(Element.FIRE);
 

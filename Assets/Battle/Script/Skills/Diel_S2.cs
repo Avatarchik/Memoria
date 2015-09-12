@@ -20,14 +20,14 @@ namespace Memoria.Battle.GameActors
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{
-			damage.DamageParameters = parameters;
-			target.TakeDamage(damage);
 		}
 		
 		override public void PlayEffect (Entity target)
 		{
+            var user = GetComponent<Entity>();
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, 0, 0);
+			particleEffect.transform.position = user.transform.position;
+            particleEffect.GetComponent<HasteSkill>().user = user;
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

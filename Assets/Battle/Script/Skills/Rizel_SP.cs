@@ -16,7 +16,7 @@ namespace Memoria.Battle.GameActors
 			targetType = 'e';
 			selectType = TargetType.ALL;
 			elementalAff = new ElementWater(Element.WATER);
-			effectObj = (GameObject)Resources.Load("Skills/Rizelo_SP");
+			effectObj = (GameObject)Resources.Load("Skills/Rizel_SP");
             ultimate = true;
             parameters.attackPower = 2.0f;
 		}
@@ -37,7 +37,7 @@ namespace Memoria.Battle.GameActors
             {                
                 particleEffect = Instantiate (effectObj);
                 particleEffect.transform.position = new Vector3 (0, 4, 2);
-                particleEffect.GetComponentInChildren<ParticleRenderer>().sortingLayerName = "Foreground";
+//                particleEffect.GetComponentInChildren<ParticleRenderer>().sortingLayerName = "Foreground";
                 DestroyObject(particleEffect, 2.1f);
                 destroyed = true;
             }

@@ -126,8 +126,8 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: .0833333358
-    functionName: ShowContent
+  - time: .166666672
+    functionName: SetStory
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

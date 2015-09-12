@@ -27,11 +27,11 @@ namespace Memoria.Battle
         {
             return result[elementType.Type].Invoke();
         }
-
         abstract protected StrengthType GetResultWithFire();
         abstract protected StrengthType GetResultWithWater();
         abstract protected StrengthType GetResultWithWind();
         abstract protected StrengthType GetResultWithThunder();
+
         protected StrengthType GetResultWithNormal()
         {
             return StrengthType.NORMAL;
