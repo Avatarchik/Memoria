@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using Memoria.Battle.GameActors;
 
 namespace Memoria.Menu
@@ -20,17 +21,41 @@ namespace Memoria.Menu
         }
 
         private Animator _animator;
-        private GameObject _contents;
         private ParamContent _paramContent;
+        private bool _story;
+
+        GameObject parent;
+        Contents _contents;
+
         public List<Sprite> spriteList = new List<Sprite>();
 
-        void Start () {
+        void Start ()
+        {
             _animator = GetComponent<Animator>();
             _paramContent = GetComponentInChildren<ParamContent>();
+            _contents = Contents.NONE;
+            parent = this.transform.parent.gameObject;
         }
 
-        void Update () {
-
+        void LateUpdate ()
+        {
+            if(Input.GetMouseButtonDown(0) && _story) {
+                var c = GameObject.FindObjectOfType<MainCharacter>();
+                c.Switch();
+                foreach(Image obj in parent.GetComponentsInChildren<Image>())
+                {
+                    if(!obj.transform.gameObject.name.Equals("parameterbox"))
+                    {
+                        StartCoroutine(FadeTo(obj, Color.white));
+                    }
+                }
+                foreach(Button obj in parent.GetComponentsInChildren<Button>())
+                {
+                    obj.enabled = true;
+                }
+                OpenWindow(false);
+                _story = false;
+            }
         }
 
         public void OpenWindow(bool open)
@@ -56,11 +81,21 @@ namespace Memoria.Menu
         public void SetContent(int contentInt)
         {
             Contents contents = (Contents)contentInt;
-
+            _contents = contents;
             switch(contents)
             {
                 case Contents.STORY:
-//                    paramContent.SetStory();
+                    foreach(Image obj in parent.GetComponentsInChildren<Image>())
+                    {
+                        if(!obj.transform.gameObject.name.Equals("parameterbox"))
+                        {
+                            StartCoroutine(FadeTo(obj, Color.gray));
+                        }
+                    }
+                    foreach(Button obj in parent.GetComponentsInChildren<Button>())
+                    {
+                        obj.enabled = false;
+                    }
                     break;
                 case Contents.TIPS:
 //                    paramContent.SetTips();
@@ -80,6 +115,24 @@ namespace Memoria.Menu
                     break;
                 case Contents.NONE:
                     break;
+            }
+        }
+
+        public void SetStory(int i)
+        {
+            if(_contents == Contents.STORY)
+                _story = (i > 0) ? true : false;
+        }
+
+        private IEnumerator FadeTo(Image img, Color color)
+        {
+            float time = 0;
+            float end = 0.5f;
+            while(time < end)
+            {
+                img.color = Color.Lerp(img.color, color, time / end);
+                time += Time.deltaTime;
+                yield return null;
             }
         }
     }

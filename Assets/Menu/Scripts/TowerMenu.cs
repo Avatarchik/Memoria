@@ -5,14 +5,12 @@ namespace Memoria.Menu
 {
     public class TowerMenu : MonoBehaviour
     {
-
-        public int openFloor = 1;
-
+        public int openFloors;
         private List<GameObject> _menuItems;
 
         void Start () {
             _menuItems = new List<GameObject>();
-
+            openFloors = GameData.floorMax;
             foreach(Transform t in transform)
             {
                 if(t.gameObject.name.Contains("level"))
@@ -22,17 +20,17 @@ namespace Memoria.Menu
                 }
             }
         }
-    
+
         void Update () {
             SetVisible();
         }
-    
+
         public void SetVisible()
         {
-            for(int i = 0; i < openFloor; i++)
+            for(int i = 0; i <= openFloors; i++)
             {
                 _menuItems[i].SetActive(true);
-            }                
+            }
         }
 
         public void ClickButton(int floor)

@@ -28,6 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21b0c7ea969f4b2fb1d6a7c205c7030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberLabel: {fileID: 166584, guid: 08d7f938f78844f26a526a388d5c1ebd, type: 2}
 --- !u!222 &22238428
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -74,6 +75,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numberLabel
+      value: 
+      objectReference: {fileID: 166584, guid: 08d7f938f78844f26a526a388d5c1ebd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150888}

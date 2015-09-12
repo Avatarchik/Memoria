@@ -42,7 +42,7 @@ namespace Memoria.Battle.GameActors
             totalDmg *= GetElementalBonus(TargetParameters.elementAff);
             totalDmg *= TryCritical(AttackerParameters.criticalHit);
             totalDmg -= TargetParameters.defense;
-            totalDmg /= 3;
+            totalDmg /= 2;
             totalDamage = Mathf.CeilToInt(totalDmg);
 
             if(totalDamage < 0) { totalDamage = 0; }

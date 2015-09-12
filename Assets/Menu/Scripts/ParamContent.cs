@@ -13,18 +13,6 @@ namespace Memoria.Menu
         [SerializeField]
         private GameObject _statusPrefab;
 
-        [SerializeField]
-        private GameObject _numberLabel;
-
-
-        public GameObject numberLabel
-        {
-            get
-            {
-                return _numberLabel;
-            }
-        }
-
         Profile profile;
 
         void Start()

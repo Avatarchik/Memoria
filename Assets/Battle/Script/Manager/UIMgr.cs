@@ -127,13 +127,18 @@ namespace Memoria.Battle.Managers
 
         //************************************ Result
 
-        public void SpawnResult(Sprite resultSprite)
+        public void SpawnResult(Sprite resultSprite, bool boss)
         {
             var result = (_spawner.Spawn<Result>("UI/result")).GetComponent<Result>();
             result.ParentToUI();
             result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
             result.transform.position = new Vector3(0, 0, 1);
             _elements.Add("result", result);
+            if(boss)
+            {
+                if(GameData.floorMax + 1 < 2)
+                    GameData.floorMax += 1;
+            }
         }
 
         //************************************ Destroy
