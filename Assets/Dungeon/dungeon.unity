@@ -6561,6 +6561,7 @@ GameObject:
   - 222: {fileID: 1684194131}
   - 114: {fileID: 1684194130}
   - 95: {fileID: 1684194132}
+  - 114: {fileID: 1684194133}
   m_Layer: 5
   m_Name: Tips
   m_TagString: Untagged
@@ -6629,6 +6630,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1684194133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1684194128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c905a9550e248958b4c7bc3e411326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipsButton: {fileID: 41278971}
 --- !u!1 &1699313148
 GameObject:
   m_ObjectHideFlags: 0
