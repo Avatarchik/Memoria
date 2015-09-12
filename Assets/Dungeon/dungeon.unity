@@ -4879,7 +4879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1136206677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6560,6 +6560,7 @@ GameObject:
   - 224: {fileID: 1684194129}
   - 222: {fileID: 1684194131}
   - 114: {fileID: 1684194130}
+  - 95: {fileID: 1684194132}
   m_Layer: 5
   m_Name: Tips
   m_TagString: Untagged
@@ -6611,6 +6612,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1684194128}
+--- !u!95 &1684194132
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1684194128}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fae23cc6af13a45a582a2f7fb9771682, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1699313148
 GameObject:
   m_ObjectHideFlags: 0
