@@ -7,13 +7,11 @@
             nameplate = "Namebar_Iska";
             nameplateId = 2;
             ultimateAttack = "Iska_SP";
-            parameter.attack = 5425;
-            parameter.defense = 1691;
-//          parameter.mattack = 100;
-//          parameter.mdefense = 100;
-            parameter.speed = 2584;
-            parameter.hp = 1603;
-
+            parameter.attack = 849;
+            parameter.defense = 77;
+            parameter.speed = 258;
+            parameter.hp = 745;
+            parameter.criticalHit = 0.1f;
             parameter.elementAff = new ElementFire(Element.FIRE); 
 
             attackList.Add("Attack_Normal", gameObject.AddComponent<Iska_S1>());

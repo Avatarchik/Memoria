@@ -39,7 +39,7 @@ namespace Memoria.Battle.Managers
         private bool _setResultRunning;
 
         public List<GameObject> actorList;
-        public Element elementalAffinity = Element.THUNDER;
+        public Element elementalAffinity;
         public List<GameObject> enemyList;
         public List<GameObject> heroList;
         public MainPlayer mainPlayer;
@@ -54,11 +54,10 @@ namespace Memoria.Battle.Managers
             _dungeonData = FindObjectOfType<DungeonData>();
 
             // Debug
-
             if(_dungeonData == null)
             {
                 _dungeonData = new DungeonData();
-                _dungeonData.parameter = new DungeonParameter(10000, 10000, 0, 0, 1, 0, 0, 0, "j");
+                _dungeonData.parameter = new DungeonParameter(4500, 4500, 0, 0, 1, 0, 0, 0, "j");
                 for(int i = 0; i < _dungeonData.parameter.stocks.Length; i++){
                     _dungeonData.parameter.stocks[i] = 1;
                 }
@@ -73,7 +72,7 @@ namespace Memoria.Battle.Managers
                 {
                     "Amelia",
                     "Dhiel",
-                    "Aria",
+                    "Rizel",
                     "Iska"
                 };
 
@@ -81,14 +80,13 @@ namespace Memoria.Battle.Managers
                 {
                     typeof(Amelia),
                     typeof(Dhiel),
-                    typeof(Aria),
+                    typeof(Rizel),
                     typeof(Iska)
                 };
 
             InitBattleStates();
 
             mainPlayer = FindObjectOfType<MainPlayer>();
-            mainPlayer.health.hp = 10000;
 
             actorList = new List<GameObject>();
             enemyList = new List<GameObject> ();
@@ -184,8 +182,8 @@ namespace Memoria.Battle.Managers
             _attackTracker.RemoveFromQueue(e);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
 
-            EventMgr.Instance.Raise(new Memoria.Battle.Events.TurnEnds());
         }
+        
 
         private void SpawnHeroes()
         {
@@ -210,6 +208,7 @@ namespace Memoria.Battle.Managers
                 hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.parameter.stocks[i];
                 mainPlayer.health.maxHp = _dungeonData.parameter.maxHp;
                 mainPlayer.health.hp = _dungeonData.parameter.hp;
+                mainPlayer.parameter.defense += hero.GetComponent<Profile>().parameter.defense;
                 heroList.Add(hero);
                 actorList.Add(hero);
             }

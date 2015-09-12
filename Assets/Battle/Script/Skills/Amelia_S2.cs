@@ -11,12 +11,12 @@ namespace Memoria.Battle.GameActors
 			stockCost = 1;
 			animationDur = 210;
 			targetType = 'e';
-			selectType = TargetType.ALL;
+			selectType = TargetType.SINGLE;
 			elementalAff = new ElementThunder(Element.THUNDER);
 			effectObj = (GameObject)Resources.Load("Skills/Amelia_S2");
-			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_01";
-		}
+			parameters.attackPower = 1.4f;
+            spriteData = new SpriteData("01");
+        }
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{
@@ -27,7 +27,7 @@ namespace Memoria.Battle.GameActors
 		override public void PlayEffect (Entity target)
 		{
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y, -9);
+			particleEffect.transform.position = new Vector3 (target.transform.position.x, target.transform.position.y, 2);
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

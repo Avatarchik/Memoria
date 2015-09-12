@@ -45,6 +45,7 @@ namespace Memoria.Battle.GameActors
             EventMgr.Instance.AddListener<MonsterDies>(Die);
             attackReady = false;
             chargeReady = true;
+
         }
 
         public virtual bool Attack (AttackType attack)
@@ -84,9 +85,15 @@ namespace Memoria.Battle.GameActors
 
         protected virtual void UpdateOrder(TurnEnds gameEvent)
         {
+            if(gameEvent.monsterDied)
+            {
+                if((int)orderIndex == BattleMgr.Instance.actorList.Count - 2) curve = true;
+                EventMgr.Instance.Raise(new NewTurn(this, true,  curve, false));
+                return;
+            }
             bool moves = true;
             if(!charge)
-            {
+            {                 
                 orderIndex--;
                 if(orderIndex < 0) {
                     orderIndex =  BattleMgr.Instance.actorList.Count - 1;
@@ -94,8 +101,7 @@ namespace Memoria.Battle.GameActors
                 }
                 tracker.MoveTo(this, orderIndex);
             }
-            else
-            {
+            else {                
                 moves = false;
                 chargeReady = true;
             }
@@ -113,6 +119,7 @@ namespace Memoria.Battle.GameActors
             if((this.orderIndex) > gameEvent.killedEntity.orderIndex)
             {
                 tracker.MoveTo(this, orderIndex--);
+                EventMgr.Instance.Raise(new TurnEnds(true));
             }
         }
 
