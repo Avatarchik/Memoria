@@ -18,7 +18,6 @@ namespace Memoria.Battle.GameActors
 
         void Start()
         {
-//            pos = start;
             _animator = GetComponent<Animator>();
         }
 
@@ -26,7 +25,7 @@ namespace Memoria.Battle.GameActors
         {
             pos = start;
             played = false;
-            GetComponent<Image>().sprite = spriteList[id];
+            GetComponent<SpriteRenderer>().sprite = spriteList[id];
         }
 
 
@@ -37,7 +36,7 @@ namespace Memoria.Battle.GameActors
 
         public IEnumerator StopSequence()
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
 
             _animator.SetBool("enter", false);
             pos = start;

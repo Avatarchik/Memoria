@@ -8,12 +8,10 @@ namespace Memoria.Battle.GameActors
         {
             nameplate = "Namebar_WindSlime";
             nameplateId = 10;
-            parameter.attack = 8900;
-            parameter.defense = 1418;
-//          parameter.mattack = 10;
-//          parameter.mdefense = 10;
-            parameter.speed = 2144;
-            parameter.hp = 10000;
+            parameter.attack = 903;
+            parameter.defense = 123;
+            parameter.speed = 275;
+            parameter.hp = 510;
 
             parameter.elementAff = new ElementWind(Element.WIND); 
 

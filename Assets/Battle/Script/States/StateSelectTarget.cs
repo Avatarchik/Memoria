@@ -11,7 +11,6 @@ namespace Memoria.Battle.States
         Hero hero;
         float _timer;
         CancelButton _cancelButton;
-
         override public void Initialize()
         {
             hero = (Hero)nowActor;
@@ -21,15 +20,14 @@ namespace Memoria.Battle.States
                 if(hero.attackType.ultimate)
                 {
                     hero.target = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
-//                    battleMgr.SetState(State.RUNNING);
                 }
                 _cancelButton.Visible = true;
-                SetSelectable(nowActor.attackType.targetType, true);
+                SetSelectable(nowActor.attackType.targetType, true, nowActor.attackType.selectType);
             }
 
             if(hero.target == null)
             {
-                uiMgr.SpawnDescription(hero.attackType.descriptionSprite);
+                uiMgr.SpawnDescription(hero.attackType.spriteData.descSprite);
                 foreach(var actor in battleMgr.actorList.Where(x => x.GetComponent<BoxCollider2D>().enabled))
                 {
                     uiMgr.SpawnCursor(actor.GetComponent<Entity>().battleID, actor);
@@ -52,7 +50,7 @@ namespace Memoria.Battle.States
             {
                 EventMgr.Instance.RemoveListener<CancelSkill>(Cancel);
                 hero.SetTarget((IDamageable)hero.GetComponent<TargetSelector>().target);
-                uiMgr.SetCurorAnimation(hero.attackType.selectType, hero.target.ToString());
+                uiMgr.SetCurorAnimation(hero.attackType.selectType, (Entity)hero.target);
                 uiMgr.DestroyElement("frame");
                 _cancelButton.Visible = false;
                 SetSelectable(nowActor.attackType.targetType, false);
@@ -73,10 +71,17 @@ namespace Memoria.Battle.States
             }
         }
 
-        private void SetSelectable(char c, bool state)
+        private void SetSelectable(char c, bool state, TargetType targetType = TargetType.ALL)
         {
             if(hero.passToStock)
                 return;
+
+            if(targetType.Equals(TargetType.SELF))
+            {
+                nowActor.GetComponent<BoxCollider2D>().enabled = state;
+                return;
+            }
+
             foreach(var actor in battleMgr.actorList)
             {
                 var e = actor.GetComponent<Entity>();

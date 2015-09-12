@@ -8,12 +8,10 @@ namespace Memoria.Battle.GameActors
         {
             nameplate = "Namebar_FireBoss";
             nameplateId = 5;
-            parameter.attack = 9349;
-            parameter.defense = 1614;
-//          parameter.mattack = 10;
-//          parameter.mdefense = 10;
-            parameter.speed = 2468;
-            parameter.hp = 50000;
+            parameter.attack = 1500;
+            parameter.defense = 141;
+            parameter.speed = 230;
+            parameter.hp = 3500;
 
 			parameter.elementAff = new ElementFire(Element.FIRE);
 

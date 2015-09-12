@@ -8,7 +8,7 @@ namespace Memoria.Battle.GameActors
         void Start () {
             animationDur = 20;
             effectObj = (GameObject)Resources.Load("Skills/Enemy_Normal");
-            parameters.attackPower = -1;
+            parameters.attackPower = 1;
         }
 
         override public void Execute(Damage damage, IDamageable target)
