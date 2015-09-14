@@ -9,9 +9,9 @@ namespace Memoria.Battle.GameActors
             nameplate = "Namebar_WaterBoss";
             nameplateId = 4;
             parameter.attack = 936;
-            parameter.defense = 287;
+            parameter.defense = 297;
             parameter.speed = 189;
-            parameter.hp = 5000;
+            parameter.hp = 5500;
 
             parameter.elementAff = new ElementWater(Element.WATER);
 

@@ -48,7 +48,6 @@ namespace Memoria.Battle.Managers
                 default:
                     foreach(var c in _elements.Where(x => x.Key.Contains("cursor")))
                     {
-                        Debug.Log("ALL: " +c.Value);
                         c.Value.GetComponent<BattleCursor>().SelectAnimation();
                     }
                     break;
@@ -103,32 +102,15 @@ namespace Memoria.Battle.Managers
 
         public void UpdateNameplates(NewTurn e)
         {
-            Namebar barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
-            if(e.curve && barObj)
-            {
-                if(e.castingTime)
-                {
-                    GameObject particleEffect = Instantiate((GameObject)Resources.Load("effects/Effect_UI_210"));
-                    particleEffect.GetComponent<TrailObject>().objectToFollow = barObj.gameObject;
+            var barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
+            if(!barObj) {
+                return;
+            }
+//            Debug.Log(e.entity.orderIndex +" : "+ e.entity);
+            barObj.SlotPos = (int)e.entity.orderIndex;
+            if(e.entity.charge)
+                barObj.CastingEffect();
 
-                    particleEffect.gameObject.name = e.entity.battleID +"_casting";
-                }
-                else if(!e.castingTime && GameObject.Find(e.entity.battleID +"_casting") != null)
-                {
-                    Destroy(GameObject.Find(e.entity.battleID +"_casting"));
-                }
-                barObj.CurvedMove(_queueSlots[(int)e.entity.orderIndex]);
-                barObj.transform.SetAsLastSibling();
-            }
-            else if(e.moved && barObj)
-            {
-                barObj.FallDown(_queueSlots[(int)e.entity.orderIndex]);
-                if(e.entity.orderIndex == 0)
-                {
-                    barObj.transform.SetAsLastSibling();
-                    barObj.SetScale(new Vector2(1.5f, 1.5f));
-                }
-            }
         }
 
         //************************************ Description frame
@@ -145,13 +127,18 @@ namespace Memoria.Battle.Managers
 
         //************************************ Result
 
-        public void SpawnResult(Sprite resultSprite)
+        public void SpawnResult(Sprite resultSprite, bool boss)
         {
             var result = (_spawner.Spawn<Result>("UI/result")).GetComponent<Result>();
             result.ParentToUI();
             result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
             result.transform.position = new Vector3(0, 0, 1);
             _elements.Add("result", result);
+            if(boss)
+            {
+                if(GameData.floorMax + 1 < 2)
+                    GameData.floorMax += 1;
+            }
         }
 
         //************************************ Destroy
@@ -169,6 +156,11 @@ namespace Memoria.Battle.Managers
             {
                 _elements.Remove(element);
             }
+        }
+
+        public void Clear()
+        {
+            _elements.Clear();
         }
     }
 }

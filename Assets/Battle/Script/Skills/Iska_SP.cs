@@ -11,7 +11,7 @@ namespace Memoria.Battle.GameActors
 			phaseCost = 3;
             cutIn = 2;
 			stockCost = 3;
-			animationDur = 210;
+			animationDur = 550; //550;
 			targetType = 'e';
 			selectType = TargetType.ALL;
 			elementalAff = new ElementFire(Element.FIRE);

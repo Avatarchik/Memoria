@@ -14,49 +14,36 @@ namespace Memoria.Battle.GameActors
         // TODO: Finalize calcunations
         public int Calculate()
         {
-            var totalDmg = (float)AttackerParameters.attack;
-            var critBonus = TryCritical(AttackerParameters.criticalHit);
-
+            /*
             Debug.Log("Attackers attack power: "+ totalDmg);
-
 
             Debug.Log("Skill bonus: "+ totalDmg +" * "+
                       (float)DamageParameters.attackPower +" = "+
                       (totalDmg *= (float)DamageParameters.attackPower));
-            //totalDmg *= (float)DamageParameters.attackPower;
-
-
-            if(AttackerParameters.blockBonus) {
-                Debug.Log("Block bonus: "+ totalDmg +" * 2 = "+ (totalDmg *= 2));
-                //totalDmg *= 2;
-            }
-
-
+            Debug.Log("Block bonus: "+ totalDmg +" * "+
+                      GetBlockBonus(AttackerParameters.blockBonus) +" = "+
+                      (totalDmg *= GetBlockBonus(AttackerParameters.blockBonus)));
             Debug.Log("Elemental Bonus: "+ totalDmg +" * "+
                       GetElementalBonus(TargetParameters.elementAff) +" = "+
                       (totalDmg *= GetElementalBonus(TargetParameters.elementAff)));
-            //totalDmg *= GetElementalBonus(TargetParameters.elementAff);
-
-
             Debug.Log("Critical Hit Bonus: "+ totalDmg +" * "+
                       TryCritical(AttackerParameters.criticalHit) +" = "+
-                      (totalDmg *= critBonus));
-            //totalDmg *= critBonus;
-
-
+                      (totalDmg *= TryCritical(AttackerParameters.criticalHit)));
             Debug.Log("Defense Check: "+ totalDmg +" - "+
                       TargetParameters.defense +" = "+
                       (totalDmg -= TargetParameters.defense));
-
-            //totalDmg -= TargetParameters.defense;
-
-
             Debug.Log("Divide by 3: "+ totalDmg +" / 3 = "+
                       (totalDmg /= 3));
-            //totalDmg /= 3;
+            */
+            var totalDmg = (float)AttackerParameters.attack;
 
+            totalDmg *= (float)DamageParameters.attackPower;
+            totalDmg *= GetBlockBonus(AttackerParameters.blockBonus);
+            totalDmg *= GetElementalBonus(TargetParameters.elementAff);
+            totalDmg *= TryCritical(AttackerParameters.criticalHit);
+            totalDmg -= TargetParameters.defense;
+            totalDmg /= 2;
             totalDamage = Mathf.CeilToInt(totalDmg);
-
 
             if(totalDamage < 0) { totalDamage = 0; }
             return totalDamage;
@@ -67,15 +54,15 @@ namespace Memoria.Battle.GameActors
             return((float)(int)AttackerParameters.elementAff.CheckAgainstElement(testElement) / 2);
         }
 
+        public float GetBlockBonus(bool bonus)
+        {
+            return (bonus) ? 2.0f : 1.0f;
+        }
+
         public float TryCritical(float critChance)
         {
             var r = new System.Random();
-            for(float i = 0; i < 100; i += 0.01f)
-            {
-                if((r.Next(0, 100).Equals(100)))
-                    return 2.0f;
-            }
-            return 1.0f;
+            return (r.Next(0, 100) <= (critChance * 100)) ? 2.0f : 1.0f;
         }
 
         public void Appear(Vector3 pos, bool heal = false)
