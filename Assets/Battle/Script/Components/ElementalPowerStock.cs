@@ -23,23 +23,14 @@ namespace Memoria.Battle.GameActors
 
     public class ElementalPowerStock : MonoBehaviour
     {
-        [SerializeField]
         private Sprite _sprite;
-
-        [SerializeField]
-        private int stockLength = 3;
-
-        [SerializeField]
         private float offsetX = -0.8f;
-
-        [SerializeField]
-        private float offsetY = -0.8f;
-
-        [SerializeField]
+        private float offsetY = -1.2f;
         private float spaceOffset = 0.8f;
-
-        [SerializeField]
+        private int stockLength = 3;
         private int layerOffset = 10;
+        private Type _imageType;
+        private GameObject[] _stockObj;
 
         public int stock;
         public ObjectType objType;
@@ -48,28 +39,35 @@ namespace Memoria.Battle.GameActors
         public bool Full;
         public float scale = 1.5f;
 
-        private Type _imageType;
-        private GameObject[] _stockObj;
 
-        public float OffsetX { get
+        public float OffsetX {
+            get
             {
                 return offsetX;
             }
         }
-        public float OffsetY { get
+        public float OffsetY {
+            get
             {
                 return offsetY;
             }
         }
-        public float SpaceOffset { get
+        public float SpaceOffset {
+            get
             {
                 return spaceOffset;
             }
         }
-        public float LayerOffset { get
+        public float LayerOffset {
+            get
             {
                 return layerOffset;
             }
+        }
+        public string SortingLayer
+        {
+            get;
+            set;
         }
         
 
@@ -97,14 +95,17 @@ namespace Memoria.Battle.GameActors
                 obj.name = "PowerStock_" + i;
                 obj.AddComponent(_imageType);
                 obj.transform.SetParent(this.transform, false);
-
                 switch(objType)
                 {
                     case ObjectType.UI_OBJECT:
-                        obj.GetComponent<Image>().sprite = _sprite;
+                        var img = obj.GetComponent<Image>();
+                        img.sprite = _sprite;
                         break;
                     case ObjectType.NORMAL:
-                        obj.GetComponent<SpriteRenderer>().sprite = _sprite;
+                        var sr = obj.GetComponent<SpriteRenderer>();
+                        sr.sprite = _sprite;
+                        sr.sortingOrder = 0;
+                        sr.sortingLayerName = SortingLayer;
                         break;
                 }
 

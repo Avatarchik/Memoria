@@ -41,6 +41,7 @@ namespace Memoria.Battle.Utility
         public IEnumerator DeadEffect()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer> ();
+
             float interval = 1;
             float time = 0;
 

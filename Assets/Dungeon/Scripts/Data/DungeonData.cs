@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon.Managers;
 using Memoria.Dungeon.Items;
@@ -14,6 +15,8 @@ namespace Memoria.Dungeon
         public StageData stageData { get; set; }
 
         public BlockType battleType { get; private set; }
+        public int enemyPattern { get; private set; }
+        public bool isBossBattle { get; private set; }
 
         private int direction;
 
@@ -42,7 +45,8 @@ namespace Memoria.Dungeon
             // 初期化時
             if (!initialized)
             {
-                int floor = 0;
+                dungeonManager.EnterState(DungeonState.Initialize);
+                int floor = PlayerPrefs.GetInt("floor");
                 stageData = StageDataManager.instance.Prepare(floor);
                 direction = 2;
                 location = new Vector2Int(0, 0);
@@ -57,13 +61,32 @@ namespace Memoria.Dungeon
                     hp: stageData.maxHp,
                     maxSp: stageData.maxSp,
                     sp: stageData.maxSp,
+                    dungeonId: stageData.dungeonId,
                     floor: stageData.floor,
                     allKeyNum: keyNum,
                     silling: 0,
                     skill: "none");
-            }
 
-            (new GameObject()).AddComponent<SpriteRenderer>().sprite = stageData.areaSprite;
+                Observable.Return(1)
+                    .Delay(System.TimeSpan.FromSeconds(1.5f))
+                    .Do(_ =>
+                    {
+                        Animator ui = GameObject.Find("Canvas").GetComponent<Animator>();
+                        ui.SetFloat("floor", stageData.floor);
+                        ui.SetTrigger("show");
+                    })
+                    .Delay(System.TimeSpan.FromSeconds(1))
+                    .Subscribe(_ =>
+                    {
+                        dungeonManager.ExitState();
+                    });
+            }
+            
+            foreach (var sprite in stageData.areaSprites)
+            {
+                (new GameObject()).AddComponent<SpriteRenderer>().sprite = sprite;
+            }
+            
             player.direction = direction;
             player.SetPosition(location);
 
@@ -101,21 +124,17 @@ namespace Memoria.Dungeon
 
         public void SetIsBossBattle(bool isBossBattle)
         {
-            var param = parameter;
-            param.isBossBattle = isBossBattle;
-            parameter = param;
+            this.isBossBattle = isBossBattle;
         }
 
         public void SetBattleType(BlockType battleType)
         {
             this.battleType = battleType;
         }
-        
+
         public void SetEnemyPattern(int id)
         {
-            var param = parameter;
-            param.enemyPattern = id;
-            parameter = param;
+            this.enemyPattern = id;
         }
 
         public List<BlockData> LoadMapData(string mapDataPath)

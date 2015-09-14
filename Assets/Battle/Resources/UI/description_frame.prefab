@@ -30,7 +30,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 47c285cfc68d9472b96ab561a2ddc3e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a54480a6dacb4661848c68908bf181c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -59,7 +59,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -.154104054, y: -1.55811858}
-  m_SizeDelta: {x: 650, y: 100}
+  m_SizeDelta: {x: 1000, y: 150}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
@@ -75,15 +75,15 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 47c285cfc68d9472b96ab561a2ddc3e2,
+      objectReference: {fileID: 21300000, guid: 1a54480a6dacb4661848c68908bf181c,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_SizeDelta.x
-      value: 650
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

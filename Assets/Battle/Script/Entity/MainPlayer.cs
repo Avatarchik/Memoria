@@ -1,4 +1,5 @@
-﻿using Memoria.Battle.Utility;
+﻿using UnityEngine;
+using Memoria.Battle.Utility;
 
 namespace Memoria.Battle.GameActors
 {
@@ -11,8 +12,6 @@ namespace Memoria.Battle.GameActors
         {
             entityType = "Player";
             health = GetComponent<HealthSystem> ();
-            health.maxHp = 250;
-            health.hp = 250;
             parameter.elementAff = new NoElement(Element.NONE);
         }
 
@@ -31,13 +30,16 @@ namespace Memoria.Battle.GameActors
 
         public void TakeDamage(Damage damage)
         {
+            var healthBar = GameObject.FindObjectOfType<HealthBar>();
             damage.TargetParameters = parameter;
 
-            if(damage.Calculate() < 0) {
-                Heal(damage.Calculate());
+            if(damage.totalDamage < 0) {
+                Heal(damage.totalDamage);
+                damage.Appear(healthBar.gameObject.transform.position, true);
             }
             else {
                 health.hp -= damage.Calculate();
+                damage.Appear(healthBar.gameObject.transform.position);
             }
         }
 

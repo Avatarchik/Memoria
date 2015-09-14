@@ -10,6 +10,7 @@ namespace Memoria.Battle.GameActors
         public AttackType attackType;
         public string ultimateAttack;
         public string nameplate { get; set; }
+        public int nameplateId { get;set; }
         public Dictionary<string, AttackType> attackList = new Dictionary<string, AttackType>();
     }
 }

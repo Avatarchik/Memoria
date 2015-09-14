@@ -78,7 +78,15 @@ namespace Memoria.Dungeon.BlockEvents
         private IEnumerator CoroutineBattleToBoss(Block block)
         {
             dungeonManager.dungeonData.SetIsBossBattle(true);            
-            dungeonManager.dungeonData.SetBattleType(block.blockType);
+            
+            if (block.blockType == BlockType.Recovery)
+            {
+                dungeonManager.dungeonData.SetBattleType(BlockType.None);
+            }
+            else
+            {
+                dungeonManager.dungeonData.SetBattleType(block.blockType);
+            }
 
             int idMin = dungeonManager.dungeonData.stageData.bossPatternIdMin;
             int idMax = dungeonManager.dungeonData.stageData.bossPatternIdMax;

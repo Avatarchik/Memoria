@@ -8,6 +8,7 @@ namespace Memoria.Dungeon.Managers
     public enum DungeonState
     {
         None,
+        Initialize,
         BlockOperating,
         PlayerMoving,
         BlockEvent,
@@ -163,7 +164,6 @@ namespace Memoria.Dungeon.Managers
 
         public void Leave()
         {
-            Destroy(dungeonData.gameObject);
             Application.LoadLevel("menu");
         }
     }
