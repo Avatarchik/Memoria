@@ -854,7 +854,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: menu-new
+          m_StringArgument: menu
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 933258876}
@@ -1000,6 +1000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2097c650c976a1f4ca424e430a6b4482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollSpeed: .0500000007
+  yMin: -13
+  yMax: 13
 --- !u!64 &1423643470
 MeshCollider:
   m_ObjectHideFlags: 0
