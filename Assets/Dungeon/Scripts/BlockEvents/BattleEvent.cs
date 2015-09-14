@@ -81,11 +81,11 @@ namespace Memoria.Dungeon.BlockEvents
             
             if (block.blockType == BlockType.Recovery)
             {
-                dungeonManager.dungeonData.SetBattleType(block.blockType);
+                dungeonManager.dungeonData.SetBattleType(BlockType.None);
             }
             else
             {
-                dungeonManager.dungeonData.SetBattleType(BlockType.None);
+                dungeonManager.dungeonData.SetBattleType(block.blockType);
             }
 
             int idMin = dungeonManager.dungeonData.stageData.bossPatternIdMin;

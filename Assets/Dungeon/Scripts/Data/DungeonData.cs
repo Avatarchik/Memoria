@@ -76,13 +76,17 @@ namespace Memoria.Dungeon
                         ui.SetTrigger("show");
                     })
                     .Delay(System.TimeSpan.FromSeconds(1))
-                    .Subscribe(_ => 
+                    .Subscribe(_ =>
                     {
                         dungeonManager.ExitState();
                     });
             }
-
-            (new GameObject()).AddComponent<SpriteRenderer>().sprite = stageData.areaSprite;
+            
+            foreach (var sprite in stageData.areaSprites)
+            {
+                (new GameObject()).AddComponent<SpriteRenderer>().sprite = sprite;
+            }
+            
             player.direction = direction;
             player.SetPosition(location);
 
@@ -127,7 +131,7 @@ namespace Memoria.Dungeon
         {
             this.battleType = battleType;
         }
-        
+
         public void SetEnemyPattern(int id)
         {
             this.enemyPattern = id;

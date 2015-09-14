@@ -33,8 +33,13 @@ namespace Memoria.Battle.GameActors
         {
             _precentDivided = GetHealthPercent10();
 
-            if(_precentDivided < 0) {
+            if(_precentDivided <= 0) {
                 _precentDivided = 0;
+            }
+
+            if(_precentDivided == 0 && _mainPlayer.health.hp > 0)
+            {
+                _precentDivided = 1;
             }
 
             UpdateHealthBar(_precentDivided);
