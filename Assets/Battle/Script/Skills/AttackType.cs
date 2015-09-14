@@ -2,7 +2,24 @@
 
 namespace Memoria.Battle.GameActors
 {
+
     abstract public class AttackType : MonoBehaviour {
+
+        public struct SpriteData
+        {
+            public string skillId;
+            public string descSprite;
+            public string barSprite;
+
+            public SpriteData(string id)
+            {
+                this.skillId = id;
+                this.descSprite = "skill_info_" + skillId;
+                this.barSprite = "skill_bar_" + skillId;
+            }
+        }
+ 
+        public SpriteData spriteData;
 
         protected int animationDur;
 

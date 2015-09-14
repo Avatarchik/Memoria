@@ -8,8 +8,14 @@ namespace Memoria.Battle.GameActors
     public class Namebar : UIElement
     {
         Vector3 pos;
-        public List<Sprite> spriteList = new List<Sprite>();
+        Vector3[] slotTable;
 
+        int currentPos;
+        Sprite sprite;
+
+        public bool casting;
+        public List<Sprite> spriteList = new List<Sprite>();
+        
         public static float X
         {
             get
@@ -17,6 +23,7 @@ namespace Memoria.Battle.GameActors
                 return  -8.0f;
             }
         }
+        
         public static float Y
         {
             get
@@ -24,17 +31,50 @@ namespace Memoria.Battle.GameActors
                 return 0.5f;
             }
         }
+        public int SlotPos
+        {
+            get
+            {
+                return currentPos;
+            }
+            set
+            {
+                if(value > currentPos)
+                {
+                    CastingOff();
+                    this.transform.SetAsLastSibling();
+                    CurvedMove(slotTable[value]);
+                }
+                else
+                {
+                    if(value == 0) {
+                        this.transform.SetAsLastSibling();
+                        SetScale(new Vector2(1.5f, 1.5f));
+                    }
+                    FallDown(slotTable[value]);
+                }
+                currentPos = value;
+            }
+        }
+
         override public void Init()
         {
             spriteFolder = "UI/";
+            transform.position = slotTable[SlotPos];
+            sprite = GetComponent<Image>().sprite;
         }
 
 
         void Update()
         {
         }
+        
+        public void FixPos()
+        {
+            transform.position = slotTable[SlotPos];
+        }
 
-        public void  SetSprite(int id)
+        public void SetSprite(int id)
         {
             GetComponent<Image>().sprite = spriteList[id];
         }
@@ -97,44 +137,9 @@ namespace Memoria.Battle.GameActors
             }
         }
 
-        public void Attach(Vector3 endPos)
+        public void SetSlotTable(Vector3[] table)
         {
-            var pos = transform.position;
-            pos.x = endPos.x;
-            pos.y = endPos.y;
-            transform.position = pos;
-        }
-
-        public void Detach(float x, float y)
-        {
-            var pos = transform.position;
-            pos.x += x;
-            pos.y += y;
-            transform.position = pos;
-        }
-
-
-        public IEnumerator DetatchedMove(Vector3 endPos)
-        {
-            yield return new WaitForSeconds(0.1f);
-            float xOffset = -0.3f;
-            float yOffset = -0.3f;
-
-
-            Detach(xOffset, yOffset);
-            Vector3 thisPos = transform.position;
-
-            while(transform.position.y < endPos.y + yOffset)
-            {
-                thisPos.y += 0.1f;
-                transform.position = thisPos;
-                if(thisPos.y > endPos.y + yOffset)
-                {
-                    Attach(endPos);
-                    break;
-                }
-                yield return null;
-            }
+            slotTable = table;
         }
 
         public void SetScale(Vector2 scale)
@@ -142,5 +147,19 @@ namespace Memoria.Battle.GameActors
             this.transform.localScale = scale;
         }
 
+        public void CastingEffect()
+        {
+            GameObject particleEffect = Instantiate((GameObject)Resources.Load("effects/Effect_UI_210"));
+            particleEffect.GetComponent<TrailObject>().objectToFollow = this.gameObject;
+                
+            particleEffect.gameObject.name = this +"_casting";
+        }
+        public void CastingOff()
+        {
+            GameObject effectObj = GameObject.Find(this +"_casting");
+            if(effectObj) {
+                Destroy(effectObj);
+            }
+        }
     }
 }

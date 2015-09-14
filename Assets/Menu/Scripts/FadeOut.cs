@@ -2,7 +2,11 @@
 using System.Collections;
 
 public class FadeOut : MonoBehaviour {
-
+    SpriteRenderer sr;
+    void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
     public void LoadLevel(string name)
     {
         Application.LoadLevel(name);
