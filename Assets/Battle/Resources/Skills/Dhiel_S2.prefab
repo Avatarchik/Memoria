@@ -62,6 +62,7 @@ GameObject:
   - 198: {fileID: 19895914}
   - 199: {fileID: 19929574}
   - 114: {fileID: 11488718}
+  - 114: {fileID: 11442730}
   m_Layer: 0
   m_Name: Dhiel_S2
   m_TagString: Untagged
@@ -180,13 +181,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 428766}
   m_RootOrder: 0
---- !u!114 &11488718
+--- !u!114 &11442730
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162054}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd3a9663c41947d78dcf4f291833ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rounds: 3
+  _hasteValue: 1
+  user: {fileID: 0}
+--- !u!114 &11488718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162054}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07ed5df8f84774c48bb7b39b927ae6f6, type: 3}
   m_Name: 
@@ -6457,6 +6472,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

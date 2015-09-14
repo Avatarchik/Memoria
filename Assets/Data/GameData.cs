@@ -21,25 +21,25 @@ namespace Memoria
 
                 return PlayerPrefs.GetInt(keySilling);
             }
-            
+
             set { PlayerPrefs.SetInt(keySilling, value); }
         }
-        
+
         public static int floorMax
         {
-            get 
+            get
             {
                 if (!PlayerPrefs.HasKey(keyFloorMax))
                 {
                     PlayerPrefs.SetInt(keyFloorMax, 0);
                 }
-                
+
                 return PlayerPrefs.GetInt(keyFloorMax);
             }
-            
+
             set { PlayerPrefs.SetInt(keyFloorMax, value); }
         }
-        
+
         public static bool hasPassiveItem1
         {
             get
@@ -51,10 +51,10 @@ namespace Memoria
 
                 return PlayerPrefs.GetInt(keyHasPassiveItem1) != 0;
             }
-            
+
             set { PlayerPrefs.SetInt(keyHasPassiveItem1, value ? 1 : 0); }
         }
-        
+
         public static bool hasPassiveItem2
         {
             get
@@ -63,13 +63,13 @@ namespace Memoria
                 {
                     PlayerPrefs.SetInt(keyHasPassiveItem2, 0);
                 }
-                
+
                 return PlayerPrefs.GetInt(keyHasPassiveItem2) != 0;
             }
-            
+
             set { PlayerPrefs.SetInt(keyHasPassiveItem2, value ? 1 : 0); }
         }
-        
+
         public static void Reset()
         {
             silling = 0;

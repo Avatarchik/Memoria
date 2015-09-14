@@ -9,8 +9,11 @@ namespace Memoria.Battle.GameActors
     {
         Vector3 pos;
         Vector3[] slotTable;
-        int currentPos;
 
+        int currentPos;
+        Sprite sprite;
+
+        public bool casting;
         public List<Sprite> spriteList = new List<Sprite>();
         
         public static float X
@@ -28,7 +31,6 @@ namespace Memoria.Battle.GameActors
                 return 0.5f;
             }
         }
-
         public int SlotPos
         {
             get
@@ -39,10 +41,16 @@ namespace Memoria.Battle.GameActors
             {
                 if(value > currentPos)
                 {
+                    CastingOff();
+                    this.transform.SetAsLastSibling();
                     CurvedMove(slotTable[value]);
                 }
                 else
                 {
+                    if(value == 0) {
+                        this.transform.SetAsLastSibling();
+                        SetScale(new Vector2(1.5f, 1.5f));
+                    }
                     FallDown(slotTable[value]);
                 }
                 currentPos = value;
@@ -53,19 +61,20 @@ namespace Memoria.Battle.GameActors
         {
             spriteFolder = "UI/";
             transform.position = slotTable[SlotPos];
+            sprite = GetComponent<Image>().sprite;
         }
 
 
         void Update()
         {
         }
-
+        
         public void FixPos()
         {
             transform.position = slotTable[SlotPos];
         }
 
-        public void  SetSprite(int id)
+        public void SetSprite(int id)
         {
             GetComponent<Image>().sprite = spriteList[id];
         }
@@ -133,54 +142,24 @@ namespace Memoria.Battle.GameActors
             slotTable = table;
         }
 
-
-
-
-
-        public void Attach(Vector3 endPos)
-        {
-            var pos = transform.position;
-            pos.x = endPos.x;
-            pos.y = endPos.y;
-            transform.position = pos;
-        }
-
-        public void Detach(float x, float y)
-        {
-            var pos = transform.position;
-            pos.x += x;
-            pos.y += y;
-            transform.position = pos;
-        }
-
-
-        public IEnumerator DetatchedMove(Vector3 endPos)
-        {
-            yield return new WaitForSeconds(0.1f);
-            float xOffset = -0.3f;
-            float yOffset = -0.3f;
-
-
-            Detach(xOffset, yOffset);
-            Vector3 thisPos = transform.position;
-
-            while(transform.position.y < endPos.y + yOffset)
-            {
-                thisPos.y += 0.1f;
-                transform.position = thisPos;
-                if(thisPos.y > endPos.y + yOffset)
-                {
-                    Attach(endPos);
-                    break;
-                }
-                yield return null;
-            }
-        }
-
         public void SetScale(Vector2 scale)
         {
             this.transform.localScale = scale;
         }
 
+        public void CastingEffect()
+        {
+            GameObject particleEffect = Instantiate((GameObject)Resources.Load("effects/Effect_UI_210"));
+            particleEffect.GetComponent<TrailObject>().objectToFollow = this.gameObject;
+                
+            particleEffect.gameObject.name = this +"_casting";
+        }
+        public void CastingOff()
+        {
+            GameObject effectObj = GameObject.Find(this +"_casting");
+            if(effectObj) {
+                Destroy(effectObj);
+            }
+        }
     }
 }
