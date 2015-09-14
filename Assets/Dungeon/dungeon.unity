@@ -6906,6 +6906,11 @@ Prefab:
       propertyPath: setActiveObjects.Array.data[6]
       value: 
       objectReference: {fileID: 933289686}
+    - target: {fileID: 21280496, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300032, guid: c0e34480589feec4b86147795822f968,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
   m_IsPrefabParent: 0
