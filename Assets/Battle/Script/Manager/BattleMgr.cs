@@ -33,17 +33,21 @@ namespace Memoria.Battle.Managers
         private BattleState _currentState;
         private Dictionary<State, BattleState> _battleStates;
         private Type[] _profileType;
+        private Type[][] _enemyGroup;
+        private System.Random _rand;
+        private EnemyPatterns _enemies;
 
         private bool _setResultRunning;
 
         public List<GameObject> actorList;
-        public Element elementalAffinity = Element.THUNDER;
+        public Element elementalAffinity;
         public List<GameObject> enemyList;
         public List<GameObject> heroList;
         public MainPlayer mainPlayer;
 
         public UIMgr UiMgr { get { return _uiMgr; } }
         public AttackTracker AttackTracker { get { return _attackTracker; } }
+        public bool IsBoss { get; set; }
 
         public float AttackAnimation { get; set; }
 
@@ -51,16 +55,25 @@ namespace Memoria.Battle.Managers
         {
             _dungeonData = FindObjectOfType<DungeonData>();
 
-            if(_dungeonData != null)
+            #if DEBUG
+            if(_dungeonData == null)
             {
+                _dungeonData = new DungeonData();
+                _dungeonData.parameter = new DungeonParameter(4500, 4500, 0, 0, 1, 0, 0, 0, "j");
+                for(int i = 0; i < _dungeonData.parameter.stocks.Length; i++){
+                    _dungeonData.parameter.stocks[i] = 3;
+                }
+                _dungeonData.SetIsBossBattle(true);
                 elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
             }
+
+            #endif
 
             _party = new string[]
                 {
                     "Amelia",
                     "Dhiel",
-                    "Aria",
+                    "Rizel",
                     "Iska"
                 };
 
@@ -68,21 +81,22 @@ namespace Memoria.Battle.Managers
                 {
                     typeof(Amelia),
                     typeof(Dhiel),
-                    typeof(Aria),
+                    typeof(Rizel),
                     typeof(Iska)
                 };
+
+            IsBoss = _dungeonData.isBossBattle;
 
             InitBattleStates();
 
             mainPlayer = FindObjectOfType<MainPlayer>();
-            mainPlayer.health.hp = 10000;
-
             actorList = new List<GameObject>();
             enemyList = new List<GameObject> ();
+
             _spawner = FindObjectOfType<ActorSpawner>();
             _attackTracker = FindObjectOfType<AttackTracker>();
             _uiMgr = FindObjectOfType<UIMgr> ();
-
+            _enemies = new EnemyPatterns();
         }
 
         void Start()
@@ -122,20 +136,6 @@ namespace Memoria.Battle.Managers
                 };
         }
 
-        public void SetState(State state)
-        {
-            _currentState.EndState();
-            if(_battleStates.ContainsKey(state))
-            {
-                _currentState = _battleStates[state];
-            }
-        }
-
-        public void SetCurrentActor()
-        {
-            _nowActor = _attackTracker.currentActor;
-        }
-
         public bool BattleOver()
         {
             if (actorList.Count == 4 && !_setResultRunning)
@@ -158,8 +158,11 @@ namespace Memoria.Battle.Managers
 
         public void LoadLevel(string scene)
         {
-            EventMgr.Instance.Clear();
             UpdateParameters();
+            EventMgr.Instance.Clear();
+            UiMgr.Clear();
+            actorList.Clear();
+            enemyList.Clear();
             Application.LoadLevel(scene);
         }
 
@@ -171,7 +174,6 @@ namespace Memoria.Battle.Managers
             _uiMgr.DestroyElement("Namebar_"+ entityId);
             _attackTracker.RemoveFromQueue(e);
             actorList.RemoveAll(x => x.GetComponent<Entity>().battleID.Equals(entityId));
-
         }
 
         private void SpawnHeroes()
@@ -186,19 +188,18 @@ namespace Memoria.Battle.Managers
                 hero.transform.position = pos;
 
                 //Change to relative positions
-                float xOffset = (i < 2) ? 2.0f : -5.3f;
+                float xOffset = (i < 2) ? 2.0f : -10.0f;
                 skillPos.x = hero.transform.position.x + xOffset;
                 skillPos.y = hero.transform.position.y;
 
                 hero.name = hero.GetComponent<Profile>().GetType().ToString();
                 hero.GetComponent<Profile>().skillPos = skillPos;
                 hero.GetComponent<BoxCollider2D>().enabled = false;
-                hero.GetComponent<Namebar>().spriteResource = hero.GetComponent<Profile>().nameplate;
                 hero.GetComponent<Hero>().battleID = "h0" + i;
-//                hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.parameter.stocks[i];
-                mainPlayer.health.maxHp += hero.GetComponent<Profile>().parameter.hp;
-//                mainPlayer.health.maxHp = _dungeonData.parameter.maxHp;
-//                mainPlayer.health.hp = _dungeonData.parameter.hp;
+                hero.GetComponent<ElementalPowerStock>().stock = _dungeonData.parameter.stocks[i];
+                mainPlayer.health.maxHp = _dungeonData.parameter.maxHp;
+                mainPlayer.health.hp = _dungeonData.parameter.hp;
+                mainPlayer.parameter.defense += hero.GetComponent<Profile>().parameter.defense;
                 heroList.Add(hero);
                 actorList.Add(hero);
             }
@@ -206,20 +207,36 @@ namespace Memoria.Battle.Managers
 
         private void SpawnEnemies()
         {
-            Type[] enemies = GetRandomEnemies();
+            Type[] enemies = (_dungeonData.isBossBattle) ?
+                GetRandomBoss() :
+                GetRandomEnemies(_dungeonData.parameter.floor, _dungeonData.enemyPattern);
             for(int i = 0; i < enemies.Length; i++)
             {
+                string[] enemy = enemies[i].ToString().Split('.');
                 var pos = new Vector3((enemies.Length / 2.5f - enemies.Length + i * 3f), 0.0f, -9);
-                GameObject randomEnemy = _spawner.Spawn<Enemy>("Monsters/monster0" + i, enemies[i]);
+                GameObject randomEnemy = _spawner.Spawn<Enemy>("Monsters/" + enemy[3], enemies[i]);
 
                 randomEnemy.LoadComponentsFromList(randomEnemy.GetComponent<Entity>().components);
                 randomEnemy.transform.position = pos;
                 randomEnemy.GetComponent<Enemy>().battleID = "e0" + i;
-                randomEnemy.GetComponent<Namebar>().spriteResource = randomEnemy.GetComponent<Profile>().nameplate;
                 randomEnemy.GetComponent<BoxCollider2D>().enabled = false;
                 enemyList.Add(randomEnemy);
                 actorList.Add(randomEnemy);
             }
+        }
+
+        public void SetState(State state)
+        {
+            _currentState.EndState();
+            if(_battleStates.ContainsKey(state))
+            {
+                _currentState = _battleStates[state];
+            }
+        }
+
+        public void SetCurrentActor()
+        {
+            _nowActor = _attackTracker.currentActor;
         }
 
         private void UpdateParameters()
@@ -242,11 +259,16 @@ namespace Memoria.Battle.Managers
             yield return null;
         }
 
-        // Temporary, final value likely to be recieved from dungeon data.
-        private Type[] GetRandomEnemies()
+        private Type[] GetRandomEnemies(int floor, int id)
         {
-            Type[] result = { typeof(Golem) };
-            return result;
+            print(id);
+            return _enemies.GetNormalPattern(floor, id);
+        }
+
+        private Type[] GetRandomBoss()
+        {
+            _rand = new System.Random();
+            return _enemies.GetBossPattern(_rand.Next(0, 3));
         }
 
         private void SetStock()

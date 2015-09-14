@@ -22,6 +22,11 @@ namespace Memoria.Battle.GameActors
 
         public string spriteResource;
         public string spriteFolder;
+        public Vector3 Position
+        {
+            get { return this.transform.localPosition; }
+            set { this.transform.localPosition = value; }
+        }
 
         public bool moveable { get; private set; }
 

@@ -37,7 +37,7 @@ namespace Memoria.Battle.Managers
                 foreach(var orderId in attackOrder)
                 {
                     if(orderId.Value > pos) {
-                        orderId.Key.charge = true;
+                        orderId.Key.wait= true;
                     }
                 }
             }
@@ -80,11 +80,10 @@ namespace Memoria.Battle.Managers
 
         public Vector3[] GetSlots()
         {
-            Namebar n = FindObjectOfType<Namebar>();
             Vector3[] result = new Vector3[attackOrder.Count];
             for(int i = 0; i < attackOrder.Count; i++)
             {
-                result[i] = new Vector3(n.X, n.Y - ((i - 4)), 1);
+                result[i] = new Vector3(Namebar.X, Namebar.Y - ((i - 4)), 1);
             }
             System.Array.Reverse(result);
             return result;

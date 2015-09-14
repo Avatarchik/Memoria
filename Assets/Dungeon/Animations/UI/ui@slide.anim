@@ -76,71 +76,19 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: .333333343
-        value: 249.580002
+        value: 350
         inSlope: 0
-        outSlope: -377.463989
-        tangentMode: 17
+        outSlope: 0
+        tangentMode: 0
       - time: 1
-        value: -2.06264448
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_AnchoredPosition.x
-    path: RandomBlockList
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: .333333343
-        value: 100
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 17
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_AnchoredPosition.y
-    path: RandomBlockList
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: .333333343
-        value: 124.580078
-        inSlope: 0
-        outSlope: -380.024261
-        tangentMode: 17
-      - time: 1
-        value: -128.769424
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_AnchoredPosition.x
-    path: TipsButton
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: .333333343
-        value: 950
-        inSlope: 0
-        outSlope: -0
-        tangentMode: 17
-      - time: 1
-        value: 950
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_AnchoredPosition.y
-    path: TipsButton
+    path: RightSlideUI
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -169,26 +117,8 @@ AnimationClip:
       classID: 224
       customType: 0
       isPPtrCurve: 0
-    - path: 2005419351
+    - path: 3073054995
       attribute: 1460864421
-      script: {fileID: 0}
-      classID: 224
-      customType: 0
-      isPPtrCurve: 0
-    - path: 1577921077
-      attribute: 1460864421
-      script: {fileID: 0}
-      classID: 224
-      customType: 0
-      isPPtrCurve: 0
-    - path: 2005419351
-      attribute: 538195251
-      script: {fileID: 0}
-      classID: 224
-      customType: 0
-      isPPtrCurve: 0
-    - path: 1577921077
-      attribute: 538195251
       script: {fileID: 0}
       classID: 224
       customType: 0
@@ -273,71 +203,19 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: .333333343
-        value: 249.580002
+        value: 350
         inSlope: 0
-        outSlope: -377.463989
-        tangentMode: 17
+        outSlope: 0
+        tangentMode: 0
       - time: 1
-        value: -2.06264448
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_AnchoredPosition.x
-    path: RandomBlockList
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: .333333343
-        value: 100
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 17
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_AnchoredPosition.y
-    path: RandomBlockList
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: .333333343
-        value: 124.580078
-        inSlope: 0
-        outSlope: -380.024261
-        tangentMode: 17
-      - time: 1
-        value: -128.769424
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_AnchoredPosition.x
-    path: TipsButton
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: .333333343
-        value: 950
-        inSlope: 0
-        outSlope: -0
-        tangentMode: 17
-      - time: 1
-        value: 950
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_AnchoredPosition.y
-    path: TipsButton
+    path: RightSlideUI
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []

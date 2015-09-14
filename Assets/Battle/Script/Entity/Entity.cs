@@ -11,7 +11,6 @@ namespace Memoria.Battle.GameActors
 
         protected const char ENEMY = 'e';
         protected const char PARTY = 'h';
-        protected bool curve = false;
 
         public List<System.Type> components = new List<System.Type>();
 
@@ -29,13 +28,22 @@ namespace Memoria.Battle.GameActors
         public bool attackReady;
         public bool chargeReady;
         public bool charge;
+        public bool wait;
+        public bool curve;
 
-        public float orderIndex { get; set; }
+        public float orderIndex;
         public string battleID { get ; set; }
 
         void Awake ()
         {
             Init();
+        }
+        void Update()
+        {
+            if(charge)
+            {
+                Debug.Log(this +"***"+ charge);
+            }
         }
 
         public virtual void Init()
@@ -45,6 +53,8 @@ namespace Memoria.Battle.GameActors
             EventMgr.Instance.AddListener<MonsterDies>(Die);
             attackReady = false;
             chargeReady = true;
+            charge = false;
+
         }
 
         public virtual bool Attack (AttackType attack)
@@ -55,7 +65,6 @@ namespace Memoria.Battle.GameActors
 
             if(charge)
             {
-                curve = true;
                 orderIndex = attack.phaseCost;
                 tracker.QueueAction(this, orderIndex);
                 BattleMgr.Instance.SetState(State.RUNNING);
@@ -80,36 +89,32 @@ namespace Memoria.Battle.GameActors
         public virtual void EndTurn()
         {
             attackReady = false;
+            EventMgr.Instance.Raise(new BeforeTurnEnds(this));
+            EventMgr.Instance.Raise(new TurnEnds(false));
         }
 
         protected virtual void UpdateOrder(TurnEnds gameEvent)
         {
-            bool moves = true;
-            if(!charge)
+
+            if(gameEvent.monsterDied)
             {
+                EventMgr.Instance.Raise(new NewTurn(this));
+                return;
+            }
+            if(!charge && !wait)
+            {                 
                 orderIndex--;
                 if(orderIndex < 0) {
                     orderIndex =  BattleMgr.Instance.actorList.Count - 1;
-                    curve = true;
                 }
                 tracker.MoveTo(this, orderIndex);
             }
-            else
-            {
-                moves = false;
+            else {            
                 chargeReady = true;
             }
-            EventMgr.Instance.Raise(new NewTurn(this, moves, curve, charge));
+            EventMgr.Instance.Raise(new NewTurn(this));
             charge = false;
-            curve = false;
-        }
-
-        public void DealDamage(AttackType attack)
-        {
-                Damage damage = ScriptableObject.CreateInstance<Damage>();
-                damage.AttackerParameters = parameter;
-                attack.Execute(damage, target);
-                attack.attacked = true;
+            wait = false;
         }
 
         protected void Die(MonsterDies gameEvent)
@@ -121,7 +126,17 @@ namespace Memoria.Battle.GameActors
             if((this.orderIndex) > gameEvent.killedEntity.orderIndex)
             {
                 tracker.MoveTo(this, orderIndex--);
+                EventMgr.Instance.Raise(new TurnEnds(true));
             }
         }
+
+        public void DealDamage(AttackType attack)
+        {
+                Damage damage = ScriptableObject.CreateInstance<Damage>();
+                damage.AttackerParameters = parameter;
+                attack.Execute(damage, target);
+                attack.attacked = true;
+        }
+
     }
 }
