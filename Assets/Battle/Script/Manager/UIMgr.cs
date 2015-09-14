@@ -13,6 +13,7 @@ namespace Memoria.Battle.Managers
         private AttackTracker _attackTracker;
         private Dictionary<string, UIElement> _elements;
         private Vector3[] _queueSlots;
+        private BottomParticles _bottomParticles;
 
         void Start ()
         {
@@ -35,19 +36,20 @@ namespace Memoria.Battle.Managers
             cursorObj.transform.position = pos;
             _elements.Add("cursor_"+ owner, cursorObj);
         }
-
-        public void SetCurorAnimation(TargetType targets, string owner)
+        public void SetCurorAnimation(TargetType targets, Entity target)
         {
             switch (targets)
             {
-                case TargetType.ALL:
+                case TargetType.SINGLE:
+                    if(_elements.ContainsKey("cursor_"+ target.battleID))
+                        _elements["cursor_"+ target.battleID].GetComponent<BattleCursor>().SelectAnimation();
+                    break;
+
+                default:
                     foreach(var c in _elements.Where(x => x.Key.Contains("cursor")))
                     {
                         c.Value.GetComponent<BattleCursor>().SelectAnimation();
                     }
-                    break;
-                case TargetType.SINGLE:
-                    _elements["cursor_"+ owner].GetComponent<BattleCursor>().SelectAnimation();
                     break;
             }
         }
@@ -58,15 +60,17 @@ namespace Memoria.Battle.Managers
         {
             var profile = player.GetComponent<Profile>();
             var cnt = 0;
+
             foreach(var skill in profile.attackList.Where(x => x.Value.stockCost < 3))
             {
                 var skillObj = (_spawner.Spawn<SkillIcon>("Skills/"+ skill.Key)).GetComponent<SkillIcon>();
+                skillObj.spriteResource = skill.Value.spriteData.barSprite;
                 skillObj.ParentToUI();
                 skillObj.Init();
                 skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
                 skillObj.transform.position = new Vector3(
                                                           (player.GetComponent<Profile>().skillPos.x),
-                                                          (player.GetComponent<Profile>().skillPos.y - 1.0f) + cnt,
+                                                          (player.GetComponent<Profile>().skillPos.y) - cnt,
                                                           1);
                 skillObj.name = skill.Key;
                 _elements.Add("skill_" + skill.Key, skillObj);
@@ -86,40 +90,27 @@ namespace Memoria.Battle.Managers
                 var barObj = (_spawner.Spawn<Namebar>("UI/Namebar")).GetComponent<Namebar>();
                 barObj.SetSprite(namebarId);
                 barObj.ParentToUI();
+                barObj.SetSlotTable(_queueSlots);
+                barObj.SlotPos = (int)obj.Key.orderIndex;
+//                barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
+
                 barObj.Init();
                 barObj.name = "Namebar_" + obj.Key.battleID.ToString();
-                barObj.transform.position = _queueSlots[(int)obj.Key.orderIndex];
                 _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
             }
         }
 
         public void UpdateNameplates(NewTurn e)
         {
-            Namebar barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
-            if(e.curve && barObj)
-            {
-                if(e.castingTime)
-                {
-                    GameObject particleEffect = Instantiate((GameObject)Resources.Load("effects/Effect_UI_210"));
-                    particleEffect.GetComponent<TrailObject>().objectToFollow = barObj.gameObject;
+            var barObj = (Namebar)_elements["Namebar_"+ e.entity.battleID];
+            if(!barObj) {
+                return;
+            }
+//            Debug.Log(e.entity.orderIndex +" : "+ e.entity);
+            barObj.SlotPos = (int)e.entity.orderIndex;
+            if(e.entity.charge)
+                barObj.CastingEffect();
 
-                    particleEffect.gameObject.name = e.entity.battleID +"_casting";
-                }
-                else if(!e.castingTime && GameObject.Find(e.entity.battleID +"_casting") != null)
-                {
-                    Destroy(GameObject.Find(e.entity.battleID +"_casting"));
-                }
-                barObj.transform.SetAsLastSibling();
-                barObj.CurvedMove(_queueSlots[(int)e.entity.orderIndex]);
-            }
-            else if(e.moved && barObj)
-            {
-                barObj.FallDown(_queueSlots[(int)e.entity.orderIndex]);
-                if(e.entity.orderIndex == 0)
-                {
-                    barObj.SetScale(new Vector2(1.1f, 1.1f));
-                }
-            }
         }
 
         //************************************ Description frame
@@ -136,13 +127,18 @@ namespace Memoria.Battle.Managers
 
         //************************************ Result
 
-        public void SpawnResult(Sprite resultSprite)
+        public void SpawnResult(Sprite resultSprite, bool boss)
         {
             var result = (_spawner.Spawn<Result>("UI/result")).GetComponent<Result>();
             result.ParentToUI();
             result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
             result.transform.position = new Vector3(0, 0, 1);
             _elements.Add("result", result);
+            if(boss)
+            {
+                if(GameData.floorMax + 1 < 2)
+                    GameData.floorMax += 1;
+            }
         }
 
         //************************************ Destroy
@@ -160,6 +156,11 @@ namespace Memoria.Battle.Managers
             {
                 _elements.Remove(element);
             }
+        }
+
+        public void Clear()
+        {
+            _elements.Clear();
         }
     }
 }

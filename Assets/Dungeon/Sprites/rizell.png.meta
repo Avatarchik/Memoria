@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: c0e34480589feec4b86147795822f968
+timeCreated: 1442232874
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: GOJOTA4_0
+    21300002: GOJOTA4_1
+    21300004: GOJOTA4_2
+    21300006: GOJOTA4_3
+    21300008: GOJOTA4_4
+    21300010: GOJOTA4_5
+    21300012: GOJOTA4_6
+    21300014: GOJOTA4_7
+    21300016: GOJOTA4_8
+    21300018: GOJOTA4_9
+    21300020: GOJOTA4_10
+    21300022: GOJOTA4_11
+    21300024: GOJOTA4_12
+    21300026: GOJOTA4_13
+    21300028: GOJOTA4_14
+    21300030: GOJOTA4_15
+    21300032: rizell_0
+    21300034: rizell_1
+    21300036: rizell_2
+    21300038: rizell_3
+    21300040: rizell_4
+    21300042: rizell_5
+    21300044: rizell_6
+    21300046: rizell_7
+    21300048: rizell_8
+    21300050: rizell_9
+    21300052: rizell_10
+    21300054: rizell_11
+    21300056: rizell_12
+    21300058: rizell_13
+    21300060: rizell_14
+    21300062: rizell_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: rizell_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 651
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_1
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 651
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_2
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 651
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_3
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 651
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 434
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_5
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 434
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_6
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 434
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_7
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 434
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_9
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 217
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_10
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 217
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_11
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 217
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_13
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 0
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_14
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 0
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rizell_15
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 0
+        width: 145
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
