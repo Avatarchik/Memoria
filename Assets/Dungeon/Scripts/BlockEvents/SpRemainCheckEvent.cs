@@ -25,7 +25,7 @@ namespace Memoria.Dungeon.BlockEvents
             if (!RemainSp())
             {
                 eventAnimator.SetTrigger("onGameOver");
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(3f);
                 Application.LoadLevel("title");
             }
             
