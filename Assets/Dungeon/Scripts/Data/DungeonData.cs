@@ -82,10 +82,10 @@ namespace Memoria.Dungeon
                 }
 
                 parameter = new DungeonParameter(
-                    maxHp: stageData.maxHp,
-                    hp: stageData.maxHp,
-                    maxSp: stageData.maxSp,
-                    sp: stageData.maxSp,
+                    maxHp: maxHp,
+                    hp: maxHp,
+                    maxSp: maxSp,
+                    sp: maxSp,
                     dungeonId: stageData.dungeonId,
                     floor: stageData.floor,
                     allKeyNum: keyNum,

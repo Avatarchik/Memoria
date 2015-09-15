@@ -103,15 +103,6 @@ namespace Memoria.Battle.GameActors
             base.EndTurn();
         }
 
-        override protected void UpdateOrder(TurnEnds gameEvent)
-        {
-            if(profile.GetType() == typeof(Dhiel))
-            {
-//                Debug.Log(this + ": updates");
-            }
-            base.UpdateOrder(gameEvent);
-        }
-
         public void StockUp()
         {
             StartCoroutine(StockRoutine());

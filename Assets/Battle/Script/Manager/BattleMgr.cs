@@ -50,6 +50,8 @@ namespace Memoria.Battle.Managers
         public bool IsBoss { get; set; }
 
         public float AttackAnimation { get; set; }
+        public int currentFloor;
+
 
         override protected void Init()
         {
@@ -66,7 +68,6 @@ namespace Memoria.Battle.Managers
                 _dungeonData.SetIsBossBattle(true);
                 elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
             }
-
             #endif
 
             _party = new string[]
@@ -92,6 +93,7 @@ namespace Memoria.Battle.Managers
             mainPlayer = FindObjectOfType<MainPlayer>();
             actorList = new List<GameObject>();
             enemyList = new List<GameObject> ();
+            currentFloor = _dungeonData.parameter.floor;
 
             _spawner = FindObjectOfType<ActorSpawner>();
             _attackTracker = FindObjectOfType<AttackTracker>();

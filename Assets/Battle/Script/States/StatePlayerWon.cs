@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Memoria.Managers;
 
 namespace Memoria.Battle.States
 {
@@ -13,6 +14,7 @@ namespace Memoria.Battle.States
                 result = Resources.Load<Sprite>("UI/clear");
                 uiMgr.SpawnResult(result, true);
                 loadScene = "menu";
+                SoundManager.instance.PlaySound(28);
             } else {
                 result = Resources.Load<Sprite>("UI/win");
                 uiMgr.SpawnResult(result, false);
