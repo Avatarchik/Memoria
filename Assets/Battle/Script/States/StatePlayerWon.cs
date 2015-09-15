@@ -19,6 +19,7 @@ namespace Memoria.Battle.States
             } else {
                 result = Resources.Load<Sprite>("UI/win");
                 uiMgr.SpawnResult(result, false);
+                SoundManager.instance.PlaySound(4);
               }
  
         }

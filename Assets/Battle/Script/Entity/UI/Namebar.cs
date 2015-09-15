@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Memoria.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -50,6 +51,7 @@ namespace Memoria.Battle.GameActors
                     if(value == 0) {
                         this.transform.SetAsLastSibling();
                         SetScale(new Vector2(1.5f, 1.5f));
+                        SoundManager.instance.PlaySound(0);
                     }
                     FallDown(slotTable[value]);
                 }

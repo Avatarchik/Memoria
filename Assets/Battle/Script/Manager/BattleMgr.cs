@@ -65,7 +65,7 @@ namespace Memoria.Battle.Managers
                     _dungeonData.parameter.stocks[i] = 3;
                 }
                 elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
-                _dungeonData.SetIsBossBattle(true);
+                _dungeonData.SetIsBossBattle(false);
             }
             #endif
             _enemies = new EnemyPatterns();
@@ -94,7 +94,13 @@ namespace Memoria.Battle.Managers
             actorList = new List<GameObject>();
             enemyList = new List<GameObject> ();
             currentFloor = _dungeonData.parameter.floor;
+
             elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
+
+            if(elementalAffinity == Element.NONE)
+            {
+                Destroy(GameObject.Find("BottomParticles"));
+            }
 
             _spawner = FindObjectOfType<ActorSpawner>();
             _attackTracker = FindObjectOfType<AttackTracker>();

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Memoria.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -28,6 +29,7 @@ namespace Memoria.Battle.GameActors
                 if (collition2d) {
                     RaycastHit2D hitObject = Physics2D.Raycast (tapPoint, - Vector2.up);
                     if (hitObject) {
+                        SoundManager.instance.PlaySound(1);
                         if(!setTarget)
                             return true;
 

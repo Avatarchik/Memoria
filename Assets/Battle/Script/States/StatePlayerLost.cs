@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Memoria.Dungeon;
+using Memoria.Managers;
 
 namespace Memoria.Battle.States
 {
@@ -9,6 +10,7 @@ namespace Memoria.Battle.States
         {
             Sprite result = Resources.Load<Sprite>("UI/lose");
             uiMgr.SpawnResult(result, false);
+            SoundManager.instance.PlaySound(5);
         }
 
         override public void Update()

@@ -137,8 +137,11 @@ namespace Memoria.Battle.Managers
 
             if(boss)
             {
-                if(GameData.floorMax + 1 < 3) {
-                    GameData.floorMax += 1;
+                if(BattleMgr.Instance.currentFloor == 0) {
+                    GameData.floorMax = 1;
+                }
+                if(BattleMgr.Instance.currentFloor == 1) {
+                    GameData.floorMax = 2;
                 }
                 if(BattleMgr.Instance.currentFloor == 0 && !GameData.hasPassiveItem1)
                 {

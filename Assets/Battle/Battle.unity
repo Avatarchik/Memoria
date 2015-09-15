@@ -1533,12 +1533,11 @@ MonoBehaviour:
   _uiMgr: {fileID: 0}
   _attackTracker: {fileID: 0}
   _nowActor: {fileID: 0}
-  _party: []
   actorList: []
-  elementalAffinity: 3
   enemyList: []
   heroList: []
   mainPlayer: {fileID: 0}
+  elementalAffinity: 3
   currentFloor: 0
 --- !u!4 &838095240
 Transform:

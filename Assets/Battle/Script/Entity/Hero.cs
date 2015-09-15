@@ -6,7 +6,7 @@ using System.Linq;
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
 using Memoria.Battle;
-using Memoria.Battle.Events;
+using Memoria.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -149,6 +149,7 @@ namespace Memoria.Battle.GameActors
             {
                 _enemyTarget = false;
             }
+            SoundManager.instance.PlaySound(1);
         }
         public bool TargetSelected()
         {
@@ -190,6 +191,7 @@ namespace Memoria.Battle.GameActors
 
         private void SetUltimate()
         {
+            SoundManager.instance.PlaySound(21);
             SetAttack(profile.ultimateAttack);
         }
         private void SetFinalStock()

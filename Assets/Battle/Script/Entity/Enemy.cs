@@ -99,6 +99,7 @@ namespace Memoria.Battle.GameActors
             d.TargetParameters = parameter;
             this.health.hp -= d.Calculate();
             d.Appear(this.transform.position);
+            SoundManager.instance.PlaySound(7);
             CheckDeath();
         }
 
