@@ -1,0 +1,25 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Paricles/52SpecialEffectPack/Legacy Effect Editor/csLegacyEffectEditor.cs">
+    <Files>
+      <File FileName="Assets/Battle/Script/Components/PlayerProfiles/Dhiel.cs" Line="1" Column="2" />
+      <File FileName="Assets/Battle/Script/States/StateSelectSkill.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/Manager/BattleMgr.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/Manager/AttackTracker.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/States/StatePrepare.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/States/StateBattleRunning.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/Entity/Hero.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/States/BattleState.cs" Line="1" Column="1" />
+      <File FileName="Assets/Battle/Script/Manager/EventMgr.cs" Line="1" Column="1" />
+      <File FileName="Assets/Paricles/52SpecialEffectPack/Legacy Effect Editor/csLegacyEffectEditor.cs" Line="22" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/Tobias/Documents/School/Memoria/Assets/Battle/Script/Manager/BattleMgr.cs" line="125" />
+      <Breakpoint file="/Users/Tobias/Documents/School/Memoria/Assets/Battle/Script/Manager/BattleMgr.cs" line="156" />
+      <Breakpoint file="/Users/Tobias/Documents/School/Memoria/Assets/Battle/Script/Manager/BattleMgr.cs" line="127" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

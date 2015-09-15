@@ -1,0 +1,798 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &136198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 477552}
+  - 114: {fileID: 11451198}
+  - 114: {fileID: 11485228}
+  - 114: {fileID: 11402208}
+  - 114: {fileID: 11441756}
+  - 114: {fileID: 11497872}
+  - 114: {fileID: 11449698}
+  - 114: {fileID: 11450150}
+  - 114: {fileID: 11439880}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &477552
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11402208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393355a95e406aa48974bc068f8e5a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11439880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9381a39c3cbf84892baefaff8549094f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefabs:
+  - {fileID: 138016, guid: a60e7acd13721614c9309c096efc91b9, type: 2}
+  - {fileID: 159742, guid: c564a66f4707b694980b9b09680d833f, type: 2}
+  - {fileID: 139904, guid: 77b9a55c837081b469437fecd37f4735, type: 2}
+  - {fileID: 118392, guid: d1f6ae52ac8d31f4b97a0e7aa7f203ed, type: 2}
+  - {fileID: 134736, guid: d9d0b300f2c374241b913891eb249738, type: 2}
+  - {fileID: 183810, guid: 60e66c765c5b28b46890fa463b795833, type: 2}
+  - {fileID: 166046, guid: 9924bbe5707e5b9459f066543190df1f, type: 2}
+  - {fileID: 175754, guid: bc0f5df7abb6c451db80fb45de9680e6, type: 2}
+  - {fileID: 123284, guid: 1995fd19e5ead1d4d99edc1892f45780, type: 2}
+  - {fileID: 165656, guid: b02441850ffc200408ebeed4ec30affd, type: 2}
+  - {fileID: 149378, guid: 3b710f926f128434cbff3a8e0d69494f, type: 2}
+  - {fileID: 137018, guid: edfbb7223252dd4409236268e8ad2be6, type: 2}
+  - {fileID: 129500, guid: 522480f438e3044e09c4a4357681079c, type: 2}
+  - {fileID: 153086, guid: 446137e393dac57428a171d732fe9dfd, type: 2}
+  - {fileID: 172842, guid: 44be44b57d09b6a4fa0e61c5350e59e3, type: 2}
+  - {fileID: 159742, guid: 7d4836717084d48309aa86e7312213b2, type: 2}
+  - {fileID: 163104, guid: 93bc1d8c321854992a84e6721130dbca, type: 2}
+--- !u!114 &11441756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b0cc4f98283c4428d827dda1c4d04b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockPrefab: {fileID: 105744, guid: 56d1eb3a4a06fbe439ec8f9e910ee349, type: 2}
+  _blockList: {fileID: 0}
+  _blockSprites:
+    _blockSprites:
+    - sprites:
+      - {fileID: 21300002, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300008, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300006, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300016, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300010, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300004, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300012, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300000, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300018, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300014, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+      - {fileID: 21300020, guid: 36e6bffa226d6443c8dac6ca4add5811, type: 3}
+    - sprites:
+      - {fileID: 21300002, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300008, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300006, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300016, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300010, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300004, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300012, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300000, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300018, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300014, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+      - {fileID: 21300020, guid: f6053b5a1b3754bf8a293cf8f2793537, type: 3}
+    - sprites:
+      - {fileID: 21300002, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300008, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300006, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300016, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300010, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300004, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300012, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300000, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300018, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300014, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+      - {fileID: 21300020, guid: 026a52c33fcbd4affaa4bd7838707a9c, type: 3}
+    - sprites:
+      - {fileID: 21300002, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300008, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300006, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300016, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300010, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300004, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300012, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300000, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300018, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300014, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+      - {fileID: 21300020, guid: 6057bc757dbab4a47a220e0297b1e1a9, type: 3}
+    - sprites:
+      - {fileID: 21300002, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300008, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300006, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300016, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300010, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300004, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300012, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300000, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300018, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300014, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+      - {fileID: 21300020, guid: abf15282cd20f4327952b2108dd54536, type: 3}
+    - sprites:
+      - {fileID: 21300002, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300008, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300006, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300016, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300010, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300004, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300012, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300000, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300018, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300014, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+      - {fileID: 21300020, guid: 412a39d6bfb2947c78d38a83aa573c70, type: 3}
+--- !u!114 &11449698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4152c02746299a409a5a98850037ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpValue: {fileID: 0}
+  maxHpValue: {fileID: 0}
+  spValue: {fileID: 0}
+  maxSpValue: {fileID: 0}
+  getKeyValue: {fileID: 0}
+  allKeyValue: {fileID: 0}
+  sillingValue: {fileID: 0}
+  charactersPowerStocks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &11450150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213e516704c284d259d2c6b884415f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageDatas:
+  - stageSize:
+      serializedVersion: 2
+      x: -5
+      y: -5
+      width: 10
+      height: 10
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 0
+    floor: 0
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .439999998
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 12
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .5
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .300000012
+      wind: .230000004
+      thunder: .270000011
+      water: .200000003
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .289999992
+      wind: .219999999
+      thunder: .25
+      water: .239999995
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 2
+        _y: 0
+      _visible: 1
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 1
+    floor: 1
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .439999998
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 12
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .5
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .300000012
+      wind: .230000004
+      thunder: .270000011
+      water: .200000003
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .289999992
+      wind: .219999999
+      thunder: .25
+      water: .239999995
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 0
+        _y: -2
+      _visible: 1
+    - _type: 2
+      _attribute: 3
+      _location:
+        _x: -2
+        _y: -2
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 2
+    floor: 2
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .439999998
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 12
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .5
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .300000012
+      wind: .230000004
+      thunder: .270000011
+      water: .200000003
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .289999992
+      wind: .219999999
+      thunder: .25
+      water: .239999995
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -1
+        _y: 3
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 3
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: -1
+      _visible: 1
+    - _type: 2
+      _attribute: 1
+      _location:
+        _x: 2
+        _y: -2
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -5
+      y: -5
+      width: 10
+      height: 10
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 3
+    floor: 0
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .50999999
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 14
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .400000006
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .270000011
+      wind: .180000007
+      thunder: .300000012
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .230000004
+      wind: .200000003
+      thunder: .300000012
+      water: .270000011
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -1
+        _y: 1
+      _visible: 1
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 4
+    floor: 1
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .50999999
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 14
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .400000006
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .270000011
+      wind: .180000007
+      thunder: .300000012
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .230000004
+      wind: .200000003
+      thunder: .300000012
+      water: .270000011
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: -1
+      _visible: 1
+    - _type: 2
+      _attribute: 2
+      _location:
+        _x: -2
+        _y: 1
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 5
+    floor: 2
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .50999999
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 14
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .400000006
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .270000011
+      wind: .180000007
+      thunder: .300000012
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .230000004
+      wind: .200000003
+      thunder: .300000012
+      water: .270000011
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 3
+        _y: 0
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 0
+        _y: -3
+      _visible: 1
+    - _type: 2
+      _attribute: 2
+      _location:
+        _x: 0
+        _y: -1
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -5
+      y: -5
+      width: 10
+      height: 10
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 6
+    floor: 0
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .569999993
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 15
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .300000012
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 1
+        _y: -1
+      _visible: 1
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 7
+    floor: 1
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .569999993
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 15
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .300000012
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 0
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 2
+        _y: -2
+      _visible: 1
+    - _type: 2
+      _attribute: 1
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 8
+    floor: 2
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .569999993
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 15
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .300000012
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -1
+        _y: -2
+      _visible: 1
+    - _type: 0
+      _attribute: 1
+      _location:
+        _x: 3
+        _y: -3
+      _visible: 1
+    - _type: 2
+      _attribute: 1
+      _location:
+        _x: 0
+        _y: 1
+      _visible: 0
+--- !u!114 &11451198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e361cdceb5a758343b99734e2ccdc666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _eventManager: {fileID: 11485228}
+  _mapManager: {fileID: 11402208}
+  _blockManager: {fileID: 11441756}
+  _itemManager: {fileID: 11497872}
+  _parameterManager: {fileID: 11449698}
+  _stageDataManager: {fileID: 11450150}
+  _effectManager: {fileID: 11439880}
+  blockSize: {x: 200, y: 200}
+  dungeonDataPrefab: {fileID: 157120, guid: 57dff4db00269734b9bdfdd8b55e085b, type: 2}
+--- !u!114 &11485228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027e500b71a757d45891ee898d25b6e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventAnimator: {fileID: 0}
+  messageBox: {fileID: 0}
+--- !u!114 &11497872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb520d23ed6de415f84ab4dd951bc286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 101772, guid: fe1d88cd2972d4634976e3875e43a6f0, type: 2}
+  jewelPrefab: {fileID: 187550, guid: 39c023d8ca3cf461c92779da5a2da8da, type: 2}
+  soulPrefab: {fileID: 118978, guid: 90eef55fcb57d42dca7b080bb5673831, type: 2}
+  magicPlatePrefab: {fileID: 171862, guid: 6690ef2255a4247dab577968267c9721, type: 2}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: effectPrefabs.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: effectPrefabs.Array.data[15]
+      value: 
+      objectReference: {fileID: 159742, guid: 7d4836717084d48309aa86e7312213b2, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 136198}
+  m_IsPrefabParent: 1
