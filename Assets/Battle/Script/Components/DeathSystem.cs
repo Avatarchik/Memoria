@@ -15,14 +15,12 @@ namespace Memoria.Battle.Utility
         {
 
         }
-
-        void Update()
+        void LateUpdate()
         {
             foreach (GameObject enemy in BattleMgr.Instance.enemyList)
             {
                 if(!enemy.GetComponent<DeathSystem>().isAlive)
                 {
-                    BattleMgr.Instance.actorList.Remove(enemy);
                     deadEnemy.Add(enemy);
                 }
             }
@@ -32,7 +30,6 @@ namespace Memoria.Battle.Utility
                 Destroy (obj);
             }
         }
-
         public void Die()
         {
             isAlive = false;

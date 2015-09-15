@@ -92,7 +92,9 @@ namespace Memoria.Battle.GameActors
         }
         public Type[] GetNormalPattern(int floor, int id)
         {
-            return _normalPatterns[floor][id];
+            var r = new Random();
+//            var group = r.Next(0, _normalPatterns[floor].Count);
+            return _normalPatterns[floor][1];
         }
     }
 }

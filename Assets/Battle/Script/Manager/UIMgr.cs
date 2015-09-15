@@ -34,7 +34,7 @@ namespace Memoria.Battle.Managers
             cursorObj.ParentToUI();
             cursorObj.Init();
             cursorObj.transform.position = pos;
-            _elements.Add("cursor_"+ owner, cursorObj);
+            AddElement("cursor_"+ owner, cursorObj);
         }
         public void SetCurorAnimation(TargetType targets, Entity target)
         {
@@ -73,7 +73,7 @@ namespace Memoria.Battle.Managers
                                                           (player.GetComponent<Profile>().skillPos.y) - cnt,
                                                           1);
                 skillObj.name = skill.Key;
-                _elements.Add("skill_" + skill.Key, skillObj);
+                AddElement("skill_" + skill.Key, skillObj);
                 cnt++;
             }
         }
@@ -96,7 +96,7 @@ namespace Memoria.Battle.Managers
 
                 barObj.Init();
                 barObj.name = "Namebar_" + obj.Key.battleID.ToString();
-                _elements.Add("Namebar_"+ obj.Key.battleID, barObj);
+                AddElement("Namebar_"+ obj.Key.battleID, barObj);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Memoria.Battle.Managers
             frame.ParentToUI();
             frame.Init();
             frame.name = "frame_desc";
-            _elements.Add("frame_desc", frame);
+            AddElement("frame_desc", frame);
         }
 
         //************************************ Result
@@ -133,7 +133,7 @@ namespace Memoria.Battle.Managers
             result.ParentToUI();
             result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
             result.transform.position = new Vector3(0, 0, 1);
-            _elements.Add("result", result);
+            AddElement("result", result);
 
             if(boss)
             {
@@ -147,7 +147,7 @@ namespace Memoria.Battle.Managers
                     passiveItem.spriteResource = "passive_00";
                     passiveItem.ParentToUI();
                     passiveItem.Init();
-                    _elements.Add("passive", passiveItem);
+                    AddElement("passive", passiveItem);
                 }
                 if(BattleMgr.Instance.currentFloor == 1 && !GameData.hasPassiveItem2)
                 {
@@ -156,12 +156,20 @@ namespace Memoria.Battle.Managers
                     passiveItem.spriteResource = "passive_01";
                     passiveItem.ParentToUI();
                     passiveItem.Init();
-                    _elements.Add("passive", passiveItem);
+                    AddElement("passive", passiveItem);
                 }
             }
         }
 
         //************************************ Destroy
+
+        public void AddElement(string key, UIElement element)
+        {
+            if(!_elements.ContainsKey(key))
+            {
+                _elements.Add(key, element);
+            }
+        }
 
         public void DestroyElement(string elementType)
         {

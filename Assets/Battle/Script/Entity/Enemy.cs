@@ -51,10 +51,6 @@ namespace Memoria.Battle.GameActors
             }
         }
 
-        void Update()
-        {
-        }
-
         override public void Init()
         {
             components.Add(typeof(HealthSystem));
