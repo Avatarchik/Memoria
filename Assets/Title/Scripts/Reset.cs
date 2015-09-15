@@ -14,5 +14,10 @@ namespace Memoria.Title
         void Update()
         {
         }
+        
+        public void ResetData()
+        {
+            GameData.Reset();
+        }
     }
 }
