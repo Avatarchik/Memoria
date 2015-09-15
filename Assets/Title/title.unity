@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2097c650c976a1f4ca424e430a6b4482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: .0500000007
+  scrollSpeed: .25
   yMin: -13
   yMax: 13
 --- !u!64 &1423643470
