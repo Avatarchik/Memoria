@@ -16,7 +16,7 @@
             parameter.elementAff = new ElementWind(Element.WIND);
 
             attackList.Add("Attack_Normal", gameObject.AddComponent<DielNormal>());
-            attackList.Add("Attack_Special", gameObject.AddComponent<DielElement());
+            attackList.Add("Attack_Special", gameObject.AddComponent<DielElement>());
             attackList.Add("Diel_SP", gameObject.AddComponent<DielUltimate>());
         }
     }

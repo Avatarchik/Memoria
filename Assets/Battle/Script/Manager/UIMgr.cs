@@ -134,10 +134,30 @@ namespace Memoria.Battle.Managers
             result.GetComponent<UnityEngine.UI.Image>().sprite = resultSprite;
             result.transform.position = new Vector3(0, 0, 1);
             _elements.Add("result", result);
+
             if(boss)
             {
-                if(GameData.floorMax + 1 < 2)
+                if(GameData.floorMax + 1 < 2) {
                     GameData.floorMax += 1;
+                }
+                if(BattleMgr.Instance.currentFloor == 0)
+                {
+                    GameData.hasPassiveItem1 = true;
+                    var passiveItem = (_spawner.Spawn<PassiveItem>("UI/bonusItem")).GetComponent<PassiveItem>();
+                    passiveItem.spriteResource = "passive_00";
+                    passiveItem.ParentToUI();
+                    passiveItem.Init();
+                    _elements.Add("passive", passiveItem);
+                }
+                if(BattleMgr.Instance.currentFloor == 1)
+                {
+                    GameData.hasPassiveItem2 = true;
+                    var passiveItem = (_spawner.Spawn<PassiveItem>("UI/bonusItem")).GetComponent<PassiveItem>();
+                    passiveItem.spriteResource = "passive_01";
+                    passiveItem.ParentToUI();
+                    passiveItem.Init();
+                    _elements.Add("passive", passiveItem);
+                }
             }
         }
 

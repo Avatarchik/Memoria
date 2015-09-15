@@ -1,15 +1,26 @@
 using UnityEngine;
-using System;
 using System.Collections;
 using Memoria.Battle.Utility;
 using Memoria.Battle.Managers;
 using Memoria.Battle.States;
-
+using Memoria.Managers;
+     
 namespace Memoria.Battle.GameActors
 {
     public class Enemy : Entity, IDamageable
     {
         private bool isAlive = true;
+        private bool _boss;
+        private int _counter;
+        private int _killSound;
+        private bool _ultimate;
+
+        private readonly string [] _attackList =
+            {
+                "Enemy_Normal",
+                "Enemy_Skill",
+                "Enemy_Ultimate"
+            };
 
         void Start()
         {
@@ -20,17 +31,24 @@ namespace Memoria.Battle.GameActors
             profile = GetComponent<EnemyAI>();
 
             parameter = profile.parameter;
-            attackType = profile.attackType;
-
             death.isAlive = true;
             health.maxHp = parameter.hp;
             health.hp = health.maxHp;
 
+            attackType = profile.attackList[GetPattern(_counter, _boss)];
             target  = GameObject.FindObjectOfType<MainPlayer>().GetComponent<Entity>() as IDamageable;
 
             transform.SetParent(GameObject.Find("Enemies").gameObject.transform, false);
             parameter.blockBonus = (BattleMgr.Instance.elementalAffinity == parameter.elementAff.Type);
 
+            _counter = 0;
+            _killSound = 2;
+
+            if(profile.attackList.ContainsKey("Enemy_Ultimate"))
+            {
+                _boss = true;
+                _killSound = 3;
+            }
         }
 
         void Update()
@@ -41,7 +59,6 @@ namespace Memoria.Battle.GameActors
         {
             components.Add(typeof(HealthSystem));
             components.Add(typeof(DeathSystem));
-//            components.Add(typeof(Namebar));
             base.Init();
         }
 
@@ -50,9 +67,14 @@ namespace Memoria.Battle.GameActors
             if(!isAlive) {
                 return true;
             }
-
             phaseTimer = attackType.phaseCost;
 
+            if(phaseTimer > 0 && !_ultimate)
+            {
+                charge = true;
+                chargeReady = false;
+                _ultimate = true;
+            }
             if (!attackReady && isAlive)
             {
                 attackReady = true;
@@ -63,7 +85,15 @@ namespace Memoria.Battle.GameActors
 
         override public void EndTurn()
         {
-            this.attackType.attacked = false;
+            if(!charge) {
+                _counter++;
+                if(_counter > 2) {
+                    _counter = 0;
+                }
+                _ultimate = false;
+                attackType = profile.attackList[GetPattern(_counter, _boss)];
+                this.attackType.attacked = false;
+            }
             base.EndTurn();
         }
 
@@ -104,8 +134,18 @@ namespace Memoria.Battle.GameActors
             {
                 isAlive = false;
                 BattleMgr.Instance.RemoveFromBattle(this);
+                SoundManager.instance.PlaySound(_killSound);
                 StartCoroutine(death.DeadEffect());
             }
         }
+
+        private string GetPattern(int turnCount, bool boss)
+        {
+            if(boss && (turnCount >= 2)) {
+                return _attackList[2];
+            }
+            return _attackList[(turnCount % 2)];
+        }
+
     }
 }

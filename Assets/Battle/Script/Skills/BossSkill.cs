@@ -3,13 +3,12 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-    public class EnemyNormal : AttackType {
+    public class BossSkill : AttackType {
         bool destroyed;
         void Start () {
-            phaseCost = 0;
             animationDur = 20;
             effectObj = (GameObject)Resources.Load("Skills/Enemy_Normal");
-            parameters.attackPower = 1;
+            parameters.attackPower = 1.5f;
         }
 
         override public void Execute(Damage damage, IDamageable target)

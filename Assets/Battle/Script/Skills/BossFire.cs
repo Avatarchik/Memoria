@@ -3,12 +3,15 @@ using Memoria.Battle.Managers;
 
 namespace Memoria.Battle.GameActors
 {
-	public class EnemyFire : AttackType {
+	public class BossFire : AttackType {
 		bool destroyed;
 		void Start () {
+            phaseCost = 2;
 			animationDur = 20;
 			effectObj = (GameObject)Resources.Load("Skills/Enemy_HI");
-			parameters.attackPower = 1.5f;
+			parameters.attackPower = 2.0f;
+            ultimate = true;
+            cutIn = 5;
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)

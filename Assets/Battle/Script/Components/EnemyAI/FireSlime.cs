@@ -16,9 +16,7 @@ namespace Memoria.Battle.GameActors
             parameter.elementAff = new ElementFire(Element.FIRE);
 
             attackList.Add ("Enemy_Normal", gameObject.AddComponent<EnemyNormal>());
-            attackList.Add ("Enemy_Special", gameObject.AddComponent<EnemyFire>());
-            attackType = attackList["Enemy_Normal"];
-            attackType = attackList["Enemy_Special"];
+            attackList.Add ("Enemy_Skill", gameObject.AddComponent<EnemyFire>());
         }
     }
 }
