@@ -33,6 +33,17 @@ namespace Memoria.Dungeon
         {
             DontDestroyOnLoad(gameObject);
         }
+        
+        void OnLevelWasLoaded(int level)
+        {
+            switch(level)
+            {
+                case 0:
+                case 1:
+                    Destroy(gameObject);
+                    break;
+            }
+        }
 
         public void Load()
         {
