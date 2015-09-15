@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Memoria.Managers;
 
 namespace Memoria.Menu
 {
@@ -9,6 +10,8 @@ namespace Memoria.Menu
         private List<GameObject> _menuItems;
 
         void Start () {
+
+            SoundManager.instance.PlayBGM(0);
             _menuItems = new List<GameObject>();
             openFloors = GameData.floorMax;
             foreach(Transform t in transform)
