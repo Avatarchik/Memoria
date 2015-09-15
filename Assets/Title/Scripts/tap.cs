@@ -11,6 +11,7 @@ namespace Memoria.Title
 
         [SerializeField]
         private float yMin = -13;
+        [SerializeField]
         private float yMax = 13;
 
         Vector3 mp;
