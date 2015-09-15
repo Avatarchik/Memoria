@@ -3,13 +3,15 @@ using System.Collections;
 
 public class LightEffect : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    [SerializeField]
+    private GameObject prefab;
+
+    public void Execute()
+    {
+        Vector3 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        tapPoint.z = 0;
+        var effect = Instantiate(prefab, tapPoint, Quaternion.identity);
+        Destroy(effect, 2.0f);
+    }
+
 }
