@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Memoria.Battle.Utility;
+using Memoria.Managers;
 
 namespace Memoria.Battle.GameActors
 {
@@ -36,10 +37,12 @@ namespace Memoria.Battle.GameActors
             if(damage.totalDamage < 0) {
                 Heal(damage.totalDamage);
                 damage.Appear(healthBar.gameObject.transform.position, true);
+                SoundManager.instance.PlaySound(8);
             }
             else {
                 health.hp -= damage.Calculate();
                 damage.Appear(healthBar.gameObject.transform.position);
+                SoundManager.instance.PlaySound(6);
             }
         }
 

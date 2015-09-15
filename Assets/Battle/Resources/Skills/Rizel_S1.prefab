@@ -6529,6 +6529,10 @@ Prefab:
       propertyPath: m_SortingLayerID
       value: -935871993
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 382e14df7d3df429894bd9fd23390273, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150112}
