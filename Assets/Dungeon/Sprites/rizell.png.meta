@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c0e34480589feec4b86147795822f968
-timeCreated: 1442232874
+timeCreated: 1442237693
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -85,39 +85,39 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 651
-        width: 145
-        height: 217
+        y: 576
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_1
       rect:
         serializedVersion: 2
-        x: 145
-        y: 651
-        width: 145
-        height: 217
+        x: 128
+        y: 576
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_2
       rect:
         serializedVersion: 2
-        x: 290
-        y: 651
-        width: 145
-        height: 217
+        x: 256
+        y: 576
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_3
       rect:
         serializedVersion: 2
-        x: 435
-        y: 651
-        width: 145
-        height: 217
+        x: 384
+        y: 576
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,39 +125,39 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 434
-        width: 145
-        height: 217
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_5
       rect:
         serializedVersion: 2
-        x: 145
-        y: 434
-        width: 145
-        height: 217
+        x: 128
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_6
       rect:
         serializedVersion: 2
-        x: 290
-        y: 434
-        width: 145
-        height: 217
+        x: 256
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_7
       rect:
         serializedVersion: 2
-        x: 435
-        y: 434
-        width: 145
-        height: 217
+        x: 384
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,39 +165,39 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 217
-        width: 145
-        height: 217
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_9
       rect:
         serializedVersion: 2
-        x: 145
-        y: 217
-        width: 145
-        height: 217
+        x: 128
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_10
       rect:
         serializedVersion: 2
-        x: 290
-        y: 217
-        width: 145
-        height: 217
+        x: 256
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_11
       rect:
         serializedVersion: 2
-        x: 435
-        y: 217
-        width: 145
-        height: 217
+        x: 384
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,38 +206,38 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 145
-        height: 217
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_13
       rect:
         serializedVersion: 2
-        x: 145
+        x: 128
         y: 0
-        width: 145
-        height: 217
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_14
       rect:
         serializedVersion: 2
-        x: 290
+        x: 256
         y: 0
-        width: 145
-        height: 217
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: rizell_15
       rect:
         serializedVersion: 2
-        x: 435
+        x: 384
         y: 0
-        width: 145
-        height: 217
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
