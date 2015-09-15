@@ -73,7 +73,7 @@ namespace Memoria.Battle.Managers
                                                           (player.GetComponent<Profile>().skillPos.y) - cnt,
                                                           1);
                 skillObj.name = skill.Key;
-                _elements.Add("skill_" + skill.Key, skillObj);
+                _elements["skill_" + skill.Key] = skillObj;
                 cnt++;
             }
         }

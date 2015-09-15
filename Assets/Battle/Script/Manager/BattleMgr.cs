@@ -99,6 +99,8 @@ namespace Memoria.Battle.Managers
             _attackTracker = FindObjectOfType<AttackTracker>();
             _uiMgr = FindObjectOfType<UIMgr> ();
             _enemies = new EnemyPatterns();
+
+            elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
         }
 
         void Start()
