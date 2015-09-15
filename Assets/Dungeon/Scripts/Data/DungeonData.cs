@@ -33,6 +33,17 @@ namespace Memoria.Dungeon
         {
             DontDestroyOnLoad(gameObject);
         }
+        
+        void OnLevelWasLoaded(int level)
+        {
+            switch(level)
+            {
+                case 0:
+                case 1:
+                    Destroy(gameObject);
+                    break;
+            }
+        }
 
         public void Load()
         {
@@ -55,6 +66,20 @@ namespace Memoria.Dungeon
 
                 itemDatas = new List<ItemData>(stageData.itemDatas);
                 var keyNum = itemDatas.Count(item => item.type == ItemType.Key);
+
+                var maxHp = stageData.maxHp;
+                // HP最大値増加アイテム
+                if (GameData.hasPassiveItem2)
+                {
+                    maxHp += 500;
+                }
+
+                var maxSp = stageData.maxSp;
+                // SP最大値増加アイテム
+                if (GameData.hasPassiveItem1)
+                {
+                    maxSp += 3;
+                }
 
                 parameter = new DungeonParameter(
                     maxHp: stageData.maxHp,

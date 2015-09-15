@@ -164,7 +164,7 @@ namespace Memoria.Dungeon.Managers
 
         public void Leave()
         {
-            Application.LoadLevel("menu");
+            Application.LoadLevel("menu-new");
         }
     }
 }

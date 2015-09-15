@@ -14,9 +14,9 @@
             parameter.criticalHit = 0.1f;
             parameter.elementAff = new ElementFire(Element.FIRE); 
 
-            attackList.Add("Attack_Normal", gameObject.AddComponent<Iska_S1>());
-            attackList.Add("Attack_Special", gameObject.AddComponent<Iska_S2>());
-            attackList.Add("Iska_SP", gameObject.AddComponent<Iska_SP>());
+            attackList.Add("Attack_Normal", gameObject.AddComponent<IskaNormal>());
+            attackList.Add("Attack_Special", gameObject.AddComponent<IskaElement>());
+            attackList.Add("Iska_SP", gameObject.AddComponent<IskaUltimate>());
         }
     }
 }
