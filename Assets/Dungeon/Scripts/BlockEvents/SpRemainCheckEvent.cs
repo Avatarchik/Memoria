@@ -25,7 +25,7 @@ namespace Memoria.Dungeon.BlockEvents
             if (!RemainSp())
             {
                 yield return new WaitForSeconds(1);
-                Application.LoadLevel("menu-new");
+                Application.LoadLevel("menu");
             }
             
             yield return null;
