@@ -15,19 +15,19 @@ namespace Memoria.Battle.GameActors
 			elementalAff = new ElementWind(Element.WIND);
 			effectObj = (GameObject)Resources.Load("Skills/Dhiel_S2");
 			parameters.attackPower = -1;
-            descriptionSprite = "skill_info_31";
+            spriteData = new SpriteData("31");
 		}
 		
 		override public void Execute(Damage damage, IDamageable target)
 		{
-			damage.DamageParameters = parameters;
-			target.TakeDamage(damage);
 		}
 		
 		override public void PlayEffect (Entity target)
 		{
+            var user = GetComponent<Entity>();
 			particleEffect = Instantiate (effectObj);
-			particleEffect.transform.position = new Vector3 (0, 0, -9);
+			particleEffect.transform.position = user.transform.position;
+            particleEffect.GetComponent<HasteSkill>().user = user;
 			particleEffect.GetComponent<ParticleSystem>().Play();
 		}
 	}

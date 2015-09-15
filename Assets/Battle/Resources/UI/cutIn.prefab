@@ -11,6 +11,7 @@ GameObject:
   - 222: {fileID: 22258250}
   - 114: {fileID: 11452546}
   - 114: {fileID: 11436836}
+  - 95: {fileID: 9575168}
   m_Layer: 0
   m_Name: cutIn
   m_TagString: Untagged
@@ -18,6 +19,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &9575168
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5ef94db2dd804666b058c76aff14084, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11436836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,6 +57,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b3a77a1fed96f424c83b1da2c46937ba, type: 3}
   - {fileID: 21300000, guid: ea58dd64382ba4276935ecc92ebb1da9, type: 3}
   - {fileID: 21300000, guid: 6598021bc07994423a024cc760c8bd9f, type: 3}
+  played: 1
 --- !u!114 &11452546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,6 +148,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 6598021bc07994423a024cc760c8bd9f,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c5ef94db2dd804666b058c76aff14084, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174592}
