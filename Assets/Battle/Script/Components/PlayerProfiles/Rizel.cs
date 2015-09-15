@@ -15,9 +15,9 @@
             parameter.criticalHit = 0.05f;
             parameter.elementAff = new ElementWater(Element.WATER);
 
-            attackList.Add("Attack_Normal", gameObject.AddComponent<Rizel_S1>());
-            attackList.Add("Attack_Special", gameObject.AddComponent<Rizel_S2>());
-            attackList.Add("Rizel_SP", gameObject.AddComponent<Rizel_SP>());
+            attackList.Add("Attack_Normal", gameObject.AddComponent<RizelNormal>());
+            attackList.Add("Attack_Special", gameObject.AddComponent<RizelElement>());
+            attackList.Add("Rizel_SP", gameObject.AddComponent<RizelUltimate>());
         }
     }
 }

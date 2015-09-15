@@ -15,9 +15,9 @@ namespace Memoria.Battle.GameActors
             parameter.criticalHit = 0.15f;
             parameter.elementAff = new ElementThunder(Element.THUNDER);
 
-            attackList.Add("Attack_Normal", gameObject.AddComponent<Amelia_S1>());
-            attackList.Add("Attack_Special", gameObject.AddComponent<Amelia_S2>());
-			attackList.Add("Amelia_SP", gameObject.AddComponent<Amelia_SP>());
+            attackList.Add("Attack_Normal", gameObject.AddComponent<AmeliaNormal>());
+            attackList.Add("Attack_Special", gameObject.AddComponent<AmeliaElement>());
+			attackList.Add("Amelia_SP", gameObject.AddComponent<AmeliaUltimate>());
             //attackType = gameObject.AddComponent<PlayerStrike>();
 
         }

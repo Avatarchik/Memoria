@@ -3,7 +3,7 @@ using System.Linq;
 using UniRx;
 using Memoria.Dungeon.Items;
 using Memoria.Dungeon.BlockComponent;
-using Memoria.Dungeon.UI;
+using Memoria.Battle.GameActors;
 
 namespace Memoria.Dungeon.Managers
 {

@@ -204,16 +204,18 @@ MonoBehaviour:
       width: 10
       height: 10
     areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
-    areaSpritePath: map_5
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
     dungeonId: 0
     floor: 0
-    maxHp: 3851
+    maxHp: 4500
     maxSp: 30
     probabilityOfEncounter: .439999998
-    enemyPatternIdMin: 0
-    enemyPatternIdMax: 0
-    bossPatternIdMin: 0
-    bossPatternIdMax: 0
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 12
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
     itemIncidence:
       spawn: .5
       jewel: .600000024
@@ -251,16 +253,18 @@ MonoBehaviour:
       width: 14
       height: 14
     areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
-    areaSpritePath: map_7
-    dungeonId: 0
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 1
     floor: 1
-    maxHp: 3851
+    maxHp: 4500
     maxSp: 30
     probabilityOfEncounter: .439999998
-    enemyPatternIdMin: 0
-    enemyPatternIdMax: 0
-    bossPatternIdMin: 0
-    bossPatternIdMax: 0
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 12
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
     itemIncidence:
       spawn: .5
       jewel: .600000024
@@ -310,16 +314,18 @@ MonoBehaviour:
       width: 14
       height: 14
     areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
-    areaSpritePath: map_7
-    dungeonId: 0
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 2
     floor: 2
-    maxHp: 3851
+    maxHp: 4500
     maxSp: 30
     probabilityOfEncounter: .439999998
-    enemyPatternIdMin: 0
-    enemyPatternIdMax: 0
-    bossPatternIdMin: 0
-    bossPatternIdMax: 0
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 12
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
     itemIncidence:
       spawn: .5
       jewel: .600000024
@@ -349,24 +355,378 @@ MonoBehaviour:
       _location:
         _x: -1
         _y: 3
-      _visible: 0
+      _visible: 1
     - _type: 0
       _attribute: 0
       _location:
         _x: 3
         _y: 2
-      _visible: 0
+      _visible: 1
     - _type: 0
       _attribute: 0
       _location:
         _x: -2
         _y: -1
-      _visible: 0
+      _visible: 1
     - _type: 2
       _attribute: 1
       _location:
         _x: 2
         _y: -2
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -5
+      y: -5
+      width: 10
+      height: 10
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 3
+    floor: 0
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .50999999
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 14
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .400000006
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .270000011
+      wind: .180000007
+      thunder: .300000012
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .230000004
+      wind: .200000003
+      thunder: .300000012
+      water: .270000011
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -1
+        _y: 1
+      _visible: 1
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 4
+    floor: 1
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .50999999
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 14
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .400000006
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .270000011
+      wind: .180000007
+      thunder: .300000012
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .230000004
+      wind: .200000003
+      thunder: .300000012
+      water: .270000011
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: -1
+      _visible: 1
+    - _type: 2
+      _attribute: 2
+      _location:
+        _x: -2
+        _y: 1
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: d5dad95769a74419f86ce016058dc442, type: 3}
+    - {fileID: 21300000, guid: 756869998707d4fcb955a856cac44173, type: 3}
+    dungeonId: 5
+    floor: 2
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .50999999
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 14
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .400000006
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .270000011
+      wind: .180000007
+      thunder: .300000012
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .230000004
+      wind: .200000003
+      thunder: .300000012
+      water: .270000011
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 3
+        _y: 0
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 0
+        _y: -3
+      _visible: 1
+    - _type: 2
+      _attribute: 2
+      _location:
+        _x: 0
+        _y: -1
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -5
+      y: -5
+      width: 10
+      height: 10
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 6
+    floor: 0
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .569999993
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 15
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .300000012
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 1
+        _y: -1
+      _visible: 1
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 7
+    floor: 1
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .569999993
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 15
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .300000012
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 0
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: 2
+        _y: -2
+      _visible: 1
+    - _type: 2
+      _attribute: 1
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 0
+  - stageSize:
+      serializedVersion: 2
+      x: -7
+      y: -7
+      width: 14
+      height: 14
+    areaSprite: {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    areaSprites:
+    - {fileID: 21300000, guid: 74581f396f0f64111adc6aa25ef5c518, type: 3}
+    - {fileID: 21300000, guid: 2c6a85ae1cf26420daf9a8b5e1def99c, type: 3}
+    dungeonId: 8
+    floor: 2
+    maxHp: 4500
+    maxSp: 30
+    probabilityOfEncounter: .569999993
+    enemyPatternIdMin: 1
+    enemyPatternIdMax: 15
+    bossPatternIdMin: 1
+    bossPatternIdMax: 4
+    itemIncidence:
+      spawn: .300000012
+      jewel: .600000024
+      soul: .100000001
+      magicPlate: .300000012
+    attributeIncidenceOfJewel:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfSoul:
+      fire: .25
+      wind: .25
+      thunder: .25
+      water: .25
+      recovery: 0
+    attributeIncidenceOfMagicPlate:
+      fire: .200000003
+      wind: .200000003
+      thunder: .200000003
+      water: .200000003
+      recovery: .200000003
+    itemDatas:
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -2
+        _y: 2
+      _visible: 1
+    - _type: 0
+      _attribute: 0
+      _location:
+        _x: -1
+        _y: -2
+      _visible: 1
+    - _type: 0
+      _attribute: 1
+      _location:
+        _x: 3
+        _y: -3
+      _visible: 1
+    - _type: 2
+      _attribute: 1
+      _location:
+        _x: 0
+        _y: 1
       _visible: 0
 --- !u!114 &11451198
 MonoBehaviour:

@@ -15,8 +15,8 @@ namespace Memoria.Battle.GameActors
 
             parameter.elementAff = new ElementWind(Element.WIND); 
 
-            attackList.Add ("Quick_attack", gameObject.AddComponent<QuickAttack>());
-            attackType = attackList["Quick_attack"];
+            attackList.Add ("Enemy_Normal", gameObject.AddComponent<EnemyNormal>());
+            attackList.Add ("Enemy_Skill", gameObject.AddComponent<EnemyWind>());
         }
     }
 }

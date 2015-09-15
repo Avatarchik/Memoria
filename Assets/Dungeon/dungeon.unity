@@ -4126,7 +4126,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 971945022}
-  - 114: {fileID: 971945023}
+  - 114: {fileID: 971945024}
   m_Layer: 5
   m_Name: character_paramater (2)
   m_TagString: Untagged
@@ -4155,7 +4155,7 @@ RectTransform:
   m_AnchoredPosition: {x: 7.62939453e-06, y: -84}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &971945023
+--- !u!114 &971945024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4163,15 +4163,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 971945021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2126ec19631a438d80d47eff26d4505, type: 3}
+  m_Script: {fileID: 11500000, guid: 8802a10838045414589a3ec0bef7561d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300002, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
+  _sprite: {fileID: 21300000, guid: 8a16b0d17388445ca9ec304c8a33096b, type: 3}
   stockLength: 3
   offsetX: 0
   offsetY: 0
   spaceOffset: .449999988
-  layerOffset: 1
+  layerOffset: 10
   stock: 0
   objType: 0
   elementType: 2
@@ -4603,19 +4603,19 @@ Prefab:
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: charactersPowerStocks.Array.data[0]
       value: 
-      objectReference: {fileID: 1358087041}
+      objectReference: {fileID: 1358087042}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: charactersPowerStocks.Array.data[1]
       value: 
-      objectReference: {fileID: 2064532439}
+      objectReference: {fileID: 2064532440}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: charactersPowerStocks.Array.data[2]
       value: 
-      objectReference: {fileID: 971945023}
+      objectReference: {fileID: 971945024}
     - target: {fileID: 11449698, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: charactersPowerStocks.Array.data[3]
       value: 
-      objectReference: {fileID: 1341132198}
+      objectReference: {fileID: 1341132199}
     - target: {fileID: 11485228, guid: 09762cfaee0906240bad5a34dc3e1ff6, type: 2}
       propertyPath: eventAnimator
       value: 
@@ -5764,7 +5764,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1341132197}
-  - 114: {fileID: 1341132198}
+  - 114: {fileID: 1341132199}
   m_Layer: 5
   m_Name: character_paramater (3)
   m_TagString: Untagged
@@ -5793,7 +5793,7 @@ RectTransform:
   m_AnchoredPosition: {x: 1.52587891e-05, y: -184}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &1341132198
+--- !u!114 &1341132199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5801,15 +5801,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341132196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2126ec19631a438d80d47eff26d4505, type: 3}
+  m_Script: {fileID: 11500000, guid: 8802a10838045414589a3ec0bef7561d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300004, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
+  _sprite: {fileID: 21300000, guid: bdb743b43952949a1b8aaaa353bdedd5, type: 3}
   stockLength: 3
   offsetX: 0
   offsetY: 0
   spaceOffset: .449999988
-  layerOffset: 1
+  layerOffset: 10
   stock: 0
   objType: 0
   elementType: 0
@@ -5889,7 +5889,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1358087040}
-  - 114: {fileID: 1358087041}
+  - 114: {fileID: 1358087042}
   m_Layer: 5
   m_Name: character_paramater
   m_TagString: Untagged
@@ -5918,7 +5918,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 116}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &1358087041
+--- !u!114 &1358087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5926,15 +5926,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1358087039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2126ec19631a438d80d47eff26d4505, type: 3}
+  m_Script: {fileID: 11500000, guid: 8802a10838045414589a3ec0bef7561d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
+  _sprite: {fileID: 21300000, guid: d238abb3db2214b538353a601829a948, type: 3}
   stockLength: 3
   offsetX: 0
   offsetY: 0
   spaceOffset: .449999988
-  layerOffset: 1
+  layerOffset: 10
   stock: 0
   objType: 0
   elementType: 3
@@ -6796,6 +6796,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11454778, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
+      propertyPath: setActiveObjects.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 404210, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6893,6 +6897,20 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -2.5999999
       objectReference: {fileID: 0}
+    - target: {fileID: 21276664, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9622f0ad21b2e434c9dbce3f1e1e5465,
+        type: 3}
+    - target: {fileID: 11454778, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
+      propertyPath: setActiveObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 933289686}
+    - target: {fileID: 21280496, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300032, guid: c0e34480589feec4b86147795822f968,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 135da23514f24f149adea5a19ddaaa5f, type: 2}
   m_IsPrefabParent: 0
@@ -7740,7 +7758,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 2064532438}
-  - 114: {fileID: 2064532439}
+  - 114: {fileID: 2064532440}
   m_Layer: 5
   m_Name: character_paramater (1)
   m_TagString: Untagged
@@ -7769,7 +7787,7 @@ RectTransform:
   m_AnchoredPosition: {x: 1.52587891e-05, y: 16}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &2064532439
+--- !u!114 &2064532440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -7777,15 +7795,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2064532437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2126ec19631a438d80d47eff26d4505, type: 3}
+  m_Script: {fileID: 11500000, guid: 8802a10838045414589a3ec0bef7561d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300006, guid: f2672c3345a0c4abf8210d17da906929, type: 3}
+  _sprite: {fileID: 21300000, guid: 7bec18c432ef348b9b61fcb057abb15c, type: 3}
   stockLength: 3
   offsetX: 0
   offsetY: 0
   spaceOffset: .449999988
-  layerOffset: 1
+  layerOffset: 10
   stock: 0
   objType: 0
   elementType: 1
