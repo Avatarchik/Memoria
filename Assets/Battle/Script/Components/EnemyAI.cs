@@ -2,6 +2,9 @@
 {
     public class EnemyAI : Profile
     {
-
+        void Awake()
+        {
+            ultimateAttack = "Enemy_Ultimate";
+        }
     }
 }

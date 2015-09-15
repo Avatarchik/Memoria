@@ -12,7 +12,7 @@ namespace Memoria.Battle.States
         {
             cutIn = GameObject.Find("cutIn").GetComponent<CutIn>();
 
-            if(nowActor.attackType.ultimate  && nowActor.chargeReady)
+            if(nowActor.attackType.ultimate && nowActor.chargeReady)
             {
                 cutIn.id = nowActor.attackType.cutIn;
                 cutIn.Init();

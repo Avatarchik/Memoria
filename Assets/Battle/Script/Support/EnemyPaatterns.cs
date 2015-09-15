@@ -20,14 +20,15 @@ namespace Memoria.Battle.GameActors
                 typeof(WaterBoss),
                 typeof(WindBoss)
             };
-        private List<Type[]> _bossPatterns = new List<Type[]>
+
+        private readonly List<Type[]> _bossPatterns = new List<Type[]>
         {
             new Type[]{ SLIMES[1], BOSS[0], SLIMES[1] },
             new Type[]{ SLIMES[2], BOSS[1], SLIMES[2] },
             new Type[]{ SLIMES[3], BOSS[2], SLIMES[3] }
         };
 
-        private List<List<Type[]>> _normalPatterns = new List<List<Type[]>>
+        private readonly List<List<Type[]>> _normalPatterns = new List<List<Type[]>>
             {
                 // Pattern 3
                 new List<Type[]>
@@ -83,8 +84,7 @@ namespace Memoria.Battle.GameActors
                     new Type[] { SLIMES[0], SLIMES[1], SLIMES[3] },
                 }
         };
-        public EnemyPatterns()
-        {}
+        public EnemyPatterns(){}
 
         public Type[] GetBossPattern(int id)
         {

@@ -15,8 +15,9 @@ namespace Memoria.Battle.GameActors
 
             parameter.elementAff = new ElementWater(Element.WATER);
 
-            attackList.Add ("Quick_attack", gameObject.AddComponent<QuickAttack>());
-            attackType = attackList["Quick_attack"];
+            attackList.Add ("Enemy_Normal", gameObject.AddComponent<EnemyNormal>());
+            attackList.Add ("Enemy_Skill", gameObject.AddComponent<BossSkill>());
+            attackList.Add ("Enemy_Ultimate", gameObject.AddComponent<BossWater>());
         }
     }
 }

@@ -28,6 +28,8 @@ namespace Memoria.Battle.GameActors
             set { this.transform.localPosition = value; }
         }
 
+        public Image image;
+
         public bool moveable { get; private set; }
 
         abstract public void Init();
