@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Memoria.Managers;
 
 namespace Memoria.Menu
 {
@@ -7,6 +8,11 @@ namespace Memoria.Menu
     {
         public int openFloors;
         private List<GameObject> _menuItems;
+
+        void Awake()
+        {
+            SoundManager.instance.PlayBGM(0);
+        }
 
         void Start () {
             _menuItems = new List<GameObject>();

@@ -10,7 +10,7 @@ namespace Memoria.Battle.GameActors
         public Parameter TargetParameters { get; set; }
         public DmgParameters DamageParameters { get; set; }
         public int totalDamage;
-
+        System.Random r = new System.Random();
         // TODO: Finalize calcunations
         public int Calculate()
         {
@@ -44,7 +44,7 @@ namespace Memoria.Battle.GameActors
             totalDmg -= TargetParameters.defense;
             totalDmg /= 2;
             totalDamage = Mathf.CeilToInt(totalDmg);
-
+            totalDamage += r.Next(-10, 10);
             if(totalDamage < 0) { totalDamage = 0; }
             return totalDamage;
         }
@@ -61,7 +61,6 @@ namespace Memoria.Battle.GameActors
 
         public float TryCritical(float critChance)
         {
-            var r = new System.Random();
             return (r.Next(0, 100) <= (critChance * 100)) ? 2.0f : 1.0f;
         }
 

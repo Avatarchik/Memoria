@@ -18,7 +18,7 @@ namespace Memoria.Menu
 
         [SerializeField]
         private Character _currentCar;
-        
+
         Animator anim;
         // Use this for initialization
         void Start () {

@@ -11,6 +11,7 @@ namespace Memoria.Battle.States
         {
             if(battleMgr.IsBoss)
             {
+                FadeOut.Instance.useFading = true;
                 result = Resources.Load<Sprite>("UI/clear");
                 uiMgr.SpawnResult(result, true);
                 loadScene = "menu";

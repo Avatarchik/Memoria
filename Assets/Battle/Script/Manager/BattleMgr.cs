@@ -7,6 +7,7 @@ using Memoria.Battle.GameActors;
 using Memoria.Dungeon.BlockComponent;
 using Memoria.Dungeon;
 using Memoria.Battle;
+using Memoria.Managers;
 
 namespace Memoria.Battle.Managers
 {
@@ -65,8 +66,8 @@ namespace Memoria.Battle.Managers
                 for(int i = 0; i < _dungeonData.parameter.stocks.Length; i++){
                     _dungeonData.parameter.stocks[i] = 3;
                 }
-                _dungeonData.SetIsBossBattle(true);
                 elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
+                _dungeonData.SetIsBossBattle(true);
             }
             #endif
 
@@ -94,6 +95,7 @@ namespace Memoria.Battle.Managers
             actorList = new List<GameObject>();
             enemyList = new List<GameObject> ();
             currentFloor = _dungeonData.parameter.floor;
+            elementalAffinity = _dungeonData.battleType.ToEnum<Element, BlockType>();
 
             _spawner = FindObjectOfType<ActorSpawner>();
             _attackTracker = FindObjectOfType<AttackTracker>();
@@ -165,7 +167,7 @@ namespace Memoria.Battle.Managers
             UiMgr.Clear();
             actorList.Clear();
             enemyList.Clear();
-            Application.LoadLevel(scene);
+            FadeOut.Instance.LoadLevel(scene);
         }
 
         public void RemoveFromBattle(Entity e)
@@ -215,7 +217,7 @@ namespace Memoria.Battle.Managers
             for(int i = 0; i < enemies.Length; i++)
             {
                 string[] enemy = enemies[i].ToString().Split('.');
-                var pos = new Vector3((enemies.Length / 2.5f - enemies.Length + i * 3f), 0.0f, -9);
+                var pos = new Vector3(((enemies.Length / 3.3f) - enemies.Length + i * 4f) - (enemies.Length - 1.5f), 0.0f, -9);
                 GameObject randomEnemy = _spawner.Spawn<Enemy>("Monsters/" + enemy[3], enemies[i]);
 
                 randomEnemy.LoadComponentsFromList(randomEnemy.GetComponent<Entity>().components);
@@ -257,6 +259,7 @@ namespace Memoria.Battle.Managers
         {
            _setResultRunning = true;
             yield return new WaitForSeconds (waitTime);
+            SoundManager.instance.StopBGM();
             SetState(state);
             yield return null;
         }

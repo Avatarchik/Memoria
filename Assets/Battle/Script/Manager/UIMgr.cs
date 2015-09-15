@@ -137,10 +137,10 @@ namespace Memoria.Battle.Managers
 
             if(boss)
             {
-                if(GameData.floorMax + 1 < 2) {
+                if(GameData.floorMax + 1 < 3) {
                     GameData.floorMax += 1;
                 }
-                if(BattleMgr.Instance.currentFloor == 0)
+                if(BattleMgr.Instance.currentFloor == 0 && !GameData.hasPassiveItem1)
                 {
                     GameData.hasPassiveItem1 = true;
                     var passiveItem = (_spawner.Spawn<PassiveItem>("UI/bonusItem")).GetComponent<PassiveItem>();
@@ -149,7 +149,7 @@ namespace Memoria.Battle.Managers
                     passiveItem.Init();
                     _elements.Add("passive", passiveItem);
                 }
-                if(BattleMgr.Instance.currentFloor == 1)
+                if(BattleMgr.Instance.currentFloor == 1 && !GameData.hasPassiveItem2)
                 {
                     GameData.hasPassiveItem2 = true;
                     var passiveItem = (_spawner.Spawn<PassiveItem>("UI/bonusItem")).GetComponent<PassiveItem>();

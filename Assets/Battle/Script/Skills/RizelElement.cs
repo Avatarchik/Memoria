@@ -35,7 +35,7 @@ namespace Memoria.Battle.GameActors
                 particleEffect = Instantiate (effectObj);
                 particleEffect.transform.position = new Vector3 (0, -2, 2);
                 particleEffect.GetComponent<ParticleRenderer>().sortingLayerName = "Foreground";
-//                particleEffect.GetComponentInChildren<ParticleRenderer>().sortingLayerName = "Foreground";
+                particleEffect.GetComponentInChildren<ParticleRenderer>().sortingLayerName = "Foreground";
                 DestroyObject(particleEffect, 4.0f);
                 destroyed = true;
             }

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Memoria.Battle.Utility;
 
-public class FadeOut : MonoBehaviour {
+public class FadeOut : Singleton<FadeOut> {
 
     [SerializeField]
     private Canvas _canvasPrefab;
@@ -22,14 +23,9 @@ public class FadeOut : MonoBehaviour {
     }
 
     public FadeTo fadeTo;
-
     public float speed;
-
     public bool useFading;
 
-    void Start()
-    {
-    }
     public void LoadLevel(string name)
     {
         if(!useFading) {
