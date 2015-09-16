@@ -15,8 +15,12 @@ namespace Memoria.Battle.GameActors
             GetComponent<Image>().sprite = Resources.Load<Sprite>(spriteFolder + spriteResource);
         }
 
-        public void SetOnClick(Action<string> setAttack, string skill)
+        public void SetOnClick(Action<string> setAttack, string skill, AttackType attackType)
         {
+            if(attackType.ToString().Contains("DielElement") && GameObject.FindObjectOfType<HasteSkill>())
+            {
+                return;
+            }
             _button.onClick.AddListener(() => setAttack(skill));
         }
     }

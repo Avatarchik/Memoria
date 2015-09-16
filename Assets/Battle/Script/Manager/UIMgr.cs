@@ -67,7 +67,7 @@ namespace Memoria.Battle.Managers
                 skillObj.spriteResource = skill.Value.spriteData.barSprite;
                 skillObj.ParentToUI();
                 skillObj.Init();
-                skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key);
+                skillObj.SetOnClick(new Action<string>(player.SetAttack), skill.Key, skill.Value);
                 skillObj.transform.position = new Vector3(
                                                           (player.GetComponent<Profile>().skillPos.x),
                                                           (player.GetComponent<Profile>().skillPos.y) - cnt,

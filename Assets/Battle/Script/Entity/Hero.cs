@@ -211,6 +211,7 @@ namespace Memoria.Battle.GameActors
 
             yield return new WaitForSeconds(0.5f);
             power.AddStock();
+            SoundManager.instance.PlaySound(24);
             if(extraStock == 0.0f)
             {
                 power.UpdateStatus();
